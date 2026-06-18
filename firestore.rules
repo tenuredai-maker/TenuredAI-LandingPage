@@ -1,0 +1,137 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: users
+// Document ID: {uid}
+// Fields:
+//   - uid: string (required) - Firebase Auth UID
+//   - displayName: string (optional) - User's name
+//   - email: string (required) - User's email
+//   - photoURL: string (optional) - Profile picture
+//   - role: string (required, enum: ['user', 'admin']) - System role
+//   - createdAt: timestamp (required) - Creation time
+//   - updatedAt: timestamp (optional) - Last update time
+//
+// Collection: underwriting_results
+// Document ID: {resultId}
+// Fields:
+//   - uid: string (required) - Owner's UID
+//   - aici: number (required) - AICI score
+//   - aioi: number (required) - AIOI score
+//   - aibs: number (required) - AIBS score
+//   - tier: string (required) - Scoring tier
+//   - timestamp: timestamp (required) - Diagnostic time
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.uid;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         (request.auth.token.email == "tenuredai@gmail.com" && request.auth.token.email_verified == true));
+    }
+    
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidUser(data) {
+      return hasOnlyAllowedFields(['uid', 'displayName', 'email', 'photoURL', 'role', 'createdAt', 'updatedAt']) &&
+             data.uid == request.auth.uid &&
+             data.email == request.auth.token.email &&
+             isValidEmail(data.email) &&
+             data.role in ['user', 'admin'] &&
+             (data.displayName == null || (data.displayName is string && data.displayName.size() < 100)) &&
+             (data.photoURL == null || (data.photoURL is string && data.photoURL.size() < 500));
+    }
+
+    function isValidResult(data) {
+      return hasOnlyAllowedFields(['uid', 'aici', 'aioi', 'aibs', 'tier', 'timestamp']) &&
+             data.uid == request.auth.uid &&
+             data.aici is number && data.aici >= 0 && data.aici <= 100 &&
+             data.aioi is number && data.aioi >= 0 && data.aioi <= 100 &&
+             data.aibs is number && data.aibs >= 0 && data.aibs <= 100 &&
+             data.tier is string && data.tier.size() < 50;
+    }
+
+    function isValidAccessRequest(data) {
+      return hasOnlyAllowedFields(['uid', 'tier', 'name', 'email', 'organization', 'reason', 'status', 'timestamp']) &&
+             (data.uid == null || (isAuthenticated() && data.uid == request.auth.uid)) &&
+             data.tier in ['institutional', 'enterprise', 'sovereign'] &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             isValidEmail(data.email) &&
+             (data.organization == null || (data.organization is string && data.organization.size() < 200)) &&
+             data.reason is string && data.reason.size() > 0 && data.reason.size() <= 500 &&
+             data.status == 'pending';
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      // Users can be read by anyone for the Leaderboard.
+      allow read: if true;
+      
+      // Users can create their own profile if valid. Role must be 'user' unless admin.
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && 
+                      (request.resource.data.role == 'user' || isAdmin());
+      
+      // Users can update their own profile. Cannot change role unless admin.
+      allow update: if isOwner(userId) && isValidUser(request.resource.data) && 
+                      (request.resource.data.role == resource.data.role || isAdmin());
+      
+      allow delete: if isAdmin();
+    }
+
+    match /underwriting_results/{resultId} {
+      // Users can read their own results. Admins can read any.
+      allow read: if isDocOwner() || isAdmin();
+      
+      // Users can create their own results.
+      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid && isValidResult(request.resource.data);
+      
+      // Results are immutable.
+      allow update, delete: if isAdmin();
+    }
+
+    match /access_requests/{requestId} {
+      // Users can read their own requests. Admins can read any.
+      allow read: if isDocOwner() || isAdmin();
+      
+      // Anyone can create a request.
+      allow create: if isValidAccessRequest(request.resource.data);
+      
+      // Requests can only be updated by admins (e.g. to change status).
+      allow update, delete: if isAdmin();
+    }
+  }
+}

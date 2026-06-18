@@ -1,0 +1,6 @@
+{
+  "name": "Tenured AI",
+  "description": "The connectionist operating system for liquid professional identities. Featuring 'Tenured Points' rewards, dynamic Reputation Badges, and immutable telemetry to drive professional trust.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
