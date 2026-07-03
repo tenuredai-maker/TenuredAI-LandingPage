@@ -5,6 +5,8 @@ import { cn } from '../lib/utils';
 import { useAuth } from '../context/AuthContext';
 import { logout } from '../lib/firebase';
 
+import NotificationCenter from './NotificationCenter';
+
 export default function TopNavBar() {
   const location = useLocation();
   const { user, loading } = useAuth();
@@ -31,11 +33,10 @@ export default function TopNavBar() {
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
   
   const navLinks = [
-    { name: 'Command Center', path: '/underwriting' },
     { name: 'Passport', path: '/learners' },
     { name: 'Proving Ground', path: '/chaos-lab' },
     { name: 'Marketplace', path: '/pricing' },
-    { name: 'Ledger', path: '/institutional' },
+    { name: 'Leaderboard', path: '/leaderboard' },
     { name: 'Podcasts', path: '/podcasts' },
   ];
 
@@ -43,8 +44,9 @@ export default function TopNavBar() {
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50">
       <div className="bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/20 rounded-full px-4 md:px-10 py-3 flex items-center justify-between shadow-xl">
         {/* Logo */}
-        <Link to="/" className="text-xl font-headline font-black text-on-surface tracking-tight shrink-0">
-          Tenured AI
+        <Link to="/" className="shrink-0 flex items-center pr-[60px]">
+          <img src="/tenured-1024.png" alt="Tenured AI" className="h-8" />
+          <span className="hidden md:block text-xl font-headline font-black text-on-surface tracking-tight ml-3">Tenured AI</span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -83,7 +85,7 @@ export default function TopNavBar() {
           </Link>
 
           <Link 
-            to="/underwriting"
+            to="/coming-soon"
             className="bg-primary text-on-primary text-[11px] font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-95"
           >
             App
@@ -102,6 +104,8 @@ export default function TopNavBar() {
 
           {!loading && user && (
             <div className="flex items-center gap-2">
+              <NotificationCenter />
+              
               <div className="relative group">
                 <button className="w-9 h-9 rounded-full bg-surface-container-high border border-outline-variant/20 flex items-center justify-center overflow-hidden hover:border-primary/50 transition-all">
                   {user.photoURL ? (

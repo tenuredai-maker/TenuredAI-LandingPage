@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Radar as RadarArea, ResponsiveContainer } from 'recharts';
 import { ArrowRight, BarChart3, School, Terminal, Bolt, CheckCircle, Shield, Search, Settings, GitBranch, Zap, RefreshCw, Activity } from 'lucide-react';
 import React, { useState, useMemo } from 'react';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 
 const radarData = [
   { subject: 'Prompt Fidelity', A: 92, fullMark: 100 },

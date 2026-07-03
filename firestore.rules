@@ -64,7 +64,7 @@ service cloud.firestore {
     // ===============================================================
 
     function isValidUser(data) {
-      return hasOnlyAllowedFields(['uid', 'displayName', 'email', 'photoURL', 'role', 'createdAt', 'updatedAt']) &&
+      return hasOnlyAllowedFields(['uid', 'displayName', 'email', 'photoURL', 'role', 'createdAt', 'updatedAt', 'tenuredPoints', 'targetPointGoal']) &&
              data.uid == request.auth.uid &&
              data.email == request.auth.token.email &&
              isValidEmail(data.email) &&
@@ -93,9 +93,49 @@ service cloud.firestore {
              data.status == 'pending';
     }
 
+    function isValidEndorsementRequest(data) {
+      return hasOnlyAllowedFields(['requesterId', 'requesterName', 'recipientEmail', 'status', 'message', 'createdAt']) &&
+             data.requesterId == request.auth.uid &&
+             data.requesterName is string && data.requesterName.size() < 100 &&
+             isValidEmail(data.recipientEmail) &&
+             data.status in ['pending', 'completed', 'declined'] &&
+             (data.message == null || (data.message is string && data.message.size() <= 500)) &&
+             data.createdAt == request.time;
+    }
+
+    function isValidEndorsement(data) {
+      return hasOnlyAllowedFields(['requestId', 'authorId', 'authorName', 'recipientId', 'skills', 'comment', 'createdAt']) &&
+             data.authorId == request.auth.uid &&
+             data.authorName is string && data.authorName.size() < 100 &&
+             data.recipientId is string &&
+             data.skills is list && data.skills.size() > 0 && data.skills.size() <= 10 &&
+             data.comment is string && data.comment.size() > 0 && data.comment.size() <= 1000 &&
+             data.createdAt == request.time;
+    }
+
     // ===============================================================
     // Rules
     // ===============================================================
+
+    match /endorsement_requests/{requestId} {
+      allow read: if isAuthenticated() && (resource.data.requesterId == request.auth.uid || resource.data.recipientEmail == request.auth.token.email);
+      allow create: if isAuthenticated() && request.auth.token.email_verified == true && isValidEndorsementRequest(request.resource.data);
+      allow update: if isAuthenticated() && (
+        (resource.data.requesterId == request.auth.uid && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])) ||
+        (resource.data.recipientEmail == request.auth.token.email && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']))
+      );
+      allow delete: if isAuthenticated() && resource.data.requesterId == request.auth.uid;
+    }
+
+    match /endorsements/{endorsementId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.auth.token.email_verified == true && isValidEndorsement(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+
+    match /podcasts/{podcastId} {
+      allow read: if true;
+    }
 
     match /users/{userId} {
       // Users can be read by anyone for the Leaderboard.
@@ -132,6 +172,33 @@ service cloud.firestore {
       
       // Requests can only be updated by admins (e.g. to change status).
       allow update, delete: if isAdmin();
+    }
+
+    match /waitlist/{docId} {
+      // Read is needed for getCountFromServer and checking referral codes
+      allow read: if true;
+      // Anyone can join waitlist
+      allow create: if true;
+      // Allow updates only for incrementing points and referrals when a successful referral joins
+      allow update: if (
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['points', 'referrals']) &&
+        (
+          (!('points' in resource.data) && request.resource.data.points == 15) ||
+          (request.resource.data.points == resource.data.points + 5)
+        ) &&
+        (
+          (!('referrals' in resource.data) && request.resource.data.referrals == 1) ||
+          (request.resource.data.referrals == resource.data.referrals + 1)
+        )
+      );
+    }
+
+    match /users/{uid}/playlists/{playlistId} {
+      allow read, write: if isOwner(uid);
+      
+      match /items/{itemId} {
+        allow read, write: if isOwner(uid);
+      }
     }
   }
 }

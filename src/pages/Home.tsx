@@ -3,7 +3,7 @@ import { ArrowUpRight, ShieldCheck, Terminal, Network, Brain, Database, Lock, Re
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import GritLeaderboard from '../components/GritLeaderboard';
+import TenuredLeaderboard from '../components/TenuredLeaderboard';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -219,15 +219,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Grit Leaderboard / The Human Moat Section */}
-      <section id="grit-leaderboard-section" className="py-16 md:py-24 px-6 md:px-8 bg-background relative z-10">
+      {/* Tenured Leaderboard / The Human Moat Section */}
+      <section id="leaderboard-section" className="py-16 md:py-24 px-6 md:px-8 bg-background relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
             <div className="space-y-8">
               <div className="space-y-4 text-left">
                 <span className="font-label uppercase tracking-[0.2em] text-[10px] text-primary font-bold">The Collective Ledger</span>
                 <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
-                  The <span className="italic text-primary">Grit</span> Leaderboard
+                  The <span className="italic text-primary">Tenured</span> Leaderboard
                 </h2>
                 <p className="text-lg text-on-surface-variant leading-relaxed font-body">
                   Professional credibility is no longer static. Our real-time leaderboard tracks participants who have demonstrated the highest levels of technical agility and adversarial resilience across the Sovereign AI economy.
@@ -252,18 +252,18 @@ export default function Home() {
               </div>
               
               <div className="pt-6">
-                <button
-                  onClick={handleSummaryClick}
-                  className="px-8 py-3 rounded-xl border border-primary/20 text-xs font-mono font-black uppercase tracking-[0.25em] text-primary hover:bg-primary/5 transition-all group flex items-center gap-3"
+                <Link
+                  to="/leaderboard"
+                  className="px-8 py-3 rounded-xl border border-primary/20 text-xs font-mono font-black uppercase tracking-[0.25em] text-primary hover:bg-primary/5 transition-all group inline-flex items-center gap-3"
                 >
                   <span>Verification Protocols</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </div>
             
             <div>
-              <GritLeaderboard />
+              <TenuredLeaderboard />
             </div>
           </div>
         </div>

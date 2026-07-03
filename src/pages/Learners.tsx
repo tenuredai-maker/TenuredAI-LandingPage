@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Terminal, ArrowRight, Shield, BarChart3, Badge, Link as LinkIcon, Mic, History, Cpu, Globe } from 'lucide-react';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 
 export default function Learners() {
   return (

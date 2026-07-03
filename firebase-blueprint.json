@@ -44,6 +44,71 @@
         "timestamp": { "type": "string", "format": "date-time", "description": "When the request was submitted." }
       },
       "required": ["tier", "name", "email", "reason", "status", "timestamp"]
+    },
+    "Playlist": {
+      "title": "Playlist",
+      "description": "User-created playlist folder.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The ID of the user who owns this playlist." },
+        "name": { "type": "string", "description": "Name of the playlist." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the playlist was created." }
+      },
+      "required": ["uid", "name", "createdAt"]
+    },
+    "PlaylistItem": {
+      "title": "Playlist Item",
+      "description": "A podcast in a playlist.",
+      "type": "object",
+      "properties": {
+        "playlistId": { "type": "string", "description": "ID of the playlist." },
+        "podcastId": { "type": "string", "description": "ID of the podcast." },
+        "title": { "type": "string", "description": "Title of the podcast." },
+        "addedAt": { "type": "string", "format": "date-time", "description": "When the podcast was added." }
+      },
+      "required": ["playlistId", "podcastId", "addedAt"]
+    },
+    "Waitlist": {
+      "title": "Waitlist Entry",
+      "description": "Stores waitlist emails, referral keys, point tally, and referral counts.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "description": "Waitlist user email." },
+        "points": { "type": "number", "description": "Waitlist user points balance." },
+        "referrals": { "type": "number", "description": "Number of successful referrals." },
+        "referredBy": { "type": "string", "description": "Document ID of the referrer." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user joined the waitlist." }
+      },
+      "required": ["email", "points", "createdAt"]
+    },
+    "EndorsementRequest": {
+      "title": "Endorsement Request",
+      "description": "A request for a peer endorsement.",
+      "type": "object",
+      "properties": {
+        "requesterId": { "type": "string", "description": "ID of the user requesting the endorsement." },
+        "requesterName": { "type": "string", "description": "Name of the requester." },
+        "recipientEmail": { "type": "string", "format": "email", "description": "Email of the colleague being asked." },
+        "status": { "type": "string", "enum": ["pending", "completed", "declined"], "description": "Current status of the request." },
+        "message": { "type": "string", "description": "Optional message to the colleague." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the request was sent." }
+      },
+      "required": ["requesterId", "requesterName", "recipientEmail", "status", "createdAt"]
+    },
+    "Endorsement": {
+      "title": "Endorsement",
+      "description": "A verified peer endorsement.",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string", "description": "Optional ID of the request this fulfills." },
+        "authorId": { "type": "string", "description": "ID of the person giving the endorsement." },
+        "authorName": { "type": "string", "description": "Name of the endorser." },
+        "recipientId": { "type": "string", "description": "ID of the person being endorsed." },
+        "skills": { "type": "array", "items": { "type": "string" }, "description": "Skills being endorsed." },
+        "comment": { "type": "string", "description": "The endorsement text." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the endorsement was given." }
+      },
+      "required": ["authorId", "authorName", "recipientId", "skills", "comment", "createdAt"]
     }
   },
   "firestore": {
@@ -58,6 +123,26 @@
     "/access_requests/{requestId}": {
       "schema": "AccessRequest",
       "description": "Collection of platform access requests."
+    },
+    "/users/{uid}/playlists/{playlistId}": {
+      "schema": "Playlist",
+      "description": "Collection of playlists for a user."
+    },
+    "/users/{uid}/playlists/{playlistId}/items/{itemId}": {
+      "schema": "PlaylistItem",
+      "description": "Collection of items in a playlist."
+    },
+    "/waitlist/{waitlistId}": {
+      "schema": "Waitlist",
+      "description": "Waitlist registrations and referrals tracker."
+    },
+    "/endorsement_requests/{requestId}": {
+      "schema": "EndorsementRequest",
+      "description": "Collection of peer endorsement requests."
+    },
+    "/endorsements/{endorsementId}": {
+      "schema": "Endorsement",
+      "description": "Collection of verified peer endorsements."
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -30,144 +30,17 @@ import {
   Share,
   Heart
 } from "lucide-react";
-import { EPISODES_DATA, CATEGORIES, Episode } from "../data/podcastEpisodes";
+import { EPISODES_DATA, Episode } from "../data/podcastEpisodes";
 import { fetchPodcasts, likePodcast } from "../lib/podcastService";
 import ShareModal from "../components/ShareModal";
-
-const WaveformVisualizer = ({ 
-  isPlaying, 
-  sentimentData, 
-  progress = 0 
-}: { 
-  isPlaying: boolean; 
-  sentimentData?: { intensity: number; density: number }[];
-  progress?: number;
-}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>(0);
-  const framesRef = useRef<number>(0);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Use parent container dimensions
-    const resizeCanvas = () => {
-      const { width, height } = canvas.getBoundingClientRect();
-      // Increase resolution for retina displays
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
-    };
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const draw = () => {
-      const { width, height } = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, width, height);
-      
-      const bars = 40;
-      const barPadding = 2;
-      const barWidth = (width - (bars - 1) * barPadding) / bars;
-      
-      framesRef.current += isPlaying ? 0.05 : 0.01;
-
-      // Extract current focus sentiment for global color modulation
-      const currentSegmentIndex = (sentimentData && progress > 0) ? Math.floor(progress * sentimentData.length) : -1;
-      const currentSentiment = (currentSegmentIndex >= 0 && sentimentData) ? sentimentData[currentSegmentIndex] : null;
-
-      for (let i = 0; i < bars; i++) {
-        // Use sentiment data to modulate the base height if available
-        const sentiment = sentimentData ? sentimentData[i % sentimentData.length] : { intensity: 0.5, density: 0.5 };
-        
-        // Base height from sentiment intensity
-        const baseHeight = sentiment.intensity * (height * 0.6);
-        
-        // Dynamic oscillation based on playback state
-        const phase = framesRef.current + (i * 0.2);
-        const oscillation = isPlaying 
-          ? Math.sin(phase) * (height * 0.3) 
-          : Math.sin(phase * 0.5) * (height * 0.1);
-        
-        const finalHeight = Math.max(4, baseHeight + oscillation);
-        
-        // Color interpolation based on density
-        // Ochre: #775a19, Blue: #1e3a8a
-        const barDensity = sentiment.density;
-        
-        // Shift global "vibe" toward the current playhead sentiment (40% weight)
-        const activeMix = currentSentiment 
-          ? (barDensity * 0.6 + currentSentiment.density * 0.4) 
-          : barDensity;
-
-        // Passed bars get a slightly more vivid shift
-        const barProgress = i / bars;
-        const isPassed = barProgress < progress;
-        
-        const r = Math.round(30 + (119 - 30) * activeMix);
-        const g = Math.round(58 + (90 - 58) * activeMix);
-        const b = Math.round(138 + (25 - 138) * activeMix);
-        
-        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-        
-        // Playhead interaction
-        if (isPlaying) {
-          if (isPassed) {
-            ctx.globalAlpha = 1.0;
-            ctx.shadowBlur = 12;
-            ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
-          } else {
-            ctx.globalAlpha = 0.6;
-            ctx.shadowBlur = 4;
-            ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.3)`;
-          }
-        } else {
-          ctx.globalAlpha = 0.4;
-          ctx.shadowBlur = 0;
-        }
-        
-        // Draw centered bar
-        const x = i * (barWidth + barPadding);
-        const y = (height - finalHeight) / 2;
-        
-        ctx.beginPath();
-        const radius = barWidth / 2;
-        if (ctx.roundRect) {
-          ctx.roundRect(x, y, barWidth, finalHeight, radius);
-        } else {
-          ctx.rect(x, y, barWidth, finalHeight);
-        }
-        ctx.fill();
-      }
-
-      animationRef.current = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationRef.current);
-    };
-  }, [isPlaying, sentimentData, progress]);
-
-  return (
-    <canvas 
-      ref={canvasRef} 
-      className="w-full h-10 block"
-      style={{ imageRendering: 'auto' }}
-    />
-  );
-};
+import EmptyState from "../components/EmptyState";
+import MyPlaylists from "../components/MyPlaylists";
+import { WaveformVisualizer } from "../components/WaveformVisualizer";
 
 export default function Podcasts() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchTarget, setSearchTarget] = useState<"all" | "title" | "host">("all");
+  const [searchTarget, setSearchTarget] = useState<"all" | "title" | "host" | "topic">("all");
   const [sortBy, setSortBy] = useState<"number-desc" | "number-asc" | "date-desc" | "date-asc">("number-desc");
   const [expandedEpisode, setExpandedEpisode] = useState<string | null>(null);
   const [shareEpisode, setShareEpisode] = useState<Episode | null>(null);
@@ -233,8 +106,25 @@ export default function Podcasts() {
   // Static total duration mapped from episode data
   const getEpisodeDurationSeconds = (ep: Episode | null): number => {
     if (!ep) return 1800; // default 30 mins
-    const m = parseInt(ep.duration.replace(" mins", "")) || 30;
-    return m * 60;
+    
+    // Parse "45m 30s" or "45 mins" or "45"
+    let seconds = 0;
+    const minutesMatch = ep.duration.match(/(\d+)\s*(?:m|mins|minutes)/i);
+    const secondsMatch = ep.duration.match(/(\d+)\s*(?:s|secs|seconds)/i);
+    
+    if (minutesMatch) {
+      seconds += parseInt(minutesMatch[1]) * 60;
+    }
+    if (secondsMatch) {
+      seconds += parseInt(secondsMatch[1]);
+    }
+    
+    // Fallback if the regex didn't match but it's just a number string
+    if (seconds === 0 && !isNaN(parseInt(ep.duration))) {
+      seconds = parseInt(ep.duration) * 60;
+    }
+    
+    return seconds > 0 ? seconds : 1800;
   };
 
   const totalDurationSeconds = getEpisodeDurationSeconds(activeEpisode);
@@ -432,9 +322,25 @@ export default function Podcasts() {
     }
   };
 
+  // Generate Dynamic Categories based on episode tags/categories
+  const dynamicCategories = useMemo(() => {
+    const cats = new Set<string>();
+    cats.add("All");
+    episodes.forEach(ep => {
+      if (ep.tags && ep.tags.length > 0) {
+        ep.tags.forEach(tag => cats.add(tag));
+      } else if (ep.category && ep.category !== "Uncategorized") {
+        cats.add(ep.category);
+      }
+    });
+    return Array.from(cats);
+  }, [episodes]);
+
   // Filtering Logic
   const filteredEpisodes = episodes.filter((ep) => {
-    const matchesCategory = selectedCategory === "All" || ep.category === selectedCategory;
+    const matchesCategory = selectedCategory === "All" || 
+      (ep.tags && ep.tags.includes(selectedCategory)) || 
+      ep.category === selectedCategory;
     
     const matchesSearch = (() => {
       if (!searchQuery) return true;
@@ -458,6 +364,9 @@ export default function Podcasts() {
       
       if (searchTarget === "title") {
         return titleMatches;
+      }
+      if (searchTarget === "topic") {
+        return summaryMatches;
       }
       if (searchTarget === "host") {
         return hostMatches || guestMatches;
@@ -518,18 +427,32 @@ export default function Podcasts() {
 
       {/* Hero Header */}
       <header id="podcasts-header" className="mb-12 relative z-10">
-        <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
-          <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-mono text-[11px] tracking-[0.25em] text-primary uppercase font-bold">
-            Auditory Intelligence Core / Series 03
-          </span>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2 justify-center md:justify-start">
+            <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+            <span className="font-mono text-[11px] tracking-[0.25em] text-primary uppercase font-bold">
+              Auditory Intelligence Core / Series 03
+            </span>
+          </div>
+          <Link 
+            to="/podcasts/upload" 
+            className="hidden md:flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest transition-colors border border-primary/20"
+          >
+            Upload Podcast
+          </Link>
         </div>
         <h1 id="podcasts-title" className="font-headline text-4xl md:text-6xl font-black text-center md:text-left tracking-tight mb-4 leading-[1.1]">
           Beyond Tech Frontiers
         </h1>
-        <p id="podcasts-subtitle" className="font-body text-lg text-on-surface-variant max-w-3xl leading-relaxed text-center md:text-left">
+        <p id="podcasts-subtitle" className="font-body text-lg text-on-surface-variant max-w-3xl leading-relaxed text-center md:text-left mb-6">
           Deep dives into the mechanics of disruptive innovation, corporate venture clienting, ethical AI networks, and algorithmic risk underwriting. Hosted by globally renowned venture builder <strong className="text-on-surface font-semibold">Sabine VanderLinden</strong> in collaboration with <span className="text-primary font-bold">Tenured AI</span>.
         </p>
+        <Link 
+          to="/podcasts/upload" 
+          className="md:hidden inline-flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-xl text-[10px] font-mono font-bold uppercase tracking-widest transition-colors border border-primary/20"
+        >
+          Upload Podcast
+        </Link>
       </header>
 
       {loadingEpisodes ? (
@@ -647,6 +570,8 @@ export default function Podcasts() {
             )}
           </div>
 
+      <MyPlaylists />
+
       {/* Directory & Interactive Catalog */}
       <section id="episodes-directory" className="relative z-10 mb-20 scroll-mt-24">
         <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-6 mb-8 pb-4 border-b border-outline-variant/10">
@@ -692,6 +617,17 @@ export default function Podcasts() {
               >
                 Host/Guest
               </button>
+              <button
+                type="button"
+                onClick={() => setSearchTarget("topic")}
+                className={`flex-1 sm:flex-initial px-3.5 py-1.5 text-[10px] font-mono tracking-wider uppercase font-extrabold rounded-full transition-all ${
+                  searchTarget === "topic"
+                    ? "bg-primary text-on-primary shadow-sm"
+                    : "text-on-surface-variant hover:text-on-surface"
+                }`}
+              >
+                Topic
+              </button>
             </div>
 
             <div className="relative flex-grow sm:flex-grow-0 sm:w-80">
@@ -704,6 +640,8 @@ export default function Podcasts() {
                 placeholder={
                   searchTarget === "title"
                     ? "Search specifically by title..."
+                    : searchTarget === "topic"
+                    ? "Search by topics and keywords..."
                     : searchTarget === "host"
                     ? "Search host or expert guest names..."
                     : "Search episodes, topics, hosts..."
@@ -717,7 +655,7 @@ export default function Podcasts() {
         {/* Category Tabs & Sorting Selector Matrix */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 pb-2 border-b border-outline-variant/5">
           <div id="category-filter-tabs" className="flex flex-wrap gap-2 overflow-x-auto scrollbar-none">
-            {CATEGORIES.map((tab) => (
+            {dynamicCategories.map((tab) => (
               <button
                 key={tab}
                 id={`tab-filter-${tab.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
@@ -801,11 +739,17 @@ export default function Podcasts() {
 
         {/* Dynamic EPISODES GRID */}
         {sortedEpisodes.length === 0 ? (
-          <div className="text-center py-20 bg-surface-container-low rounded-3xl border border-outline-variant/10 border-dashed">
-            <Radio className="w-12 h-12 text-outline/30 mx-auto mb-4 animate-pulse" />
-            <p className="text-on-surface-variant font-medium text-lg">No corresponding episodes matched your coordinates.</p>
-            <p className="text-xs text-outline mt-2">Adjust your filtering system keywords and retry.</p>
-          </div>
+          <EmptyState
+            icon={Radio}
+            title="No Episodes Found"
+            description="No corresponding episodes matched your coordinate filtering. Adjust your topic queries or search phrase to broaden your search."
+            actionLabel="Reset Search Parameters"
+            onAction={() => {
+              setSearchQuery("");
+              setSelectedCategory("All");
+              setSearchTarget("all");
+            }}
+          />
         ) : (
           <div id="episodes-cards-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
             {sortedEpisodes.map((ep) => {
@@ -841,13 +785,18 @@ export default function Podcasts() {
                 >
                   <div>
                     {/* Top Stats */}
-                    <div className="flex items-center justify-between gap-1 mb-3.5">
+                    <div className="flex items-center justify-between gap-1 mb-3.5 flex-wrap">
                       <span className="font-mono text-[10px] text-primary font-bold px-2 py-0.5 bg-primary/10 rounded-md">
                         EP {ep.episodeNumber}
                       </span>
-                      <span className="text-[10px] text-on-surface-variant font-semibold flex items-center gap-1 uppercase font-mono tracking-wider">
-                        {ep.category}
-                      </span>
+                      <div className="flex items-center gap-1 flex-wrap justify-end">
+                        <span className="text-[10px] text-on-surface-variant font-semibold flex items-center gap-1 uppercase font-mono tracking-wider">
+                          {ep.category}
+                        </span>
+                        {ep.tags?.slice(0,2).map(tag => (
+                          <span key={tag} className="text-[9px] bg-outline-variant/10 text-on-surface-variant px-1.5 py-0.5 rounded uppercase font-mono tracking-wider">{tag}</span>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Integrated Cover Art Thumbnail */}
@@ -859,8 +808,14 @@ export default function Podcasts() {
                         referrerPolicy="no-referrer"
                       />
                       
+                      {/* Listen Time Indicator */}
+                      <div className="absolute bottom-2 right-2 bg-on-surface/90 backdrop-blur-md text-surface py-0.5 px-2 rounded-md font-mono text-[9px] font-bold tracking-wider flex items-center gap-1 shadow-md z-10 transition-opacity duration-300">
+                        <Clock className="w-2.5 h-2.5" />
+                        {ep.duration}
+                      </div>
+                      
                       {/* Integrated Action & Sentiment Heatmap Overlay */}
-                      <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-20">
                         <div className="p-3">
                           <div className="flex justify-between items-center mb-3">
                             <span className="text-[9px] font-mono font-bold text-white/90 tracking-widest uppercase flex items-center gap-2">
@@ -1282,23 +1237,14 @@ export default function Podcasts() {
                       className="w-full accent-primary h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary/20"
                     />
                     
-                    {/* Bouncing EQ Bars Visualizer when active and playing */}
-                    {isPlaying && (
-                      <div className="absolute top-1/2 -translate-y-[21px] left-0 right-0 flex items-end justify-center gap-[2.5px] pointer-events-none h-3 opacity-25">
-                        {[4, 8, 11, 6, 9, 5, 12, 7, 10, 4].map((height, i) => (
-                          <motion.div
-                            key={i}
-                            className="w-[2px] bg-primary rounded-full"
-                            animate={{ height: ["2px", `${height + 2}px`, "2px"] }}
-                            transition={{
-                              repeat: Infinity,
-                              duration: 0.4 + i * 0.05,
-                              ease: "easeInOut"
-                            }}
-                          />
-                        ))}
-                      </div>
-                    )}
+                    {/* Waveform Visualizer */}
+                    <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-8 pointer-events-none px-1">
+                      <WaveformVisualizer 
+                        isPlaying={isPlaying} 
+                        progress={currentProgressPercent / 100} 
+                        sentimentData={[{intensity: 0.5, density: 0.5}, {intensity: 0.8, density: 0.5}, {intensity: 0.4, density: 0.6}]} 
+                      />
+                    </div>
                   </div>
 
                   <span className="text-[10px] font-mono text-outline w-10">
@@ -1325,7 +1271,7 @@ export default function Podcasts() {
                 {/* Speed Multiplier */}
                 <button
                   onClick={() => {
-                    const speeds = [1, 1.25, 1.5, 2];
+                    const speeds = [0.5, 1, 1.25, 1.5, 2];
                     const nextIdx = (speeds.indexOf(playbackSpeed) + 1) % speeds.length;
                     setPlaybackSpeed(speeds[nextIdx]);
                   }}

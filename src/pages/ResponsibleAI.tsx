@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, Lock, Eye, FileText, History, Hand, Scale, AlertTriangle, UserCheck, Fingerprint, ShieldCheck, GraduationCap, Award, X, ExternalLink, BookOpen, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { cn } from '@/src/lib/utils';
+import { cn } from '@/lib/utils';
 
 interface Pillar {
   icon: any;

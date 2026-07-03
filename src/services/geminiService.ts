@@ -1,10 +1,10 @@
 
-export const sendMessageToGemini = async (message: string): Promise<string> => {
+export const sendMessageToGemini = async (message: string, thinking = false): Promise<string> => {
   try {
     const response = await fetch("/api/gemini", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, thinking }),
     });
 
     if (!response.ok) throw new Error("Failed to contact intelligence node");

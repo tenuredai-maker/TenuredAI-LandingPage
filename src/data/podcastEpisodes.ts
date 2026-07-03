@@ -30,6 +30,7 @@ export interface Episode {
   date: string;
   duration: string;
   category: string;
+  tags?: string[];
   summary: string;
   extendedDescription: string;
   sourceUrl: string;

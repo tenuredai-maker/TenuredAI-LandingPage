@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   User as UserIcon, 
   Settings, 
@@ -12,24 +12,46 @@ import {
   ExternalLink,
   ChevronRight,
   Database,
-  Loader2
+  Loader2,
+  Share2,
+  X,
+  Copy,
+  Check
 } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { useAuth } from '../context/AuthContext';
 import { logout, uploadAvatar } from '../lib/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import ProfileCompletion from '../components/ProfileCompletion';
 import ReputationBadges from '../components/ReputationBadges';
+import LatestMilestones from '../components/LatestMilestones';
 import TenuredPointsWidget from '../components/TenuredPointsWidget';
+import RecentActivityWidget from '../components/RecentActivityWidget';
+import PointsDistributionChart from '../components/PointsDistributionChart';
+import NotificationSettings from '../components/NotificationSettings';
+import TargetGoalWidget from '../components/TargetGoalWidget';
+import ReputationGrowthChart from '../components/ReputationGrowthChart';
+import SkillTreeProgress from '../components/SkillTreeProgress';
+import SkillRadarChart from '../components/SkillRadarChart';
+import ReputationVisualization from '../components/ReputationVisualization';
+import EndorsementFeature from '../components/EndorsementFeature';
+import Certifications from '../components/Certifications';
+import ActivityStream from '../components/ActivityStream';
 import CommunityLeaderboard from '../components/CommunityLeaderboard';
 import RewardSummary, { Reward } from '../components/RewardSummary';
+import PortfolioPrintView from '../components/PortfolioPrintView';
+import SocialProofSidebar from '../components/SocialProofSidebar';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { 
   ShieldCheck, 
   Cpu, 
   History, 
   MapPin, 
   UserCircle,
-  Zap
+  Zap,
+  FileText
 } from 'lucide-react';
 
 export default function Profile() {
@@ -39,12 +61,59 @@ export default function Profile() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyRefCode = () => {
+    if (!user) return;
+    navigator.clipboard.writeText(user.uid).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   // Reward Summary State
   const [showRewards, setShowRewards] = useState(false);
   const [currentRewards, setCurrentRewards] = useState<Reward[]>([]);
   const prevBadgesRef = useRef<string[]>([]);
   const isInitialMount = useRef(true);
+  
+  const pdfRef = useRef<HTMLDivElement>(null);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  const handleDownloadPortfolio = async () => {
+    if (!pdfRef.current) return;
+    try {
+      setIsGeneratingPdf(true);
+      
+      const element = pdfRef.current;
+      element.style.left = '0';
+      element.style.top = '0';
+      element.style.zIndex = '-9999';
+
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+      
+      element.style.left = '-9999px';
+
+      const contentWidth = canvas.width;
+      const contentHeight = canvas.height;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (contentHeight * pdfWidth) / contentWidth;
+
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${user?.displayName?.replace(/\s+/g, '_') || 'portfolio'}_tenured.pdf`);
+    } catch (err) {
+      console.error('Failed to generate PDF:', err);
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
 
   const calculateBadges = (profile: any) => {
     return [
@@ -80,13 +149,23 @@ export default function Profile() {
       // Grant points for each badge (100 points per badge)
       // This is conceptual since the server-side grant already happened or will happen
       // But we can show it in the summary
-      newBadges.forEach(() => {
+      newBadges.forEach((b) => {
         rewards.push({
           type: 'points',
           label: 'Merit Recognition',
           value: 100,
           icon: Zap
         });
+
+        const badgeEvent = new CustomEvent('tenured-notification', {
+          detail: {
+            title: 'Badge Unlocked',
+            message: `You earned the ${b.label} badge!`,
+            type: 'achievement',
+            actionUrl: '/profile'
+          }
+        });
+        window.dispatchEvent(badgeEvent);
       });
 
       setCurrentRewards(rewards);
@@ -223,6 +302,39 @@ export default function Profile() {
         animate="visible"
         className="max-w-5xl mx-auto px-4 relative z-10"
       >
+        <PortfolioPrintView ref={pdfRef} user={user} profileData={profileData} />
+        
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <div>
+            <h1 className="text-3xl font-headline font-black text-on-surface tracking-tight">Sovereign Identity</h1>
+            <p className="text-on-surface-variant font-mono text-xs uppercase tracking-widest mt-1">Decentralized Trust Network</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={copyRefCode}
+              className={cn("flex items-center gap-2 py-3 px-6 rounded-xl hover:scale-105 active:scale-95 transition-all text-xs font-mono font-bold uppercase tracking-widest shadow-sm border border-outline-variant/10", copied ? "bg-primary/10 text-primary" : "bg-surface-container-highest text-on-surface")}
+            >
+              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              {copied ? 'Copied' : 'Copy Code'}
+            </button>
+            <button 
+              onClick={() => setShowShareDialog(true)}
+              className="flex items-center gap-2 bg-surface-container-highest text-on-surface py-3 px-6 rounded-xl hover:scale-105 active:scale-95 transition-all text-xs font-mono font-bold uppercase tracking-widest shadow-sm border border-outline-variant/10"
+            >
+              <Share2 className="w-4 h-4" />
+              Share
+            </button>
+            <button 
+              onClick={handleDownloadPortfolio}
+              disabled={isGeneratingPdf}
+              className="flex items-center gap-2 bg-primary text-on-primary py-3 px-6 rounded-xl hover:scale-105 active:scale-95 transition-all text-xs font-mono font-bold uppercase tracking-widest disabled:opacity-50 shadow-lg shadow-primary/20"
+            >
+              {isGeneratingPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
+              {isGeneratingPdf ? 'Generating...' : 'Download Portfolio'}
+            </button>
+          </div>
+        </div>
+
         <RewardSummary 
           rewards={currentRewards} 
           isOpen={showRewards} 
@@ -342,6 +454,14 @@ export default function Profile() {
                 "Your identity hash is currently active on 1 node. Multi-factor authentication is enforced across all sovereign domains."
               </p>
             </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <SocialProofSidebar />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <LatestMilestones profile={profileData} />
+            </motion.div>
           </div>
 
           {/* Main Content Area */}
@@ -372,6 +492,63 @@ export default function Profile() {
             {/* Tenured Points Widget */}
             <motion.div variants={itemVariants}>
               <TenuredPointsWidget points={profileData.tenuredPoints || 0} />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <RecentActivityWidget />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <PointsDistributionChart />
+            </motion.div>
+
+            {/* Target Goal Widget */}
+            <motion.div variants={itemVariants}>
+              <TargetGoalWidget 
+                uid={user.uid} 
+                currentPoints={profileData.tenuredPoints || 0} 
+                initialTargetGoal={profileData.targetPointGoal} 
+              />
+            </motion.div>
+
+            {/* Reputation Growth Chart */}
+            <motion.div variants={itemVariants}>
+              <ReputationGrowthChart currentPoints={profileData.tenuredPoints || 0} />
+            </motion.div>
+
+            {/* Analytical Insights Hub */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <motion.div variants={itemVariants} className="h-full">
+                <SkillRadarChart />
+              </motion.div>
+              <motion.div variants={itemVariants} className="h-full">
+                <ReputationVisualization />
+              </motion.div>
+            </div>
+
+            {/* Peer Verification Network */}
+            <motion.div variants={itemVariants}>
+              <EndorsementFeature />
+            </motion.div>
+
+            {/* Skill Tree Progress */}
+            <motion.div variants={itemVariants}>
+              <SkillTreeProgress />
+            </motion.div>
+
+            {/* Certifications Section */}
+            <motion.div variants={itemVariants}>
+              <Certifications />
+            </motion.div>
+
+            {/* Activity Stream */}
+            <motion.div variants={itemVariants}>
+              <ActivityStream />
+            </motion.div>
+
+            {/* Notification Settings */}
+            <motion.div variants={itemVariants}>
+              <NotificationSettings />
             </motion.div>
 
             {/* Community Leaderboard */}
@@ -443,6 +620,44 @@ export default function Profile() {
             </motion.div>
           </div>
         </div>
+
+        <AnimatePresence>
+          {showShareDialog && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+              onClick={() => setShowShareDialog(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="bg-surface-container-lowest border border-outline-variant/10 p-8 rounded-[2rem] shadow-2xl relative w-full max-w-sm"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button 
+                  onClick={() => setShowShareDialog(false)}
+                  className="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <h3 className="text-lg font-headline font-black text-on-surface mb-6 text-center">Share Identity</h3>
+                <div className="flex justify-center bg-white p-4 rounded-xl mb-6">
+                  <QRCodeSVG 
+                     value={`${window.location.origin}/profile/${user?.uid}`} 
+                     size={256}
+                     level="H"
+                  />
+                </div>
+                <p className="text-xs font-mono text-center text-on-surface-variant/60 uppercase tracking-widest">
+                  Scan to view public profile
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );

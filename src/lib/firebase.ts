@@ -138,6 +138,17 @@ export const grantTenuredPoints = async (points: number, reason: string) => {
       updatedAt: serverTimestamp()
     });
     console.log(`Granted ${points} Tenured Points for: ${reason}`);
+
+    // Dispatch global notification event
+    const event = new CustomEvent('tenured-notification', {
+      detail: {
+        title: 'Points Awarded',
+        message: reason,
+        type: 'points',
+        value: points
+      }
+    });
+    window.dispatchEvent(event);
   } catch (error) {
     console.error('Error granting points:', error);
   }
@@ -220,6 +231,19 @@ export const uploadAvatar = async (file: File) => {
     return downloadURL;
   } catch (error) {
     console.error('Error uploading avatar:', error);
+    throw error;
+  }
+};
+
+export const updateTargetPointGoal = async (uid: string, targetPointGoal: number) => {
+  const userRef = doc(db, 'users', uid);
+  try {
+    await updateDoc(userRef, {
+      targetPointGoal: targetPointGoal,
+      updatedAt: serverTimestamp()
+    });
+  } catch (error) {
+    console.error('Error updating target point goal:', error);
     throw error;
   }
 };

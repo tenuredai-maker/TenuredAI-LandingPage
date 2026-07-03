@@ -16,11 +16,16 @@ import ResponsibleAI from './pages/ResponsibleAI';
 import UseCases from './pages/UseCases';
 import FAQ from './pages/FAQ';
 import TalentUnderwriting from './pages/TalentUnderwriting';
-import VibeLanding from './pages/VibeLanding';
+import ComingSoon from './pages/ComingSoon';
+import K12Page from './pages/K12Page';
+
 import Podcasts from './pages/Podcasts';
 import PodcastDetail from './pages/PodcastDetail';
+import UploadPodcast from './pages/UploadPodcast';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import LeaderboardPage from './pages/Leaderboard';
+import Verification from './pages/Verification';
 
 export default function App() {
   return (
@@ -45,9 +50,14 @@ export default function App() {
             <Route path="/use-cases" element={<UseCases />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/underwriting" element={<TalentUnderwriting />} />
-            <Route path="/vibe-landing" element={<VibeLanding />} />
+            <Route path="/coming-soon" element={<ComingSoon />} />
+            <Route path="/k12" element={<K12Page />} />
+
             <Route path="/podcasts" element={<Podcasts />} />
+            <Route path="/podcasts/upload" element={<UploadPodcast />} />
             <Route path="/podcasts/:id" element={<PodcastDetail />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/verification" element={<Verification />} />
           </Routes>
         </main>
         <Footer />

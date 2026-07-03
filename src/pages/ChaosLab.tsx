@@ -5,8 +5,8 @@ import {
   BarChart3, CloudOff, Network, Terminal, Info, 
   AlertTriangle, Lock, Eye, Zap, RefreshCw, Cpu
 } from 'lucide-react';
-import { cn } from '@/src/lib/utils';
-import { analytics } from '@/src/lib/firebase';
+import { cn } from '@/lib/utils';
+import { analytics } from '@/lib/firebase';
 import { logEvent } from 'firebase/analytics';
 
 interface LogLine {
