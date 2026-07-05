@@ -9,6 +9,13 @@ async function startServer() {
 
   app.use(express.json());
 
+  // Global middleware to handle Cross-Origin-Opener-Policy (COOP)
+  // This is required for Firebase Auth popups to function correctly in cross-origin environments
+  app.use((_req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    next();
+  });
+
   // Email Digest API
   app.get("/api/digest/preview", (req, res) => {
     try {
