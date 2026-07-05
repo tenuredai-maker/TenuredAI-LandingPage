@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { auth, db } from '../lib/firebase';
+import { auth, db, syncUserToFirestore } from '../lib/firebase';
 
 interface AuthContextType {
   user: User | null;
@@ -15,6 +15,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+  const [redirectChecking, setRedirectChecking] = useState(true);
+
+  useEffect(() => {
+    const handleRedirect = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          console.log("Successfully signed in via redirect, syncing user to Firestore...");
+          await syncUserToFirestore(result.user);
+        }
+      } catch (error) {
+        console.error("Error processing redirect sign-in result:", error);
+      } finally {
+        setRedirectChecking(false);
+      }
+    };
+    handleRedirect();
+  }, []);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
@@ -45,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading }}>
+    <AuthContext.Provider value={{ user, userProfile, loading: loading || redirectChecking }}>
       {children}
     </AuthContext.Provider>
   );
