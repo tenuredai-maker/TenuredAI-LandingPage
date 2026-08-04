@@ -8,7 +8,7 @@ import { cn } from '../lib/utils';
 import { Check } from 'lucide-react';
 
 export default function Login() {
-  const { user, loading } = useAuth();
+  const { user, loading, redirectPath, setRedirectPath } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -23,10 +23,11 @@ export default function Login() {
   // Redirect if already logged in
   useEffect(() => {
     if (!loading && user) {
-      const from = (location.state as any)?.from?.pathname || "/underwriting";
+      const from = redirectPath || (location.state as any)?.from?.pathname || "/underwriting";
+      if (redirectPath) setRedirectPath(null);
       navigate(from, { replace: true });
     }
-  }, [user, loading, navigate, location]);
+  }, [user, loading, navigate, location, redirectPath, setRedirectPath]);
 
   const handleGoogleSignIn = async () => {
     try {

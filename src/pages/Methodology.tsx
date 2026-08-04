@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Radar as RadarArea, ResponsiveContainer } from 'recharts';
 import { ArrowRight, BarChart3, School, Terminal, Bolt, CheckCircle, Shield, Search, Settings, GitBranch, Zap, RefreshCw, Activity } from 'lucide-react';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 const radarData = [
@@ -43,8 +44,21 @@ const Tooltip: React.FC<{ children: React.ReactNode; content: React.ReactNode; e
 };
 
 export default function Methodology() {
+  const location = useLocation();
   const [challengeInput, setChallengeInput] = useState('');
   
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   const [aiciScores, setAiciScores] = useState<Record<string, number>>({
     'Prompt Fidelity': 92,
     'Latent Recall': 85,
@@ -141,7 +155,7 @@ export default function Methodology() {
   };
 
   return (
-    <div className="pt-20">
+    <div id="integrity-section" className="pt-20">
       {/* Hero Section */}
       <header className="relative overflow-hidden bg-surface-container-low pt-24 pb-32">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -388,7 +402,7 @@ export default function Methodology() {
       </section>
 
       {/* Section: AICI™ Deep Dive Interactive Radar */}
-      <section className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
+      <section id="aici-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div 
@@ -578,7 +592,7 @@ export default function Methodology() {
       </section>
 
       {/* Section: AIOI™ Deep Dive Interactive Radar */}
-      <section className="py-24 bg-surface px-8">
+      <section id="aioi-section" className="py-24 bg-surface px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div 
@@ -666,7 +680,7 @@ export default function Methodology() {
       </section>
 
       {/* Section: AIBS™ Deep Dive Interactive Radar */}
-      <section className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
+      <section id="aibs-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div 

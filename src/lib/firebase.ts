@@ -4,8 +4,6 @@ import {
   getAuth, 
   GoogleAuthProvider, 
   signInWithPopup, 
-  signInWithRedirect,
-  getRedirectResult,
   signOut, 
   onAuthStateChanged, 
   User,
@@ -156,28 +154,13 @@ export const grantTenuredPoints = async (points: number, reason: string) => {
   }
 };
 
-const isMobileBrowser = () => {
-  if (typeof window === 'undefined') return false;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-};
-
 // Auth Helpers
 export const signInWithGoogle = async () => {
   try {
-    if (isMobileBrowser()) {
-      console.log('Mobile browser detected, signing in with redirect...');
-      await signInWithRedirect(auth, googleProvider);
-      return null;
-    }
     const result = await signInWithPopup(auth, googleProvider);
     await syncUserToFirestore(result.user);
     return result.user;
-  } catch (error: any) {
-    if (error.code === 'auth/popup-blocked') {
-      console.warn('Popup blocked, falling back to redirect...');
-      await signInWithRedirect(auth, googleProvider);
-      return null;
-    }
+  } catch (error) {
     console.error('Error signing in with Google:', error);
     throw error;
   }

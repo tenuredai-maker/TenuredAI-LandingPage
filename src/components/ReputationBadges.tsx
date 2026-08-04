@@ -25,12 +25,37 @@ interface Badge {
 
 interface ReputationBadgesProps {
   profile: any;
+  isLoading?: boolean;
 }
 
-export default function ReputationBadges({ profile }: ReputationBadgesProps) {
+export default function ReputationBadges({ profile, isLoading = false }: ReputationBadgesProps) {
   const [justUnlocked, setJustUnlocked] = useState<string | null>(null);
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const previousUnlockedRef = useRef<Record<string, boolean>>({});
+
+  if (isLoading) {
+    return (
+      <div className="space-y-12">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 rounded bg-surface-container-high animate-pulse" />
+              <div className="h-4 w-40 bg-surface-container-high rounded animate-pulse" />
+            </div>
+            <div className="h-3 w-16 bg-surface-container-high rounded animate-pulse" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="p-4 rounded-2xl border border-outline-variant/10 bg-surface-container-lowest h-32 flex flex-col items-center justify-center space-y-4 animate-pulse">
+                <div className="w-10 h-10 rounded-xl bg-surface-container-high" />
+                <div className="h-3 w-20 bg-surface-container-high rounded" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const badges: Badge[] = [
     { 

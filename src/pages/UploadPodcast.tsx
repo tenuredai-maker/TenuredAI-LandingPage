@@ -6,7 +6,7 @@ import { uploadPodcastFile, createPodcast } from '../lib/podcastService';
 import { useAuth } from '../context/AuthContext';
 
 export default function UploadPodcast() {
-  const { user } = useAuth();
+  const { user, setRedirectPath } = useAuth();
   const navigate = useNavigate();
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -118,7 +118,10 @@ export default function UploadPodcast() {
             You must be signed in to upload a podcast to the Tenured network.
           </p>
           <button 
-            onClick={() => navigate('/auth')}
+            onClick={() => {
+              setRedirectPath(window.location.pathname);
+              navigate('/login');
+            }}
             className="px-6 py-3 bg-primary text-on-primary rounded-xl font-bold uppercase tracking-wider text-xs transition-colors hover:bg-primary/90 w-full"
           >
             Sign In Now

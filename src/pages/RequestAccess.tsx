@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { Landmark, Shield, Lock, Building2, User, ShieldCheck, Circle, AlertCircle } from 'lucide-react';
-import { useState, FormEvent, useEffect } from 'react';
+import { Landmark, Shield, Lock, Building2, User, ShieldCheck, Circle, AlertCircle, Copy, CheckCircle2 } from 'lucide-react';
+import { useState, FormEvent, useEffect, useCallback } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType, signInWithGoogle } from '../lib/firebase';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +15,16 @@ export default function RequestAccess() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const MAX_CHARS = 500;
+
+  const copyInviteLink = useCallback(() => {
+    const inviteLink = `${window.location.origin}/#/request-access`;
+    navigator.clipboard.writeText(inviteLink).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -291,7 +300,7 @@ export default function RequestAccess() {
                 </div>
               </form>
               {/* Decorative "Watermark" */}
-              <div className="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none select-none">
+              <div className="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none">
                 <Shield className="w-64 h-64" />
               </div>
             </div>
@@ -396,12 +405,32 @@ export default function RequestAccess() {
                 <Circle className="w-2 h-2 fill-primary animate-pulse" />
                 Verification in Progress
               </div>
-              <button 
-                onClick={() => setShowConfirmation(false)}
-                className="w-full py-4 bg-primary text-on-primary rounded-xl font-bold hover:bg-surface-tint transition-colors shadow-lg shadow-primary/10"
-              >
-                Acknowledge
-              </button>
+              
+              <div className="pt-4 space-y-3">
+                <button 
+                  onClick={copyInviteLink}
+                  className="w-full py-4 bg-surface-container-high text-on-surface rounded-xl font-bold hover:bg-surface-container-highest transition-all border border-outline-variant/10 flex items-center justify-center gap-2 group"
+                >
+                  {copied ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-primary" />
+                      <span className="text-primary">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-on-surface-variant group-hover:text-primary transition-colors" />
+                      <span>Copy Invite Link</span>
+                    </>
+                  )}
+                </button>
+                
+                <button 
+                  onClick={() => setShowConfirmation(false)}
+                  className="w-full py-4 bg-primary text-on-primary rounded-xl font-bold hover:bg-surface-tint transition-colors shadow-lg shadow-primary/10"
+                >
+                  Acknowledge
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>

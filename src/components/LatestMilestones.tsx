@@ -9,7 +9,28 @@ interface Badge {
   isUnlocked: boolean;
 }
 
-export default function LatestMilestones({ profile }: { profile: any }) {
+export default function LatestMilestones({ profile, isLoading = false }: { profile: any, isLoading?: boolean }) {
+  if (isLoading) {
+    return (
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-[2rem] p-6 shadow-sm">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-5 rounded bg-surface-container-high animate-pulse" />
+            <div className="h-4 w-32 bg-surface-container-high rounded animate-pulse" />
+          </div>
+        </div>
+        <div className="space-y-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-surface-container-high animate-pulse" />
+              <div className="h-4 w-40 bg-surface-container-high rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   const badges: Badge[] = [
     { id: 'name', label: 'Cognitive ID', icon: UserCircle, isUnlocked: !!profile?.displayName && profile.displayName !== 'Sovereign Citizen' },
     { id: 'photo', label: 'Visual Anchor', icon: ShieldCheck, isUnlocked: !!profile?.photoURL },

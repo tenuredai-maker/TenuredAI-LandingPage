@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
+import PageTransition from './components/PageTransition';
+import ScrollToTop from './components/ScrollToTop';
+import ReadingProgress from './components/ReadingProgress';
+import Breadcrumbs from './components/Breadcrumbs';
 import TopNavBar from './components/TopNavBar';
 import Footer from './components/Footer';
 import Ticker from './components/Ticker';
@@ -27,38 +32,54 @@ import Profile from './pages/Profile';
 import LeaderboardPage from './pages/Leaderboard';
 import Verification from './pages/Verification';
 
+function AppRoutes() {
+  const location = useLocation();
+  const longFormRoutes = ['/manifesto', '/docs', '/rules', '/responsible-ai', '/learners', '/institutional'];
+
+  return (
+    <>
+      {longFormRoutes.includes(location.pathname) && <ReadingProgress />}
+      <AnimatePresence mode="wait">
+        <Routes location={location}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+          <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
+          <Route path="/features" element={<PageTransition><Features /></PageTransition>} />
+          <Route path="/manifesto" element={<PageTransition><Manifesto /></PageTransition>} />
+          <Route path="/learners" element={<PageTransition><Learners /></PageTransition>} />
+          <Route path="/rules" element={<PageTransition><Rules /></PageTransition>} />
+          <Route path="/docs" element={<PageTransition><Methodology /></PageTransition>} />
+          <Route path="/institutional" element={<PageTransition><Institutional /></PageTransition>} />
+          <Route path="/chaos-lab" element={<PageTransition><ChaosLab /></PageTransition>} />
+          <Route path="/request-access" element={<PageTransition><RequestAccess /></PageTransition>} />
+          <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
+          <Route path="/responsible-ai" element={<PageTransition><ResponsibleAI /></PageTransition>} />
+          <Route path="/use-cases" element={<PageTransition><UseCases /></PageTransition>} />
+          <Route path="/faq" element={<PageTransition><FAQ /></PageTransition>} />
+          <Route path="/underwriting" element={<PageTransition><TalentUnderwriting /></PageTransition>} />
+          <Route path="/coming-soon" element={<PageTransition><ComingSoon /></PageTransition>} />
+          <Route path="/k12" element={<PageTransition><K12Page /></PageTransition>} />
+
+          <Route path="/podcasts" element={<PageTransition><Podcasts /></PageTransition>} />
+          <Route path="/podcasts/upload" element={<PageTransition><UploadPodcast /></PageTransition>} />
+          <Route path="/podcasts/:id" element={<PageTransition><PodcastDetail /></PageTransition>} />
+          <Route path="/leaderboard" element={<PageTransition><LeaderboardPage /></PageTransition>} />
+          <Route path="/verification" element={<PageTransition><Verification /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+    </>
+  );
+}
+
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-background selection:bg-primary-container/30">
         <TopNavBar />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/manifesto" element={<Manifesto />} />
-            <Route path="/learners" element={<Learners />} />
-            <Route path="/rules" element={<Rules />} />
-            <Route path="/docs" element={<Methodology />} />
-            <Route path="/institutional" element={<Institutional />} />
-            <Route path="/chaos-lab" element={<ChaosLab />} />
-            <Route path="/request-access" element={<RequestAccess />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/responsible-ai" element={<ResponsibleAI />} />
-            <Route path="/use-cases" element={<UseCases />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/underwriting" element={<TalentUnderwriting />} />
-            <Route path="/coming-soon" element={<ComingSoon />} />
-            <Route path="/k12" element={<K12Page />} />
-
-            <Route path="/podcasts" element={<Podcasts />} />
-            <Route path="/podcasts/upload" element={<UploadPodcast />} />
-            <Route path="/podcasts/:id" element={<PodcastDetail />} />
-            <Route path="/leaderboard" element={<LeaderboardPage />} />
-            <Route path="/verification" element={<Verification />} />
-          </Routes>
+          <Breadcrumbs />
+          <AppRoutes />
         </main>
         <Footer />
         <Ticker />

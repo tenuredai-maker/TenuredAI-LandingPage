@@ -33,11 +33,10 @@ export default function TopNavBar() {
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
   
   const navLinks = [
+    { name: 'Manifesto', path: '/manifesto' },
     { name: 'Passport', path: '/learners' },
     { name: 'Proving Ground', path: '/chaos-lab' },
-    { name: 'Marketplace', path: '/pricing' },
-    { name: 'Leaderboard', path: '/leaderboard' },
-    { name: 'Podcasts', path: '/podcasts' },
+    { name: 'Pricing', path: '/pricing' },
   ];
 
   return (

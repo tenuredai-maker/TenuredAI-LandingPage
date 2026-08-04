@@ -338,7 +338,7 @@ const RadarChartNode = ({ aici, aibs, aioi }: { aici: any, aibs: any, aioi: numb
 
 export default function TalentUnderwriting() {
   const navigate = useNavigate();
-  const { user, userProfile } = useAuth();
+  const { user, userProfile, setRedirectPath } = useAuth();
   const [activeTab, setActiveTab] = useState('console');
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -471,7 +471,8 @@ export default function TalentUnderwriting() {
 
   const saveResults = async () => {
     if (!user) {
-      alert("Please sign in to save your results.");
+      setRedirectPath(window.location.pathname);
+      navigate('/login');
       return;
     }
 

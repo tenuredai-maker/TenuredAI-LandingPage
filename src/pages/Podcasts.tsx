@@ -682,7 +682,7 @@ export default function Podcasts() {
               onClick={() => setIsSortDropdownOpen((prev) => !prev)}
               aria-haspopup="listbox"
               aria-expanded={isSortDropdownOpen}
-              className="flex items-center gap-2.5 bg-surface-container-low border border-outline-variant/15 rounded-full py-1.5 px-4 shadow-sm hover:border-primary/40 transition-all cursor-pointer select-none"
+              className="flex items-center gap-2.5 bg-surface-container-low border border-outline-variant/15 rounded-full py-1.5 px-4 shadow-sm hover:border-primary/40 transition-all cursor-pointer"
             >
               <Sliders className="w-3.5 h-3.5 text-primary/85" />
               <span className="text-[10px] font-mono font-bold text-on-surface-variant uppercase tracking-wider whitespace-nowrap">

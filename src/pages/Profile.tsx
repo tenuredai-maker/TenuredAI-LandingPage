@@ -32,6 +32,7 @@ import PointsDistributionChart from '../components/PointsDistributionChart';
 import NotificationSettings from '../components/NotificationSettings';
 import TargetGoalWidget from '../components/TargetGoalWidget';
 import ReputationGrowthChart from '../components/ReputationGrowthChart';
+import ReputationScore from '../components/ReputationScore';
 import SkillTreeProgress from '../components/SkillTreeProgress';
 import SkillRadarChart from '../components/SkillRadarChart';
 import ReputationVisualization from '../components/ReputationVisualization';
@@ -41,6 +42,7 @@ import ActivityStream from '../components/ActivityStream';
 import CommunityLeaderboard from '../components/CommunityLeaderboard';
 import RewardSummary, { Reward } from '../components/RewardSummary';
 import PortfolioPrintView from '../components/PortfolioPrintView';
+import ReputationShareCard from '../components/ReputationShareCard';
 import SocialProofSidebar from '../components/SocialProofSidebar';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -55,7 +57,7 @@ import {
 } from 'lucide-react';
 
 export default function Profile() {
-  const { user, userProfile, loading } = useAuth();
+  const { user, userProfile, loading, setRedirectPath } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -79,7 +81,9 @@ export default function Profile() {
   const isInitialMount = useRef(true);
   
   const pdfRef = useRef<HTMLDivElement>(null);
+  const shareCardRef = useRef<HTMLDivElement>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isGeneratingCard, setIsGeneratingCard] = useState(false);
 
   const handleDownloadPortfolio = async () => {
     if (!pdfRef.current) return;
@@ -112,6 +116,45 @@ export default function Profile() {
       console.error('Failed to generate PDF:', err);
     } finally {
       setIsGeneratingPdf(false);
+    }
+  };
+
+  const handleGenerateShareCard = async () => {
+    if (!shareCardRef.current) return;
+    try {
+      setIsGeneratingCard(true);
+      
+      const element = shareCardRef.current;
+      element.style.position = 'fixed';
+      element.style.left = '0';
+      element.style.top = '0';
+      element.style.zIndex = '-9999';
+      element.style.visibility = 'visible';
+
+      const canvas = await html2canvas(element, {
+        scale: 1, // 1080x1080 is already large
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#111111'
+      });
+      
+      element.style.position = 'absolute';
+      element.style.left = '-9999px';
+      element.style.visibility = 'hidden';
+
+      const imageUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = `${user?.displayName?.replace(/\s+/g, '_') || 'reputation'}_card.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      setShowShareDialog(false);
+    } catch (err) {
+      console.error('Failed to generate share card:', err);
+    } finally {
+      setIsGeneratingCard(false);
     }
   };
 
@@ -212,7 +255,7 @@ export default function Profile() {
     }
   };
 
-  if (loading) {
+  if (loading && !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
@@ -236,6 +279,7 @@ export default function Profile() {
           <p className="text-on-surface-variant text-sm font-body">You must authenticate via the Identity Portal before accessing your personal ledger data.</p>
           <Link 
             to="/login"
+            onClick={() => setRedirectPath(window.location.pathname)}
             className="block w-full py-4 bg-primary text-on-primary rounded-xl font-bold uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98]"
           >
             Authenticate Now
@@ -303,6 +347,16 @@ export default function Profile() {
         className="max-w-5xl mx-auto px-4 relative z-10"
       >
         <PortfolioPrintView ref={pdfRef} user={user} profileData={profileData} />
+        <div style={{ position: 'absolute', left: '-9999px', visibility: 'hidden' }}>
+          <ReputationShareCard 
+            ref={shareCardRef}
+            displayName={profileData.displayName}
+            photoURL={profileData.photoURL}
+            points={profileData.tenuredPoints || 0}
+            role={profileData.role}
+            achievements={calculateBadges(profileData).filter(b => b.isUnlocked)}
+          />
+        </div>
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
@@ -460,7 +514,7 @@ export default function Profile() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <LatestMilestones profile={profileData} />
+              <LatestMilestones profile={profileData} isLoading={loading} />
             </motion.div>
           </div>
 
@@ -499,11 +553,6 @@ export default function Profile() {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <PointsDistributionChart />
-            </motion.div>
-
-            {/* Target Goal Widget */}
-            <motion.div variants={itemVariants}>
               <TargetGoalWidget 
                 uid={user.uid} 
                 currentPoints={profileData.tenuredPoints || 0} 
@@ -517,12 +566,21 @@ export default function Profile() {
             </motion.div>
 
             {/* Analytical Insights Hub */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <motion.div variants={itemVariants} className="h-full">
+                <ReputationScore isLoading={loading} />
+              </motion.div>
+              <motion.div variants={itemVariants} className="h-full">
+                <ReputationVisualization />
+              </motion.div>
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <motion.div variants={itemVariants} className="h-full">
                 <SkillRadarChart />
               </motion.div>
               <motion.div variants={itemVariants} className="h-full">
-                <ReputationVisualization />
+                <PointsDistributionChart />
               </motion.div>
             </div>
 
@@ -558,7 +616,7 @@ export default function Profile() {
 
             {/* Reputation Badges Section */}
             <motion.div variants={itemVariants}>
-              <ReputationBadges profile={profileData} />
+              <ReputationBadges profile={profileData} isLoading={loading} />
             </motion.div>
 
             {/* Account Settings / Actions */}
@@ -644,13 +702,34 @@ export default function Profile() {
                   <X className="w-5 h-5" />
                 </button>
                 <h3 className="text-lg font-headline font-black text-on-surface mb-6 text-center">Share Identity</h3>
-                <div className="flex justify-center bg-white p-4 rounded-xl mb-6">
-                  <QRCodeSVG 
-                     value={`${window.location.origin}/profile/${user?.uid}`} 
-                     size={256}
-                     level="H"
-                  />
+                
+                <div className="space-y-4 mb-8">
+                  <button 
+                    onClick={handleGenerateShareCard}
+                    disabled={isGeneratingCard}
+                    className="w-full flex items-center justify-between p-4 bg-primary text-on-primary rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all group shadow-xl shadow-primary/20 disabled:opacity-50"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-on-primary/10 flex items-center justify-center">
+                        {isGeneratingCard ? <Loader2 className="w-5 h-5 animate-spin" /> : <Zap className="w-5 h-5" />}
+                      </div>
+                      <div className="text-left">
+                        <p className="text-sm font-bold tracking-tight">Social Reputation Card</p>
+                        <p className="text-[10px] opacity-70 font-mono uppercase">1080x1080 optimized</p>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-5 h-5 opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                  </button>
+
+                  <div className="p-4 bg-white rounded-2xl border border-outline-variant/10 flex items-center justify-center shadow-inner">
+                    <QRCodeSVG 
+                      value={`${window.location.origin}/profile/${user?.uid}`} 
+                      size={180}
+                      level="H"
+                    />
+                  </div>
                 </div>
+
                 <p className="text-xs font-mono text-center text-on-surface-variant/60 uppercase tracking-widest">
                   Scan to view public profile
                 </p>

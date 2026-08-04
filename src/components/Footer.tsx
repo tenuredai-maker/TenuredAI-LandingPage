@@ -39,7 +39,7 @@ export default function Footer() {
               <li><Link to="/underwriting" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Scores</Link></li>
               <li><Link to="/learners" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Passport</Link></li>
               <li><Link to="/chaos-lab" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Proving Ground</Link></li>
-              <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Marketplace</Link></li>
+              <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>
             </ul>
           </div>
 
@@ -75,7 +75,7 @@ export default function Footer() {
             <Link to="/terms" className="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/60 hover:text-primary">Terms</Link>
           </div>
           <div className="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant/40">
-            © 2024 Tenured AI. All identity packets encrypted.
+            © 2026 Tenured AI, Inc
           </div>
         </div>
       </div>

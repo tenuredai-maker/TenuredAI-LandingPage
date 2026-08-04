@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { auth, db, syncUserToFirestore } from '../lib/firebase';
+import { auth, db } from '../lib/firebase';
 
 interface AuthContextType {
   user: User | null;
   userProfile: any | null;
   loading: boolean;
+  redirectPath: string | null;
+  setRedirectPath: (path: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -15,24 +17,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
-  const [redirectChecking, setRedirectChecking] = useState(true);
+  const [redirectPath, setRedirectPathState] = useState<string | null>(() => sessionStorage.getItem('authRedirectPath'));
 
-  useEffect(() => {
-    const handleRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-          console.log("Successfully signed in via redirect, syncing user to Firestore...");
-          await syncUserToFirestore(result.user);
-        }
-      } catch (error) {
-        console.error("Error processing redirect sign-in result:", error);
-      } finally {
-        setRedirectChecking(false);
-      }
-    };
-    handleRedirect();
-  }, []);
+  const setRedirectPath = (path: string | null) => {
+    setRedirectPathState(path);
+    if (path) {
+      sessionStorage.setItem('authRedirectPath', path);
+    } else {
+      sessionStorage.removeItem('authRedirectPath');
+    }
+  };
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
@@ -63,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, userProfile, loading: loading || redirectChecking }}>
+    <AuthContext.Provider value={{ user, userProfile, loading, redirectPath, setRedirectPath }}>
       {children}
     </AuthContext.Provider>
   );

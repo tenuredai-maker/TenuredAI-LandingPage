@@ -109,6 +109,23 @@
         "createdAt": { "type": "string", "format": "date-time", "description": "When the endorsement was given." }
       },
       "required": ["authorId", "authorName", "recipientId", "skills", "comment", "createdAt"]
+    },
+    "Episode": {
+      "title": "Podcast Episode",
+      "description": "A podcast episode with metadata and transcript.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "episodeNumber": { "type": "number" },
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "duration": { "type": "string" },
+        "summary": { "type": "string" },
+        "category": { "type": "string" },
+        "likes": { "type": "number" },
+        "shares": { "type": "number" }
+      },
+      "required": ["id", "episodeNumber", "title", "date", "duration", "summary"]
     }
   },
   "firestore": {
@@ -143,6 +160,10 @@
     "/endorsements/{endorsementId}": {
       "schema": "Endorsement",
       "description": "Collection of verified peer endorsements."
+    },
+    "/podcasts/{podcastId}": {
+      "schema": "Episode",
+      "description": "Collection of podcast episodes with metadata and engagement stats."
     }
   }
 }

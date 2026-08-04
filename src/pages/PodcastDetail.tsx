@@ -730,7 +730,7 @@ export default function PodcastDetail() {
           )}
 
           {/* Keyboard Shortcuts Legend helper */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 mt-4 pt-3.5 border-t border-outline-variant/10 text-[9px] font-mono text-on-surface-variant/75 uppercase select-none tracking-wider">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 mt-4 pt-3.5 border-t border-outline-variant/10 text-[9px] font-mono text-on-surface-variant/75 uppercase tracking-wider">
             <span className="flex items-center gap-1.5">
               <span className="bg-surface-container-high border border-outline-variant/20 px-1.5 py-0.5 rounded text-on-surface font-extrabold shadow-sm">Space</span> Play/Pause
             </span>
@@ -1303,7 +1303,7 @@ export default function PodcastDetail() {
                     <img
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&color=232323&bgcolor=ffffff&data=${encodeURIComponent(`${window.location.origin}${window.location.pathname}${isShareClipMode ? `?t=${Math.floor(currentTime)}` : ""}`)}`}
                       alt="Episode QR Code"
-                      className="w-[96px] h-[96px] object-contain select-none"
+                      className="w-[96px] h-[96px] object-contain"
                       referrerPolicy="no-referrer"
                     />
                   </div>
@@ -1349,7 +1349,7 @@ export default function PodcastDetail() {
 
               {/* Bottom Escape key guide */}
               <div className="mt-6 pt-4 border-t border-outline-variant/10 text-center">
-                <span className="text-[9px] font-mono text-on-surface-variant/50 uppercase tracking-widest select-none">
+                <span className="text-[9px] font-mono text-on-surface-variant/50 uppercase tracking-widest">
                   Press <span className="bg-surface-container-lowest border border-outline-variant/20 px-1 py-0.5 rounded text-[10px] font-bold">Esc</span> key to close dialog
                 </span>
               </div>

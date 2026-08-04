@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 import { EmailDigestService } from "./src/services/emailDigestService";
 
@@ -185,9 +186,24 @@ async function startServer() {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
-      appType: "spa",
+      appType: "custom",
     });
     app.use(vite.middlewares);
+    app.use("*", async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        const templatePath = path.resolve(process.cwd(), "index.html");
+        if (!fs.existsSync(templatePath)) {
+          return res.status(404).send("index.html not found");
+        }
+        let template = fs.readFileSync(templatePath, "utf-8");
+        template = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ "Content-Type": "text/html" }).end(template);
+      } catch (e) {
+        vite.ssrFixStacktrace(e as Error);
+        next(e);
+      }
+    });
   } else {
     // Production: serve static files from dist
     const distPath = path.join(process.cwd(), "dist");
