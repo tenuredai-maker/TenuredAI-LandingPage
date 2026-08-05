@@ -3,13 +3,44 @@ import {
   ArrowUpRight, ShieldCheck, Terminal, Network, Brain, Database, Lock, 
   RefreshCw, Landmark, Loader2, Check, BarChart3, Badge, Link as LinkIcon,
   Mail, MessageSquare, Phone, Globe, Cpu, Zap, Award, Shield, Quote, Star,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, ShieldAlert, Clock, Activity, ArrowRight, BookOpen, 
+  Play, Volume2, Code2, HelpCircle, Sparkles, School, Bolt, Search, Settings, GitBranch
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useMemo, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Radar as RadarArea, ResponsiveContainer } from 'recharts';
 import { cn } from '../lib/utils';
 import TenuredLeaderboard from '../components/TenuredLeaderboard';
+
+const Tooltip: React.FC<{ children: React.ReactNode; content: React.ReactNode; externalVisible?: boolean }> = ({ children, content, externalVisible }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const show = externalVisible || isVisible;
+
+  return (
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {children}
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: -5, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 z-50 w-64 p-4 bg-surface-container-highest/95 backdrop-blur-xl rounded-xl ambient-shadow pointer-events-none border border-outline-variant/10 shadow-2xl"
+          >
+            <div className="relative z-10">
+              {content}
+            </div>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-surface-container-highest/95" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export default function Home() {
   const navigate = useNavigate();
@@ -27,6 +58,181 @@ export default function Home() {
   // FAQ state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
+  // Proving Ground states
+  const [pgActiveLevel, setPgActiveLevel] = useState<'idle' | 'L1' | 'L2' | 'L3'>('idle');
+  const [pgLogs, setPgLogs] = useState<Array<{ text: string, type: 'info' | 'ok' | 'err' | 'chaos' | 'invigilator' | 'input' }>>([
+    { text: "Initializing V-100 Proving Ground Protocol...", type: 'info' },
+    { text: "Node Identity · SOVEREIGN_ALPHA_7 · DID verified", type: 'ok' },
+    { text: "[INVIGILATOR] ALTFL armed · 6 channels · monitoring", type: 'invigilator' },
+    { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
+    { text: "⏳ running 24 assertions...", type: 'info' },
+    { text: "✓ 22 passed · ✗ 2 failed (retrieval grounding)", type: 'err' },
+  ]);
+  const [pgCaScore, setPgCaScore] = useState(81);
+  const [pgCaDelta, setPgCaDelta] = useState('');
+  const [pgTelemetry, setPgTelemetry] = useState({
+    KV: 'nominal',
+    IL: 'nominal',
+    CP: '0.82',
+    ET: 'nominal',
+    VO: '22/24',
+    CCT: '0.04'
+  });
+  const [pgCouncil, setPgCouncil] = useState({
+    invigilator: 'active',
+    chaos: 'idle',
+    auditor: 'idle',
+    mentor: 'suspended'
+  });
+  const [showOverrideModal, setShowOverrideModal] = useState(false);
+  const [overrideStep, setOverrideStep] = useState(0);
+  const [isOverrideExecuting, setIsOverrideExecuting] = useState(false);
+
+  const [taMode, setTaMode] = useState<'mentor' | 'invigilator'>('mentor');
+  const [taTtr, setTaTtr] = useState(45); // Observed TTR in seconds (baseline 45s)
+  const [taActiveCouncilAgent, setTaActiveCouncilAgent] = useState<'mentor' | 'invigilator' | 'auditor' | 'chaos' | null>(null);
+
+  // Learning Loop states
+  const [decayMv, setDecayMv] = useState(60);
+  const [decayIar, setDecayIar] = useState(50);
+  const [decaySd, setDecaySd] = useState(40);
+  const [decayG, setDecayG] = useState(70);
+  const [decaySigma, setDecaySigma] = useState(82);
+
+  const [activeModule, setActiveModule] = useState<'article' | 'video' | 'podcast' | 'code' | 'quiz'>('article');
+  const [presenceState, setPresenceState] = useState<'active' | 'idle' | 'lost'>('active');
+  const [playProgress, setPlayProgress] = useState(35);
+  const [accruedTp, setAccruedTp] = useState(140);
+
+  const calculatedLambda = useMemo(() => {
+    return Math.max(0.01, (decayMv * 0.003 + decayIar * 0.004 + decaySd * 0.002) - (decayG * 0.001 * (decaySigma / 100)));
+  }, [decayMv, decayIar, decaySd, decayG, decaySigma]);
+
+  const daysToBreach = useMemo(() => {
+    return Number((0.3051 / calculatedLambda).toFixed(1));
+  }, [calculatedLambda]);
+
+  const triggerL1 = () => {
+    setPgActiveLevel('L1');
+    setPgCaScore(76);
+    setPgCaDelta('-5');
+    setPgTelemetry({
+      KV: 'nominal',
+      IL: '1.2s delay',
+      CP: '0.64',
+      ET: '1 backtrack',
+      VO: '18/24',
+      CCT: '0.12'
+    });
+    setPgCouncil({
+      invigilator: 'active',
+      chaos: 'active',
+      auditor: 'idle',
+      mentor: 'suspended'
+    });
+    setPgLogs([
+      { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
+      { text: "✗ POST /v1/embeddings → 503 Service Unavailable", type: 'err' },
+      { text: "[CHAOS] L1 · Your retry interval is too aggressive — back off and let the gateway settle.", type: 'chaos' },
+      { text: "[INVIGILATOR] Core exception detected. Telemetry flagged. Response interval anomalous.", type: 'invigilator' }
+    ]);
+  };
+
+  const triggerL2 = () => {
+    setPgActiveLevel('L2');
+    setPgCaScore(68);
+    setPgCaDelta('-8');
+    setPgTelemetry({
+      KV: 'high burst',
+      IL: '4.8s delay',
+      CP: '0.52',
+      ET: '3 backtracks',
+      VO: '14/24',
+      CCT: '0.24'
+    });
+    setPgCouncil({
+      invigilator: 'warning',
+      chaos: 'active',
+      auditor: 'idle',
+      mentor: 'suspended'
+    });
+    setPgLogs([
+      { text: "learner@sovereign:~$ pnpm run apply-retry-patch", type: 'input' },
+      { text: "✓ partial: 503 resolved", type: 'ok' },
+      { text: "[INVIGILATOR] Pattern-match detected · Bully Loop arming...", type: 'invigilator' },
+      { text: "✗ POST /v1/embeddings → 401 Unauthorized", type: 'err' },
+      { text: "[CHAOS] L2 · Different symptom · same domain. The Bully Logic loop has rotated. Auth credentials expired.", type: 'chaos' },
+      { text: "[INVIGILATOR] 45s to identify the actual cause before AIBS penalizes.", type: 'invigilator' }
+    ]);
+  };
+
+  const triggerL3 = () => {
+    setPgActiveLevel('L3');
+    setPgCaScore(55);
+    setPgCaDelta('-13');
+    setPgTelemetry({
+      KV: 'anomalous burst',
+      IL: '8.4s delay',
+      CP: '0.41',
+      ET: '5 backtracks',
+      VO: '11/24',
+      CCT: '0.38'
+    });
+    setPgCouncil({
+      invigilator: 'warning',
+      chaos: 'warning',
+      auditor: 'idle',
+      mentor: 'suspended'
+    });
+    setPgLogs([
+      { text: "learner@sovereign:~$ pnpm run check-credentials", type: 'input' },
+      { text: "[CHAOS] L3 · The environment is stable. Your local system clock is skewed by 31 seconds. Adjust clock or terminate session.", type: 'chaos' },
+      { text: "[INVIGILATOR] System time verified correct. Gaslighting active. Sovereign Override Code 31 unlocked.", type: 'invigilator' }
+    ]);
+  };
+
+  const executeOverride = () => {
+    setIsOverrideExecuting(true);
+    setOverrideStep(1);
+    
+    setTimeout(() => {
+      setOverrideStep(2);
+    }, 800);
+    
+    setTimeout(() => {
+      setOverrideStep(3);
+    }, 1600);
+    
+    setTimeout(() => {
+      setPgActiveLevel('idle');
+      setPgCaScore(98);
+      setPgCaDelta('+17');
+      setPgTelemetry({
+        KV: 'nominal',
+        IL: 'nominal',
+        CP: '0.98',
+        ET: 'nominal',
+        VO: '24/24',
+        CCT: '0.01'
+      });
+      setPgCouncil({
+        invigilator: 'active',
+        chaos: 'idle',
+        auditor: 'active',
+        mentor: 'active'
+      });
+      setPgLogs([
+        { text: "learner@sovereign:~$ execute-override --code 31", type: 'input' },
+        { text: "[INVIGILATOR] Sovereign Override executed. truth_baseline = TRUE. Chaos Agent bypassed.", type: 'invigilator' },
+        { text: "[AUDITOR] Weighted consensus: 0.98. MINTING Consensus Certificate.", type: 'ok' },
+        { text: "[MENTOR] Gate cleared. Merit credential anchored to Ledger at block 81,402.", type: 'ok' }
+      ]);
+      setIsOverrideExecuting(false);
+      setShowOverrideModal(false);
+      setOverrideStep(0);
+    }, 2400);
+  };
+
   useEffect(() => {
     // Simulate data fetching for perceived performance
     const timer = setTimeout(() => {
@@ -38,35 +244,74 @@ export default function Home() {
 
   const faqs = [
     {
-      question: "What is the Sovereign Ledger?",
-      answer: "The Sovereign Ledger is an immutable, cryptographically secure database that tracks every verified performance event, credential, and skill acquisition. It ensures that your professional reputation is portable, verifiable, and owned exclusively by you."
+      question: "What is Tenured AI, in one sentence?",
+      answer: "Tenured AI is the verification infrastructure for AI-era talent — a platform where engineers prove what they can do in air-gapped, adversarial environments, earn cryptographically-anchored credentials (Sovereign Passports), and get hired through a market that prices their actual competence rather than their résumé claims."
     },
     {
-      question: "How are AICI scores calculated?",
-      answer: "AICI (AI Competency Index) is calculated through a multi-dimensional assessment that measures prompt fidelity, latent recall, complex orchestration, and ethical alignment. We use adversarial stress tests to ensure the score reflects real-world resilience."
+      question: "What problem is Tenured AI actually solving?",
+      answer: "Large language models — ChatGPT, Claude, Gemini — have made traditional credentials forensically empty. A degree, a coding test, a take-home assignment, a LinkedIn endorsement no longer prove what they used to. The platform exists to restore the signal: a credential that can't be faked by AI, because the test was specifically engineered against AI assistance, and the record is cryptographically sealed."
     },
     {
-      question: "Is my data private and secure?",
-      answer: "Yes. We utilize a 'Redacted by Default' architecture. While your achievements are verified on the ledger, specific performance telemetry is only shared with your explicit consent via your Sovereign Passport."
+      question: "What is a \"Hard-Gate\"?",
+      answer: "A Hard-Gate is an adversarial engineering challenge run inside an air-gapped Proving Ground environment. The candidate works on a real engineering task (production RAG, prompt injection defense, multi-agent consensus, vector DB tuning) while a four-agent AI council monitors their behavior, injects live chaos (broken dependencies, malformed inputs, adversarial requests), and grades them against a six-channel forensic telemetry stream."
     },
     {
-      question: "What is the 40/40/20 Dividend Engine?",
-      answer: "It is our connectionist economic model where platform value is distributed: 40% to institutional reinvestment, 40% directly to users based on their contribution, and 20% to social dividends for public infrastructure."
+      question: "What does the Sovereign Passport actually contain?",
+      answer: "The Sovereign Passport is the user's portable credential — a Merkle-anchored artifact carrying every Hard-Gate they've cleared, their current Command Authority score, their Triple-Threat sub-scores (AICI, AIOI, AIBS), their Tier label, their bonded credentials and bond status, their Career Memory of every sealed artifact they've produced, and any Asymmetric Liability flags from past Gates."
     },
     {
-      question: "How do I join the waitlist?",
-      answer: "You can request access through our secure onboarding portal. Once verified, you'll be placed on the waitlist and assigned a node ID for the Sovereign AI economy."
+      question: "What is the Tenured Agent? Is it ChatGPT?",
+      answer: "The Tenured Agent is the platform's AI orchestrator — a four-agent council architecture, not a single chatbot. It operates internally as four specialized agents with strict separation of concerns: the Mentor (supportive, growth-focused), the Invigilator (monitors integrity and detects AI-mediated cheating), the Auditor (silently evaluates artifacts for the Consensus Certificate), and the Chaos Agent (dispatches adversarial injections during Hard-Gates). No single agent can mint a credential."
+    },
+    {
+      question: "What is the Learning Loop? How does daily practice actually work?",
+      answer: "The Learning Loop is the platform's daily practice surface — three integrated modules: Forge (Two-Phase Flashcard drills, the recall + compression pattern that builds long-term retention), Refresh Labs (scoped exercises that restore decayed knowledge before λ drift drops a node below the active threshold), and Successor Gates (Tenured-Agent-synthesized challenges derived from the user's own artifact history)."
+    },
+    {
+      question: "How does Sovereign Underwriting work at a high level?",
+      answer: "Sovereign Underwriting is the financial layer wrapping the platform. It converts each verified hire into a bonded position: π premium ($11,250/yr for a $200K + $25K-premium hire), V_u guarantee ($150K paid atomically if the hire's Command Authority drifts below strike), EWARD dashboard (enterprise-side workforce risk surface), Chubb-tier integration (15–35% premium credit on D&O / E&O policies depending on Organizational Sovereign Density)."
+    },
+    {
+      question: "How is this different from LinkedIn / HackerRank / Coursera / a degree?",
+      answer: "None of the alternatives produce a credential that resists LLM-mediated cheating, carries a forensic record of how the candidate actually worked, or anchors to a public chain the recruiter can verify without trusting the issuer. LinkedIn is self-reported. HackerRank tests are LLM-defeated. Coursera certifies completion not competence. A degree certifies what you finished, not what you can currently do."
+    },
+    {
+      question: "Can a candidate actually cheat the Hard-Gate?",
+      answer: "The platform is engineered against the obvious cheating vectors. The Hard-Gate runs in an air-gapped sandbox where the candidate's screen contents are not the same as the platform's live state — so pasting their terminal output into ChatGPT and asking for help produces guidance that is plausible-looking but wrong, because ChatGPT can't see the live chaos injections. The Invigilator agent monitors keystroke patterns for AI-typical signatures and can trigger a Hard-Gate Preemption mid-session when AI-mediation confidence crosses the threshold."
+    },
+    {
+      question: "Do credentials expire? What is \"decay\"?",
+      answer: "Yes — credentials decay over time. The AI field moves fast (vector DB ecosystems shift, model APIs change, regulatory frameworks evolve), and a credential earned in 2024 cannot honestly represent current competence in 2026 without re-verification. The platform's PAT-003 Skill-Decay model assigns each ontology node its own λ coefficient computed nightly from market velocity, regulatory drift, and the user's Grit Moat."
     }
   ];
 
-  // Methodology state for radar
-  const [aiciScores] = useState({
+  // Methodology states
+  const [aiciScores, setAiciScores] = useState<Record<string, number>>({
     'Prompt Fidelity': 92,
     'Latent Recall': 85,
     'Orchestration': 96,
     'Ethical Alignment': 89,
     'Debug Speed': 94,
   });
+
+  const [aioiScores, setAioiScores] = useState<Record<string, number>>({
+    'Multi-agent Sync': 94,
+    'Loop Efficiency': 91,
+    'Context Management': 88,
+    'Strategic Routing': 95,
+    'System Resilience': 92,
+  });
+
+  const [aibsScores, setAibsScores] = useState<Record<string, number>>({
+    'Vector RAG': 98,
+    'Model Optimization': 92,
+    'Schema Soundness': 95,
+    'Deployment Velocity': 90,
+    'Infrastructure Integrity': 94,
+  });
+
+  const [aibsLog, setAibsLog] = useState<string[]>(['System initialized...', 'Baseline architecture verified.']);
+  const [hoveredAiciKey, setHoveredAiciKey] = useState<string | null>(null);
 
   const getRadarData = (scores: Record<string, number>) => 
     Object.entries(scores).map(([subject, value]) => ({
@@ -75,7 +320,66 @@ export default function Home() {
       fullMark: 100,
     }));
 
+  const getAverage = (scores: Record<string, number>) => {
+    const vals = Object.values(scores) as number[];
+    return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+  };
+
   const aiciRadarData = useMemo(() => getRadarData(aiciScores), [aiciScores]);
+  const aioiRadarData = useMemo(() => getRadarData(aioiScores), [aioiScores]);
+  const aibsRadarData = useMemo(() => getRadarData(aibsScores), [aibsScores]);
+
+  const updateAibsScore = (key: string, value: number) => {
+    const oldValue = aibsScores[key] || 0;
+    setAibsScores(prev => ({ ...prev, [key]: value }));
+    if (Math.abs(oldValue - value) > 5) {
+      setAibsLog(prevLog => [`[LOG] ${key} recalibrated to ${value}%`, ...prevLog].slice(0, 5));
+    }
+  };
+
+  const [aioiedScores, setAioiedScores] = useState<Record<string, number>>({
+    'Efficiency': 96,
+    'Security': 98,
+    'Debug Speed': 94,
+  });
+
+  const aiciWhyMatters: Record<string, string> = {
+    'Prompt Fidelity': 'Ensures that AI outputs align perfectly with complex business logic, reducing the need for manual prompt engineering iterations.',
+    'Latent Recall': 'Critical for long-running workflows where maintaining context over thousands of tokens is necessary for consistent decision-making.',
+    'Orchestration': 'High orchestration scores enable the management of multi-agent swarms with minimal supervisor intervention.',
+    'Ethical Alignment': 'Essential for institutional deployment to ensure compliance with global safety standards and minimize reputational risk.',
+    'Debug Speed': 'Directly impacts the agility of the development cycle, allowing for rapid recovery from logical AI failures in production.',
+  };
+
+  const aiciDescriptions: Record<string, string> = {
+    'Prompt Fidelity': 'Accuracy in translating complex human intent into executable instructions.',
+    'Latent Recall': 'Ability to retrieve and apply deep-context information.',
+    'Orchestration': 'Efficiency in managing multi-step reasoning chains, as well as the capacity to effectively lead cross-functional teams, allocate project resources dynamically, and drive strategic initiatives to completion.',
+    'Ethical Alignment': 'Adherence to safety protocols and bias mitigation.',
+    'Debug Speed': 'Rapid identification and correction of logical fallacies.',
+  };
+
+  const aioiDescriptions: Record<string, string> = {
+    'Multi-agent Sync': 'Coordination efficacy between specialized synthetic agents in a shared environment.',
+    'Loop Efficiency': 'Optimization of iterative reasoning cycles to minimize latency and token overhead.',
+    'Context Management': 'Precision in maintaining state and relevance across long-form strategic sessions.',
+    'Strategic Routing': 'Intelligent delegation of tasks to the most capable model or agent node.',
+    'System Resilience': 'Ability to maintain operational integrity under high-concurrency or adversarial conditions.',
+  };
+
+  const aibsDescriptions: Record<string, string> = {
+    'Vector RAG': 'Sophistication of retrieval-augmented generation architectures and embedding precision.',
+    'Model Optimization': 'Efficacy in fine-tuning, quantization, and performance-tuning for specific use cases.',
+    'Schema Soundness': 'Structural integrity and scalability of data models and API interfaces.',
+    'Deployment Velocity': 'Speed and reliability of transitioning synthetic solutions from dev to production.',
+    'Infrastructure Integrity': 'Robustness of the underlying compute, storage, and networking stack.',
+  };
+
+  const aioiedDescriptions: Record<string, string> = {
+    'Efficiency': 'Measures the optimization of AI resource allocation and the speed of automated educational workflows.',
+    'Security': 'Evaluates the robustness of student data protection, privacy protocols, and institutional node integrity.',
+    'Debug Speed': 'Quantifies the agility in identifying and resolving technical glitches or pedagogical misalignments.',
+  };
 
   const companies = [
     { name: "NEURAL_NET", icon: Cpu },
@@ -338,10 +642,165 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Triple-Threat Scoring Section / Scores from /docs */}
-      <section className="bg-surface-container-low py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+      {/* Section 2: Triple-Threat Scoring Section */}
+      <section className="py-24 bg-surface px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <h2 className="font-headline text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core Trinity Metrics</h2>
+            <p className="text-on-surface-variant max-w-3xl">A multidimensional approach to AI proficiency. We don't just measure output; we measure the architecture of intelligence and the efficacy of the operator.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            {/* AICI™ Card */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
+            >
+              <div className="space-y-6 flex-grow">
+                <div className="flex justify-between items-start">
+                  <div className="text-xs font-bold text-primary tracking-widest uppercase">Index I</div>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                </div>
+                <h3 className="text-3xl font-headline font-bold text-on-surface">AICI™: Competency</h3>
+                <p className="text-sm text-on-surface-variant leading-relaxed">Focus on foundational literacy, prompting logic, and ethical framework alignment. Verifying the bridge between human intent and synthetic reasoning.</p>
+                
+                <div className="pt-4">
+                  <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">Foundational Knowledge Heatmap</div>
+                  <div className="grid grid-cols-8 gap-1">
+                    {Array.from({ length: 16 }).map((_, i) => (
+                      <div key={i} className={cn(
+                        "h-8 rounded-sm transition-colors duration-500",
+                        i % 3 === 0 ? "bg-primary/90" : i % 2 === 0 ? "bg-primary/60" : "bg-primary/30"
+                      )}></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="pt-8 space-y-4">
+                {[
+                  { label: "Prompting Logic", val: 92 },
+                  { label: "Ethical Framework", val: 89 }
+                ].map((item, i) => (
+                  <div key={i}>
+                    <div className="flex justify-between items-end mb-1">
+                      <span className="text-[10px] font-bold uppercase text-secondary tracking-widest">{item.label}</span>
+                      <span className="text-sm font-bold text-primary">{item.val}/100</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${item.val}%` }}
+                        viewport={{ once: true }}
+                        className="h-full bg-primary"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* AIOI™ Card */}
+            <div className="space-y-8 flex flex-col">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                className="bg-primary text-on-primary p-10 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col h-full group"
+              >
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+                <div className="relative z-10 space-y-6 flex-grow">
+                  <div className="text-xs font-bold text-primary-fixed tracking-widest uppercase">Index II • Strategic Level</div>
+                  <h3 className="text-3xl font-headline font-bold text-white">AIOI™: Orchestration</h3>
+                  <p className="text-sm text-primary-fixed leading-relaxed">Focusing on Strategic Orchestration: managing systems, multi-agent workflows, and AI solution architecture. Command of the machine through complex loops and agentic reasoning.</p>
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="border-l-2 border-primary-fixed/30 pl-3">
+                      <div className="text-[10px] uppercase font-bold text-primary-fixed/70 tracking-widest">Workflows</div>
+                      <div className="text-lg font-bold">9.7</div>
+                    </div>
+                    <div className="border-l-2 border-primary-fixed/30 pl-3">
+                      <div className="text-[10px] uppercase font-bold text-primary-fixed/70 tracking-widest">Strategy</div>
+                      <div className="text-lg font-bold">9.4</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative z-10 pt-8 flex items-center gap-4">
+                  <GitBranch className="text-primary-fixed w-8 h-8" />
+                  <div className="h-1 flex-grow bg-primary-fixed/20 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '96%' }}
+                      viewport={{ once: true }}
+                      className="h-full bg-primary-fixed"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              <div className="bg-surface-container-highest p-6 rounded-3xl border-2 border-primary/20 relative overflow-hidden flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <School className="text-on-primary w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold tracking-tight text-on-surface">AIOI-ED™ Educator Designation</h4>
+                    <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Specialized Management Sub-score</p>
+                  </div>
+                </div>
+                <p className="text-[11px] text-on-surface-variant leading-tight">A specialized sub-score for Management & Education focusing on Efficiency, Security, and Debug Speed. Measured via the WMF (Weighted Multi-Factor) Index.</p>
+                <div className="bg-on-surface/5 rounded-xl p-3 font-mono text-[10px] border border-outline-variant/10">
+                  <div className="text-primary font-bold mb-1">// WMF Index: Efficiency (40%) + Security (30%) + Debug (30%)</div>
+                  <div className="flex justify-between items-center text-on-surface">
+                    <span>Certification Status:</span>
+                    <span className="text-green-600 font-bold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> VALIDATED
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* AIBS™ Card */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
+            >
+              <div className="space-y-6 flex-grow">
+                <div className="flex justify-between items-start">
+                  <div className="text-xs font-bold text-primary tracking-widest uppercase">Index III • Architect</div>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                </div>
+                <h3 className="text-3xl font-headline font-bold text-on-surface">AIBS™: Builder Score</h3>
+                <p className="text-sm text-on-surface-variant leading-relaxed">Quantifying technical architect skills: RAG, vector databases, model optimization, and complex agentic workflows.</p>
+                
+                <div className="pt-4">
+                  <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">System Integrity Stress-Test</div>
+                  <div className="w-full h-24 bg-surface-container flex items-center justify-center rounded-xl border border-outline-variant/20 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent animate-[shimmer_2s_infinite]"></div>
+                    <div className="w-16 h-16 rounded-full border-2 border-primary/20 flex items-center justify-center animate-pulse">
+                      <Bolt className="text-primary w-8 h-8" />
+                    </div>
+                    <div className="absolute bottom-2 right-3 text-[10px] font-mono text-primary animate-pulse uppercase tracking-widest">Optimizing...</div>
+                  </div>
+                </div>
+              </div>
+              <div className="pt-8 grid grid-cols-2 gap-4">
+                {[
+                  { label: "Vector RAG", val: (aibsScores['Vector RAG'] / 10).toFixed(1) },
+                  { label: "Model Opt.", val: (aibsScores['Model Optimization'] / 10).toFixed(1) }
+                ].map((item, i) => (
+                  <div key={i} className="bg-surface-container p-4 rounded-xl border border-outline-variant/10">
+                    <div className="text-[10px] uppercase font-bold text-secondary mb-2 tracking-widest">{item.label}</div>
+                    <div className="text-xl font-bold text-on-surface">{item.val}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section: AICI™ Deep Dive Interactive Radar */}
+      <section id="aici-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -349,68 +808,1617 @@ export default function Home() {
               className="space-y-8"
             >
               <div className="space-y-4">
-                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Protocol Verification</span>
-                <h2 className="text-4xl md:text-6xl font-headline font-bold tracking-tight">The Core <span className="italic text-primary">Trinity</span> Metrics</h2>
-                <p className="text-on-surface-variant leading-relaxed text-lg font-body">
-                  We don't just measure output; we measure the architecture of intelligence. Our proprietary algorithm weights cross-functional metrics to determine institutional grade.
+                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Interactive Assessment</span>
+                <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">AICI™ Deep Dive</h2>
+                <p className="text-on-surface-variant leading-relaxed text-lg">
+                  Simulate your institutional competency score by adjusting the core metrics below. Our proprietary algorithm weights these factors to determine your global node ranking.
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  { icon: ShieldCheck, label: "AICI™ Competency", val: "94.2", desc: "Foundational literacy & strategic logic.", link: "/docs#aici-section" },
-                  { icon: Network, label: "AIOI™ Orchestration", val: "91.8", desc: "Multi-agent workflow command.", link: "/docs#aioi-section" },
-                  { icon: Terminal, label: "AIBS™ Builder", val: "L4", desc: "Technical mastery & RAG architecture.", link: "/docs#aibs-section" },
-                  { icon: Brain, label: "Cognitive Integrity", val: "0.98", desc: "Sovereign agency under friction.", link: "/docs#integrity-section" }
-                ].map((item, i) => (
-                  <Link key={i} to={item.link}>
-                    <motion.div 
-                      whileHover={{ scale: 1.02, y: -4 }}
-                      className="p-6 bg-surface-container-high rounded-xl border border-outline-variant/10 cursor-pointer hover:shadow-lg hover:shadow-primary/5 transition-all h-full"
-                    >
-                      <item.icon className="w-6 h-6 text-primary mb-3" />
-                      <div className="flex justify-between items-baseline mb-1">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-secondary">{item.label}</h4>
-                        <span className="text-sm font-bold text-primary">{item.val}</span>
+
+              <div className="space-y-6">
+                {Object.entries(aiciScores).map(([key, value]) => (
+                  <Tooltip 
+                    key={key} 
+                    externalVisible={hoveredAiciKey === key}
+                    content={
+                      <div className="space-y-2 text-left">
+                        <div className="flex justify-between items-center border-b border-outline-variant/15 pb-1.5 mb-1.5">
+                          <span className="text-[10px] font-bold text-primary uppercase tracking-[0.1em]">{key}</span>
+                          <span className="font-mono text-xs font-bold text-on-surface">{value}</span>
+                        </div>
+                        <p className="text-[10px] text-on-surface leading-relaxed font-medium">
+                          {aiciDescriptions[key]}
+                        </p>
+                        <div className="pt-1.5 border-t border-outline-variant/15">
+                          <h4 className="text-[8px] font-bold text-primary uppercase tracking-[0.1em] mb-1">Why this matters</h4>
+                          <p className="text-[9px] text-on-surface-variant leading-relaxed italic">
+                            {aiciWhyMatters[key]}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-on-surface-variant leading-relaxed">{item.desc}</p>
+                    }
+                  >
+                    <motion.div 
+                      layout
+                      animate={hoveredAiciKey === key ? { 
+                        scale: 1.02,
+                        x: 5,
+                        backgroundColor: "rgba(119, 90, 25, 0.08)"
+                      } : { 
+                        scale: 1,
+                        x: 0,
+                        backgroundColor: "rgba(255, 255, 255, 0)"
+                      }}
+                      className={cn(
+                        "space-y-2 p-3 transition-all duration-300 rounded-xl cursor-help border border-transparent",
+                        hoveredAiciKey === key ? "border-primary/20 shadow-xl ring-1 ring-primary/10" : "hover:bg-white/40"
+                      )}
+                    >
+                      <div className="flex justify-between items-center">
+                        <label className={cn(
+                          "text-xs font-bold uppercase tracking-widest transition-colors",
+                          hoveredAiciKey === key ? "text-primary" : "text-secondary group-hover:text-primary"
+                        )}>{key}</label>
+                        <div className="flex items-center gap-2">
+                          {hoveredAiciKey === key && (
+                            <motion.span 
+                              initial={{ opacity: 0, x: -5 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className="text-[8px] font-black text-primary uppercase tracking-tighter"
+                            >
+                              Selected Node
+                            </motion.span>
+                          )}
+                          <span className="text-sm font-mono font-bold text-primary">{value}</span>
+                        </div>
+                      </div>
+                      <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
+                        {aiciDescriptions[key]}
+                      </p>
+                      <div className="relative">
+                        <input 
+                          type="range" 
+                          min="0" 
+                          max="100" 
+                          value={value}
+                          onChange={(e) => setAiciScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
+                          className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary relative z-10"
+                        />
+                        {hoveredAiciKey === key && (
+                          <motion.div 
+                            layoutId="active-glow"
+                            className="absolute -inset-1 bg-primary/10 blur-sm rounded-full z-0"
+                          />
+                        )}
+                      </div>
                     </motion.div>
-                  </Link>
+                  </Tooltip>
                 ))}
+              </div>
+
+              <div className="pt-8 border-t border-outline-variant/20">
+                <div className="flex items-center gap-6">
+                  <div className="text-center">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1 text-on-surface-variant">Simulated Score</div>
+                    <div className="text-5xl font-headline font-bold text-primary">{getAverage(aiciScores)}</div>
+                  </div>
+                  <div className="h-12 w-px bg-outline-variant/30"></div>
+                  <div className="flex-grow">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2 text-on-surface-variant">Institutional Tier</div>
+                    <div className="text-lg font-bold text-on-surface">
+                      {getAverage(aiciScores) >= 90 ? 'Sovereign Elite' : getAverage(aiciScores) >= 75 ? 'Institutional Grade' : 'Foundational'}
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.01 }}
               viewport={{ once: true }}
-              className="bg-surface p-8 md:p-12 rounded-3xl border border-outline-variant/10 shadow-2xl relative overflow-hidden transition-all duration-500"
+              className="bg-surface p-12 rounded-3xl border border-outline-variant/10 shadow-2xl relative overflow-hidden"
             >
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aiciRadarData}>
+                  <RadarChart 
+                    cx="50%" 
+                    cy="50%" 
+                    outerRadius="80%" 
+                    data={aiciRadarData}
+                    onMouseMove={(data) => {
+                      if (data && data.activeLabel) {
+                        setHoveredAiciKey(data.activeLabel);
+                      }
+                    }}
+                    onMouseLeave={() => setHoveredAiciKey(null)}
+                  >
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
                     <PolarAngleAxis 
                       dataKey="subject" 
-                      tick={{ fill: '#775a19', fontSize: 10, fontWeight: 'bold' }} 
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
                     />
                     <RadarArea 
                       name="Score" 
                       dataKey="A" 
                       stroke="#775a19" 
                       fill="#775a19" 
-                      fillOpacity={0.4} 
+                      fillOpacity={0.5} 
+                      animationDuration={300}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-primary/5 px-4 py-2 rounded-full border border-primary/10 backdrop-blur-sm">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Active Verification Engine</span>
+              
+              <AnimatePresence>
+                {hoveredAiciKey && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                    className="absolute bottom-6 left-6 right-6 bg-primary/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-white/20 z-20 pointer-events-none"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                        <Activity className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">{hoveredAiciKey}</span>
+                          <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-white/10 text-white">{aiciScores[hoveredAiciKey]}%</span>
+                        </div>
+                        <p className="text-[11px] text-white/90 leading-tight font-medium">
+                          {aiciWhyMatters[hoveredAiciKey]}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div className="absolute top-6 right-6">
+                <div className="flex items-center gap-2 bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Real-time Sync</span>
+                </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section: AIOI™ Deep Dive Interactive Radar */}
+      <section id="aioi-section" className="py-24 bg-surface px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="bg-primary p-12 rounded-3xl shadow-2xl relative overflow-hidden order-2 lg:order-1"
+            >
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]"></div>
+              <div className="aspect-square w-full relative z-10">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aioiRadarData}>
+                    <PolarGrid stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
+                    <PolarAngleAxis 
+                      dataKey="subject" 
+                      tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 'bold' }} 
+                    />
+                    <RadarArea 
+                      name="Score" 
+                      dataKey="A" 
+                      stroke="#ffffff" 
+                      fill="#ffffff" 
+                      fillOpacity={0.3} 
+                      animationDuration={300}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8 order-1 lg:order-2"
+            >
+              <div className="space-y-4">
+                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Strategic Orchestration</span>
+                <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">AIOI™ Deep Dive</h2>
+                <p className="text-on-surface-variant leading-relaxed text-lg">
+                  Measure your capacity for multi-agent synchronization and system resilience. High AIOI scores indicate a mastery of complex synthetic workflows.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {Object.entries(aioiScores).map(([key, value]) => (
+                  <div key={key} className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold uppercase tracking-widest text-secondary">{key}</label>
+                      <span className="text-sm font-mono font-bold text-primary">{value}</span>
+                    </div>
+                    <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
+                      {aioiDescriptions[key]}
+                    </p>
+                    <input 
+                      type="range" 
+                      min="0" 
+                      max="100" 
+                      value={value}
+                      onChange={(e) => setAioiScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
+                      className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-8 border-t border-outline-variant/20">
+                <div className="flex items-center gap-6">
+                  <div className="text-center">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1 text-on-surface-variant">Orchestration Rank</div>
+                    <div className="text-5xl font-headline font-bold text-primary">{getAverage(aioiScores)}</div>
+                  </div>
+                  <div className="h-12 w-px bg-outline-variant/30"></div>
+                  <div className="flex-grow">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2 text-on-surface-variant">Command Level</div>
+                    <div className="text-lg font-bold text-on-surface">
+                      {getAverage(aioiScores) >= 90 ? 'Grand Architect' : getAverage(aioiScores) >= 75 ? 'System Lead' : 'Operator'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section: AIBS™ Deep Dive Interactive Radar */}
+      <section id="aibs-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="space-y-4">
+                <div className="flex justify-between items-end flex-wrap gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Technical Soundness</span>
+                    <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">AIBS™ Deep Dive</h2>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      setAibsScores({
+                        'Vector RAG': 98,
+                        'Model Optimization': 92,
+                        'Schema Soundness': 95,
+                        'Deployment Velocity': 90,
+                        'Infrastructure Integrity': 94,
+                      });
+                      setAibsLog(['System reset to baseline.', ...aibsLog].slice(0, 5));
+                    }}
+                    className="flex items-center gap-2 text-[10px] font-bold text-primary uppercase tracking-widest hover:bg-primary/5 px-3 py-1.5 rounded-full border border-primary/10 transition-colors"
+                  >
+                    <RefreshCw className="w-3 h-3" /> Reset Baseline
+                  </button>
+                </div>
+                <p className="text-on-surface-variant leading-relaxed text-lg">
+                  Evaluate your technical builder proficiency across RAG architectures, model optimization, and deployment integrity. Adjust the parameters to see real-time status updates.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {Object.entries(aibsScores).map(([key, value]) => (
+                  <div key={key} className="space-y-2 group">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors">{key}</label>
+                      <span className="text-sm font-mono font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">{value}</span>
+                    </div>
+                    <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
+                      {aibsDescriptions[key]}
+                    </p>
+                    <input 
+                      type="range" 
+                      min="0" 
+                      max="100" 
+                      value={value}
+                      onChange={(e) => updateAibsScore(key, parseInt(e.target.value))}
+                      className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-8 border-t border-outline-variant/20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex items-center gap-6">
+                    <div className="text-center">
+                      <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1 text-on-surface-variant">Builder Score</div>
+                      <div className="text-5xl font-headline font-bold text-primary">{getAverage(aibsScores)}</div>
+                    </div>
+                    <div className="h-12 w-px bg-outline-variant/30"></div>
+                    <div className="flex-grow">
+                      <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2 text-on-surface-variant">Architect Status</div>
+                      <div className={cn(
+                        "text-lg font-bold px-3 py-1 rounded-lg inline-block",
+                        getAverage(aibsScores) >= 90 ? "bg-green-500/10 text-green-700" : 
+                        getAverage(aibsScores) >= 75 ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"
+                      )}>
+                        {getAverage(aibsScores) >= 90 ? 'Master Builder' : getAverage(aibsScores) >= 75 ? 'Senior Engineer' : 'Apprentice'}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-surface p-4 rounded-xl border border-outline-variant/10 font-mono text-[10px] space-y-1 overflow-hidden">
+                    <div className="flex items-center gap-2 text-primary font-bold mb-2 uppercase tracking-widest">
+                      <Activity className="w-3 h-3" /> System Log
+                    </div>
+                    {aibsLog.map((log, i) => (
+                      <div key={i} className={cn("truncate", i === 0 ? "text-on-surface" : "text-on-surface-variant/50")}>
+                        {log}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="bg-surface p-12 rounded-3xl border border-outline-variant/10 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
+              <div className="aspect-square w-full relative z-10">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aibsRadarData}>
+                    <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
+                    <PolarAngleAxis 
+                      dataKey="subject" 
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
+                    />
+                    <RadarArea 
+                      name="Score" 
+                      dataKey="A" 
+                      stroke="#775a19" 
+                      fill="#775a19" 
+                      fillOpacity={0.5} 
+                      animationDuration={300}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+                <div className="flex items-center gap-4 bg-surface/80 backdrop-blur-sm px-6 py-3 rounded-full border border-outline-variant/20 shadow-lg">
+                  <div className="flex flex-col items-center">
+                    <div className="text-[8px] font-bold text-secondary uppercase tracking-widest">Integrity</div>
+                    <div className="text-xs font-bold text-primary">{(getAverage(aibsScores) * 0.998).toFixed(2)}%</div>
+                  </div>
+                  <div className="w-px h-6 bg-outline-variant/30"></div>
+                  <div className="flex flex-col items-center">
+                    <div className="text-[8px] font-bold text-secondary uppercase tracking-widest">Latency</div>
+                    <div className="text-xs font-bold text-primary">{Math.max(12, 100 - getAverage(aibsScores))}ms</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* AIBS CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-20 pt-12 border-t border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-8"
+          >
+            <div className="space-y-2 text-center md:text-left">
+              <h3 className="text-2xl font-headline font-bold text-on-surface">Deepen Your Technical Integration</h3>
+              <p className="text-on-surface-variant max-w-xl">
+                Access the full AIBS™ Protocol documentation, including vector optimization benchmarks, infrastructure requirements, and the complete deployment roadmap.
+              </p>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="px-8 py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-2 hover:bg-surface-tint transition-all shadow-lg active:scale-95">
+                Explore Further Details <ArrowRight className="w-4 h-4" />
+              </button>
+              <button className="px-8 py-4 bg-surface-container-highest text-on-surface rounded-xl font-bold flex items-center gap-2 hover:bg-outline-variant transition-all active:scale-95 border border-outline-variant/20">
+                Download Full Protocol <Bolt className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section: AIOI-ED™ Mini-Assessment */}
+      <section className="py-24 bg-surface px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-surface-container-highest rounded-[3rem] p-12 border border-outline-variant/20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-10">
+              <School className="w-32 h-32 text-primary" />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Educator Sub-module</span>
+                  <h2 className="text-3xl font-headline font-bold text-on-surface">AIOI-ED™ Mini-Assessment</h2>
+                  <p className="text-sm text-on-surface-variant leading-relaxed">
+                    A streamlined evaluation for management and education nodes. Focuses on the WMF (Weighted Multi-Factor) Index.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {Object.entries(aioiedScores).map(([key, value]) => (
+                    <div key={key} className="space-y-1">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-secondary">{key}</label>
+                        <span className="text-xs font-mono font-bold text-primary">{value}</span>
+                      </div>
+                      <p className="text-[9px] text-on-surface-variant/80 leading-tight mb-1">
+                        {aioiedDescriptions[key]}
+                      </p>
+                      <input 
+                        type="range" 
+                        min="0" 
+                        max="100" 
+                        value={value}
+                        onChange={(e) => setAioiedScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
+                        className="w-full h-1 bg-surface-container-low rounded-full appearance-none cursor-pointer accent-primary"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col items-center justify-center text-center p-8 bg-surface rounded-3xl border border-outline-variant/10 shadow-xl">
+                <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2 text-on-surface-variant font-headline">WMF Index Score</div>
+                <div className="text-6xl font-headline font-bold text-primary mb-4">{getAverage(aioiedScores)}</div>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 text-green-600 text-[10px] font-bold uppercase tracking-widest">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                  Designation Valid
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Proving Ground Section (PAT-001, PAT-002, PAT-004) */}
+      <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-surface-container-high/20 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">PATENT-BACKED SIMULATION · PG v2.0</span>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
+              The air-gapped <span className="italic text-primary">Proving Ground</span>
+            </h2>
+            <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
+              Interact with the active environment. Trigger failure injections to witness how the Adversary Logic Engine evaluates engineers in real-time.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Terminal (Xterm.js Mock) */}
+            <div className="lg:col-span-8 bg-[#16140F] border border-[#2d281e] rounded-[2rem] p-6 shadow-2xl relative overflow-hidden flex flex-col h-[520px]">
+              {/* Scanlines and Glow Effects */}
+              <div className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[linear-gradient(rgba(18,16,12,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+              
+              {/* Terminal Title Bar */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#2d281e] mb-4 text-[#8a8270] font-mono text-xs select-none">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                  <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                  <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+                  <span className="ml-2 font-semibold text-[#8a8270]">PROVING GROUND · ALE LIVE</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span className="tracking-widest">⏱ 22:41 · PHASE 2</span>
+                </div>
+              </div>
+
+              {/* Terminal Console Output */}
+              <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-[#2d281e]">
+                {pgLogs.map((log, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={cn(
+                      "text-xs md:text-sm font-mono leading-relaxed break-all",
+                      log.type === 'info' && "text-[#8a8270]",
+                      log.type === 'ok' && "text-[#7FBF9B]",
+                      log.type === 'err' && "text-[#ff8a8a]",
+                      log.type === 'chaos' && "text-[#FFBF00] font-semibold",
+                      log.type === 'invigilator' && "text-[#8FA5D6]",
+                      log.type === 'input' && "text-[#FCF9F5]"
+                    )}
+                  >
+                    {log.text}
+                  </motion.div>
+                ))}
+                
+                {/* Simulated Blinking Cursor */}
+                <span className="inline-block w-2 h-4 bg-[#E8DFC9] animate-[ping_1.2s_infinite] align-middle ml-1" />
+              </div>
+            </div>
+
+            {/* Live Telemetry and Council Side Panel */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* CA Score Card */}
+              <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">Composite Output Metric</span>
+                    <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">Command Authority (CA)</h4>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-2xl font-bold font-mono text-primary">
+                      {pgCaScore}
+                    </span>
+                    {pgCaDelta && (
+                      <span className={cn(
+                        "text-xs font-mono font-bold block",
+                        pgCaDelta.startsWith('-') ? "text-red-500" : "text-[#7FBF9B]"
+                      )}>
+                        {pgCaDelta}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {/* Health/Resilience progress bar */}
+                <div className="h-2 w-full bg-outline/10 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: '81%' }}
+                    animate={{ width: `${pgCaScore}%` }}
+                    transition={{ type: 'spring', stiffness: 80 }}
+                    className="h-full bg-primary"
+                  />
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-on-surface-variant font-mono">
+                  <span className="patent-tag">PAT-001 §A</span>
+                  <span>Composite score of active resilience.</span>
+                </div>
+              </div>
+
+              {/* ALTFL Telemetry (6 Channels) */}
+              <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
+                <div className="border-b border-outline-variant/10 pb-3 flex justify-between items-center">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">ALTFL Live Feed</span>
+                    <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">6-Channel Forensic Telemetry</h4>
+                  </div>
+                  <span className="patent-tag">PAT-002</span>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { key: 'KV', label: 'Keystroke Velocity', val: pgTelemetry.KV, desc: 'MS inter-key typing speed' },
+                    { key: 'IL', label: 'Inference Latency', val: pgTelemetry.IL, desc: 'Trigger to debug interval' },
+                    { key: 'CP', label: 'Command Precision', val: pgTelemetry.CP, desc: 'Action precision accuracy' },
+                    { key: 'ET', label: 'Error Trajectory', val: pgTelemetry.ET, desc: 'Backtrack corrections count' },
+                    { key: 'VO', label: 'Verify Outcome', val: pgTelemetry.VO, desc: 'Successful test assertions' },
+                    { key: 'CCT', label: 'Confidence Gap', val: pgTelemetry.CCT, desc: 'Declared vs actual difference' }
+                  ].map((ch) => (
+                    <div key={ch.key} className="bg-surface p-3 rounded-xl border border-outline-variant/10 flex flex-col justify-between h-full hover:border-primary/20 transition-colors">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-[10px] font-bold text-primary font-mono">{ch.key}</span>
+                        <span className="text-[10px] font-mono font-bold text-on-surface text-right">{ch.val}</span>
+                      </div>
+                      <span className="text-[8px] text-on-surface-variant leading-tight">{ch.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 4-Agent Council Status */}
+              <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
+                <div className="border-b border-outline-variant/10 pb-3 flex justify-between items-center">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">Agent Dispatch Queue</span>
+                    <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">The Council inside the Gate</h4>
+                  </div>
+                  <span className="patent-tag">PAT-004</span>
+                </div>
+
+                <div className="space-y-3">
+                  {[
+                    { id: 'invigilator', name: 'Invigilator Agent', state: pgCouncil.invigilator, color: 'bg-[#8FA5D6]', text: 'Narration & Anomaly Check' },
+                    { id: 'chaos', name: 'Chaos Agent', state: pgCouncil.chaos, color: 'bg-[#FFBF00]', text: 'Adversary Injection Control' },
+                    { id: 'auditor', name: 'Auditor Agent', state: pgCouncil.auditor, color: 'bg-[#2C4771]', text: 'Blackboard Merit Evaluation' },
+                    { id: 'mentor', name: 'Mentor Agent', state: pgCouncil.mentor, color: 'bg-[#4F8A6B]', text: 'Pedagogical Synthesis (Phase 4)' }
+                  ].map((agent) => (
+                    <div key={agent.id} className="flex items-center justify-between bg-surface p-3 rounded-xl border border-outline-variant/10">
+                      <div className="flex items-center gap-3">
+                        <div className="relative">
+                          <span className={cn("w-3 h-3 rounded-full block", agent.color)} />
+                          {agent.state !== 'suspended' && agent.state !== 'idle' && (
+                            <span className={cn("absolute inset-0 rounded-full block animate-ping opacity-60", agent.color)} />
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-xs font-bold block text-on-surface leading-none">{agent.name}</span>
+                          <span className="text-[9px] text-on-surface-variant">{agent.text}</span>
+                        </div>
+                      </div>
+                      <span className={cn(
+                        "text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded border",
+                        agent.state === 'active' && "text-[#7FBF9B] bg-[#7FBF9B]/5 border-[#7FBF9B]/20",
+                        agent.state === 'warning' && "text-amber-500 bg-amber-500/5 border-amber-500/20",
+                        agent.state === 'idle' && "text-on-surface-variant bg-outline/5 border-outline-variant/10",
+                        agent.state === 'suspended' && "text-outline/50 bg-outline/5 border-transparent opacity-60"
+                      )}>
+                        {agent.state}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Adversary Control Panel */}
+          <div className="bg-surface-container-low p-6 md:p-8 rounded-[2rem] border border-outline-variant/10 shadow-lg mt-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+              <div>
+                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] block">Interactive Walkthrough</span>
+                <h3 className="text-lg font-bold text-on-surface">Simulate the Graded Gate Scenario</h3>
+                <p className="text-xs text-on-surface-variant font-body">Step through the scenario stages to see the Adversary Logic Engine respond.</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setPgActiveLevel('idle');
+                    setPgCaScore(81);
+                    setPgCaDelta('');
+                    setPgTelemetry({
+                      KV: 'nominal',
+                      IL: 'nominal',
+                      CP: '0.82',
+                      ET: 'nominal',
+                      VO: '22/24',
+                      CCT: '0.04'
+                    });
+                    setPgCouncil({
+                      invigilator: 'active',
+                      chaos: 'idle',
+                      auditor: 'idle',
+                      mentor: 'suspended'
+                    });
+                    setPgLogs([
+                      { text: "Initializing V-100 Proving Ground Protocol...", type: 'info' },
+                      { text: "Node Identity · SOVEREIGN_ALPHA_7 · DID verified", type: 'ok' },
+                      { text: "[INVIGILATOR] ALTFL armed · 6 channels · monitoring", type: 'invigilator' },
+                      { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
+                      { text: "⏳ running 24 assertions...", type: 'info' },
+                      { text: "✓ 22 passed · ✗ 2 failed (retrieval grounding)", type: 'err' },
+                    ]);
+                  }}
+                  className="px-4 py-2 rounded-xl text-xs font-bold border border-outline-variant/20 bg-surface text-on-surface hover:bg-surface-container-high transition-colors flex items-center gap-2"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Step 1 */}
+              <button
+                onClick={triggerL1}
+                className={cn(
+                  "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md cursor-pointer",
+                  pgActiveLevel === 'L1' 
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                    : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
+                )}
+              >
+                <div className="space-y-2">
+                  <span className="text-[9px] font-bold font-mono text-primary uppercase tracking-wider block">Step 1 · PAT-001</span>
+                  <h4 className="text-xs font-bold text-on-surface">L1 Stochastic Injection</h4>
+                  <p className="text-[10px] text-on-surface-variant leading-relaxed">
+                    Trigger a backend failure timeout. Notice the Chaos Agent direct you to adjust timeouts.
+                  </p>
+                </div>
+                <div className="pt-4 flex items-center gap-1.5 text-[10px] font-bold text-primary">
+                  <span>Trigger Injection</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </button>
+
+              {/* Step 2 */}
+              <button
+                onClick={triggerL2}
+                disabled={pgActiveLevel === 'idle'}
+                className={cn(
+                  "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+                  pgActiveLevel === 'L2' 
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                    : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
+                )}
+              >
+                <div className="space-y-2">
+                  <span className="text-[9px] font-bold font-mono text-primary uppercase tracking-wider block">Step 2 · PAT-001 FIG 3</span>
+                  <h4 className="text-xs font-bold text-on-surface">L2 Bully Loop Arming</h4>
+                  <p className="text-[10px] text-on-surface-variant leading-relaxed">
+                    Attempt a basic timeout retry patch. The engine detects pattern-matching and rotates the symptom to Auth credentials.
+                  </p>
+                </div>
+                <div className="pt-4 flex items-center gap-1.5 text-[10px] font-bold text-primary">
+                  <span>Simulate Response</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </button>
+
+              {/* Step 3 */}
+              <button
+                onClick={triggerL3}
+                disabled={pgActiveLevel !== 'L2' && pgActiveLevel !== 'L3'}
+                className={cn(
+                  "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+                  pgActiveLevel === 'L3' 
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                    : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
+                )}
+              >
+                <div className="space-y-2">
+                  <span className="text-[9px] font-bold font-mono text-primary uppercase tracking-wider block">Step 3 · PAT-004</span>
+                  <h4 className="text-xs font-bold text-on-surface">L3 Chaos Deception</h4>
+                  <p className="text-[10px] text-on-surface-variant leading-relaxed">
+                    The Chaos Agent gaslights with clock-skew deceptions. The Invigilator confirms the deception, unlocking the Override.
+                  </p>
+                </div>
+                <div className="pt-4 flex items-center gap-1.5 text-[10px] font-bold text-primary">
+                  <span>Encounter Gaslighting</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </button>
+
+              {/* Step 4 */}
+              <button
+                onClick={() => setShowOverrideModal(true)}
+                disabled={pgActiveLevel !== 'L3'}
+                className={cn(
+                  "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden cursor-pointer",
+                  pgActiveLevel === 'L3'
+                    ? "border-[#ff8a8a] bg-[#ff8a8a]/5 animate-[pulse_2s_infinite]"
+                    : "border-outline-variant/10 bg-surface"
+                )}
+              >
+                <div className="space-y-2">
+                  <span className="text-[9px] font-bold font-mono text-red-500 uppercase tracking-wider block">Step 4 · PAT-001 OVERRIDE</span>
+                  <h4 className="text-xs font-bold text-on-surface flex items-center gap-1.5">
+                    Sovereign Override (Code 31)
+                  </h4>
+                  <p className="text-[10px] text-on-surface-variant leading-relaxed">
+                    Bypass the deception. Reset system baseline coherence, claim authority, and anchor your Consensus Certificate to the ledger.
+                  </p>
+                </div>
+                <div className="pt-4 flex items-center gap-1.5 text-[10px] font-bold text-red-500">
+                  <span>Activate Code 31</span>
+                  <ShieldAlert className="w-3.5 h-3.5" />
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Sovereign Override Modal Sheet (Code 31) */}
+        <AnimatePresence>
+          {showOverrideModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/85 backdrop-blur-md">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="bg-[#16140F] border border-red-950/40 max-w-lg w-full rounded-2xl overflow-hidden shadow-2xl relative"
+              >
+                {/* CRT Scanline Effect inside modal */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,12,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
+                
+                {/* Modal Header */}
+                <div className="p-6 border-b border-[#2d281e] flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20">
+                    <ShieldAlert className="w-4.5 h-4.5 animate-pulse" />
+                  </div>
+                  <div>
+                    <h3 className="font-mono text-sm font-bold text-red-500 tracking-wider">SOVEREIGN OVERRIDE PROTOCOL</h3>
+                    <span className="text-[9px] font-mono text-[#8a8270]">LEDGER SUB-SYSTEM COMMAND: CODE_31</span>
+                  </div>
+                </div>
+
+                {/* Modal Body */}
+                <div className="p-6 space-y-4 font-mono text-xs text-[#E8DFC9]">
+                  <div className="bg-[#100e0a] border border-[#2d281e] rounded-xl p-4 space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-[#8a8270]">TARGET_INTERCEPT:</span>
+                      <span className="text-[#FFBF00]">CHAOS_AGENT_DECEPTION</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#8a8270]">TRUTH_COHERENCE:</span>
+                      <span className="text-red-500">DEGRADED_BY_GASLIGHTING</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#8a8270]">AUTHORITY_MODE:</span>
+                      <span className="text-[#8FA5D6]">SOVEREIGN_BYPASS (OVERRIDE)</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5 leading-relaxed text-[#8a8270]">
+                    <p className={cn(overrideStep >= 1 ? "text-[#7FBF9B]" : "opacity-40")}>
+                      {overrideStep >= 1 ? "✓" : "•"} Bypass Chaos Agent active gaslighting loop...
+                    </p>
+                    <p className={cn(overrideStep >= 2 ? "text-[#7FBF9B]" : "opacity-40")}>
+                      {overrideStep >= 2 ? "✓" : "•"} Restore environment core truth baseline...
+                    </p>
+                    <p className={cn(overrideStep >= 3 ? "text-[#7FBF9B]" : "opacity-40")}>
+                      {overrideStep >= 3 ? "✓" : "•"} Anchoring Consensus Certificate to Merkle Ledger (PAT-010)...
+                    </p>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-6 border-t border-[#2d281e] flex gap-3 justify-end select-none">
+                  <button
+                    disabled={isOverrideExecuting}
+                    onClick={() => setShowOverrideModal(false)}
+                    className="px-4 py-2 rounded-xl text-xs font-mono border border-transparent text-[#8a8270] hover:text-[#E8DFC9] disabled:opacity-50 transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    disabled={isOverrideExecuting}
+                    onClick={executeOverride}
+                    className="px-5 py-2 rounded-xl text-xs font-mono font-bold bg-red-600 text-white hover:bg-red-700 disabled:bg-red-800 disabled:opacity-75 transition-colors flex items-center gap-2 cursor-pointer"
+                  >
+                    {isOverrideExecuting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        Restoring...
+                      </>
+                    ) : (
+                      <>
+                        Execute Code 31
+                      </>
+                    )}
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </section>
+
+      {/* Tenured Agent Section (PAT-004, PAT-005, PAT-009) */}
+      <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-background relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">PATENT-BACKED SIMULATION · TA v2.0</span>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
+              The dual-nature <span className="italic text-primary">Tenured Agent</span>
+            </h2>
+            <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
+              Observe the user-facing intelligence pivot between Mentor and Invigilator modes (PAT-005), governed by a four-agent council (PAT-004) and a dynamic Growth Loop (PAT-005).
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+            {/* Left: Dual-Nature Simulation */}
+            <div className="lg:col-span-7 flex flex-col justify-between bg-surface-container-low p-6 md:p-8 rounded-[2rem] border border-outline-variant/10 shadow-xl transition-all duration-500">
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/10 pb-6">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-005 State Machine</span>
+                    <h3 className="text-base font-bold text-on-surface">Dual-Nature Agent Simulator</h3>
+                  </div>
+                  
+                  {/* Mode Selector Switch */}
+                  <div className="flex bg-surface p-1 rounded-xl border border-outline-variant/10">
+                    <button
+                      onClick={() => setTaMode('mentor')}
+                      className={cn(
+                        "px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer",
+                        taMode === 'mentor'
+                          ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                          : "text-on-surface-variant hover:text-on-surface border border-transparent"
+                      )}
+                    >
+                      Mentor Mode
+                    </button>
+                    <button
+                      onClick={() => setTaMode('invigilator')}
+                      className={cn(
+                        "px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer",
+                        taMode === 'invigilator'
+                          ? "bg-red-500/10 text-red-600 border border-red-500/20"
+                          : "text-on-surface-variant hover:text-on-surface border border-transparent"
+                      )}
+                    >
+                      Invigilator Mode
+                    </button>
+                  </div>
+                </div>
+
+                {/* Animated Showcase Panel */}
+                <div className={cn(
+                  "p-6 rounded-2xl border transition-all duration-500 relative min-h-[280px] flex flex-col justify-between",
+                  taMode === 'mentor' 
+                    ? "border-emerald-500/20 bg-emerald-500/[0.02]" 
+                    : "border-red-950 bg-red-950/[0.02]"
+                )}>
+                  <div className="space-y-4">
+                    {/* Header with Mode Name & Voice Waveform */}
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <span className={cn(
+                          "w-2.5 h-2.5 rounded-full animate-pulse",
+                          taMode === 'mentor' ? "bg-emerald-500" : "bg-red-600"
+                        )} />
+                        <span className="text-xs font-bold font-mono uppercase tracking-wider text-on-surface">
+                          {taMode === 'mentor' ? "MENTOR · ACTIVE" : "INVIGILATOR · LIVE"}
+                        </span>
+                      </div>
+                      
+                      {/* Voice Reasoning Waveform (PAT-009) */}
+                      <div className="flex items-end gap-[3px] h-5 px-2">
+                        {Array.from({ length: 12 }).map((_, i) => (
+                          <motion.span
+                            key={i}
+                            animate={{
+                              height: taMode === 'mentor' 
+                                ? [10, Math.random() * 20 + 8, 10] 
+                                : [12, Math.random() * 6 + 10, 12]
+                            }}
+                            transition={{
+                              duration: taMode === 'mentor' ? 0.8 + Math.random() * 0.4 : 1.5,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                            className={cn(
+                              "w-[2px] rounded-sm block",
+                              taMode === 'mentor' ? "bg-emerald-500" : "bg-red-500 opacity-60"
+                            )}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Chat Dialogue Streams */}
+                    <div className="space-y-3 font-mono text-xs">
+                      {taMode === 'mentor' ? (
+                        <>
+                          <div className="text-emerald-700/80 bg-emerald-500/5 p-3.5 rounded-xl border border-emerald-500/10 leading-relaxed font-body">
+                            <span className="text-[10px] font-bold block text-emerald-800 uppercase tracking-widest mb-1 font-mono">Mentor Guidance (Socratic)</span>
+                            "Dr. Lena, look closely at the concurrency lock on line 87. You bypassed it using a static sleep interval—but is that thread-safe under parallel workload? What happens to the database connection pool if the gateway remains unresponsive for more than 500ms?"
+                          </div>
+                          
+                          {/* Career Memory Recall vector-graph visual */}
+                          <div className="text-primary/80 bg-primary/5 p-3.5 rounded-xl border border-primary/10 leading-relaxed font-body relative overflow-hidden">
+                            <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:20px_20px]"></div>
+                            <span className="text-[10px] font-bold block text-primary uppercase tracking-widest mb-1 font-mono flex items-center gap-1.5">
+                              <Brain className="w-3 h-3" />
+                              Career Memory Recall (PAT-005)
+                            </span>
+                            "Recall: 14 days ago in node_alpha_5, you resolved a similar thread starvation issue by implementing a semaphore-based pool. Can we draw a parallel here?"
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="text-[#E8DFC9] bg-[#16140F] p-3.5 rounded-xl border border-red-950/40 leading-relaxed font-mono">
+                            <span className="text-[10px] font-bold block text-red-500 uppercase tracking-widest mb-1">Invigilator Feed</span>
+                            [MONITOR] Telemetry stream online.<br/>
+                            ▸ KV burst signature detected at 16:42:01. Copy-paste probability: 91%<br/>
+                            ▸ Diagnostic latency: 180s timeout active.<br/>
+                            ▸ Direct hint request: DISABLED (Friction checklist active).
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-outline-variant/10 text-[10px] text-on-surface-variant leading-relaxed">
+                    {taMode === 'mentor' ? (
+                      <span>**Mentor Demeanor**: Context-aware Socratic helper. Automatically decays guidance λ as your mastery improves.</span>
+                    ) : (
+                      <span>**Invigilator Demeanor**: Telemetry-focused observer. Enforces air-gap boundaries and fires anomalies on AI keystroke signatures.</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Growth Loop + Council Diagram */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Growth Loop γ Card */}
+              <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
+                <div className="flex justify-between items-center border-b border-outline-variant/10 pb-3">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-005 Loop</span>
+                    <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">Growth Coefficient (γ)</h4>
+                  </div>
+                  <span className="patent-tag">PAT-005</span>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Slider Control */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs font-mono">
+                      <span className="text-on-surface-variant">Observed TTR:</span>
+                      <span className="font-bold text-primary">{taTtr} seconds</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="120"
+                      value={taTtr}
+                      onChange={(e) => setTaTtr(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/20 rounded-lg cursor-pointer"
+                    />
+                    <div className="flex justify-between text-[8px] text-outline font-mono">
+                      <span>10s (Fast Remediation)</span>
+                      <span>120s (Slow Diagnostic)</span>
+                    </div>
+                  </div>
+
+                  {/* Calculated Outputs */}
+                  <div className="bg-surface p-4 rounded-xl border border-outline-variant/10 grid grid-cols-2 gap-4 items-center">
+                    <div>
+                      <span className="text-[9px] text-outline font-mono uppercase block">Growth Dial</span>
+                      <span className="text-2xl font-bold font-mono text-primary">
+                        γ = {(45 / taTtr).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <span className={cn(
+                        "text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border inline-block",
+                        (45 / taTtr) > 1.2 && "text-[#7FBF9B] bg-[#7FBF9B]/5 border-[#7FBF9B]/20",
+                        (45 / taTtr) < 0.8 && "text-red-500 bg-red-500/5 border-red-500/20",
+                        (45 / taTtr) >= 0.8 && (45 / taTtr) <= 1.2 && "text-amber-500 bg-amber-500/5 border-amber-500/20"
+                      )}>
+                        {(45 / taTtr) > 1.2 ? "Recursive Scaled Up" : (45 / taTtr) < 0.8 ? "Refresh Queued" : "Homeostasis"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* dynamic scaling description */}
+                  <p className="text-[10px] text-on-surface-variant leading-relaxed min-h-[40px] font-body">
+                    {(45 / taTtr) > 1.2 && (
+                      <span>
+                        <strong>Growth Scaled Up:</strong> Excellent TTR. The Tenured Agent's complexity scaler will mutate the successor environment to introduce recursive thread pool starvation anomalies.
+                      </span>
+                    )}
+                    {(45 / taTtr) < 0.8 && (
+                      <span>
+                        <strong>Growth Scaled Down:</strong> TTR exceedances detected. The scaler reduces baseline noise and dispatches Mentor-led socratic walkthrough paths to re-establish node foundation.
+                      </span>
+                    )}
+                    {(45 / taTtr) >= 0.8 && (45 / taTtr) <= 1.2 && (
+                      <span>
+                        <strong>Homeostasis Maintained:</strong> TTR remains within the comfort zone. Successor session maintained at optimal difficulty levels to build memory continuity.
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              {/* Council Blackboard Map */}
+              <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
+                <div className="flex justify-between items-center border-b border-outline-variant/10 pb-3">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-004 Conflict-of-Interest</span>
+                    <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">Multi-Agent Blackboard Map</h4>
+                  </div>
+                  <span className="patent-tag">PAT-004</span>
+                </div>
+
+                {/* Grid of the 4 Agents and Blackboard */}
+                <div className="space-y-4 font-mono text-[10px]">
+                  <div className="bg-surface-container-high text-center py-2.5 rounded-lg border border-outline-variant/20 font-bold text-primary tracking-widest shadow-inner">
+                    ◇ THE BLACKBOARD
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { id: 'mentor', name: 'Mentor (TA)', color: 'border-emerald-500/30 text-emerald-600 bg-emerald-500/[0.02]', desc: 'Socratic helper. Cannot see pending Chaos Injections.' },
+                      { id: 'invigilator', name: 'Invigilator (TA)', color: 'border-rose-950 text-rose-500 bg-rose-500/[0.02]', desc: 'Silent telemetry check. Freezes Mentor when anomaly triggers.' },
+                      { id: 'auditor', name: 'Auditor Agent', color: 'border-blue-900/30 text-blue-600 bg-blue-500/[0.02]', desc: 'Silent artifact analyzer. Evaluates asynchronously on Blackboard.' },
+                      { id: 'chaos', name: 'Chaos Agent', state: 'Active', color: 'border-amber-500/30 text-amber-500 bg-amber-500/[0.02]', desc: 'Friction dispatcher. Cannot view Mentor guidance states.' }
+                    ].map((agent) => (
+                      <button
+                        key={agent.id}
+                        onMouseEnter={() => setTaActiveCouncilAgent(agent.id as any)}
+                        onMouseLeave={() => setTaActiveCouncilAgent(null)}
+                        onClick={() => setTaActiveCouncilAgent(taActiveCouncilAgent === agent.id ? null : (agent.id as any))}
+                        className={cn(
+                          "p-3 rounded-xl border text-left transition-all cursor-pointer relative",
+                          agent.color,
+                          taActiveCouncilAgent === agent.id ? "scale-[1.02] shadow-md border-primary" : "hover:scale-[1.01]"
+                        )}
+                      >
+                        <span className="font-bold block mb-1">{agent.name}</span>
+                        <span className="text-[8px] text-on-surface-variant leading-tight block">
+                          Tap to view insulation rule
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Interactive details box */}
+                  <div className="min-h-[50px] bg-surface p-3 rounded-xl border border-outline-variant/10 text-on-surface-variant font-body">
+                    {taActiveCouncilAgent ? (
+                      <p className="text-[10px] leading-relaxed">
+                        <strong>Insulation:</strong> {
+                          [
+                            { id: 'mentor', text: 'Mentor cannot read Chaos injection plans to prevent guidance softening or target hints. This separates training from grading.' },
+                            { id: 'invigilator', text: 'Invigilator acts as a watchman. If copy-paste or macro keystrokes trigger anomaly thresholds, it halts Mentor dispatches.' },
+                            { id: 'auditor', text: 'Auditor remains socially blind. It does not communicate with the user, grading purely by Blackboard file outputs.' },
+                            { id: 'chaos', text: 'Chaos Agent mutates containers via the ALE. It has no access to Auditor evaluations to maintain stochastic objectivity.' }
+                          ].find(a => a.id === taActiveCouncilAgent)?.text
+                        }
+                      </p>
+                    ) : (
+                      <p className="text-[9px] text-[#8a8270] italic leading-relaxed text-center font-mono py-2">
+                        Hover/Tap an agent to reveal Conflict-of-Interest insulation rules (PAT-004 §3.3)
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Loop Section (PAT-002, PAT-003, PAT-015, Figma spec) */}
+      <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-background relative">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16 space-y-4">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">
+              FOUNDATIONS · THE MATH OF OBSOLESCENCE (λ)
+            </span>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
+              Static credentials decay. <span className="italic text-primary">So we built a loop.</span>
+            </h2>
+            <p className="text-on-surface-variant font-light text-base max-w-3xl mx-auto font-body">
+              PAT-003's core invention: every one of the 4,000 ontology nodes carries its own decay coefficient λ, computed from real-time market signals. The Learning Loop's entire job is to keep your St above the Sovereign Threshold.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+            {/* Left: Decay Calculator & Formula */}
+            <div className="lg:col-span-6 bg-surface-container-low p-6 md:p-8 rounded-[2rem] border border-outline-variant/10 shadow-xl flex flex-col justify-between space-y-6">
+              <div className="space-y-6">
+                <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-003 DECAY</span>
+                    <h3 className="text-base font-bold text-on-surface">Obsolescence Math & Half-Life</h3>
+                  </div>
+                  <span className="patent-tag">PAT-003</span>
+                </div>
+
+                {/* Mathematical Formula Screen */}
+                <div className="bg-[#16140F] text-[#E8DFC9] p-5 rounded-2xl border border-red-950/40 space-y-3 font-mono text-xs shadow-inner">
+                  <div className="flex justify-between items-center border-b border-red-950/30 pb-2">
+                    <span className="text-[9px] text-[#8a8270] uppercase font-bold">Formula Terminal</span>
+                    <span className="text-[9px] text-[#7FBF9B] font-bold">λ-CALCULATOR ONLINE</span>
+                  </div>
+                  <div className="space-y-1.5 leading-relaxed">
+                    <div className="flex justify-between">
+                      <span className="text-outline">Decay Equation:</span>
+                      <span className="text-primary font-bold">St = S₀ · e^(−λ·t)</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-outline">Decay Rate (λ):</span>
+                      <span className="text-amber-500">α·MV + β·IAR + γ·SD − G·σ</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-outline">Efficiency Multiplier (σ):</span>
+                      <span className="text-[#8FA5D6]">AIOI / 100</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decay Parameters (Sliders) */}
+                <div className="space-y-4 font-mono text-xs">
+                  {/* Slider 1: Market Velocity */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-on-surface-variant">Market Velocity (MV):</span>
+                      <span className="font-bold text-primary">{decayMv}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={decayMv}
+                      onChange={(e) => setDecayMv(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/25 rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Slider 2: Inference Automation Rate */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-on-surface-variant">Inference Automation Rate (IAR):</span>
+                      <span className="font-bold text-primary">{decayIar}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={decayIar}
+                      onChange={(e) => setDecayIar(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/25 rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Slider 3: Skill Drift */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-on-surface-variant">Skill Drift (SD):</span>
+                      <span className="font-bold text-primary">{decaySd}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={decaySd}
+                      onChange={(e) => setDecaySd(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/25 rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Slider 4: Grit Moat */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-on-surface-variant">Grit Moat (G):</span>
+                      <span className="font-bold text-emerald-600">{decayG}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={decayG}
+                      onChange={(e) => setDecayG(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/25 rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  {/* Slider 5: Efficiency Multiplier */}
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <span className="text-on-surface-variant">Efficiency (σ):</span>
+                      <span className="font-bold text-[#2C4771]">{decaySigma}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="10"
+                      max="100"
+                      value={decaySigma}
+                      onChange={(e) => setDecaySigma(Number(e.target.value))}
+                      className="w-full accent-primary h-1 bg-outline/25 rounded-lg cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Calculated Outputs */}
+              <div className="space-y-4 border-t border-outline-variant/10 pt-6">
+                <div className="grid grid-cols-2 gap-4 items-center">
+                  <div className="bg-surface p-4 rounded-xl border border-outline-variant/10">
+                    <span className="text-[9px] text-outline font-mono uppercase block">Decay Rate (λ)</span>
+                    <span className="text-xl font-bold font-mono text-primary">
+                      {calculatedLambda.toFixed(4)}
+                    </span>
+                  </div>
+                  <div className="bg-surface p-4 rounded-xl border border-outline-variant/10">
+                    <span className="text-[9px] text-outline font-mono uppercase block">Time-To-Breach</span>
+                    <span className="text-xl font-bold font-mono text-primary">
+                      {daysToBreach} days
+                    </span>
+                  </div>
+                </div>
+
+                {/* Score Projection Visual */}
+                <div className="bg-surface-container-high/30 p-4 rounded-xl border border-outline-variant/10 space-y-3 font-mono text-[10px]">
+                  <div className="flex justify-between items-center text-outline">
+                    <span>DAY</span>
+                    <span>SCORE PROJECTION (S₀ = 95)</span>
+                    <span>GATE STATUS</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span>Day 0</span>
+                      <span className="font-bold text-on-surface">95.0</span>
+                      <span className="text-[#4F8A6B] font-bold">Active</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Day 3</span>
+                      <span className="font-bold text-on-surface">
+                        {(95 * Math.exp(-calculatedLambda * 3)).toFixed(1)}
+                      </span>
+                      <span className={cn(
+                        "font-bold",
+                        (95 * Math.exp(-calculatedLambda * 3)) >= 70 ? "text-[#4F8A6B]" : "text-amber-500"
+                      )}>
+                        {(95 * Math.exp(-calculatedLambda * 3)) >= 70 ? "Active" : "Warning"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Day 10</span>
+                      <span className="font-bold text-on-surface">
+                        {(95 * Math.exp(-calculatedLambda * 10)).toFixed(1)}
+                      </span>
+                      <span className={cn(
+                        "font-bold",
+                        (95 * Math.exp(-calculatedLambda * 10)) >= 70 && "text-[#4F8A6B]",
+                        (95 * Math.exp(-calculatedLambda * 10)) < 70 && (95 * Math.exp(-calculatedLambda * 10)) >= 50 && "text-amber-500",
+                        (95 * Math.exp(-calculatedLambda * 10)) < 50 && "text-red-500"
+                      )}>
+                        {(95 * Math.exp(-calculatedLambda * 10)) >= 70 && "Active"}
+                        {(95 * Math.exp(-calculatedLambda * 10)) < 70 && (95 * Math.exp(-calculatedLambda * 10)) >= 50 && "Warning"}
+                        {(95 * Math.exp(-calculatedLambda * 10)) < 50 && "Re-Verify"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Telemetry Module Player Simulator */}
+            <div className="lg:col-span-6 bg-surface-container-low p-6 md:p-8 rounded-[2rem] border border-outline-variant/10 shadow-xl flex flex-col justify-between space-y-6">
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/10 pb-4">
+                  <div>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">Figma Specs §03</span>
+                    <h3 className="text-base font-bold text-on-surface">Telemetry Module Player</h3>
+                  </div>
+                  
+                  {/* Presence Telemetry Pill (PAT-002) */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] font-mono text-outline uppercase">Presence:</span>
+                    <div className={cn(
+                      "badge font-mono text-[9px] tracking-wider font-bold shadow-sm py-1.5 px-3 uppercase border",
+                      presenceState === 'active' && "bg-[#4F8A6B]/10 text-[#4F8A6B] border-[#4F8A6B]/20",
+                      presenceState === 'idle' && "bg-amber-500/10 text-amber-600 border-amber-500/20",
+                      presenceState === 'lost' && "bg-red-500/10 text-red-600 border-red-500/20"
+                    )}>
+                      <span className={cn(
+                        "w-1.5 h-1.5 rounded-full mr-1.5 inline-block",
+                        presenceState === 'active' && "bg-[#4F8A6B] animate-pulse",
+                        presenceState === 'idle' && "bg-amber-500",
+                        presenceState === 'lost' && "bg-red-500"
+                      )} />
+                      {presenceState}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Module Selection Tabs (5 Types) */}
+                <div className="grid grid-cols-5 gap-1 bg-surface p-1 rounded-xl border border-outline-variant/10 font-mono text-[10px]">
+                  {[
+                    { id: 'article', label: '▤ Text', desc: 'Long-form telemetry reading' },
+                    { id: 'video', label: '▶ Video', desc: 'Lecture playback & scrub watch' },
+                    { id: 'podcast', label: '◐ Audio', desc: 'wave transcript synchronizer' },
+                    { id: 'code', label: '{ } Code', desc: 'syntax highlighted annotations' },
+                    { id: 'quiz', label: '◇ Quiz', desc: 'gauntlet verification gate' }
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveModule(tab.id as any);
+                        setPlayProgress(25);
+                      }}
+                      className={cn(
+                        "py-2 rounded-lg font-bold text-center transition-all cursor-pointer",
+                        activeModule === tab.id
+                          ? "bg-surface-container-high text-primary border border-outline-variant/10 shadow-sm"
+                          : "text-on-surface-variant hover:text-on-surface"
+                      )}
+                    >
+                      {tab.label.split(' ')[0]}
+                      <span className="hidden sm:inline"> {tab.label.split(' ').slice(1).join(' ')}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Simulated Player Panel with Specialized Styling */}
+                <div className={cn(
+                  "p-5 rounded-2xl border transition-all duration-300 min-h-[220px] flex flex-col justify-between relative overflow-hidden",
+                  activeModule === 'article' && "border-[#2C4771]/20 bg-[#2C4771]/[0.01]",
+                  activeModule === 'video' && "border-[#C5A059]/20 bg-[#C5A059]/[0.01]",
+                  activeModule === 'podcast' && "border-[#4F8A6B]/20 bg-[#4F8A6B]/[0.01]",
+                  activeModule === 'code' && "border-outline/20 bg-outline/[0.01]",
+                  activeModule === 'quiz' && "border-amber-500/20 bg-amber-500/[0.01]"
+                )}>
+                  {/* Background overlay network mesh */}
+                  <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#1c1c1a_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+                  {/* Player Content Header */}
+                  <div className="flex justify-between items-start relative z-10">
+                    <div>
+                      <span className={cn(
+                        "text-[9px] font-bold uppercase tracking-widest block font-mono",
+                        activeModule === 'article' && "text-[#2C4771]",
+                        activeModule === 'video' && "text-[#C5A059]",
+                        activeModule === 'podcast' && "text-[#4F8A6B]",
+                        activeModule === 'code' && "text-on-surface-variant",
+                        activeModule === 'quiz' && "text-amber-600"
+                      )}>
+                        {activeModule === 'article' && "N-014 RAG Foundations"}
+                        {activeModule === 'video' && "N-038 Vector DB Latency"}
+                        {activeModule === 'podcast' && "N-001 Prompt Patterns"}
+                        {activeModule === 'code' && "N-064 Multi-Agent Consensus"}
+                        {activeModule === 'quiz' && "N-097 Sovereign Underwriting"}
+                      </span>
+                      <h4 className="text-xs font-bold text-on-surface">
+                        {activeModule === 'article' && "Retrieval Augmented Generation & Graph Chunking"}
+                        {activeModule === 'video' && "Adversarial Stress Playback · Chapter 3: Indexing"}
+                        {activeModule === 'podcast' && "Ep. 49: Context Windows & Attention Telemetry"}
+                        {activeModule === 'code' && "Consensus Scaffolding: Semaphore Pool Implementation"}
+                        {activeModule === 'quiz' && "L-110 Gauntlet Gate: Final Assessment"}
+                      </h4>
+                    </div>
+                  </div>
+
+                  {/* Interactive dialogue / playback view */}
+                  <div className="my-4 font-mono text-[10px] text-on-surface-variant leading-relaxed relative z-10">
+                    {activeModule === 'article' && (
+                      <p className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 leading-relaxed font-body">
+                        <strong>Text Telemetry:</strong> Reading velocity is monitored. Highlighted text segments generate inline annotations. Reading at 220 WPM. Accrual active.
+                      </p>
+                    )}
+                    {activeModule === 'video' && (
+                      <div className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 flex items-center gap-3">
+                        <Play className="w-5 h-5 text-[#C5A059] shrink-0" />
+                        <div>
+                          <strong>Lecture Playback:</strong> Chapter 3 active.
+                          <div className="text-[8px] text-outline font-mono mt-0.5">Scrubbing disabled. Anti-gaming check passed.</div>
+                        </div>
+                      </div>
+                    )}
+                    {activeModule === 'podcast' && (
+                      <div className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 flex items-center gap-3">
+                        <Volume2 className="w-5 h-5 text-[#4F8A6B] shrink-0" />
+                        <div>
+                          <strong>Synchronized Audio:</strong> Background listening allowed but flagged in final report. Transcript matching sync rate.
+                        </div>
+                      </div>
+                    )}
+                    {activeModule === 'code' && (
+                      <p className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 leading-relaxed font-mono text-[9px] overflow-x-auto whitespace-pre">
+                        const semaphore = new Semaphore(poolSize);<br/>
+                        // tele_check: lock released after annotation<br/>
+                        await semaphore.acquire();
+                      </p>
+                    )}
+                    {activeModule === 'quiz' && (
+                      <p className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 leading-relaxed font-body text-amber-700">
+                        <strong>Gauntlet:</strong> Answer 5 adversarial logic prompts to seal nodes. Skip penalty: -0.05 CA score.
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Progress tracker */}
+                  <div className="space-y-1 relative z-10">
+                    <div className="flex justify-between font-mono text-[9px] text-outline">
+                      <span>Module Progress:</span>
+                      <span>{playProgress}%</span>
+                    </div>
+                    <div className="w-full bg-outline/10 h-1 rounded-full overflow-hidden">
+                      <div
+                        className="bg-primary h-full transition-all duration-300"
+                        style={{ width: `${playProgress}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Simulated Focus Telemetry Toggles */}
+                <div className="space-y-2">
+                  <span className="text-[9px] font-mono text-outline block uppercase tracking-wider">Simulate Presence State (PAT-002)</span>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      onClick={() => setPresenceState('active')}
+                      className={cn(
+                        "py-1.5 rounded-lg text-[10px] font-mono font-bold transition-all border cursor-pointer",
+                        presenceState === 'active'
+                          ? "bg-[#4F8A6B]/15 text-[#4F8A6B] border-[#4F8A6B]/30"
+                          : "bg-surface hover:bg-surface-container-high text-on-surface-variant border-outline-variant/10"
+                      )}
+                    >
+                      Active Focus
+                    </button>
+                    <button
+                      onClick={() => setPresenceState('idle')}
+                      className={cn(
+                        "py-1.5 rounded-lg text-[10px] font-mono font-bold transition-all border cursor-pointer",
+                        presenceState === 'idle'
+                          ? "bg-amber-500/15 text-amber-600 border-amber-500/30"
+                          : "bg-surface hover:bg-surface-container-high text-on-surface-variant border-outline-variant/10"
+                      )}
+                    >
+                      Idle Pause
+                    </button>
+                    <button
+                      onClick={() => setPresenceState('lost')}
+                      className={cn(
+                        "py-1.5 rounded-lg text-[10px] font-mono font-bold transition-all border cursor-pointer",
+                        presenceState === 'lost'
+                          ? "bg-red-500/15 text-red-600 border-red-500/30"
+                          : "bg-surface hover:bg-surface-container-high text-on-surface-variant border-outline-variant/10"
+                      )}
+                    >
+                      Lost Focus
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button & Telemetry Points Breakdown */}
+              <div className="space-y-4 border-t border-outline-variant/10 pt-4">
+                <div className="flex gap-4 items-center justify-between">
+                  <button
+                    onClick={() => {
+                      if (playProgress >= 100) {
+                        setPlayProgress(0);
+                      } else {
+                        setPlayProgress(Math.min(100, playProgress + 10));
+                        if (presenceState === 'active') {
+                          setAccruedTp(accruedTp + Math.floor(Math.random() * 15 + 15));
+                        }
+                      }
+                    }}
+                    className="bg-primary text-on-primary font-mono text-xs px-5 py-3 rounded-xl border border-primary/20 shadow-md hover:opacity-95 transition-all cursor-pointer shrink-0"
+                  >
+                    {playProgress >= 100 ? "Reset Simulator" : "Simulate Learning Activity"}
+                  </button>
+
+                  {/* Accrued Telemetry Points display */}
+                  <div className="text-right">
+                    <span className="text-[9px] text-outline font-mono block uppercase">Accrued Telemetry (TP)</span>
+                    <span className="text-lg font-bold font-mono text-primary flex items-center gap-1.5 justify-end">
+                      <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+                      {accruedTp} TP
+                    </span>
+                  </div>
+                </div>
+
+                {/* TP Source Attribution breakdown bar (Figma Token 03) */}
+                <div className="space-y-1.5 font-mono text-[9px] text-on-surface-variant">
+                  <div className="flex justify-between items-center text-outline">
+                    <span>Accrual Source Attribution:</span>
+                    <span>100% Attributed</span>
+                  </div>
+                  
+                  {/* Segmented bar */}
+                  <div className="w-full bg-outline/10 h-2.5 rounded-full overflow-hidden flex">
+                    <div className="bg-[#4F8A6B] h-full" style={{ width: '40%' }} title="Time Attested portion" />
+                    <div className="bg-[#C5A059] h-full" style={{ width: '40%' }} title="Comprehension streak portion" />
+                    <div className="bg-[#2C4771] h-full" style={{ width: '20%' }} title="Annotation credit portion" />
+                  </div>
+                  
+                  <div className="flex justify-between items-center flex-wrap gap-2 text-[8px] text-outline">
+                    <span className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#4F8A6B]" /> Time Attested ({Math.floor(accruedTp * 0.4)} TP)
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" /> Comprehension ({Math.floor(accruedTp * 0.4)} TP)
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2C4771]" /> Annotation ({Math.floor(accruedTp * 0.2)} TP)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

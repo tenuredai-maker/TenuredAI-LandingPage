@@ -24,6 +24,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 // server.ts
 var import_express = __toESM(require("express"), 1);
 var import_path = __toESM(require("path"), 1);
+var import_fs = __toESM(require("fs"), 1);
 var import_genai = require("@google/genai");
 
 // src/services/emailDigestService.ts
@@ -257,9 +258,24 @@ async function startServer() {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
-      appType: "spa"
+      appType: "custom"
     });
     app.use(vite.middlewares);
+    app.use("*", async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        const templatePath = import_path.default.resolve(process.cwd(), "index.html");
+        if (!import_fs.default.existsSync(templatePath)) {
+          return res.status(404).send("index.html not found");
+        }
+        let template = import_fs.default.readFileSync(templatePath, "utf-8");
+        template = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ "Content-Type": "text/html" }).end(template);
+      } catch (e) {
+        vite.ssrFixStacktrace(e);
+        next(e);
+      }
+    });
   } else {
     const distPath = import_path.default.join(process.cwd(), "dist");
     app.use(import_express.default.static(distPath));

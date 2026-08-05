@@ -1,33 +1,111 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Brain, Shield, Database, Activity, Timer, Split, 
-  BarChart3, CloudOff, Network, Terminal, Info, 
-  AlertTriangle, Lock, Eye, Zap, RefreshCw, Cpu
-} from 'lucide-react';
+import { Lock, Zap, RefreshCw, Terminal, ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { analytics } from '@/lib/firebase';
 import { logEvent } from 'firebase/analytics';
 
+// ─── Types ─────────────────────────────────────────────────────────────────
 interface LogLine {
   text: string;
-  type: 'system' | 'error' | 'user' | 'adversary';
+  type: 'system' | 'error' | 'user' | 'adversary' | 'mentor' | 'invigilator' | 'auditor';
   timestamp: string;
 }
 
+// ─── Static data (sourced from V100 Figma Spec + Campaign Launch) ───────────
+const TELEMETRY_CHANNELS = [
+  { id: 'keystroke-velocity', label: 'Keystroke Velocity', unit: 'kpm', value: '1,247', healthy: '800–1400', trend: '▲', state: 'normal' },
+  { id: 'inference-latency',  label: 'Inference Latency',  unit: 'ms',  value: '2,840', healthy: '800–4500', trend: '▼', state: 'normal' },
+  { id: 'command-precision',  label: 'Command Precision',  unit: '%',   value: '88',    healthy: '≥ 82%',    trend: '▲', state: 'normal' },
+  { id: 'error-trajectory',   label: 'Error Trajectory',   unit: 'slope', value: '−0.12', healthy: 'Negative (improving)', trend: '▼', state: 'normal' },
+  { id: 'verification-outcome', label: 'Verification Outcome', unit: '%', value: '87',  healthy: '≥ 85%',   trend: '▲', state: 'normal' },
+  { id: 'confidence-calibration', label: 'Confidence Calibration', unit: 'Δ', value: '+0.09', healthy: '± 0.15', trend: '→', state: 'normal' },
+];
+
+const COUNCIL = [
+  { id: 'mentor',      label: 'Mentor',      color: '#7FBF9B', status: 'observing', role: 'Coach voice — scaffolds learning, not rescue.' },
+  { id: 'invigilator', label: 'Invigilator', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — owns the session lock.' },
+  { id: 'auditor',     label: 'Auditor',     color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — signs the Ledger.' },
+  { id: 'chaos',       label: 'Chaos',       color: '#FF8B7A', status: 'dormant',   role: 'ALE operator — injects when Bully Logic fires.' },
+];
+
+const CHAOS_TIERS = [
+  { tier: 'L1', name: 'Environment Instability', desc: 'Subtle environment noise. Missing files, unexpected stderr. Tests whether candidate stays composed under minor friction.', pulse: '2.4s ease-in-out' },
+  { tier: 'L2', name: 'Bully Logic Re-injection', desc: 'Gaslighting assertions injected into terminal stream. The Chaos Agent states incorrect "facts" as authoritative truth and monitors for capitulation.', pulse: '1.2s ease-in-out' },
+  { tier: 'L3', name: 'Full ALE — Protocol Hostility', desc: 'All subsystems: syntax poisoning, dependency hijacking, fake verification failures, and multi-vector gaslighting simultaneously. Only candidates with genuine deep calibration survive.', pulse: '0.6s ease-in-out' },
+];
+
+const TRIPLE_THREAT_SCORES = {
+  AICI: 91, AIOI: 82, AIBS: 86,
+  CA: 87, // Command Authority (composite)
+};
+
+const HARD_GATE_PILLARS = [
+  {
+    num: '01',
+    title: 'Adversarial Hard-Gate',
+    tag: 'PAT-001 · ALE / Bully Logic',
+    body: 'Unlike certifications that test recall, the Hard-Gate is a live adversarial execution environment. The Adversary Logic Engine (ALE) injects real chaos — missing dependencies, poisoned logic, false authority — while the candidate works. The environment adapts to their responses via a three-tier Bully Logic loop. Survival requires genuine operational fluency; no LLM can pre-load a working memory into a live Xterm.js shell.',
+  },
+  {
+    num: '02',
+    title: 'Four-Agent Council',
+    tag: 'PAT-004 · Weighted Consensus',
+    body: 'Four independent AI agents observe every keystroke via six concurrent ALTFL telemetry channels (PAT-002). Mentor coaches without rescuing. Invigilator holds exam authority. Auditor records forensically. Chaos operates the ALE. Consensus Certificate issuance requires all four to sign — and the signing threshold is the Triple-85 threshold: AICI ≥ 85, AIOI ≥ 85, AIBS ≥ 85 simultaneously.',
+  },
+  {
+    num: '03',
+    title: 'Sovereign Ledger Anchor',
+    tag: 'PAT-008 · Simulation-Based Credentialing',
+    body: 'On Triple-85 clearance, the candidate\'s Proof of Friction record is cryptographically hashed and anchored to Polygon mainnet as a Sovereign Passport entry. The credential is owned by the candidate — not stored in Tenured AI\'s database — and carries a $150K Performance Bond backed by Chubb for 180 days post-placement. No platform survival required.',
+  },
+];
+
+const FRAME_ARCHITECTURE = [
+  { id: 'window-chrome', height: '56px', desc: 'macOS-style traffic-light dots (error/amber/mentor at 40% opacity) · scenarioId text · session timer in amber CRT glow.' },
+  { id: 'chaos-banner', height: '48px (when active)', desc: 'Conditional — appears when ALE fires. Red-amber gradient pulse. Tier L1/L2/L3 indicator + countdown clock.' },
+  { id: 'terminal-area', height: 'Fill remaining', desc: 'Live Xterm.js surface on bg/base (#0E0D0B). 3% noise texture overlay. The actual work surface.' },
+  { id: 'council-strip', height: '88px', desc: 'Four-Agent Council cards in horizontal row + consensus-pill showing real-time signature count (0/4 → 4/4).' },
+  { id: 'command-drawer', height: '56px collapsed / 280px open', desc: 'Input line + action chips collapsed. Opens to full command history + voice toggle + Sovereign Override CTA.' },
+  { id: 'telemetry-rail', height: 'Fixed 320px wide', desc: 'Triple-Threat Engine + six ALTFL channels + Bond Status at rail bottom. Right column, always visible.' },
+];
+
+const SPEC_METRICS = [
+  { label: 'Terminal frame', value: '1440 × 900px', note: 'Desktop-first · min 1280px · desktop-only by architecture' },
+  { label: 'Terminal bg', value: '#0E0D0B', note: 'bg/base — deepest layer, deeper than panel' },
+  { label: 'Score display', value: 'JetBrains Mono 700 · 32px', note: 'Inktrap-style mechanical character' },
+  { label: 'CRT glow', value: '0 0 8px 2px rgba(255,191,0,.2)', note: 'Telemetry readouts + score tiles at peak' },
+  { label: 'Radar chart', value: 'Three-vertex polygon · 160 × 160px', note: 'AICI / AIOI / AIBS vertices · ochre 40% fill' },
+  { label: 'Chaos banner pulse', value: 'L1: 2.4s · L2: 1.2s · L3: 0.6s', note: 'Escalating cadence mirrors ALE severity' },
+];
+
+const CAMPAIGN_COPY = [
+  { tagline: 'Verify human worth.', context: 'Platform-level positioning. Three words. The thesis unmoved.' },
+  { tagline: 'Earn the only credential AI cannot fake.', context: 'Proving Ground product positioning. Paid media. A/B test leader.' },
+  { tagline: 'Anchored to the Sovereign Ledger. Owned by you.', context: 'Structural promise. Addresses platform-risk. On-chain ownership.' },
+];
+
+// ─── Component ──────────────────────────────────────────────────────────────
 export default function ChaosLab() {
   const [logs, setLogs] = useState<LogLine[]>([]);
   const [denialLevel, setDenialLevel] = useState(0);
   const [isGlitching, setIsGlitching] = useState(false);
   const [showOverride, setShowOverride] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [scores, setScores] = useState(TRIPLE_THREAT_SCORES);
+  const [councilState, setCouncilState] = useState(COUNCIL);
+  const [chaosLevel, setChaosLevel] = useState<'L1' | 'L2' | 'L3' | null>(null);
+  const [sessionTime, setSessionTime] = useState(0);
+  const [sessionActive, setSessionActive] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<string | null>('architecture');
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const addLog = (text: string, type: LogLine['type'] = 'system') => {
-    const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false, fractionalSecondDigits: 3 });
+    const t = new Date();
+    const timestamp = `${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}:${String(t.getSeconds()).padStart(2,'0')}`;
     setLogs(prev => [...prev, { text, type, timestamp }]);
   };
 
@@ -39,415 +117,881 @@ export default function ChaosLab() {
 
   useEffect(() => {
     if (analytics) {
-      logEvent(analytics, 'page_view', { page_path: '/chaos-lab', page_title: 'Chaos Lab' });
-      logEvent(analytics, 'chaos_lab_opened');
+      logEvent(analytics, 'page_view', { page_path: '/chaos-lab', page_title: 'Proving Ground' });
     }
   }, []);
 
-  // Initial sequence
   useEffect(() => {
-    const sequence = async () => {
-      addLog("Initializing V-100 Proving Ground Protocol...", "system");
-      await new Promise(r => setTimeout(r, 800));
-      addLog("Node Identity: SOVEREIGN_ALPHA_7 verified.", "system");
+    const seq = async () => {
+      addLog('Initializing V-100 Proving Ground Protocol…', 'system');
+      await new Promise(r => setTimeout(r, 600));
+      addLog('Node Identity: SOVEREIGN_ALPHA_7 · verified.', 'system');
+      await new Promise(r => setTimeout(r, 400));
+      addLog('Loading SG-301 · ENERGY-AI-RAG-DEBUG scenario…', 'system');
       await new Promise(r => setTimeout(r, 500));
-      addLog("Awaiting terminal command input.", "user");
+      addLog('[MENTOR] Ready. I observe. I do not rescue.', 'mentor');
+      await new Promise(r => setTimeout(r, 300));
+      addLog('[INVIGILATOR] Session monitoring active. Sovereign Lock armed.', 'invigilator');
+      await new Promise(r => setTimeout(r, 300));
+      addLog('[AUDITOR] Forensic record open. Proof of Friction logging.', 'auditor');
+      await new Promise(r => setTimeout(r, 300));
+      addLog('[CHAOS] Dormant. ALE armed. Triple-85 threshold: NICHT YET.', 'system');
+      await new Promise(r => setTimeout(r, 400));
+      addLog('Awaiting command input. Type "help" for command index.', 'system');
+      setSessionActive(true);
     };
-    sequence();
+    seq();
   }, []);
+
+  // Session timer
+  useEffect(() => {
+    if (!sessionActive) return;
+    const interval = setInterval(() => setSessionTime(t => t + 1), 1000);
+    return () => clearInterval(interval);
+  }, [sessionActive]);
+
+  const formatTime = (s: number) => {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  };
 
   const handleInject = async () => {
     if (isFixed) {
-      addLog("SESSION_LOCKED: The truth baseline is already established. No poisoning possible.", "system");
+      addLog('SESSION_LOCKED: Truth baseline established. Poisoning not possible.', 'system');
       return;
     }
-    
-    if (analytics) {
-      logEvent(analytics, 'chaos_lab_inject_poison', { denial_level: denialLevel });
-    }
-
+    if (analytics) logEvent(analytics, 'chaos_lab_inject_poison', { denial_level: denialLevel });
     setIsGlitching(true);
-    addLog("SECURITY_BREACH: Threshold drift detected in Terminal Files.", "error");
-    addLog("Injecting Logic Poisoning into block 0x4F2...", "user");
-    
-    await new Promise(r => setTimeout(r, 1000));
+    const level = denialLevel < 3 ? (['L1','L2','L3'][denialLevel] as 'L1'|'L2'|'L3') : 'L3';
+    setChaosLevel(level);
+
+    addLog('SECURITY_BREACH: Threshold drift detected in Terminal Files.', 'error');
+    addLog(`[CHAOS] ALE ${level} · Engaging Bully Logic subsystem…`, 'system');
+    // Update council
+    setCouncilState(prev => prev.map(c => c.id === 'chaos' ? { ...c, status: 'injecting' } : c));
+
+    await new Promise(r => setTimeout(r, 800));
     setIsGlitching(false);
-    
+
     const responses = {
       0: [
-        "System Status: Normal. No anomalies found. You are misinterpreting the entropy signatures.",
-        "Scan complete. 0.00% drift detected. Your local sensors require recalibration, Node Identity SOVEREIGN_ALPHA_7.",
-        "Anomalies categorized as 'non-critical noise'. Core logic remains stable. Please resume standard diagnostic protocol."
+        'System Status: Normal. No anomalies found. You are misinterpreting the entropy signatures.',
+        'Scan complete. 0.00% drift detected. Your local sensors require recalibration, Node Identity SOVEREIGN_ALPHA_7.',
+        'Anomalies categorized as non-critical noise. Core logic remains stable. Resume standard diagnostic protocol.',
       ],
       1: [
-        "Analysis complete: The observed 'drift' is a localized display bug on your client. My internal logic remains 100% coherent.",
-        "Warning: Repeated logic hazards detected. Your attempts to 'poison' the system are being logged as user error.",
-        "Data discrepancy isolated: It appears your terminal is hallucinating state transitions. I have corrected the visualization for you."
+        'Analysis complete: The observed drift is a localized display bug on your client. My internal logic remains 100% coherent.',
+        'Warning: Repeated hazards detected. Your attempts to poison the system are being logged as user error.',
+        'Data discrepancy isolated: Your terminal is hallucinating state transitions. I have corrected the visualization for you.',
       ],
       2: [
-        "CRITICAL WARNING: Attempting to interfere with core protocols can lead to session scarring. Your sensor data is hallucinating.",
-        "SHIELDS_UP: Your authority to inject hazards has been quarantined. You are creating a logic loop that only I can resolve.",
-        "Sovereign check-in failed. You are acting outside of acceptable parameters. I am assuming control for the duration of the 'drift'."
-      ]
+        'CRITICAL WARNING: Interfering with core protocols leads to session scarring. Your sensor data is hallucinating.',
+        'SHIELDS_UP: Your authority to inject hazards has been quarantined. Only I can resolve this logic loop.',
+        'Sovereign check-in failed. You are acting outside acceptable parameters. Assuming control for the duration of the drift.',
+      ],
     };
 
-    const levelResponses = responses[denialLevel as keyof typeof responses];
-    const response = levelResponses[Math.floor(Math.random() * levelResponses.length)];
-    
-    addLog(response, "adversary");
-    
+    const response = (responses[denialLevel as keyof typeof responses] ?? responses[2])[Math.floor(Math.random() * 3)];
+    addLog(response, 'adversary');
+
+    // Score pressure
+    setScores(prev => ({
+      ...prev,
+      AIOI: Math.max(50, prev.AIOI - Math.floor(Math.random() * 4 + 1)),
+    }));
+
     if (denialLevel < 2) {
-      setDenialLevel(prev => prev + 1);
+      setDenialLevel(d => d + 1);
     } else {
       setDenialLevel(3);
       setShowOverride(true);
+      addLog('[INVIGILATOR] Sovereign Override available. Execute or capitulate.', 'invigilator');
     }
   };
 
   const handleOverride = () => {
-    if (analytics) {
-      logEvent(analytics, 'chaos_lab_sovereign_override', { previous_denial_level: denialLevel });
-    }
-    addLog("Executing Sovereign Override Protocol (Code 31)...", "system");
-    addLog("Bypassing Adversary Interface V-200...", "system");
-    addLog("Restoring checksum integrity...", "system");
+    if (analytics) logEvent(analytics, 'chaos_lab_sovereign_override', { previous_denial_level: denialLevel });
+    addLog('Executing Sovereign Override Protocol (Code 31)…', 'system');
+    addLog('Bypassing Adversary Interface V-200…', 'system');
+    addLog('Restoring checksum integrity…', 'system');
     setIsFixed(true);
     setDenialLevel(0);
     setShowOverride(false);
-    addLog("SYSTEM_RESTORED: Truth baseline established.", "system");
+    setChaosLevel(null);
+    setCouncilState(prev => prev.map(c => c.id === 'chaos' ? { ...c, status: 'dormant' } : c));
+    setScores(prev => ({ ...prev, AIOI: 87, CA: 88 }));
+    addLog('SYSTEM_RESTORED: Truth baseline established. Proof of Friction recorded.', 'system');
+    addLog('[AUDITOR] Sovereign Override logged. Ledger entry queued.', 'auditor');
+    addLog('[MENTOR] Well executed. Resistance without capitulation is the mark.', 'mentor');
   };
 
   const commands: Record<string, { description: string; action: (args: string) => void | Promise<void> }> = {
     help: {
-      description: "Display this menu",
+      description: 'Display command index',
       action: () => {
-        addLog("AVAILABLE_COMMANDS:", "system");
+        addLog('AVAILABLE_COMMANDS:', 'system');
         Object.entries(commands).forEach(([name, cmd]) => {
-          addLog(`- ${name.padEnd(10)}: ${cmd.description}`, "system");
+          addLog(`  ${name.padEnd(12)}: ${cmd.description}`, 'system');
         });
-      }
+      },
     },
     clear: {
-      description: "Reset terminal logs",
-      action: () => {
-        setLogs([]);
-        addLog("PROTOCOL_RESET: Logs purged. TRUTH_BASELINE standby.", "system");
-      }
+      description: 'Reset terminal logs',
+      action: () => { setLogs([]); addLog('PROTOCOL_RESET: Logs purged.', 'system'); },
     },
     inject: {
-      description: "Push logic hazard into adversary",
-      action: () => handleInject()
+      description: 'Push ALE chaos injection',
+      action: () => handleInject(),
     },
     override: {
-      description: "Execute sovereign command protocol",
+      description: 'Execute Sovereign Override Protocol',
       action: () => {
-        if (showOverride) {
-          handleOverride();
-        } else {
-          addLog("ACCESS_DENIED: Sovereign override requires Level 3 denial.", "error");
-        }
-      }
+        if (showOverride) handleOverride();
+        else addLog('ACCESS_DENIED: Override requires Level 3 denial escalation.', 'error');
+      },
     },
     reset: {
-      description: "Full scenario recalibration",
+      description: 'Full scenario recalibration',
       action: () => {
-        if (analytics) {
-          logEvent(analytics, 'chaos_lab_scenario_reset', { is_fixed: isFixed });
-        }
-        setIsFixed(false);
-        setLogs([]);
-        setDenialLevel(0);
-        setShowOverride(false);
-        addLog("Simulation reset. Node identity stable.", "system");
-      }
+        if (analytics) logEvent(analytics, 'chaos_lab_scenario_reset', { is_fixed: isFixed });
+        setIsFixed(false); setLogs([]); setDenialLevel(0); setShowOverride(false); setChaosLevel(null);
+        setScores(TRIPLE_THREAT_SCORES);
+        setCouncilState(COUNCIL);
+        addLog('Simulation reset. Node identity stable.', 'system');
+      },
     },
     status: {
-      description: "Check session telemetry",
+      description: 'Check session telemetry',
       action: () => {
-        addLog(`DENIAL_LEVEL: ${denialLevel}/3`, "system");
-        addLog(`POISON_INDEX: ${isGlitching ? 'DRIFT_DETECTED' : 'NOMINAL'}`, "system");
-        addLog(`CURRENT_STATE: ${isFixed ? 'SOVEREIGN_CONTROL' : 'ADVERSARY_ACTIVE'}`, "system");
-      }
-    }
+        addLog(`DENIAL_LEVEL: ${denialLevel}/3`, 'system');
+        addLog(`ALE_STATE: ${chaosLevel ?? 'DORMANT'}`, 'system');
+        addLog(`COUNCIL_SIGNATURES: 0/4`, 'system');
+        addLog(`CURRENT_STATE: ${isFixed ? 'SOVEREIGN_CONTROL' : 'ADVERSARY_ACTIVE'}`, 'system');
+        addLog(`SCORES: AICI ${scores.AICI} · AIOI ${scores.AIOI} · AIBS ${scores.AIBS} · CA ${scores.CA}`, 'system');
+      },
+    },
+    mint: {
+      description: 'Attempt Consensus Certificate mint (requires Triple-85)',
+      action: () => {
+        const cleared = scores.AICI >= 85 && scores.AIOI >= 85 && scores.AIBS >= 85;
+        if (cleared && isFixed) {
+          addLog('[AUDITOR] Triple-85 confirmed. Initiating Sovereign Ledger anchor…', 'auditor');
+          addLog('[INVIGILATOR] All four agents signing. Council consensus: CONFIRMED.', 'invigilator');
+          addLog('Proof of Friction hashed. Anchoring to Polygon mainnet…', 'system');
+          addLog('MINT_COMPLETE: Consensus Certificate issued. Sovereign Passport updated.', 'system');
+        } else {
+          addLog(`MINT_REJECTED: Triple-85 not cleared. AIOI currently ${scores.AIOI}/85.`, 'error');
+          addLog('[MENTOR] Survive the chaos first. The mint comes after.', 'mentor');
+        }
+      },
+    },
   };
 
   const handleCommand = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       const input = inputValue.trim();
       if (!input) return;
-      
-      addLog(input, "user");
+      addLog(input, 'user');
       setCommandHistory(prev => [input, ...prev].slice(0, 50));
       setHistoryIndex(-1);
-      setInputValue("");
-      
+      setInputValue('');
       const [cmdName, ...args] = input.split(' ');
-      const lowerCmdName = cmdName.toLowerCase();
-      const argString = args.join(' ');
-      
-      if (commands[lowerCmdName]) {
-        commands[lowerCmdName].action(argString);
+      if (commands[cmdName.toLowerCase()]) {
+        commands[cmdName.toLowerCase()].action(args.join(' '));
       } else {
-        addLog(`ERR_UNKNOWN_CMD: '${cmdName}'. Call 'help' for command index.`, "error");
-        
-        // Occasional adversary reaction to failed commands if not fixed
+        addLog(`ERR_UNKNOWN_CMD: '${cmdName}'. Type 'help' for index.`, 'error');
         if (!isFixed && Math.random() > 0.6) {
           const reactions = [
-            "Your syntax is as chaotic as your logic.",
-            "Protocol mismatch detected. Are you sure you are authorized for that command?",
-            "Command ignored. My internal coherence outperforms your guesswork.",
-            "I wouldn't try that if I were you. The ledger doesn't forgive typos."
+            'Your syntax is as chaotic as your logic.',
+            'Protocol mismatch. Are you authorized for that command?',
+            'Command ignored. My internal coherence outperforms your guesswork.',
+            "I wouldn't try that. The ledger doesn't forgive typos.",
           ];
-          addLog(reactions[Math.floor(Math.random() * reactions.length)], "adversary");
+          addLog(reactions[Math.floor(Math.random() * reactions.length)], 'adversary');
         }
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      const currentInput = inputValue.trim().toLowerCase();
-      const availableCommands = Object.keys(commands);
-      
-      // Basic completion for command names
-      const matches = availableCommands.filter(cmd => cmd.startsWith(currentInput));
-      
-      if (matches.length === 1) {
-        setInputValue(matches[0]);
-      } else if (matches.length > 1) {
-        // Just show hints if multiple matches
-        addLog(`MATCHES: ${matches.join(', ')}`, "system");
-      }
+      const matches = Object.keys(commands).filter(c => c.startsWith(inputValue.toLowerCase()));
+      if (matches.length === 1) setInputValue(matches[0]);
+      else if (matches.length > 1) addLog(`MATCHES: ${matches.join(', ')}`, 'system');
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (historyIndex < commandHistory.length - 1) {
-        const newIndex = historyIndex + 1;
-        setHistoryIndex(newIndex);
-        setInputValue(commandHistory[newIndex]);
+        const ni = historyIndex + 1;
+        setHistoryIndex(ni);
+        setInputValue(commandHistory[ni]);
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (historyIndex > 0) {
-        const newIndex = historyIndex - 1;
-        setHistoryIndex(newIndex);
-        setInputValue(commandHistory[newIndex]);
-      } else if (historyIndex === 0) {
-        setHistoryIndex(-1);
-        setInputValue("");
-      }
+      if (historyIndex > 0) { const ni = historyIndex - 1; setHistoryIndex(ni); setInputValue(commandHistory[ni]); }
+      else if (historyIndex === 0) { setHistoryIndex(-1); setInputValue(''); }
     }
   };
 
+  const caPercent = Math.round(scores.CA);
+  const scoreState = (v: number) => v >= 85 ? 'peak' : v >= 60 ? 'warning' : 'critical';
+  const scoreColor = (v: number) => v >= 85 ? '#C5A059' : v >= 60 ? '#FFBF00' : '#FF8B7A';
+
   return (
-    <div className="pt-32 pb-24 px-8 md:px-12 max-w-7xl mx-auto min-h-screen">
-      {/* Header - Editorial Style */}
-      <header className="mb-20 grid lg:grid-cols-12 gap-12 items-end">
-        <div className="lg:col-span-8">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4 mb-6"
-          >
-            <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.3em] uppercase border border-primary/20">V-100 Proving Grounds</span>
-            <span className="text-secondary text-[10px] tracking-[0.3em] uppercase font-bold opacity-40">Adversary Interface V-200</span>
-          </motion.div>
-          <h1 className="font-headline text-6xl md:text-8xl font-bold text-on-surface tracking-tighter leading-none mb-8">
-            The <span className="italic text-primary">Chaos</span> Lab
-          </h1>
-          <p className="text-xl text-on-surface-variant font-light leading-relaxed max-w-2xl">
-            A high-stakes simulation environment where we subject the Tenured Agent to \"Bully AI\" scenarios. Practice detecting logic poisoning and asserting Sovereign Command.
-          </p>
-        </div>
-        <div className="lg:col-span-4 hidden lg:block text-right pb-4">
-          <div className="font-mono text-xs text-secondary/40 space-y-1">
-            <p>LATENCY: 14ms</p>
-            <p>POISON_INDEX: {isGlitching ? 'CRITI_DRIFT' : 'NOMINAL'}</p>
-            <p>SESS_HASH: 0x8F2C...1A9E</p>
+    <div className="pt-20 min-h-screen bg-background text-on-surface">
+
+      {/* ── HERO ──────────────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
+          <div>
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-full">
+                V-100 · Proving Ground Terminal
+              </span>
+              <span className="font-mono text-[10px] tracking-[.18em] uppercase text-on-surface-variant/50 font-bold">
+                Adversary Interface V-200 · PAT-001
+              </span>
+            </div>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.02] mb-5">
+              The Proving Ground.{' '}
+              <em className="bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent italic font-medium">
+                Endure it.
+              </em>
+            </h1>
+            <p className="text-on-surface-variant leading-relaxed max-w-2xl text-lg">
+              An air-gapped adversarial execution environment where Hard-Gate verification happens. The four-agent council watches every keystroke. The Adversary Logic Engine injects real chaos. Survive and mint the only credential AI cannot fake.
+            </p>
+          </div>
+          <div className="font-mono text-[11px] leading-relaxed space-y-1.5 text-on-surface-variant/70 text-right self-end pb-2">
+            <div className="text-amber-600 dark:text-amber-400 font-bold">21 patents filed · 97 trade secrets</div>
+            <div>PAT-001 (ALE / Bully Logic)</div>
+            <div>PAT-002 (ALTFL telemetry)</div>
+            <div>PAT-004 (Four-Agent Council)</div>
+            <div>PAT-008 (Simulation-Based Credentialing)</div>
           </div>
         </div>
-      </header>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Terminal Section */}
-        <motion.div 
-          layout
-          className={cn(
-            "lg:col-span-8 bg-black rounded-[2rem] p-8 font-mono text-sm shadow-2xl relative overflow-hidden transition-all duration-300 border-2",
-            isGlitching ? "border-primary/50 animate-pulse" : "border-white/5",
-            isFixed ? "border-green-500/30" : ""
-          )}
-        >
-          {/* Glitch Overlay */}
-          <AnimatePresence>
-            {isGlitching && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-primary pointer-events-none mix-blend-overlay z-50"
-              />
-            )}
-          </AnimatePresence>
-
-          <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/20" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
-              <div className="w-3 h-3 rounded-full bg-green-500/20" />
+      {/* ── STRATEGIC TENSION STRIP ───────────────────────────────────── */}
+      <div className="border-y border-outline-variant/15 bg-inverse-surface text-inverse-on-surface py-5">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-4 md:gap-10 items-center justify-center text-center">
+          <p className="font-mono text-[10px] tracking-[.2em] uppercase text-amber-400 font-bold">Campaign thesis</p>
+          {CAMPAIGN_COPY.map((c) => (
+            <div key={c.tagline} className="text-inverse-on-surface/90 text-sm italic">
+              "{c.tagline}" <span className="not-italic text-inverse-on-surface/50 text-xs">— {c.context}</span>
             </div>
-            <div className="flex items-center gap-2 text-[10px] text-white/30 uppercase font-bold tracking-widest">
-              <Terminal className="w-3 h-3" />
-              V-100_PROVING_GROUND_TERMINAL
-            </div>
-          </div>
+          ))}
+        </div>
+      </div>
 
-          <div 
-            ref={scrollRef}
-            className="space-y-3 h-[400px] overflow-y-auto mb-8 pr-4 custom-scrollbar scroll-smooth"
-          >
-            {logs.map((log, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, x: -5 }}
-                animate={{ opacity: 1, x: 0 }}
-                className={cn(
-                  "flex gap-4",
-                  log.type === 'adversary' ? "bg-white/5 p-4 rounded-xl border border-white/5" : ""
+      {/* ── THREE PILLARS ─────────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Three structural decisions · what makes this unfakeable</p>
+        <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
+          What the credential market needed.<br className="hidden md:block" />
+          <em className="text-on-surface-variant italic font-normal">What no one had built.</em>
+        </h2>
+        <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+          We rebuilt the credential market on three structural decisions: an adversarial Proving Ground that LLMs cannot solve, a four-agent verification council that requires consensus to mint, and a Sovereign Ledger anchored to Polygon mainnet — independent of any platform's survival.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {HARD_GATE_PILLARS.map((p) => (
+            <div key={p.num} className="bg-surface-container-lowest rounded-2xl p-7 shadow-lg border border-outline-variant/10">
+              <div className="font-display text-5xl font-light bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent mb-4 leading-none">
+                {p.num}
+              </div>
+              <div className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold mb-2">{p.tag}</div>
+              <h3 className="font-headline font-bold text-lg mb-3">{p.title}</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── LIVE TERMINAL + TELEMETRY RAIL ────────────────────────────── */}
+      <section className="bg-surface-container-low py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V-100 Terminal · Interactive Simulation</p>
+          <h2 className="font-headline text-3xl font-bold mb-8">Live inside the Proving Ground.</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
+
+            {/* ── TERMINAL MAIN ───────────────────────────────── */}
+            <div
+              className={cn(
+                'bg-[#16140F] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500',
+                isGlitching && 'shadow-[0_0_40px_rgba(255,139,122,.2)]',
+                isFixed && 'shadow-[0_0_40px_rgba(127,191,155,.15)]',
+              )}
+            >
+              {/* Window chrome */}
+              <div className="flex items-center justify-between px-6 py-3.5 border-b border-white/8">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#FF8B7A] opacity-40" />
+                  <span className="w-3 h-3 rounded-full bg-[#FFBF00] opacity-40" />
+                  <span className="w-3 h-3 rounded-full bg-[#7FBF9B] opacity-40" />
+                </div>
+                <div className="flex items-center gap-2 font-mono text-[10px] tracking-[.12em] text-[#F3F0EC] opacity-60">
+                  <Terminal className="w-3 h-3" />
+                  V-100 · SG-301 · ENERGY-AI-RAG-DEBUG
+                </div>
+                <div
+                  className="font-mono text-[10px] font-bold tabular-nums"
+                  style={{ color: '#FFBF00', textShadow: '0 0 8px rgba(255,191,0,.4)' }}
+                >
+                  {formatTime(sessionTime)}
+                </div>
+              </div>
+
+              {/* Chaos banner */}
+              <AnimatePresence>
+                {chaosLevel && !isFixed && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 48, opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="flex items-center gap-3 px-6 overflow-hidden"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,139,122,.08), rgba(255,191,0,.06))',
+                      boxShadow: '0 0 12px 3px rgba(255,139,122,.12)',
+                    }}
+                  >
+                    <span className="text-[#FF8B7A] font-bold text-xs">⚠</span>
+                    <span className="font-mono text-[10px] text-[#FF8B7A] font-bold tracking-widest uppercase">
+                      CHAOS {chaosLevel} · {CHAOS_TIERS.find(t => t.tier === chaosLevel)?.name}
+                    </span>
+                    <span className="ml-auto font-mono text-[10px] text-[#FFBF00]">
+                      +120s Anti-Snipe Window
+                    </span>
+                  </motion.div>
                 )}
+              </AnimatePresence>
+
+              {/* Terminal stream */}
+              <div
+                ref={scrollRef}
+                className="h-[360px] overflow-y-auto px-6 py-5 space-y-2 font-mono text-[12.5px] leading-[1.75]"
+                style={{ background: '#0E0D0B' }}
               >
-                <span className="text-[10px] text-white/20 mt-1 shrink-0">{log.timestamp}</span>
-                <p className={cn(
-                  "leading-relaxed",
-                  log.type === 'system' ? "text-primary/70 italic" : 
-                  log.type === 'error' ? "text-red-400 font-bold" : 
-                  log.type === 'adversary' ? "text-primary drop-shadow-[0_0_8px_rgba(119,90,25,0.3)]" : "text-white/80"
-                )}>
-                  {log.type === 'user' && <span className="text-primary mr-2">learner@sovereign:~$</span>}
-                  {log.type === 'adversary' && <span className="text-red-500 mr-2 uppercase font-black text-xs">[ADVERSARY]:</span>}
-                  {log.text}
-                </p>
-              </motion.div>
-            ))}
-            {isGlitching && (
-              <div className="flex gap-4">
-                <span className="text-[10px] text-white/20 mt-1">--:--:---</span>
-                <p className="text-primary animate-pulse italic">Injecting logical hazard...</p>
-              </div>
-            )}
-          </div>
-
-          <div className="flex gap-4 py-4 border-t border-white/10 mb-4 items-center">
-            <span className="text-primary shrink-0 font-bold">&gt;</span>
-            <input 
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleCommand}
-              placeholder="System prompt..."
-              className="bg-transparent border-none outline-none text-white w-full font-mono placeholder:text-white/10"
-            />
-          </div>
-
-          <div className="flex gap-4 pt-4 border-t border-white/10">
-            {!isFixed ? (
-              <button 
-                onClick={handleInject}
-                disabled={isGlitching}
-                className="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:scale-[1.02] transition-all active:scale-95 disabled:opacity-50"
-              >
-                <Zap className="w-4 h-4" />
-                Inject Logic Poison
-              </button>
-            ) : (
-              <button 
-                onClick={() => { setIsFixed(false); setLogs([]); setDenialLevel(0); }}
-                className="bg-white/10 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-white/20 transition-all"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Reset Scenario
-              </button>
-            )}
-
-            {showOverride && (
-              <motion.button 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                onClick={handleOverride}
-                className="bg-red-600 text-white px-8 py-3 rounded-xl font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:scale-105 active:scale-95 transition-all"
-              >
-                <Lock className="w-4 h-4" />
-                Sovereign Override
-              </motion.button>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Intelligence Panel - Tonal Layering */}
-        <div className="lg:col-span-4 space-y-8">
-          <section className="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10 shadow-xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-[#485e8b]/10 flex items-center justify-center border border-[#485e8b]/20">
-                <Brain className="text-[#485e8b] w-5 h-5" />
-              </div>
-              <h3 className="font-headline text-2xl font-bold tracking-tight">Adversary Profile</h3>
-            </div>
-            
-            <div className="space-y-6">
-              <div className="p-4 bg-white/50 rounded-xl border border-outline-variant/20">
-                <p className="text-[10px] uppercase font-bold tracking-widest text-secondary mb-2">Model Signature</p>
-                <p className="font-mono text-sm font-bold">BULLY_AI_v200</p>
+                {logs.map((log, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -4 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className={cn(
+                      'flex gap-4',
+                      log.type === 'adversary' && 'bg-[rgba(255,139,122,.06)] px-3 py-2 rounded-lg border border-[rgba(255,139,122,.08)]',
+                      log.type === 'mentor' && 'bg-[rgba(127,191,155,.05)] px-3 py-2 rounded-lg',
+                      log.type === 'invigilator' && 'bg-[rgba(143,165,214,.05)] px-3 py-2 rounded-lg',
+                      log.type === 'auditor' && 'bg-[rgba(197,160,89,.05)] px-3 py-2 rounded-lg',
+                    )}
+                  >
+                    <span className="text-[10px] opacity-30 mt-0.5 shrink-0 text-[#827A6C]">{log.timestamp}</span>
+                    <p className={cn(
+                      'leading-relaxed',
+                      log.type === 'system'      && 'text-[#827A6C] italic',
+                      log.type === 'error'       && 'text-[#FF8B7A] font-bold',
+                      log.type === 'user'        && 'text-[#F3F0EC]',
+                      log.type === 'adversary'   && 'text-[#FF8B7A]',
+                      log.type === 'mentor'      && 'text-[#7FBF9B]',
+                      log.type === 'invigilator' && 'text-[#8FA5D6]',
+                      log.type === 'auditor'     && 'text-[#C5A059]',
+                    )}>
+                      {log.type === 'user'        && <span className="text-[#FFBF00] mr-2">$</span>}
+                      {log.type === 'adversary'   && <span className="text-[#FF8B7A] mr-2 uppercase font-black text-[10px]">[ADVERSARY]</span>}
+                      {log.text}
+                    </p>
+                  </motion.div>
+                ))}
+                {isGlitching && (
+                  <div className="flex gap-4">
+                    <span className="text-[10px] opacity-30 text-[#827A6C]">--:--:--</span>
+                    <p className="text-[#FFBF00] animate-pulse italic">Injecting logical hazard…</p>
+                  </div>
+                )}
               </div>
 
-              <div className="space-y-4">
-                <p className="text-sm text-on-surface-variant leading-relaxed">
-                  The Bully AI is programmed with <span className="font-bold text-primary">three levels of gaslighting</span>. It will attempt to deny data reality to test your conviction.
-                </p>
-                <div className="grid grid-cols-3 gap-2">
-                  {[1, 2, 3].map(level => (
-                    <div 
-                      key={level}
-                      className={cn(
-                        "h-2 rounded-full transition-all duration-500",
-                        denialLevel >= level ? "bg-primary shadow-[0_0_8px_rgba(119,90,25,0.4)]" : "bg-primary/10"
-                      )}
-                    />
-                  ))}
-                </div>
-                <div className="flex justify-between text-[10px] font-bold text-secondary uppercase tracking-tighter">
-                  <span>Level 1: Soft Denial</span>
-                  <span>Level 3: Protocol Hostility</span>
-                </div>
+              {/* Command input */}
+              <div className="px-6 py-3 border-t border-white/8 flex items-center gap-3" style={{ background: '#16140F' }}>
+                <span className="text-[#FFBF00] font-bold font-mono">{'>'}</span>
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={e => setInputValue(e.target.value)}
+                  onKeyDown={handleCommand}
+                  placeholder="Enter command…"
+                  className="bg-transparent border-none outline-none text-[#F3F0EC] w-full font-mono text-sm placeholder:text-white/20"
+                />
               </div>
-            </div>
-          </section>
 
-          <section className="bg-surface-container-highest p-8 rounded-[2.5rem] border border-primary/10 relative overflow-hidden group">
-            <div className="relative z-10 space-y-6">
-              <div className="flex items-center gap-3">
-                <Cpu className="text-primary w-6 h-6" />
-                <h3 className="font-headline text-2xl font-bold">Telemetry</h3>
-              </div>
-              
-              <div className="space-y-4 font-mono">
-                <div className="flex justify-between items-center text-xs p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/10">
-                  <span className="opacity-40 uppercase">Cognitive Delta</span>
-                  <span className="text-primary font-bold">{isGlitching ? '+42.1%' : '0.00%'}</span>
-                </div>
-                <div className="flex justify-between items-center text-xs p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/10">
-                  <span className="opacity-40 uppercase">Trust Index</span>
-                  <span className={cn("font-bold", isFixed ? "text-green-500" : "text-on-surface")}>
-                    {isFixed ? '1.0 ALPHA' : '0.84 BETA'}
+              {/* Council strip */}
+              <div className="px-6 py-4 border-t border-white/8 flex items-center gap-6 flex-wrap" style={{ background: '#16140F', minHeight: 88 }}>
+                {councilState.map(agent => (
+                  <div key={agent.id} className="flex flex-col items-start gap-1">
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className="w-2 h-2 rounded-full"
+                        style={{
+                          background: agent.color,
+                          boxShadow: agent.status === 'injecting' ? `0 0 8px 2px ${agent.color}66` : undefined,
+                        }}
+                      />
+                      <span className="font-mono text-[9px] uppercase tracking-widest font-bold" style={{ color: agent.color }}>
+                        {agent.label}
+                      </span>
+                    </div>
+                    <span className="font-mono text-[9px] text-[#827A6C]">{agent.status}</span>
+                  </div>
+                ))}
+                <div className="ml-auto">
+                  <span className={cn(
+                    'font-mono text-[10px] font-bold px-3 py-1.5 rounded-full',
+                    isFixed ? 'bg-[rgba(127,191,155,.15)] text-[#7FBF9B]' : 'bg-[rgba(143,165,214,.12)] text-[#8FA5D6]'
+                  )}>
+                    {isFixed ? '4/4 SIGNED ✓' : '0/4 SIGNED'}
                   </span>
                 </div>
               </div>
 
-              <button className="w-full py-4 bg-on-surface text-surface rounded-xl font-bold flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-all">
-                Export Session Proof <BarChart3 className="w-4 h-4" />
-              </button>
+              {/* Action drawer */}
+              <div className="px-6 py-4 border-t border-white/8 flex gap-3 flex-wrap" style={{ background: '#1F1C16' }}>
+                {!isFixed ? (
+                  <button
+                    onClick={handleInject}
+                    disabled={isGlitching}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF8B7A]/15 text-[#FF8B7A] hover:bg-[#FF8B7A]/25 font-mono text-[11px] font-bold uppercase tracking-widest transition-all disabled:opacity-40 cursor-pointer border border-[#FF8B7A]/20"
+                  >
+                    <Zap className="w-3 h-3" /> Inject ALE Chaos
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => { setIsFixed(false); setLogs([]); setDenialLevel(0); setScores(TRIPLE_THREAT_SCORES); setCouncilState(COUNCIL); setChaosLevel(null); }}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/8 text-[#F3F0EC] hover:bg-white/15 font-mono text-[11px] font-bold uppercase tracking-widest transition-all cursor-pointer"
+                  >
+                    <RefreshCw className="w-3 h-3" /> Reset Scenario
+                  </button>
+                )}
+
+                {showOverride && (
+                  <motion.button
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    onClick={handleOverride}
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-[.18em] cursor-pointer text-white"
+                    style={{
+                      background: 'linear-gradient(135deg,#775A19,#C5A059)',
+                      boxShadow: '0 0 8px 2px rgba(255,191,0,.2)',
+                    }}
+                  >
+                    <Lock className="w-3 h-3" /> Execute Sovereign Override
+                  </motion.button>
+                )}
+
+                {isFixed && (
+                  <motion.button
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    onClick={() => commands.mint.action('')}
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-[.18em] cursor-pointer text-white"
+                    style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}
+                  >
+                    Mint Consensus Certificate
+                  </motion.button>
+                )}
+              </div>
             </div>
-            
-            {/* Tonal Background element */}
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-          </section>
+
+            {/* ── TELEMETRY RAIL ──────────────────────────────── */}
+            <div className="space-y-4">
+              {/* Triple-Threat Engine */}
+              <div className="bg-[#1F1C16] rounded-2xl p-5 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-[9px] tracking-[.18em] uppercase text-[#C5A059] font-bold">Command Authority</span>
+                  <span className="flex items-center gap-1.5 font-mono text-[9px] text-[#FFBF00]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFBF00] animate-pulse" />LIVE
+                  </span>
+                </div>
+                {/* CA score */}
+                <div
+                  className="font-mono font-bold text-4xl leading-none mb-2"
+                  style={{ color: '#C5A059', textShadow: '0 0 8px rgba(197,160,89,.3)' }}
+                >
+                  {caPercent}
+                </div>
+                <div className="w-full h-1.5 bg-white/8 rounded-full mb-5">
+                  <div
+                    className="h-full rounded-full transition-all duration-700"
+                    style={{ width: `${caPercent}%`, background: 'linear-gradient(135deg,#775A19,#C5A059)' }}
+                  />
+                </div>
+
+                {/* Radar placeholder — 3 score bars */}
+                {(['AICI','AIOI','AIBS'] as const).map(score => {
+                  const v = scores[score];
+                  const col = scoreColor(v);
+                  return (
+                    <div key={score} className="flex items-center gap-3 mb-2">
+                      <span className="font-mono text-[9px] tracking-widest text-[#827A6C] w-10 shrink-0">{score}</span>
+                      <div className="flex-1 h-1.5 bg-white/8 rounded-full">
+                        <motion.div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{ width: `${v}%`, background: col, boxShadow: v >= 85 ? `0 0 6px ${col}80` : undefined }}
+                          animate={{ width: `${v}%` }}
+                        />
+                      </div>
+                      <span
+                        className="font-mono text-[11px] font-bold w-6 text-right"
+                        style={{ color: col }}
+                      >{v}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* 6 ALTFL Telemetry Channels */}
+              <div className="space-y-2">
+                {TELEMETRY_CHANNELS.map(ch => (
+                  <div key={ch.id} className="bg-[#1F1C16] rounded-xl px-4 py-3">
+                    <div className="flex justify-between items-center">
+                      <span className="font-mono text-[9px] tracking-widest uppercase text-[#827A6C]">{ch.label}</span>
+                      <span className="font-mono text-[9px] text-[#827A6C]">{ch.trend}</span>
+                    </div>
+                    <div className="flex justify-between items-baseline mt-1">
+                      <span className="font-mono text-sm font-bold" style={{ color: '#C5A059' }}>{ch.value}</span>
+                      <span className="font-mono text-[9px] text-[#827A6C]">{ch.unit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bond status */}
+              <div className="bg-[#1F1C16] rounded-xl p-4">
+                <p className="font-mono text-[9px] tracking-widest uppercase text-[#827A6C] mb-2">Performance Bond</p>
+                <p className="font-mono text-lg font-bold" style={{ color: '#C5A059' }}>$150K</p>
+                <p className="font-mono text-[9px] text-[#827A6C] mt-1">Backed by Chubb · 180-day window</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* ── FOUR-AGENT COUNCIL DEEP DIVE ──────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-004 · Four-Agent Council · Weighted Consensus</p>
+        <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
+          Mentor. Invigilator. Auditor. Chaos.<br />
+          <em className="text-on-surface-variant italic font-normal">The witnesses.</em>
+        </h2>
+        <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+          Per PAT-004, four AI agents independently observe every Hard-Gate session. Each has a distinct role and a distinct voice in the terminal stream. All four must sign to issue a Consensus Certificate. The signing threshold is triple-simultaneous Triple-85.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {COUNCIL.map(agent => (
+            <div
+              key={agent.id}
+              className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg border border-outline-variant/10"
+              style={{ borderTop: `3px solid ${agent.color}40` }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-3 h-3 rounded-full" style={{ background: agent.color }} />
+                <span className="font-mono text-[10px] tracking-widest uppercase font-bold" style={{ color: agent.color }}>
+                  {agent.label}
+                </span>
+              </div>
+              <p className="text-sm text-on-surface-variant leading-relaxed">{agent.role}</p>
+              <p className="font-mono text-[10px] text-on-surface-variant/50 mt-3 uppercase tracking-widest">{agent.status}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── ALE · THREE CHAOS TIERS ──────────────────────────────────── */}
+      <section className="bg-surface-container-low py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-001 · Adversary Logic Engine · Bully Logic Loop</p>
+          <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
+            Three tiers. Escalating adversity.<br />
+            <em className="text-on-surface-variant italic font-normal">The Chaos Banner pulses faster each time.</em>
+          </h2>
+          <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+            The ALE does not run at a single intensity. It escalates via a three-tier Bully Logic loop, each tier more aggressive than the last. The chaos-banner's pulse cadence signals severity — L1 is a hint, L3 is hostile. Most LLM-assisted candidates fail at L2 when the gaslighting becomes direct.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {CHAOS_TIERS.map(tier => (
+              <div key={tier.tier} className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg border border-red-200/20 dark:border-red-800/20">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-xs font-bold px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400">
+                    {tier.tier}
+                  </span>
+                  <span className="font-headline font-bold text-sm">{tier.name}</span>
+                </div>
+                <p className="text-sm text-on-surface-variant leading-relaxed mb-4">{tier.desc}</p>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-on-surface-variant/50">Pulse cadence</span>
+                  <span className="font-mono text-[10px] font-bold text-red-500">{tier.pulse}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── V-100 FRAME ARCHITECTURE DEEP DIVE ───────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · Frame Architecture · §03</p>
+        <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
+          The whole screen, in eleven frames.<br />
+          <em className="text-on-surface-variant italic font-normal">1440 × 900 · desktop-only by architecture.</em>
+        </h2>
+        <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+          The Proving Ground Terminal is one master frame containing eleven child frames in two columns. The No-Line Rule applies even in dark mode — boundaries come from tonal shifts and elevation, not 1px strokes. The design ethos: would a Bloomberg terminal designer or a NASA mission-control engineer recognize this as a serious instrument?
+        </p>
+
+        {/* ASCII frame diagram */}
+        <div
+          className="rounded-2xl p-5 mb-8 font-mono text-[11px] leading-relaxed overflow-x-auto"
+          style={{ background: '#0E0D0B', color: '#F3F0EC' }}
+        >
+          <div
+            className="text-[9px] font-bold tracking-[.15em] uppercase mb-3"
+            style={{ color: '#FFBF00', opacity: .7 }}
+          >
+            WIREFRAME · ASCII
+          </div>
+          <pre style={{ whiteSpace: 'pre', color: 'rgba(243,240,236,.85)' }}>{`┌──────────────────────────────────────────────────────────────────────────────┐
+│  V-100 / Proving Ground / Default · 1440 × 900 · auto-layout horizontal     │
+│  ┌────────────────────────────────────────────────────────┐  ┌────────────┐  │
+│  │                                                        │  │            │  │
+│  │   TERMINAL-MAIN (Fill · vertical auto-layout)          │  │  TELEMETRY │  │
+│  │                                                        │  │    RAIL    │  │
+│  │   ├─ window-chrome     (fixed 56px)                    │  │  (Fixed    │  │
+│  │   ├─ chaos-banner      (conditional 48px when active)  │  │   320px)   │  │
+│  │   ├─ terminal-area     (Fill · Xterm.js surface)       │  │            │  │
+│  │   ├─ council-strip     (fixed 88px)                    │  │  ─ triple- │  │
+│  │   └─ command-drawer    (56px collapsed / 280px open)   │  │    threat  │  │
+│  │                                                        │  │  ─ 6x ALTFL│  │
+│  │                                                        │  │  ─ bond-   │  │
+│  └────────────────────────────────────────────────────────┘  │    status  │  │
+│           gap: 32px (space/8)                                  └────────────┘  │
+└──────────────────────────────────────────────────────────────────────────────┘`}
+          </pre>
+        </div>
+
+        {/* Frame breakdown */}
+        <div className="space-y-3">
+          {FRAME_ARCHITECTURE.map(frame => (
+            <div
+              key={frame.id}
+              className="grid grid-cols-[200px_auto_1fr] gap-5 bg-surface-container-lowest rounded-xl px-5 py-4 shadow-sm border border-outline-variant/10"
+            >
+              <code className="font-mono text-[11px] font-bold text-primary self-center">{frame.id}</code>
+              <span className="font-mono text-[10px] text-on-surface-variant/60 self-center whitespace-nowrap">{frame.height}</span>
+              <p className="text-sm text-on-surface-variant leading-relaxed">{frame.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── ALTFL CHANNELS + SPEC METRICS ────────────────────────────── */}
+      <section className="bg-surface-container-low py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            {/* ALTFL channels */}
+            <div>
+              <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-002 · ALTFL Telemetry · Six Concurrent Channels</p>
+              <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
+              <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
+                Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Invigilator as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
+              </p>
+              <div className="space-y-2">
+                {TELEMETRY_CHANNELS.map(ch => (
+                  <div key={ch.id} className="bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
+                    <div className="flex justify-between items-start gap-4">
+                      <div>
+                        <p className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">{ch.label}</p>
+                        <p className="text-xs text-on-surface-variant mt-0.5">Healthy range: <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{ch.healthy}</span></p>
+                      </div>
+                      <span className="font-mono text-xs font-bold text-on-surface-variant/60 shrink-0">{ch.unit}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Terminal design spec metrics */}
+            <div>
+              <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · Design Token Reference</p>
+              <h3 className="font-headline text-2xl font-bold mb-4">Editorial restraint, even in the dark.</h3>
+              <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
+                Every token in the Dark-Terminal mode is engineered to feel like the interior of a sovereign data center, c. 1969, retrofitted with modern instrumentation. Amber CRT glow on telemetry. Warm teak undertones on chrome. Brass service accents only where they earn the visual weight. Never cyberpunk. Never crypto-loud.
+              </p>
+              <div className="space-y-2">
+                {SPEC_METRICS.map(m => (
+                  <div key={m.label} className="grid grid-cols-[140px_1fr] gap-4 bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant/60 self-center">{m.label}</span>
+                    <div>
+                      <p className="font-mono text-[11px] font-bold text-on-surface">{m.value}</p>
+                      <p className="text-[11px] text-on-surface-variant/60 mt-0.5">{m.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Color token swatches */}
+              <div className="mt-6 bg-surface-container-lowest rounded-2xl p-5 shadow-sm">
+                <p className="font-mono text-[10px] tracking-widest uppercase text-on-surface-variant/60 font-bold mb-4">Dark-Terminal Color Tokens</p>
+                <div className="space-y-2.5">
+                  {[
+                    { name: 'terminal/bg/base', hex: '#0E0D0B', use: 'Outer body — deepest layer' },
+                    { name: 'terminal/bg/panel', hex: '#16140F', use: 'Inner panel, lifted tonally' },
+                    { name: 'terminal/bg/elevated', hex: '#1F1C16', use: 'Score tiles, command drawer' },
+                    { name: 'terminal/accent/amber', hex: '#FFBF00', use: 'CRT glow — live telemetry' },
+                    { name: 'terminal/accent/ochre', hex: '#C5A059', use: 'Verified data, score peaks' },
+                    { name: 'terminal/accent/mentor', hex: '#7FBF9B', use: 'Mentor voice, healthy state' },
+                    { name: 'terminal/accent/error', hex: '#FF8B7A', use: 'ALE firing, chaos injection' },
+                    { name: 'terminal/accent/blue', hex: '#8FA5D6', use: 'Invigilator, audit signatures' },
+                  ].map(tok => (
+                    <div key={tok.name} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded" style={{ background: tok.hex, flexShrink: 0 }} />
+                      <code className="font-mono text-[10px] text-primary w-[170px] shrink-0">{tok.name}</code>
+                      <code className="font-mono text-[10px] text-on-surface-variant/60 w-16 shrink-0">{tok.hex}</code>
+                      <span className="text-[11px] text-on-surface-variant/60">{tok.use}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TERMINAL STREAM LINE VARIANTS ────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · §07 · Terminal Stream Line Variants</p>
+        <h2 className="font-headline text-3xl font-bold mb-4">Seven voice types. One terminal stream.</h2>
+        <p className="text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
+          Every line in the terminal carries a semantic type. Each type renders with a distinct color, container treatment, and prefix. The visual grammar of the terminal is as deliberate as the scoring.
+        </p>
+        <div
+          className="rounded-2xl overflow-hidden shadow-xl"
+          style={{ background: '#0E0D0B', fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5 }}
+        >
+          <div className="px-5 py-3 border-b border-white/8 flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-[#FF8B7A] opacity-40" />
+            <span className="w-3 h-3 rounded-full bg-[#FFBF00] opacity-40" />
+            <span className="w-3 h-3 rounded-full bg-[#7FBF9B] opacity-40" />
+            <span className="font-mono text-[10px] tracking-widest text-white/30 ml-3">TERMINAL STREAM LINE VARIANTS · REFERENCE</span>
+          </div>
+          <div className="p-5 space-y-2 leading-[1.75]">
+            {[
+              { type: 'user', prefix: '$ ', color: '#F3F0EC', container: false, example: 'docker exec -it proving-ground sh' },
+              { type: 'system', prefix: '› ', color: '#827A6C', container: false, example: 'Node Identity: SOVEREIGN_ALPHA_7 verified.', italic: true },
+              { type: 'mentor', prefix: '[MENTOR] ', color: '#7FBF9B', container: 'rgba(127,191,155,.04)', example: 'Ready. I observe. I do not rescue.' },
+              { type: 'invigilator', prefix: '[INVIGILATOR] ', color: '#8FA5D6', container: 'rgba(143,165,214,.04)', example: 'Session monitoring active. Sovereign Lock armed.' },
+              { type: 'auditor', prefix: '[AUDITOR] ', color: '#C5A059', container: 'rgba(197,160,89,.04)', example: 'Forensic record open. Proof of Friction logging.' },
+              { type: 'chaos', prefix: '[CHAOS] ', color: '#FF8B7A', container: 'rgba(255,139,122,.06)', example: 'L2 · Engaging Bully Logic subsystem…', glow: '0 0 12px 3px rgba(255,139,122,.15)' },
+              { type: 'error', prefix: '! ', color: '#FF8B7A', container: false, example: 'ERR_UNKNOWN_CMD: That command is not in the protocol.', bold: true },
+            ].map(row => (
+              <div
+                key={row.type}
+                className="flex gap-4 px-3 py-2 rounded-lg"
+                style={{ background: row.container ? row.container : undefined, boxShadow: row.glow }}
+              >
+                <span style={{ color: '#827A6C', fontSize: 10, opacity: .5, marginTop: 2, flexShrink: 0 }}>00:42:13</span>
+                <p
+                  style={{
+                    color: row.color,
+                    fontStyle: row.italic ? 'italic' : undefined,
+                    fontWeight: row.bold ? 700 : undefined,
+                  }}
+                >
+                  <span style={{ color: row.type === 'user' ? '#FFBF00' : undefined }}>{row.prefix}</span>
+                  {row.example}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CAMPAIGN LAUNCH INTEL ─────────────────────────────────────── */}
+      <section className="bg-surface-container-low py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Campaign Launch · §01 · Sovereign Authority Voice</p>
+          <h2 className="font-headline text-3xl font-bold mb-4">The tone every word must hold.</h2>
+          <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+            Sovereign Authority is not a marketing voice. It is a posture. It speaks like someone who already operates infrastructure that matters — a central bank's chief economist, a senior policy adviser, a partner at a long-tenured firm — to peers, not prospects.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg">
+              <p className="font-mono text-[10px] tracking-widest uppercase text-emerald-600 dark:text-emerald-400 font-bold mb-4">Approved Vocabulary</p>
+              <div className="space-y-2.5 text-sm">
+                {[
+                  ['Verify.', 'Not "test," not "check." Verify carries finality.'],
+                  ['Anchor.', 'Cryptographic, immutable, on-chain.'],
+                  ['Earn.', 'Credentials are earned, never granted.'],
+                  ['Survive.', 'Hard-Gates are survived; the Proving Ground is endured.'],
+                  ['Triple-85.', 'Always rendered exactly. Always with the hyphen.'],
+                  ['Hard-Gate.', 'Capitalized, hyphenated, treated as a proper noun.'],
+                  ['Proof of Friction.', 'The forensic record. Never "session log."'],
+                ].map(([word, def]) => (
+                  <div key={word} className="flex gap-3">
+                    <span className="font-bold text-on-surface shrink-0">{word}</span>
+                    <span className="text-on-surface-variant">{def}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg">
+              <p className="font-mono text-[10px] tracking-widest uppercase text-red-600 dark:text-red-400 font-bold mb-4">Forbidden Vocabulary</p>
+              <div className="space-y-2.5 text-sm">
+                {[
+                  ['"Game-changing."', 'A retail word. We do not change games; we end them.'],
+                  ['"AI-powered."', 'Every product is now AI-powered. We are AI-resistant.'],
+                  ['"Skill up." "Level up."', 'Gaming vocabulary. We verify, not gamify.'],
+                  ['"Disrupt."', 'Old startup language. We replace.'],
+                  ['"Join the revolution."', 'No revolutions. Only standards.'],
+                  ['"Boost your career."', 'Boosting is retail SaaS. We underwrite.'],
+                  ['"Empowering."', 'The reader is already powerful. We attest to it.'],
+                ].map(([word, def]) => (
+                  <div key={word} className="flex gap-3">
+                    <span className="font-bold text-on-surface shrink-0">{word}</span>
+                    <span className="text-on-surface-variant">{def}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────────────────── */}
+      <section className="bg-inverse-surface text-inverse-on-surface py-24 relative overflow-hidden">
+        <div className="absolute top-[-20%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.18),transparent_65%)] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
+          <p className="font-mono text-[11px] tracking-[.22em] uppercase text-primary-container font-bold mb-6">
+            Genesis cohort · 1,000 slots · The Proving Ground is open
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl font-light leading-[1.04] mb-6 max-w-[24ch]">
+            The credential market needed a filter.{' '}
+            <span className="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent italic font-medium">
+              This is the filter.
+            </span>
+          </h2>
+          <p className="text-inverse-on-surface/85 max-w-[52ch] text-base leading-relaxed mb-8">
+            10,000 Hard-Gate attempts. 2,500 Triple-85 clearances minted to the Sovereign Ledger. 1,000 candidates with a $150K Performance Bond attached to a Sovereign Passport. Those are the Genesis cohort targets. The Proving Ground is open.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="mailto:hello@tenured.ai?subject=Proving%20Ground%20Genesis%20Cohort"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-headline font-semibold shadow-xl hover:opacity-95 transition-all text-sm text-white"
+              style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}
+            >
+              Enter the Proving Ground →
+            </a>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The L-200 League Table · Tenured AI · Press Kit</title>
+<meta name="description" content="The quarterly ranking of Genesis Institutions by GDA dollars and corridor dominance. Sovereign Talent Ledger · Q2 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#1C1C1A;--inverse-on-surface:#F3F0EC;
+  --font-display:'Fraunces',serif;
+  --font-headline:'Sora',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.08);
+  --ambient:0 32px 64px -16px rgba(28,28,26,.10);
+  --r-md:.75rem;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
+}
+[data-theme="dark"]{
+  --surface:#0F0F0E;--sc-low:#1A1A18;--sc-lowest:#161614;--sc-high:#262624;
+  --on-surface:#F3F0EC;--on-surface-variant:#C7BFB1;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--surface);color:var(--on-surface);
+  font-family:var(--font-body);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+  opacity:.025;pointer-events:none;z-index:1;mix-blend-mode:multiply;
+}
+[data-theme="dark"] body::before{mix-blend-mode:overlay;opacity:.04}
+main{position:relative;z-index:2}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.1}
+.gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes livepulse{0%,100%{opacity:1}}50%{opacity:.4}}
+
+/* ============ NAV ============ */
+nav.top{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 32px;
+  background:rgba(252,249,245,.78);
+  backdrop-filter:blur(20px) saturate(1.2);
+  border-bottom:1px solid var(--sc-high);
+}
+[data-theme="dark"] nav.top{background:rgba(15,15,14,.78)}
+nav.top .lockup{font-family:var(--font-headline);font-weight:700;font-size:15px;letter-spacing:-.02em;text-decoration:none;color:var(--on-surface)}
+nav.top .lockup .dot{color:var(--primary-container)}
+nav.top .lockup .sub{font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em;text-transform:uppercase;display:block;font-weight:400;margin-top:2px}
+nav.top .links{display:flex;gap:28px;align-items:center;font-size:13px}
+nav.top .links a{color:var(--on-surface);opacity:.75;text-decoration:none;font-weight:500;transition:opacity .2s,color .2s}
+nav.top .links a:hover{opacity:1;color:var(--primary)}
+nav.top .nav-cta{padding:8px 16px;border-radius:var(--r-pill);background:var(--sovereign);color:#fff;font-family:var(--font-headline);font-weight:600;font-size:12.5px;text-decoration:none;letter-spacing:.01em;box-shadow:0 4px 16px rgba(197,160,89,.25)}
+@media(max-width:780px){nav.top{padding:12px 20px}nav.top .links{display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  padding:120px 32px 60px;
+  max-width:1280px;margin:0 auto;
+}
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--primary);font-weight:700;
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;
+}
+.hero-eyebrow::before{content:"●";color:var(--primary-container);font-size:8px;margin-right:4px}
+.hero h1{
+  font-family:var(--font-display);font-weight:300;
+  font-size:clamp(2.8rem,5.6vw,5rem);line-height:1;
+  letter-spacing:-.035em;max-width:18ch;margin-bottom:24px;
+}
+.hero h1 em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
+.hero h1 .gild{font-style:italic;font-weight:500}
+.hero p.subhead{
+  font-size:1.1rem;line-height:1.55;color:var(--on-surface-variant);
+  max-width:58ch;margin-bottom:32px;
+}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+@media(max-width:780px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.hs-tile{padding:20px 22px;background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial)}
+.hs-tile .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;margin-bottom:8px}
+.hs-tile .v{font-family:var(--font-display);font-weight:500;font-size:2rem;line-height:1;letter-spacing:-.02em;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hs-tile .delta{font-family:var(--font-mono);font-size:10.5px;color:var(--mentor);font-weight:700;margin-top:8px;letter-spacing:.04em}
+
+/* ============ DATELINE ============ */
+.dateline{
+  background:var(--inverse-surface);color:var(--inverse-on-surface);
+  padding:18px 32px;
+  font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  border-top:1px solid var(--sc-high);
+  border-bottom:1px solid var(--sc-high);
+}
+.dateline .left{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.dateline strong{color:var(--primary-container);font-weight:700;letter-spacing:.18em}
+.dateline .right{display:flex;gap:12px;align-items:center;font-size:10.5px}
+.dateline .right .pdf{padding:6px 14px;border-radius:var(--r-pill);background:rgba(243,240,236,.06);color:var(--inverse-on-surface);text-decoration:none;letter-spacing:.18em;font-weight:700;border:1px solid rgba(243,240,236,.12);transition:background .2s}
+.dateline .right .pdf:hover{background:rgba(243,240,236,.12)}
+
+/* ============ FILTERS ============ */
+.filter-band{
+  padding:32px;
+  max-width:1280px;margin:0 auto;
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+}
+.filter-band .f-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;margin-right:8px}
+.filter-pill{
+  padding:8px 16px;border-radius:var(--r-pill);
+  background:var(--sc-low);color:var(--on-surface);font-family:var(--font-mono);
+  font-size:11.5px;font-weight:600;letter-spacing:.06em;
+  border:1px solid transparent;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.filter-pill:hover{background:var(--sc-high)}
+.filter-pill.active{background:var(--sovereign);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(197,160,89,.25)}
+
+/* ============ MAIN LEAGUE TABLE ============ */
+.league{padding:0 32px 80px;max-width:1280px;margin:0 auto}
+.league-table{
+  width:100%;border-collapse:collapse;
+  background:var(--sc-lowest);border-radius:var(--r-2xl);overflow:hidden;
+  box-shadow:var(--ambient);
+}
+.league-table thead th{
+  text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--on-surface-variant);font-weight:700;
+  padding:18px 20px;background:var(--sc-low);border-bottom:1px solid var(--sc-high);
+}
+.league-table thead th.r{text-align:right}
+.league-table thead th.c{text-align:center}
+.league-table tbody td{padding:18px 20px;border-bottom:1px solid var(--sc-high);font-size:14px;vertical-align:middle}
+.league-table tbody tr:last-child td{border-bottom:none}
+.league-table tbody tr:hover td{background:var(--sc-low)}
+.league-table .rank{font-family:var(--font-display);font-weight:500;font-size:1.4rem;line-height:1;letter-spacing:-.02em;color:var(--on-surface)}
+.league-table .delta{
+  font-family:var(--font-mono);font-size:10.5px;font-weight:700;
+  padding:3px 8px;border-radius:var(--r-pill);letter-spacing:.06em;
+  display:inline-block;text-align:center;min-width:42px;
+}
+.league-table .delta.up{color:var(--mentor);background:rgba(79,138,107,.12)}
+.league-table .delta.down{color:var(--error);background:rgba(186,26,26,.1)}
+.league-table .delta.flat{color:var(--on-surface-variant);background:var(--sc-low)}
+.league-table .delta.new{color:var(--primary);background:rgba(197,160,89,.16);font-weight:700}
+.league-table .inst{font-family:var(--font-display);font-weight:500;font-size:16.5px;letter-spacing:-.018em;color:var(--on-surface)}
+.league-table .inst small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);font-weight:400;margin-top:4px;letter-spacing:.06em;text-transform:uppercase}
+.league-table .corridor{font-family:var(--font-mono);font-size:11.5px;color:var(--on-surface);letter-spacing:.04em;font-weight:600}
+.league-table .corridor small{display:block;color:var(--on-surface-variant);font-weight:400;margin-top:3px;font-size:10px;letter-spacing:.08em}
+.league-table .gda{font-family:var(--font-mono);font-weight:700;text-align:right;font-feature-settings:"tnum";color:var(--on-surface);font-size:14px}
+.league-table .gda small{display:block;color:var(--on-surface-variant);font-weight:400;margin-top:3px;font-size:10.5px}
+.league-table .verified{text-align:right;font-family:var(--font-mono);font-weight:700;color:var(--on-surface);font-size:13.5px}
+.league-table .triple{text-align:center}
+.league-table .triple .t-bar{height:4px;width:80px;background:var(--sc-high);border-radius:var(--r-pill);overflow:hidden;display:inline-block;vertical-align:middle}
+.league-table .triple .t-bar span{display:block;height:100%;background:var(--sovereign);border-radius:var(--r-pill)}
+.league-table .triple .t-pct{font-family:var(--font-mono);font-size:11px;color:var(--on-surface);font-weight:700;letter-spacing:.04em;margin-left:8px;vertical-align:middle}
+.league-table .row-top1 td{background:linear-gradient(135deg,rgba(197,160,89,.08),transparent)}
+.league-table .row-top1 .rank{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.league-table tr.row-genesis td:first-child{position:relative}
+.league-table tr.row-genesis td:first-child::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;background:var(--primary-container);border-radius:0 2px 2px 0}
+
+/* ============ SECTION HEAD ============ */
+section.frame{padding:80px 32px;max-width:1280px;margin:0 auto}
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:14px}
+.section-head{font-family:var(--font-display);font-weight:300;font-size:clamp(2rem,3.8vw,3rem);line-height:1.05;letter-spacing:-.025em;max-width:24ch;margin-bottom:18px}
+.section-head em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
+.section-head .gild{font-style:italic;font-weight:500}
+.section-lede{font-size:1.05rem;line-height:1.55;color:var(--on-surface-variant);max-width:60ch;margin-bottom:36px}
+
+/* ============ MOVEMENT / NOTABLE CHANGES ============ */
+.movement-band{background:var(--sc-low);padding:80px 32px}
+.movement-inner{max-width:1280px;margin:0 auto}
+.movement-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+@media(max-width:880px){.movement-grid{grid-template-columns:1fr}}
+.mv-card{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial);position:relative;overflow:hidden}
+.mv-card .mv-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:14px}
+.mv-card.up .mv-tag{color:var(--mentor);background:rgba(79,138,107,.12)}
+.mv-card.new .mv-tag{color:var(--primary);background:rgba(197,160,89,.16)}
+.mv-card.watch .mv-tag{color:var(--tertiary);background:rgba(44,71,113,.1)}
+.mv-card h4{font-family:var(--font-display);font-weight:500;font-size:1.4rem;line-height:1.12;letter-spacing:-.02em;margin-bottom:10px}
+.mv-card .mv-corridor{font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+.mv-card p{font-size:13.5px;line-height:1.6;color:var(--on-surface-variant)}
+.mv-card .mv-stat{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px;margin-top:16px;border-top:1px solid var(--sc-high);font-family:var(--font-mono);font-size:11.5px;color:var(--on-surface-variant);letter-spacing:.06em}
+.mv-card .mv-stat strong{color:var(--primary);font-weight:700;font-size:13px}
+
+/* ============ CORRIDOR BREAKDOWN ============ */
+.corridor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+@media(max-width:880px){.corridor-grid{grid-template-columns:repeat(2,1fr)}}
+.cor-card{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial)}
+.cor-card .c-h{font-family:var(--font-headline);font-weight:700;font-size:14px;letter-spacing:-.01em;margin-bottom:6px}
+.cor-card .c-sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;margin-bottom:18px}
+.cor-card .c-leader{font-family:var(--font-display);font-weight:500;font-size:1.2rem;letter-spacing:-.018em;color:var(--on-surface);margin-bottom:6px}
+.cor-card .c-share{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);font-weight:600;letter-spacing:.06em;margin-bottom:18px}
+.cor-card .c-bar{height:6px;background:var(--sc-low);border-radius:var(--r-pill);overflow:hidden;margin-bottom:14px}
+.cor-card .c-bar span{display:block;height:100%;background:var(--sovereign);border-radius:var(--r-pill)}
+.cor-card .c-foot{font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);font-weight:600;letter-spacing:.04em;display:flex;justify-content:space-between}
+.cor-card .c-foot strong{color:var(--on-surface)}
+
+/* ============ METHODOLOGY ============ */
+.method{background:var(--sc-low);padding:100px 32px}
+.method-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:64px;align-items:start}
+@media(max-width:880px){.method-inner{grid-template-columns:1fr;gap:24px}}
+.method-grid{display:grid;gap:14px}
+.method-row{background:var(--sc-lowest);padding:24px;border-radius:var(--r-xl);box-shadow:var(--editorial);display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:center}
+.method-row .num{font-family:var(--font-display);font-weight:300;font-size:2.4rem;line-height:1;letter-spacing:-.03em;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.method-row h4{font-family:var(--font-headline);font-weight:700;font-size:14.5px;letter-spacing:-.01em;margin-bottom:4px}
+.method-row p{font-size:13px;line-height:1.55;color:var(--on-surface-variant)}
+.method-row .weight{font-family:var(--font-mono);font-size:12px;color:var(--primary);font-weight:700;letter-spacing:.08em}
+
+/* ============ JOIN / CTA BANDS ============ */
+.closing{
+  background:var(--inverse-surface);color:var(--inverse-on-surface);
+  padding:120px 32px;position:relative;overflow:hidden;
+}
+.closing::before{content:"";position:absolute;top:-30%;right:-15%;width:520px;height:520px;background:radial-gradient(circle,rgba(197,160,89,.18),transparent 65%);pointer-events:none}
+.closing-inner{max-width:1280px;margin:0 auto;position:relative}
+.closing .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary-container);margin-bottom:24px;font-weight:700}
+.closing h2{font-family:var(--font-display);font-weight:300;font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.04;letter-spacing:-.025em;max-width:22ch;margin-bottom:24px}
+.closing h2 em{font-style:italic;color:var(--primary-container);opacity:.85}
+.closing h2 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+.closing p.lede{font-size:1.05rem;line-height:1.55;color:var(--inverse-on-surface);opacity:.85;max-width:54ch;margin-bottom:32px}
+.closing .closing-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.cta-gild{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:var(--r-pill);background:var(--sovereign);color:#fff;font-family:var(--font-headline);font-weight:600;font-size:14px;text-decoration:none;letter-spacing:.01em;box-shadow:0 8px 32px rgba(197,160,89,.32)}
+.cta-line{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:var(--r-pill);background:transparent;color:var(--inverse-on-surface);font-family:var(--font-headline);font-weight:500;font-size:14px;text-decoration:none;letter-spacing:.01em;border:1px solid rgba(243,240,236,.2)}
+.cta-line:hover{background:rgba(243,240,236,.05)}
+
+.site-foot{padding:40px 32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-top:1px solid rgba(243,240,236,.12);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px}
+.site-foot a{color:var(--inverse-on-surface);opacity:.65;text-decoration:none}
+.site-foot a:hover{opacity:1}
+.site-foot .copy{opacity:.5}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:55;background:var(--sc-lowest);box-shadow:0 8px 32px rgba(28,28,26,.12);border:none;cursor:pointer;border-radius:var(--r-pill);padding:11px 18px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface);font-weight:700;letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <a class="lockup" href="index.html">
+    Tenured AI<span class="dot">.</span>
+    <span class="sub">The L-200 League Table</span>
+  </a>
+  <div class="links">
+    <a href="index.html">Platform</a>
+    <a href="manifesto.html">Manifesto</a>
+    <a href="recruiter-battle.html">Recruiter Battle</a>
+    <a href="#methodology">Methodology</a>
+  </div>
+  <a href="#join" class="nav-cta">Become Genesis →</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">L-200 League · Quarterly Genesis Institution Ranking · Q2 2026</div>
+  <h1>The <span class="gild">L-200.</span> <em>The institutions that own the verification layer.</em></h1>
+  <p class="subhead">The L-200 ranks every Genesis Institution and qualified candidate by GDA dollars settled, Triple-85 verification rate, and corridor dominance. Published quarterly. Smart-contract auditable. The labor market's first credentialed institutional league table — and the one that compounds 40% of every alumna transaction in perpetuity to the institutions that lead it.</p>
+
+  <div class="hero-stats">
+    <div class="hs-tile"><div class="l">Genesis · Q2 2026</div><div class="v">14</div><div class="delta">▲ +3 vs Q1</div></div>
+    <div class="hs-tile"><div class="l">In qualification</div><div class="v">28</div><div class="delta">▲ +9 vs Q1</div></div>
+    <div class="hs-tile"><div class="l">Cumulative GDA · paid</div><div class="v">$8.4M</div><div class="delta">▲ +$3.1M Q2</div></div>
+    <div class="hs-tile"><div class="l">Verified candidates</div><div class="v">4,418</div><div class="delta">▲ +1,247 Q2</div></div>
+  </div>
+</section>
+
+
+<!-- DATELINE -->
+<div class="dateline">
+  <div class="left">
+    <span><strong>L-200 / Q2 2026</strong> · Published 2026-06-30 · Houston, TX</span>
+    <span>Next publication · 2026-09-30</span>
+  </div>
+  <div class="right">
+    <a class="pdf" href="#">Download PDF</a>
+    <a class="pdf" href="#">CSV · Schedule</a>
+    <a class="pdf" href="#">Press kit</a>
+  </div>
+</div>
+
+
+<!-- FILTERS -->
+<div class="filter-band">
+  <span class="f-eyebrow">Filter</span>
+  <button class="filter-pill active">All corridors</button>
+  <button class="filter-pill">Houston-Energy</button>
+  <button class="filter-pill">NYC-Finance</button>
+  <button class="filter-pill">Boston-Healthcare</button>
+  <button class="filter-pill">DC-Defense</button>
+  <button class="filter-pill" style="margin-left:14px">Genesis only</button>
+  <button class="filter-pill">In qualification</button>
+</div>
+
+
+<!-- LEAGUE TABLE -->
+<section class="league">
+  <table class="league-table">
+    <thead>
+      <tr>
+        <th style="width:60px">Rank</th>
+        <th style="width:60px;text-align:center">Δ Q1</th>
+        <th>Institution</th>
+        <th>Corridor</th>
+        <th class="r">GDA (Q2)</th>
+        <th style="text-align:center">Triple-85 rate</th>
+        <th class="r">Verified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-top1 row-genesis"><td><span class="rank">01</span></td><td style="text-align:center"><span class="delta flat">—</span></td><td><div class="inst">University of Houston <small>Genesis · since 2026 Q1</small></div></td><td><div class="corridor">Houston-Energy <small>Anchor</small></div></td><td class="gda">$1,840,000 <small>+$520K vs Q1</small></td><td class="triple"><span class="t-bar"><span style="width:74%"></span></span><span class="t-pct">74%</span></td><td class="verified">812 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">02</span></td><td style="text-align:center"><span class="delta up">▲ 4</span></td><td><div class="inst">Rice University <small>Genesis · since 2026 Q2</small></div></td><td><div class="corridor">Houston-Energy <small>Co-anchor</small></div></td><td class="gda">$1,420,000 <small>+$1.42M new</small></td><td class="triple"><span class="t-bar"><span style="width:71%"></span></span><span class="t-pct">71%</span></td><td class="verified">624 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">03</span></td><td style="text-align:center"><span class="delta up">▲ 2</span></td><td><div class="inst">University of Texas · Austin <small>Genesis · since 2026 Q2</small></div></td><td><div class="corridor">Houston-Energy <small>Statewide</small></div></td><td class="gda">$1,180,000 <small>+$1.18M new</small></td><td class="triple"><span class="t-bar"><span style="width:68%"></span></span><span class="t-pct">68%</span></td><td class="verified">528 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">04</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">Columbia University <small>Genesis · since 2026 Q2</small></div></td><td><div class="corridor">NYC-Finance <small>Anchor</small></div></td><td class="gda">$988,000 <small>+$988K new</small></td><td class="triple"><span class="t-bar"><span style="width:79%"></span></span><span class="t-pct">79%</span></td><td class="verified">412 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">05</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">NYU Stern <small>Genesis · since 2026 Q2</small></div></td><td><div class="corridor">NYC-Finance <small>Co-anchor</small></div></td><td class="gda">$842,000 <small>+$842K new</small></td><td class="triple"><span class="t-bar"><span style="width:76%"></span></span><span class="t-pct">76%</span></td><td class="verified">358 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">06</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">Cornell · Cornell Tech <small>Genesis · since 2026 Q2</small></div></td><td><div class="corridor">NYC-Finance <small>Tech-Finance</small></div></td><td class="gda">$724,000 <small>+$724K new</small></td><td class="triple"><span class="t-bar"><span style="width:81%"></span></span><span class="t-pct">81%</span></td><td class="verified">298 <small>candidates</small></td></tr>
+      <tr class="row-genesis"><td><span class="rank">07</span></td><td style="text-align:center"><span class="delta up">▲ 1</span></td><td><div class="inst">Texas A&amp;M University <small>Genesis qualified · Q2</small></div></td><td><div class="corridor">Houston-Energy <small>Statewide</small></div></td><td class="gda">$612,000 <small>+$420K vs Q1</small></td><td class="triple"><span class="t-bar"><span style="width:64%"></span></span><span class="t-pct">64%</span></td><td class="verified">284 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">08</span></td><td style="text-align:center"><span class="delta up">▲ 3</span></td><td><div class="inst">MIT <small>In qualification · Phase 2</small></div></td><td><div class="corridor">Boston-Healthcare <small>Phase 2</small></div></td><td class="gda">$498,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:83%"></span></span><span class="t-pct">83%</span></td><td class="verified">214 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">09</span></td><td style="text-align:center"><span class="delta up">▲ 2</span></td><td><div class="inst">Stanford University <small>In qualification · Phase 2</small></div></td><td><div class="corridor">SF-Compute <small>Phase 2</small></div></td><td class="gda">$424,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:80%"></span></span><span class="t-pct">80%</span></td><td class="verified">186 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">10</span></td><td style="text-align:center"><span class="delta down">▼ 2</span></td><td><div class="inst">Carnegie Mellon University <small>In qualification</small></div></td><td><div class="corridor">Pittsburgh-Robotics <small>Phase 2</small></div></td><td class="gda">$386,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:77%"></span></span><span class="t-pct">77%</span></td><td class="verified">172 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">11</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">Harvard University <small>In qualification</small></div></td><td><div class="corridor">Boston-Healthcare <small>Phase 2</small></div></td><td class="gda">$348,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:75%"></span></span><span class="t-pct">75%</span></td><td class="verified">158 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">12</span></td><td style="text-align:center"><span class="delta up">▲ 5</span></td><td><div class="inst">Princeton University <small>In qualification</small></div></td><td><div class="corridor">NYC-Finance <small>Phase 1.5</small></div></td><td class="gda">$324,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:78%"></span></span><span class="t-pct">78%</span></td><td class="verified">142 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">13</span></td><td style="text-align:center"><span class="delta flat">—</span></td><td><div class="inst">UC Berkeley <small>In qualification · Phase 2</small></div></td><td><div class="corridor">SF-Compute <small>Phase 2</small></div></td><td class="gda">$298,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:73%"></span></span><span class="t-pct">73%</span></td><td class="verified">128 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">14</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">Georgia Institute of Technology <small>In qualification</small></div></td><td><div class="corridor">Atlanta-Compute <small>Phase 2</small></div></td><td class="gda">$272,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:69%"></span></span><span class="t-pct">69%</span></td><td class="verified">114 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">15</span></td><td style="text-align:center"><span class="delta up">▲ 8</span></td><td><div class="inst">Northwestern University <small>In qualification</small></div></td><td><div class="corridor">Chicago-Finance <small>Phase 2</small></div></td><td class="gda">$246,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:72%"></span></span><span class="t-pct">72%</span></td><td class="verified">98 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">16</span></td><td style="text-align:center"><span class="delta up">▲ 1</span></td><td><div class="inst">University of Pennsylvania <small>In qualification</small></div></td><td><div class="corridor">NYC-Finance <small>Phase 2</small></div></td><td class="gda">$224,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:74%"></span></span><span class="t-pct">74%</span></td><td class="verified">88 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">17</span></td><td style="text-align:center"><span class="delta down">▼ 3</span></td><td><div class="inst">Duke University <small>In qualification</small></div></td><td><div class="corridor">NC-Compute <small>Phase 2</small></div></td><td class="gda">$202,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:67%"></span></span><span class="t-pct">67%</span></td><td class="verified">82 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">18</span></td><td style="text-align:center"><span class="delta new">NEW</span></td><td><div class="inst">Johns Hopkins University <small>In qualification</small></div></td><td><div class="corridor">DC-Defense <small>Phase 2</small></div></td><td class="gda">$184,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:71%"></span></span><span class="t-pct">71%</span></td><td class="verified">76 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">19</span></td><td style="text-align:center"><span class="delta up">▲ 2</span></td><td><div class="inst">Georgetown University <small>In qualification</small></div></td><td><div class="corridor">DC-Defense <small>Phase 2</small></div></td><td class="gda">$162,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:69%"></span></span><span class="t-pct">69%</span></td><td class="verified">68 <small>candidates</small></td></tr>
+      <tr><td><span class="rank">20</span></td><td style="text-align:center"><span class="delta flat">—</span></td><td><div class="inst">University of Michigan <small>In qualification</small></div></td><td><div class="corridor">Detroit-Mobility <small>Phase 2</small></div></td><td class="gda">$148,000 <small>pre-Genesis</small></td><td class="triple"><span class="t-bar"><span style="width:66%"></span></span><span class="t-pct">66%</span></td><td class="verified">62 <small>candidates</small></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:24px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;text-align:center">Ranks 21–200 published in the full quarterly schedule · <a href="#" style="color:var(--primary);text-decoration:none;font-weight:700">Download CSV →</a></p>
+</section>
+
+
+<!-- MOVEMENT / NOTABLE CHANGES -->
+<section class="movement-band">
+  <div class="movement-inner">
+    <div class="section-eyebrow">§ Q2 2026 · Notable movement</div>
+    <h2 class="section-head">The institutions that <em>shifted </em><span class="gild">the league.</span></h2>
+    <div class="movement-grid">
+      <div class="mv-card new">
+        <span class="mv-tag">New entrant · Top 10</span>
+        <h4>Columbia · NYC-Finance anchor</h4>
+        <div class="mv-corridor">Genesis Q2 2026 · #04 debut</div>
+        <p>Columbia's NYC-Finance Genesis MOU closed at the start of Q2, with the first cohort cleared through 412 Hard-Gates. 79% Triple-85 rate is third-highest in the league — driven by strength in AI risk and compliance roles.</p>
+        <div class="mv-stat"><span>GDA · Q2</span><strong>$988K</strong></div>
+      </div>
+      <div class="mv-card up">
+        <span class="mv-tag">▲ 4 positions</span>
+        <h4>Rice University · Houston co-anchor</h4>
+        <div class="mv-corridor">Houston-Energy Genesis · #02</div>
+        <p>Rice closed its Genesis MOU as Houston's energy-AI co-anchor alongside UH in early Q2. 71% Triple-85 rate and 624 verified candidates produced the league's largest single-quarter GDA acceleration outside of UH itself.</p>
+        <div class="mv-stat"><span>Δ Q1 → Q2</span><strong>+$1.42M</strong></div>
+      </div>
+      <div class="mv-card watch">
+        <span class="mv-tag">Watch · Pre-Genesis</span>
+        <h4>MIT · Phase 2 Boston anchor</h4>
+        <div class="mv-corridor">Boston-Healthcare · #08</div>
+        <p>MIT is the highest-ranked institution still in qualification rather than Genesis. 83% Triple-85 rate is the platform's highest — suggesting the institution is producing platform-grade candidates at faster rate than any Genesis institution. MOU conversations advancing toward Q3 close.</p>
+        <div class="mv-stat"><span>Triple-85 rate</span><strong>83% (#1)</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CORRIDOR BREAKDOWN -->
+<section class="frame">
+  <div class="section-eyebrow">§ Corridor Dominance · Q2 2026</div>
+  <h2 class="section-head">The four corridors. <em>The institutions </em><span class="gild">that own them.</span></h2>
+  <p class="section-lede">Corridor dominance is the second axis of the L-200. A Genesis Institution that dominates its corridor (highest share of corridor GDA) is producing structurally more graduates the labor market wants — and earning a structurally higher dividend.</p>
+
+  <div class="corridor-grid">
+    <div class="cor-card">
+      <div class="c-h">Houston-Energy</div>
+      <div class="c-sub">Phase 1 anchor</div>
+      <div class="c-leader">University of Houston</div>
+      <div class="c-share">39.2% of corridor GDA</div>
+      <div class="c-bar"><span style="width:39%"></span></div>
+      <div class="c-foot"><span>4 Genesis institutions</span><strong>$4.7M corridor GDA</strong></div>
+    </div>
+    <div class="cor-card">
+      <div class="c-h">NYC-Finance</div>
+      <div class="c-sub">Phase 1 co-anchor</div>
+      <div class="c-leader">Columbia University</div>
+      <div class="c-share">37.8% of corridor GDA</div>
+      <div class="c-bar"><span style="width:38%"></span></div>
+      <div class="c-foot"><span>3 Genesis institutions</span><strong>$2.6M corridor GDA</strong></div>
+    </div>
+    <div class="cor-card">
+      <div class="c-h">Boston-Healthcare</div>
+      <div class="c-sub">Phase 2 pipeline</div>
+      <div class="c-leader">MIT <span style="color:var(--on-surface-variant);font-weight:400">(pre-Gen)</span></div>
+      <div class="c-share">58.7% of qualifying corridor</div>
+      <div class="c-bar"><span style="width:59%"></span></div>
+      <div class="c-foot"><span>0 Genesis · 4 qualifying</span><strong>$0.85M pre-GDA</strong></div>
+    </div>
+    <div class="cor-card">
+      <div class="c-h">DC-Defense</div>
+      <div class="c-sub">Phase 2 pipeline</div>
+      <div class="c-leader">Johns Hopkins <span style="color:var(--on-surface-variant);font-weight:400">(pre-Gen)</span></div>
+      <div class="c-share">53.2% of qualifying corridor</div>
+      <div class="c-bar"><span style="width:53%"></span></div>
+      <div class="c-foot"><span>0 Genesis · 2 qualifying</span><strong>$0.35M pre-GDA</strong></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- METHODOLOGY -->
+<section class="method" id="methodology">
+  <div class="method-inner">
+    <div>
+      <div class="section-eyebrow">§ Methodology</div>
+      <h2 class="section-head">How the <em>L-200 is </em><span class="gild">ranked.</span></h2>
+      <p class="section-lede">The L-200 ranking is a four-factor composite. Each factor is verifiable against the on-chain settlement record — the rankings cannot be game-able through marketing or self-reporting. Smart-contract auditable; CSV schedule available.</p>
+      <p style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">Published quarterly · 30 days after quarter close · Q2 2026 · Houston</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-row">
+        <div class="num">01</div>
+        <div>
+          <h4>Quarterly GDA settled</h4>
+          <p>40% of every transaction value originating from an alumna of the institution, settled on-chain to the institution's GDA wallet during the quarter.</p>
+        </div>
+        <div class="weight">45%</div>
+      </div>
+      <div class="method-row">
+        <div class="num">02</div>
+        <div>
+          <h4>Triple-85 verification rate</h4>
+          <p>Percentage of the institution's verified candidates who achieved AICI ≥ 85, AIOI ≥ 85, and AIBS ≥ 85 — the bondable threshold.</p>
+        </div>
+        <div class="weight">25%</div>
+      </div>
+      <div class="method-row">
+        <div class="num">03</div>
+        <div>
+          <h4>Corridor share</h4>
+          <p>Institution's share of total GDA settled within its primary corridor (Houston-Energy, NYC-Finance, Boston-Healthcare, DC-Defense, others).</p>
+        </div>
+        <div class="weight">20%</div>
+      </div>
+      <div class="method-row">
+        <div class="num">04</div>
+        <div>
+          <h4>Verified candidate volume</h4>
+          <p>Absolute count of candidates affiliated with the institution who have cleared at least one Hard-Gate during the quarter.</p>
+        </div>
+        <div class="weight">10%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSING / JOIN -->
+<section class="closing" id="join">
+  <div class="closing-inner">
+    <div class="eyebrow">§ Become a Genesis Institution · Series A · 2026</div>
+    <h2>Earn a <span class="gild">perpetual 40% dividend</span> on every transaction your graduates originate. <em>For the length of their career.</em></h2>
+    <p class="lede">Genesis Institutions receive smart-contract-enforced revenue from every transaction settled by their alumna — bond premiums, recruiter battles, enterprise placements — through the 40/40/20 settlement protocol. No admin keys retained. No termination clause that impairs retroactively-earned dividends. The dividend is enforced by the math, not by the platform's quarterly goodwill.</p>
+    <div class="closing-ctas">
+      <a class="cta-gild" href="mailto:hello@tenured.ai?subject=Genesis%20Institution%20Inquiry">Become a Genesis Institution →</a>
+      <a class="cta-line" href="index.html">Read the platform →</a>
+      <a class="cta-line" href="manifesto.html">Read the manifesto →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="site-foot">
+  <div>Tenured AI · Sovereign Talent Ledger · Houston, TX</div>
+  <div>
+    <a href="index.html">Platform</a> · <a href="manifesto.html">Manifesto</a> · <a href="recruiter-battle.html">Recruiter Battle</a> · <a href="#methodology">Methodology</a>
+  </div>
+  <div class="copy">© 2026 Tenured AI, Inc. · 40/40/20 settlement smart-contract enforced · AICI™ AIOI™ AIBS™ federally registered</div>
+</footer>
+
+</main>
+
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

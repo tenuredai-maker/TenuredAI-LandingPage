@@ -1,0 +1,1360 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · The Proving Ground Launch Campaign · Asset Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4,h5{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 22px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em;margin-bottom:6px}
+.brand .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.5}
+.nav-group{margin-top:24px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:9px}
+.nav-group a{display:block;padding:5px 0;font-size:13px;opacity:.78;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:6px}
+
+.content{max-width:1080px;margin:0 auto;padding:0 40px}
+.hero{padding:80px 0 50px;position:relative}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:18ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p.lede{font-size:1.15rem;color:var(--on-surface-variant);max-width:62ch;margin-top:22px;line-height:1.6}
+
+section.bk{padding:70px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:1080px;margin-inline:auto;padding-inline:40px}
+h2.sec{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin-bottom:12px;max-width:26ch}
+.sec-sub{font-size:15px;color:var(--on-surface-variant);max-width:66ch;margin-bottom:36px;line-height:1.6}
+
+/* ASSET BLOCKS */
+.asset{background:var(--sc-lowest);border-radius:var(--r-xl);padding:28px;box-shadow:var(--editorial);margin-bottom:20px}
+.asset-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.asset-head .a-id{font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.12em;font-weight:700;padding:5px 11px;border-radius:var(--r-pill);background:rgba(197,160,89,.14);flex-shrink:0}
+.asset-head .a-title{font-family:var(--font-headline);font-weight:700;font-size:1.18rem;flex:1;min-width:200px}
+.asset-head .a-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;background:var(--sc-high);color:var(--on-surface-variant);font-weight:700}
+.asset-head .a-tag.tag-primary{background:var(--sovereign);color:#FFF}
+.asset-head .a-tag.tag-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.asset-head .a-tag.tag-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+
+.spec-row{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:9px 0;font-size:13.5px;border-bottom:1px dashed rgba(127,118,103,.18)}
+.spec-row:last-child{border-bottom:none}
+.spec-row .spec-key{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding-top:2px}
+.spec-row .spec-val{color:var(--on-surface);line-height:1.55}
+.spec-row .spec-val em{font-style:normal;background:rgba(197,160,89,.14);padding:1px 6px;border-radius:4px;color:var(--primary);font-family:var(--font-mono);font-size:12px}
+
+.copy-block{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-lg);padding:18px 22px;font-size:14px;line-height:1.65;margin:14px 0;position:relative}
+.copy-block::before{content:"COPY";position:absolute;top:8px;right:14px;font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em;opacity:.7}
+.copy-block .headline{font-family:var(--font-headline);font-size:1.15rem;font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;color:var(--primary-container)}
+.copy-block .body{opacity:.88}
+.copy-block .cta{display:inline-block;margin-top:14px;padding:8px 14px;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);font-size:11px;font-weight:700;font-family:var(--font-body);letter-spacing:.04em;text-decoration:none}
+.copy-block .url{font-family:var(--font-mono);font-size:10px;color:var(--amber);margin-top:8px;letter-spacing:.05em}
+
+.copy-block.variant{background:var(--sc-low);color:var(--on-surface);border:1px dashed rgba(127,118,103,.25)}
+.copy-block.variant::before{content:"A/B VARIANT";color:var(--tertiary)}
+.copy-block.variant .headline{color:var(--on-surface)}
+.copy-block.variant .cta{background:var(--sc-high);color:var(--on-surface)}
+
+.visual-block{background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.04));border-radius:var(--r-lg);padding:18px 22px;margin:14px 0}
+.visual-block::before{content:"VISUAL DIRECTION";display:block;font-family:var(--font-mono);font-size:9px;color:var(--primary);letter-spacing:.15em;font-weight:700;margin-bottom:10px}
+.visual-block p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.65}
+.visual-block strong{color:var(--on-surface)}
+
+.ab-block{background:var(--sc-low);border-radius:var(--r-lg);padding:18px 22px;margin:14px 0}
+.ab-block::before{content:"A/B TEST · WHAT TO MEASURE";display:block;font-family:var(--font-mono);font-size:9px;color:var(--tertiary);letter-spacing:.15em;font-weight:700;margin-bottom:10px}
+.ab-block p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.65}
+.ab-block strong{color:var(--on-surface)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+
+.callout{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:32px;position:relative;overflow:hidden;margin:30px 0}
+.callout::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.callout .seal{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px;position:relative;z-index:1}
+.callout h3{font-family:var(--font-headline);font-size:1.5rem;font-weight:700;line-height:1.2;margin-bottom:10px;color:var(--primary-container);position:relative;z-index:1}
+.callout p{font-size:14.5px;color:var(--inverse-on-surface);opacity:.88;line-height:1.65;position:relative;z-index:1;max-width:62ch}
+
+.foot{padding:60px 0 100px;color:var(--on-surface-variant);font-size:13px}
+.foot p{font-family:var(--font-headline);font-size:1.3rem;font-weight:600;color:var(--on-surface);max-width:42ch}
+.foot .mono{font-size:12px;margin-top:22px}
+.foot a{color:var(--primary);font-weight:700;text-decoration:none}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{.themebtn,.printbtn,.sidebar{display:none !important}.shell{grid-template-columns:1fr}.asset{page-break-inside:avoid}}
+
+ul.std{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.85}
+ul.std li{padding-left:18px;position:relative;margin-bottom:6px}
+ul.std li::before{content:"·";position:absolute;left:0;color:var(--primary);font-weight:700}
+ul.std li b{color:var(--on-surface);font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">Tenured AI<span class="dot">.</span> Campaign</div>
+    <div class="ver">THE PROVING GROUND<br>LAUNCH CAMPAIGN · ASSET LIBRARY<br>v1.0 · 2026</div>
+
+    <nav class="nav-group">
+      <h4>Strategic Foundation</h4>
+      <a href="#brief"><span class="sn">00</span>Campaign Brief</a>
+      <a href="#voice"><span class="sn">01</span>Sovereign Authority Voice</a>
+      <a href="#visual"><span class="sn">02</span>Visual System</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Paid Channels</h4>
+      <a href="#google"><span class="sn">03</span>Google Ads</a>
+      <a href="#meta"><span class="sn">04</span>Meta / TikTok / LinkedIn</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Owned</h4>
+      <a href="#email"><span class="sn">05</span>Email Sequences (4)</a>
+      <a href="#landing"><span class="sn">06</span>Landing Page</a>
+      <a href="#social"><span class="sn">07</span>Organic Social</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Sales &amp; Content</h4>
+      <a href="#sales"><span class="sn">08</span>Sales Enablement</a>
+      <a href="#content"><span class="sn">09</span>Content Marketing</a>
+      <a href="#measure"><span class="sn">10</span>Measurement Plan</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="kicker"><span class="num">CAMPAIGN ASSET LIBRARY</span><span class="lbl">Creative Director · v1.0 · Production-Ready</span></div>
+      <h1>The Proving Ground. <span class="gild">A launch in nine surfaces.</span></h1>
+      <p class="lede">A complete asset library for the launch of Tenured AI's flagship verification surface — The Proving Ground™. Built for production hand-off: every channel, every asset, exact copy in the Sovereign Authority voice, visual direction grounded in the Digital Curator design system, CTAs, and A/B tests. The campaign's job is not to introduce a feature — it is to <i>announce a new category</i>. The category is verified human worth. The medium is friction.</p>
+    </header>
+
+    <!-- ============ §00 · CAMPAIGN BRIEF ============ -->
+    <section class="bk" id="brief">
+      <div class="kicker"><span class="num">§00</span><span class="lbl">Campaign Brief</span></div>
+      <h2 class="sec">The thesis. The audience. The deliverable.</h2>
+      <p class="sec-sub">This asset library exists for one strategic objective: to drive qualified, high-intent professionals — engineers, AI operators, mid-career technologists — into their first Hard-Gate within 30 days of the campaign launch. Every asset below ladders to that goal.</p>
+
+      <div class="grid2">
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">BRIEF · 01</span>
+            <span class="a-title">The Strategic Objective</span>
+          </div>
+          <ul class="std">
+            <li><b>Primary metric.</b> 10,000 Hard-Gate attempts in the first 60 days of campaign run.</li>
+            <li><b>Secondary metric.</b> 2,500 Triple-85 Triple-Threat clearances minted to the Sovereign Ledger.</li>
+            <li><b>Tertiary metric.</b> 50 enterprise inbound inquiries against the EWARD dashboard surface.</li>
+            <li><b>North-Star metric.</b> 1,000 candidates with a $150K Performance Bond actively attached to a Sovereign Passport.</li>
+          </ul>
+        </div>
+
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">BRIEF · 02</span>
+            <span class="a-title">The Audience Triangulation</span>
+          </div>
+          <ul class="std">
+            <li><b>Primary.</b> Senior IC engineers (5–12 yrs) who deploy AI in production and feel the credential gap personally. They know LinkedIn lies. They want the truth.</li>
+            <li><b>Secondary.</b> Engineering managers and Heads of AI who are hiring against a broken signal. They watch take-homes get LLM'd. They want a filter.</li>
+            <li><b>Adjacent.</b> Career-changers and self-taught engineers whose résumés get skimmed. They want a credential the market can't dismiss.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">THE STRATEGIC TENSION</span>
+        <h3>"Your résumé is fiction. Your work is the only evidence left."</h3>
+        <p>Every asset must hold this tension. We are not selling a course, a certificate, or a community. We are selling the <i>only credential that cannot be faked by AI</i> — because the test was specifically engineered against AI assistance, and the record is cryptographically sealed. The campaign's emotional center is the relief of being seen for what you can actually do.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ §01 · SOVEREIGN AUTHORITY VOICE ============ -->
+    <section class="bk" id="voice">
+      <div class="kicker"><span class="num">§01</span><span class="lbl">Sovereign Authority Voice</span></div>
+      <h2 class="sec">The tone every word must hold.</h2>
+      <p class="sec-sub">Sovereign Authority is not a marketing voice. It is a posture. It speaks like someone who already operates infrastructure that matters — a central bank's chief economist, a senior policy adviser, a partner at a long-tenured firm — to peers, not prospects.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 01</span>
+          <span class="a-title">Sovereign Authority — The Five Rules</span>
+        </div>
+        <ul class="std">
+          <li><b>Rule 1 · Authority, never enthusiasm.</b> No exclamation marks. No emojis. No "🚀 We're so excited to announce". The product is consequential; the voice matches.</li>
+          <li><b>Rule 2 · Specificity, never abstraction.</b> "$11,250 annual premium," "Triple-85 threshold," "180-day strike window." Concrete numbers carry the conviction.</li>
+          <li><b>Rule 3 · The reader is a peer.</b> Sovereign Authority does not condescend. It assumes the reader already knows LinkedIn lies. It treats sophistication as table stakes.</li>
+          <li><b>Rule 4 · Decisive sentences.</b> Short. Declarative. The voice ends sentences. It does not trail.</li>
+          <li><b>Rule 5 · Never hard-sell.</b> The voice describes what is true and invites the reader to act on it. Hard-selling would betray the posture.</li>
+        </ul>
+      </div>
+
+      <div class="grid2">
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">VOICE · 02</span>
+            <span class="a-title">Approved Vocabulary</span>
+            <span class="a-tag tag-primary">ON-BRAND</span>
+          </div>
+          <ul class="std">
+            <li><b>Verify.</b> Not "test," not "check." Verify carries finality.</li>
+            <li><b>Anchor.</b> Cryptographic, immutable, on-chain.</li>
+            <li><b>Earn.</b> Credentials are earned, never granted.</li>
+            <li><b>Survive.</b> Hard-Gates are survived; the Proving Ground is endured.</li>
+            <li><b>Sovereign.</b> Used sparingly — for the Ledger, the Passport, the Identity.</li>
+            <li><b>Triple-85.</b> Always rendered exactly. Always with the hyphen.</li>
+            <li><b>Hard-Gate.</b> Capitalized, hyphenated, treated as a proper noun.</li>
+            <li><b>Proof of Friction.</b> The forensic record. Never "session log."</li>
+          </ul>
+        </div>
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">VOICE · 03</span>
+            <span class="a-title">Forbidden Vocabulary</span>
+            <span class="a-tag" style="background:rgba(186,26,26,.12);color:var(--error)">OFF-BRAND</span>
+          </div>
+          <ul class="std">
+            <li><b>"Game-changing."</b> A retail word. We do not change games; we end them.</li>
+            <li><b>"AI-powered."</b> Every product is now AI-powered. We are AI-resistant.</li>
+            <li><b>"Skill up." "Level up."</b> Gaming vocabulary. We verify, not gamify.</li>
+            <li><b>"Disrupt."</b> Old startup language. We replace.</li>
+            <li><b>"Join the revolution."</b> No revolutions. Only standards.</li>
+            <li><b>"Boost your career."</b> Boosting is for retail SaaS. We don't boost; we underwrite.</li>
+            <li><b>"Empowering."</b> The reader is already powerful. We attest to it.</li>
+            <li><b>Emojis in copy.</b> Period.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 04</span>
+          <span class="a-title">The Three Canonical Taglines</span>
+          <span class="a-tag tag-primary">CORE</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Verify human worth.</div>
+          <div class="body">The platform-level positioning. Used for hero placements, manifesto contexts, the home page, the deck title slides. Three words. Speaks to the entire thesis. The headline that should remain unmoved across the campaign.</div>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Earn the only credential AI cannot fake.</div>
+          <div class="body">The Proving Ground product positioning. Used for paid-media headlines, performance-focused channels, A/B test top variants. Holds the strategic tension on the credential gap directly.</div>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Anchored to the Sovereign Ledger. Owned by you.</div>
+          <div class="body">The structural-promise positioning. Used to address platform-risk concerns (G·01 in the FAQ), procurement-defensibility narratives, and the ownership story. Reinforces the on-chain architecture.</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §02 · VISUAL SYSTEM ============ -->
+    <section class="bk" id="visual">
+      <div class="kicker"><span class="num">§02</span><span class="lbl">Visual System</span></div>
+      <h2 class="sec">Editorial Modernity. The Digital Curator. Always.</h2>
+      <p class="sec-sub">Every asset across every channel inherits the Digital Curator design system. The visual posture is editorial, sovereign, and architectural — never SaaS-bright, never EdTech-soft, never crypto-loud.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VISUAL · 01</span>
+          <span class="a-title">The Locked Visual Tokens</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Base surface</div><div class="spec-val"><em>#FCF9F5</em> warm paper — the canvas of every asset</div></div>
+        <div class="spec-row"><div class="spec-key">Tonal layers</div><div class="spec-val"><em>#F6F3EF</em> → <em>#FFFFFF</em> overlapping paper surfaces; no 1px borders, only tonal shifts</div></div>
+        <div class="spec-row"><div class="spec-key">Ink</div><div class="spec-val"><em>#1C1C1A</em> warm charcoal — never pure black</div></div>
+        <div class="spec-row"><div class="spec-key">Sovereign gradient</div><div class="spec-val"><em>linear-gradient(135deg, #775A19 → #C5A059)</em> — reserved for primary CTAs and gilded headlines</div></div>
+        <div class="spec-row"><div class="spec-key">Intellectual blue</div><div class="spec-val"><em>#2C4771</em> — verified data, certified credentials, "actionable intelligence"</div></div>
+        <div class="spec-row"><div class="spec-key">Amber telemetry</div><div class="spec-val"><em>#FFBF00</em> CRT glow — system readouts, live operations, terminal callouts</div></div>
+        <div class="spec-row"><div class="spec-key">Type display</div><div class="spec-val">Sora — wide-tracked, geometric, institutional</div></div>
+        <div class="spec-row"><div class="spec-key">Type body</div><div class="spec-val">Inter — clean neo-grotesque, predictable leading</div></div>
+        <div class="spec-row"><div class="spec-key">Type data</div><div class="spec-val">JetBrains Mono — for scores, patent IDs, system readouts</div></div>
+        <div class="spec-row"><div class="spec-key">Shadows</div><div class="spec-val">Ambient occlusion only — <em>blur 24–40px / opacity 4–8%</em> — soft cast onto paper</div></div>
+        <div class="spec-row"><div class="spec-key">CRT micro-glow</div><div class="spec-val"><em>0 0 8px 2px rgba(255,191,0,0.2)</em> — for mono text on telemetry surfaces only</div></div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VISUAL · 02</span>
+          <span class="a-title">Hero Imagery Direction — The Three Anchors</span>
+          <span class="a-tag tag-primary">DIRECT TO PHOTO</span>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor A · The Dissolve (from Tenured AI Photo Ideas-1, image 1).</b> A stack of traditional bond-paper résumés rendered in high-contrast black-and-white sits on the left of an off-kilter composition on the warm #FCF9F5 surface. The edges of the paper dissolve into the background through a soft "ink bleed" that transforms into vibrant flowing streams of luminous ochre. The boundary is defined only by the shift in background tone — no lines. <b>Use for:</b> the hero of the landing page, the LinkedIn campaign hero, the email welcome banner. The dissolve carries the entire strategic thesis: the old credential is dissolving, what flows from it is the Sovereign Ledger.</p>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor B · The Sovereign Identity (from 10 Abstract Photo Ideas, image 10).</b> A person stands alone in the third column of an editorial grid, overlooking a vast Digital Ledger cityscape rendered in warm greys. In their hand, a glowing palm-sized "Sovereign Seed" rendered in the Luminous Ochre Gradient. The light from the seed illuminates their face, emphasizing that the individual owns the data of their excellence. Depth is achieved through soft ambient shadows and tonal layering. <b>Use for:</b> Google Display, the manifesto microsite, the closing slide of all six pitch decks, the "About" page hero.</p>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor C · Adversarial Fluidity (from 10 Abstract Photo Ideas, image 8).</b> A professional at a sleek desk defined by a clean #FFFFFF surface-container-lowest layer, surrounded by a subtle ambient shadow. A field of fragmented data in deep red is held at bay by the user's focus. The user is "steering" a beam of pure white light (representing logic) through the chaos with calm, precise hand gestures. The layout is intentionally asymmetrical, guiding the eye from the chaos to the point of clarity and control. <b>Use for:</b> the Proving Ground product page hero, the chaos-injection narrative video stills, the Meta video ad hero frames.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §03 · GOOGLE ADS ============ -->
+    <section class="bk" id="google">
+      <div class="kicker"><span class="num">§03</span><span class="lbl">Google Ads · Search &amp; Display</span></div>
+      <h2 class="sec">Capture intent. Inject category.</h2>
+      <p class="sec-sub">Search captures the intent that's already there ("AI engineer certification," "verify AI skills"). Display creates the category. Both must hold the Sovereign Authority voice — even at 30 characters.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">GADS · 01</span>
+          <span class="a-title">Search · High-Intent Keyword Cluster</span>
+          <span class="a-tag tag-blue">SEARCH</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Keywords</div><div class="spec-val">"AI engineer certification," "verify AI competency," "AI engineer credential," "AI skills assessment," "prove AI engineering skills," "AI certification that matters"</div></div>
+        <div class="spec-row"><div class="spec-key">Match type</div><div class="spec-val">Phrase + broad-modifier hybrid. Negative-match all course-completion keywords.</div></div>
+        <div class="spec-row"><div class="spec-key">Bid strategy</div><div class="spec-val">Target CPA, $80 ceiling for first 30 days, then maximize conversions</div></div>
+        <div class="spec-row"><div class="spec-key">Landing</div><div class="spec-val"><em>tenured.ai/proving-ground</em> (see §06)</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Earn a credential AI cannot fake.</div>
+          <div class="body"><b>Headline 1 (30):</b> Earn a credential AI can't fake<br><b>Headline 2 (30):</b> The Proving Ground is open<br><b>Headline 3 (30):</b> Triple-85. Bonded. Anchored.<br><br><b>Description 1 (90):</b> Adversarial Hard-Gates. Four-agent council. Forensic verification. Anchored to the Sovereign Ledger.<br><b>Description 2 (90):</b> Survive the chaos. Mint the credential. Get hired by recruiters who already spent the credit.</div>
+          <a class="cta">Attempt your first Hard-Gate →</a>
+          <div class="url">tenured.ai/proving-ground · Verified by Tenured AI</div>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">The AI engineer credential that's actually verified.</div>
+          <div class="body"><b>Headline 1 (30):</b> Verified by a 4-agent council<br><b>Headline 2 (30):</b> Cryptographically sealed<br><b>Headline 3 (30):</b> The Sovereign Ledger is open<br><br><b>Description 1 (90):</b> Anchored to Polygon mainnet. Owned by you. Independent of any employer or platform.<br><b>Description 2 (90):</b> Triple-85 status mints a $150K Performance Bond. Recruiters bid against escrow.</div>
+          <a class="cta">View the Hard-Gate →</a>
+          <div class="url">tenured.ai/proving-ground · Verified by Tenured AI</div>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Variant A leads with the strategic tension ("AI cannot fake"); Variant B leads with structural evidence ("verified by a 4-agent council"). <b>Hypothesis:</b> Variant A converts higher on cold traffic; Variant B converts higher on remarketing audiences who already know the brand. <b>Decision metric:</b> Hard-Gate sign-up conversion rate at 14 days, weighted by audience temperature.</p>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">GADS · 02</span>
+          <span class="a-title">Search · Defensive Brand Cluster</span>
+          <span class="a-tag tag-blue">SEARCH · BRAND</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Keywords</div><div class="spec-val">"Tenured AI," "Tenured AI Hard-Gate," "Sovereign Passport," "Tenured AI Proving Ground"</div></div>
+        <div class="spec-row"><div class="spec-key">Purpose</div><div class="spec-val">Block competitor bidding on the brand vocabulary. Reinforce the proper-noun treatment of Hard-Gate, Sovereign Passport, etc.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Tenured AI · Verify human worth.</div>
+          <div class="body"><b>Headline 1:</b> Tenured AI · Official<br><b>Headline 2:</b> The Proving Ground is open<br><b>Headline 3:</b> 21 patents. 97 trade secrets.<br><br><b>Description:</b> The Sovereign Talent Ledger. Verified by a four-agent council. Anchored on-chain. Bonded by Chubb.</div>
+          <a class="cta">Enter the Proving Ground →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">GADS · 03</span>
+          <span class="a-title">Display · Responsive · Category Creation</span>
+          <span class="a-tag tag-mentor">DISPLAY</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Audience</div><div class="spec-val">In-market for software engineering tools, affinity to AI engineering, custom-intent built from competitor visitors (LinkedIn Learning, Coursera Plus, HackerRank Premium)</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Anchor B (The Sovereign Identity) for 1200x628; Anchor A (The Dissolve) for 300x250 and 728x90</div></div>
+        <div class="spec-row"><div class="spec-key">Rotation</div><div class="spec-val">3 hero variants × 3 description variants × 5 size formats = 45 ad combinations served programmatically</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Your résumé is fiction. Your work is the only evidence left.</div>
+          <div class="body">Hard-Gates. Anchored credentials. Bonded hires. Anchored to the Sovereign Ledger.</div>
+          <a class="cta">Verify what you can do →</a>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">A credential AI cannot fake.</div>
+          <div class="body">Survive the Proving Ground. Mint the certificate. Get hired with proof, not claims.</div>
+          <a class="cta">The Proving Ground →</a>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Provocation ("Your résumé is fiction") vs. structural promise ("A credential AI cannot fake"). <b>Hypothesis:</b> Provocation wins on click-through, structural promise wins on signup. <b>Action:</b> If provocation wins CTR but loses CVR by >35%, retire provocation and run structural promise across the network.</p>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">GADS · 04</span>
+          <span class="a-title">YouTube · Pre-Roll · 30-Second Manifesto</span>
+          <span class="a-tag tag-mentor">VIDEO</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">TrueView for action · 30s skippable · 6s bumper variant</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Editorial film stock aesthetic. Warm paper surfaces. Slow-pan over a glowing Sovereign Passport surface. Final 5s: a hand attempts a Hard-Gate in a terminal lit by amber CRT glow.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">The 30-Second Manifesto · Voiceover Script</div>
+          <div class="body">
+            <b>0:00–0:05 (visual: stack of résumés dissolving into ochre stream)</b><br>
+            "Your résumé doesn't prove what it used to."<br><br>
+            <b>0:05–0:13 (visual: Sovereign Passport surface zoom)</b><br>
+            "Every credential. Every degree. Every certificate. All forensically empty in the age of large language models."<br><br>
+            <b>0:13–0:22 (visual: Hard-Gate terminal session, amber telemetry)</b><br>
+            "Tenured AI built a credential that AI cannot fake — because the test was specifically engineered against it. Adversarial. Forensic. Anchored to a public chain."<br><br>
+            <b>0:22–0:30 (visual: Triple-85 mint, $150K bond attached)</b><br>
+            "Earn the only credential the market trusts. The Proving Ground is open."<br><br>
+            <b>End frame:</b> tenured.ai/proving-ground
+          </div>
+          <a class="cta">Enter the Proving Ground →</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §04 · META / TIKTOK / LINKEDIN ============ -->
+    <section class="bk" id="meta">
+      <div class="kicker"><span class="num">§04</span><span class="lbl">Meta · TikTok · LinkedIn</span></div>
+      <h2 class="sec">Three platforms. Three audiences. One voice.</h2>
+      <p class="sec-sub">Meta runs the broad-audience top-of-funnel. TikTok runs the cultural moment (the LLM-cheating discourse). LinkedIn runs the professional credibility. All three carry the same campaign — calibrated to each platform's grammar.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">META · 01</span>
+          <span class="a-title">Meta · Static · Awareness</span>
+          <span class="a-tag tag-blue">FB + IG · STATIC</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Placement</div><div class="spec-val">Facebook + Instagram feed · 1080×1350 (4:5) · in-feed</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Anchor A (The Dissolve) — résumés dissolving into ochre. Sora headline overlay, top-right asymmetric, wide tracking.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Primary text (125 chars):</div>
+          <div class="body">"Your résumé doesn't prove what it used to. Every claim is now forensically empty in the age of LLMs. We built a credential that AI cannot fake. The Proving Ground is open."<br><br>
+            <b>Headline (40):</b> Earn a credential AI cannot fake.<br>
+            <b>Description (30):</b> Anchored to the Sovereign Ledger.</div>
+          <a class="cta">Learn more →</a>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">Primary text (125 chars):</div>
+          <div class="body">"The four-agent council watches every keystroke. The chaos engine injects live failures. Survive the Proving Ground. Mint a credential that travels with you forever."<br><br>
+            <b>Headline (40):</b> The Proving Ground is open.<br>
+            <b>Description (30):</b> Verify what you can actually do.</div>
+          <a class="cta">Sign up →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">META · 02</span>
+          <span class="a-title">Meta · Video · Conversion</span>
+          <span class="a-tag tag-mentor">FB + IG · VIDEO</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">15-second video · 1080×1350 (4:5) · sound-off-friendly · captions baked-in</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Cut from the YouTube 30-second manifesto. Frames 0:00–0:05, 0:13–0:22, 0:22–0:30. Amber telemetry overlay on terminal frames.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">15-Second Video Script · Captions Baked In</div>
+          <div class="body">
+            <b>0:00–0:03</b> [résumés dissolve to ochre stream]<br>
+            CAPTION: "The résumé era is over."<br><br>
+            <b>0:03–0:08</b> [Hard-Gate terminal, amber glow]<br>
+            CAPTION: "Every claim AI can write, AI can fake."<br><br>
+            <b>0:08–0:12</b> [four-agent council animation]<br>
+            CAPTION: "Tenured AI built a credential AI cannot fake."<br><br>
+            <b>0:12–0:15</b> [Triple-85 mint + bond attach]<br>
+            CAPTION: "The Proving Ground is open."<br>
+            END FRAME: tenured.ai
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">TIKTOK · 01</span>
+          <span class="a-title">TikTok · Native · Discourse Hook</span>
+          <span class="a-tag tag-mentor">TIKTOK</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">15-second native vertical · 1080×1920 · creator-led (founder voice + face-cam)</div></div>
+        <div class="spec-row"><div class="spec-key">Hook strategy</div><div class="spec-val">First frame must hook in 0.6 seconds. Lead with the LLM-cheating discourse already on TikTok. Position the platform as the counterpunch.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">TikTok Script · Founder VoiceOver</div>
+          <div class="body">
+            <b>0:00 (hook, founder face-cam):</b><br>
+            "Your CS professor knows half your class used Claude. So does every recruiter on your LinkedIn."<br><br>
+            <b>0:03–0:07 (cut to Hard-Gate terminal):</b><br>
+            "We built a credential that AI cannot fake. Adversarial environment. Four-agent council. The chaos engine breaks your code on purpose."<br><br>
+            <b>0:07–0:12 (cut to Sovereign Passport):</b><br>
+            "You earn it. We anchor it to a public blockchain. Recruiters spend credits to even see your name."<br><br>
+            <b>0:12–0:15 (founder face-cam):</b><br>
+            "It's free for 30 days. Link in bio. Stop competing on a signal that's already dead."<br>
+            END CARD: tenured.ai · The Proving Ground
+          </div>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Founder face-cam vs. cinematic visual-only. <b>Hypothesis:</b> Founder face-cam wins for cold viewers (TikTok native grammar); cinematic visual-only wins for retargeted viewers. <b>Decision:</b> Run founder-led for 14 days, switch retargeting pool to visual-only at day 15, measure relative CVR.</p>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LI · 01</span>
+          <span class="a-title">LinkedIn · Sponsored Content · Professional Authority</span>
+          <span class="a-tag tag-primary">LINKEDIN</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Audience</div><div class="spec-val">Job titles: Software Engineer III+, Staff Engineer, ML Engineer, Engineering Manager, Head of AI. Industries: Tech, Finance, Energy. Seniority: 5+ yrs.</div></div>
+        <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">Single-image sponsored content · 1200×627 · primary text 150 chars max for above-the-fold</div></div>
+
+        <div class="copy-block">
+          <div class="headline">The credential market collapsed. We rebuilt it.</div>
+          <div class="body">
+            <b>Primary text:</b><br>
+            "75% of HR leaders now prioritize skills-based hiring over degrees. Take-homes are LLM-defeated. Coding interviews assume AI authorship. The signal you've spent your career building is forensically empty.<br><br>
+            We rebuilt the credential market on three structural decisions: an adversarial Proving Ground that LLMs cannot solve, a four-agent verification council that requires consensus to mint, and a Sovereign Ledger anchored to Polygon mainnet — independent of any platform's survival.<br><br>
+            21 patents. 97 trade secrets registered under DTSA. Performance Bonds underwritten through a Chubb pilot.<br><br>
+            The Proving Ground is open. Verify what you can actually do."<br><br>
+            <b>Headline:</b> The Proving Ground is open.<br>
+            <b>Description:</b> A credential AI cannot fake. Anchored on-chain.
+          </div>
+          <a class="cta">Attempt your first Hard-Gate →</a>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Lead with the market data (75% stat) vs. lead with the structural promise (three decisions). <b>Hypothesis:</b> The market-data hook wins for engineering managers (data-driven persuasion); the structural-promise hook wins for ICs (peer-style narrative). <b>Decision:</b> Split by job-title audience segment. Measure form-fill conversion rates.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §05 · EMAIL SEQUENCES ============ -->
+    <section class="bk" id="email">
+      <div class="kicker"><span class="num">§05</span><span class="lbl">Email Sequences</span></div>
+      <h2 class="sec">Four sequences. Twenty-three messages. One voice.</h2>
+      <p class="sec-sub">Email is where Sovereign Authority does its deepest work — long-form, peer-to-peer, no character limits. The four sequences are: Welcome (post-signup), Promo (campaign-tied launches), Nurture (warming inactive accounts), and Re-engagement (winning back lapsed users).</p>
+
+      <!-- WELCOME SEQUENCE -->
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · WELCOME · 01</span>
+          <span class="a-title">Welcome Sequence — 5 messages over 12 days</span>
+          <span class="a-tag tag-primary">SEQUENCE</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">New Sovereign Passport DID minted. Sent from <em>auditor@tenured.ai</em>.</div></div>
+        <div class="spec-row"><div class="spec-key">Goal</div><div class="spec-val">First Forge drill within 48h. First scoped Hard-Gate attempt within 30d.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Welcome · Day 0 · "Your Passport has been minted."</div>
+          <div class="body">
+            <b>Subject:</b> Your Sovereign Passport has been minted.<br>
+            <b>Preview:</b> Three things to do in the first 48 hours.<br><br>
+            "Your Decentralized Identifier has been anchored to Polygon mainnet. Your Sovereign Passport — empty, awaiting your first credential — is now yours, independent of our servers and forever yours to carry.<br><br>
+            What happens next is small, deliberate, and compounds.<br><br>
+            <b>Step 1.</b> Open the Tenured Agent. Have one fifteen-minute conversation. The Agent will identify your skill baseline and set your starting nodes.<br><br>
+            <b>Step 2.</b> Attempt your first Forge drill — Two-Phase Flashcard mechanics over the node the Agent identified. About fifteen minutes. Most engineers do it on the train.<br><br>
+            <b>Step 3.</b> Review your Decay Atlas. Watch where your knowledge actually sits in the ontology.<br><br>
+            By Day 30, the goal is one scoped Hard-Gate attempt. Most candidates clear their first Hard-Gate by Day 90 of consistent work. Failed attempts never appear on your Passport.<br><br>
+            We will not email you to congratulate you on logging in. We will email you when something material has changed."<br><br>
+            <b>— The Tenured Agent</b>
+          </div>
+          <a class="cta">Open the Tenured Agent →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Welcome · Day 2 · "On Forge mechanics."</div>
+          <div class="body">
+            <b>Subject:</b> The Forge isn't a flashcard. Here's what it is.<br><br>
+            "Two-Phase Flashcard is the platform's name for what happens twice in every Forge session.<br><br>
+            <b>Phase 1 · Recall.</b> You see a prompt. You answer aloud or by typing — no multiple choice. The Mentor agent verifies your reasoning against the canonical pattern.<br><br>
+            <b>Phase 2 · Compression.</b> You re-state the concept in twelve words or fewer. The compression is what actually sticks. Your re-statement is pinned to that node's annotation history — your personal record of how you understood it.<br><br>
+            Every node decays on its own timer. The platform schedules Refresh Labs before your knowledge drops below the active threshold. The compounding is real.<br><br>
+            If you've done two sessions, the third is when the pattern starts to feel useful."<br><br>
+            <b>— The Tenured Agent</b>
+          </div>
+          <a class="cta">Run a Forge session →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Welcome · Day 5 · "What's actually on a Hard-Gate."</div>
+          <div class="body">
+            <b>Subject:</b> What's on the other side of a Hard-Gate.<br><br>
+            "The Hard-Gate is what the entire platform is engineered around. The Forge is the training. The Hard-Gate is the test.<br><br>
+            What it actually looks like: a real engineering task in an air-gapped sandbox. Production RAG. Prompt injection defense. Multi-agent consensus. Vector DB tuning. While you work, a four-agent council watches. The Adversary Logic Engine injects live chaos — broken dependencies, malformed inputs, gaslighting prompt injection from the Chaos Agent.<br><br>
+            The session emits six concurrent telemetry channels: keystroke velocity, inference latency, command precision, error trajectory, verification outcome, confidence calibration. At session close, the council produces a Weighted Consensus Score against a Credential Authorization Threshold. If you clear the threshold, a Consensus Certificate mints to the Sovereign Ledger via Merkle anchor.<br><br>
+            The certificate is what employers verify. The Proof of Friction record is what auditors review. Both are yours to hold."<br><br>
+            <b>— The Tenured Agent</b>
+          </div>
+          <a class="cta">Review the Proving Ground spec →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Welcome · Day 8 · "Privacy as architecture."</div>
+          <div class="body">
+            <b>Subject:</b> Who sees your scores. (No one, by default.)<br><br>
+            "Your AICI, AIOI, AIBS, Command Authority — all of it is private by default. Three audience modes control what surfaces where:<br><br>
+            <b>Owner mode.</b> You see everything. The full Decay Atlas, every failed Forge attempt, every Hard-Gate replay.<br><br>
+            <b>Recruiter mode.</b> Only what you toggle on. Scores. Tier. Credential count. Optional Proof of Friction replay. No personal data. No social graph. Recruiters spend reveal credits to even surface your candidate ID.<br><br>
+            <b>Public mode.</b> Zero personal data by default. A verifier sees what you explicitly chose to show.<br><br>
+            FERPA-compliant by design. GDPR-compliant by design. Your faculty cannot see your individual scores. Your employer cannot see your decay state without your consent.<br><br>
+            Your Passport is yours. We operate the verification. We do not own the credential."<br><br>
+            <b>— The Tenured Agent</b>
+          </div>
+          <a class="cta">Set your redaction defaults →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Welcome · Day 12 · "The first month, structured."</div>
+          <div class="body">
+            <b>Subject:</b> Where you are. Where you're going.<br><br>
+            "Twelve days in. Here's where consistent learners typically are at this point — and where the path leads.<br><br>
+            <b>By Day 30.</b> One scoped Hard-Gate attempt. AICI sub-score stabilized in the 65–75 range. Decay Atlas mostly filled in for your starting ontology nodes.<br><br>
+            <b>By Day 90.</b> First Hard-Gate cleared (about 70% of consistent learners reach this). First Consensus Certificate mints to your Passport.<br><br>
+            <b>By Day 150.</b> Triple-85 status: all three sub-scores cross 85. Bondable. The I-100 reveal protocol opens — recruiters can now spend credits to see you.<br><br>
+            <b>By Day 180.</b> Most consistent learners reach Tier 3 or 4. Multiple Consensus Certificates. First B-300 auction eligibility for those who opt in.<br><br>
+            The platform does not promise speed. It promises that what you build is real."<br><br>
+            <b>— The Tenured Agent</b>
+          </div>
+          <a class="cta">Schedule your first Hard-Gate →</a>
+        </div>
+      </div>
+
+      <!-- PROMO SEQUENCE -->
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · PROMO · 02</span>
+          <span class="a-title">Promo Sequence — 3 messages tied to The Proving Ground Launch</span>
+          <span class="a-tag tag-primary">SEQUENCE</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">Public launch of The Proving Ground feature. Sent from <em>founder@tenured.ai</em>.</div></div>
+        <div class="spec-row"><div class="spec-key">Goal</div><div class="spec-val">Convert warm list (1.2K already on the wait-list) into first 1,000 Hard-Gate attempts in 72h.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Promo · T-72h · "The Proving Ground opens."</div>
+          <div class="body">
+            <b>Subject:</b> The Proving Ground is open at 9:00 AM Central, Tuesday.<br><br>
+            "Eighteen months of engineering. Twenty-one patents. Ninety-seven trade secrets. One launch window.<br><br>
+            The Proving Ground — the platform's flagship verification surface — opens to public sign-ups at 9:00 AM Central this coming Tuesday.<br><br>
+            The first 1,000 candidates who attempt a scoped Hard-Gate within 72 hours of opening receive Genesis status: a permanent badge on the Sovereign Ledger, four additional Hard-Gate attempts beyond the quarterly four, and inclusion in the closed Genesis cohort that shapes the platform's next twelve months.<br><br>
+            Most candidates will spend their first session adjusting to the four-agent council's pace. That's expected. Failures don't appear on your Passport. The point is the first attempt.<br><br>
+            You're on the list because you were paying attention before the rest of the market was. The 9:00 AM email Tuesday includes your priority-access link."<br><br>
+            <b>— Founder, Tenured AI</b>
+          </div>
+          <a class="cta">Confirm your priority access →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Promo · T-0 · "The Proving Ground is open."</div>
+          <div class="body">
+            <b>Subject:</b> The Proving Ground is open.<br><br>
+            "At 9:00 AM Central this morning, the Proving Ground opened to the public.<br><br>
+            Your priority-access link is below. It grants you Genesis status for the next 72 hours: a permanent on-chain badge, four bonus Hard-Gate attempts, and a place in the Genesis cohort.<br><br>
+            What to do in the first hour:<br><br>
+            <b>1.</b> Open the Tenured Agent. Have one conversation. Identify your starting ontology nodes.<br>
+            <b>2.</b> Run two Forge sessions back-to-back. Build the baseline.<br>
+            <b>3.</b> Look at the scoped Hard-Gate list. Pick one that matches your strongest node. Do not attempt the hardest Gate first. The platform rewards consistency over heroism.<br><br>
+            You are not racing the other 999. You are joining the first 1,000.<br><br>
+            The Proving Ground is open."<br><br>
+            <b>— Founder, Tenured AI</b>
+          </div>
+          <a class="cta">Enter the Proving Ground →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Promo · T+48h · "Final 24 hours of Genesis status."</div>
+          <div class="body">
+            <b>Subject:</b> 24 hours left to claim Genesis status.<br><br>
+            "The first 1,000 Genesis slots fill on Tuesday at 9:00 AM Central. As of this email, 743 are claimed.<br><br>
+            Genesis status does three things that the platform does not offer to subsequent cohorts:<br><br>
+            <b>· Permanent on-chain badge.</b> Anchored to your Sovereign Passport. Visible to recruiters who reveal you. Visible on the Sovereign Ledger forever.<br>
+            <b>· Four bonus Hard-Gate attempts.</b> Beyond the standard four per quarter. Use them to attempt Gates you wouldn't risk on a first standard cycle.<br>
+            <b>· Closed Genesis cohort access.</b> Direct line to platform engineering. First sight of new ontology expansions. A voice in the corridor expansion decisions.<br><br>
+            If you've been on the list and haven't attempted a Hard-Gate yet, the next 24 hours are the window.<br><br>
+            After 9:00 AM Tuesday, the Proving Ground remains open at standard terms. The Genesis door closes."<br><br>
+            <b>— Founder, Tenured AI</b>
+          </div>
+          <a class="cta">Claim Genesis status →</a>
+        </div>
+      </div>
+
+      <!-- NURTURE SEQUENCE -->
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · NURTURE · 03</span>
+          <span class="a-title">Nurture Sequence — 4 messages over 6 weeks · Inactive Forge users</span>
+          <span class="a-tag tag-mentor">SEQUENCE</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">Account created &gt; 14 days ago, fewer than 3 Forge sessions completed, no Hard-Gate attempted. Sent from <em>mentor@tenured.ai</em>.</div></div>
+        <div class="spec-row"><div class="spec-key">Goal</div><div class="spec-val">Re-activate the Forge habit. Get to first Hard-Gate.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Nurture · Week 2 · "On consistency."</div>
+          <div class="body">
+            <b>Subject:</b> Fifteen minutes a day is enough.<br><br>
+            "Most of the platform's strongest performers do not do unusually long sessions. They do fifteen-minute Forge runs, five times a week, for four months.<br><br>
+            The Two-Phase mechanics are designed for this. The decay timer is calibrated to assume consistency, not duration. If you ran one fifteen-minute session today, your Decay Atlas would show measurable change by next week.<br><br>
+            Your account is two weeks old. You've done two sessions. The third session is when the pattern starts to feel useful — when the recall starts to feel earned, not memorized.<br><br>
+            Open the Forge. Run a session. We won't email you again until you do — or until enough time passes that we send you the Day-60 message anyway."<br><br>
+            <b>— Mentor</b>
+          </div>
+          <a class="cta">Open the Forge →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Nurture · Week 4 · "What you're missing."</div>
+          <div class="body">
+            <b>Subject:</b> Two recruiters revealed candidates this week from your starting cluster.<br><br>
+            "An anonymized data point from your starting ontology cluster (the nodes the Tenured Agent identified for you on Day 1): two recruiters spent reveal credits in the last seven days to surface candidates from that cluster.<br><br>
+            Both reveals went to candidates with at least one cleared Hard-Gate. The reveal credit costs the recruiter $120. They do not spend it on candidates who haven't cleared a Hard-Gate, because the I-100 protocol's Phase 2 filtering excludes drill-only profiles by default.<br><br>
+            You are not in the reveal-eligible pool yet. One Hard-Gate clearance changes that.<br><br>
+            The platform doesn't have a 'special offer.' What it has is a structural threshold. Cross it once."<br><br>
+            <b>— Mentor</b>
+          </div>
+          <a class="cta">Attempt your first Hard-Gate →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Nurture · Week 6 · "On stopping."</div>
+          <div class="body">
+            <b>Subject:</b> If you're going to stop, do it cleanly.<br><br>
+            "Six weeks in, two Forge sessions, no Hard-Gate. The platform's data says you are very likely not coming back without an intervention — or you are about to come back and need to see something direct.<br><br>
+            Two options.<br><br>
+            <b>Option A.</b> Open the Forge. Run one session. Schedule a Hard-Gate inside that session's flow. The platform will queue a scoped Gate matched to your strongest node.<br><br>
+            <b>Option B.</b> Pause your account. We won't email you again. Your Passport stays minted on-chain. Your DID stays resolvable. When you return — six months, two years — your starting baseline is still there.<br><br>
+            We will not run a 'come back, here's 30% off' campaign. That is not how this voice talks to its users."<br><br>
+            <b>— Mentor</b>
+          </div>
+          <a class="cta">Schedule a Hard-Gate now →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Nurture · Week 8 · "The last touch."</div>
+          <div class="body">
+            <b>Subject:</b> One link, no body copy.<br><br>
+            <b>BODY (single line):</b><br>
+            "The Forge is open: <em>tenured.ai/forge</em>"<br><br>
+            <b>— Tenured AI</b>
+          </div>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> The four-message nurture vs. a five-message nurture with an additional Week-3 social-proof message ("47 candidates from your cluster cleared a Hard-Gate this quarter"). <b>Hypothesis:</b> Social proof at Week 3 raises Hard-Gate-attempt rate by 15–25% but raises unsubscribes 5–10%. <b>Decision metric:</b> Net Hard-Gate attempts per 1,000 list members.</p>
+        </div>
+      </div>
+
+      <!-- RE-ENGAGEMENT SEQUENCE -->
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · REENGAGE · 04</span>
+          <span class="a-title">Re-engagement Sequence — 3 messages over 14 days · Lapsed accounts</span>
+          <span class="a-tag tag-mentor">SEQUENCE</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">No platform login &gt; 90 days. Has at least one Forge session in history.</div></div>
+        <div class="spec-row"><div class="spec-key">Goal</div><div class="spec-val">Reactivate at least 20% of lapsed accounts. Honor sovereignty: those who don't want to come back, leave clean.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Re-engagement · Day 0 · "Your Passport is still yours."</div>
+          <div class="body">
+            <b>Subject:</b> Your Passport is still yours.<br><br>
+            "Ninety days since your last session. Your Sovereign Passport is still anchored to your DID, on Polygon mainnet, where we put it the day you signed up. We have not deleted it. We will not delete it.<br><br>
+            The platform's policy is structural: a Passport, once minted, persists. Even if you never return.<br><br>
+            What's changed since you were last here:<br><br>
+            <b>· The Houston-Energy corridor passed network density.</b> Recruiters in that corridor reveal candidates daily at the Triple-85 threshold.<br>
+            <b>· Three new ontology nodes opened in agentic systems.</b> Your starting cluster has expanded.<br>
+            <b>· The Chubb pilot tier moved to Gold for Genesis cohort participants.</b> A 25% D&amp;O premium credit for participating enterprises.<br><br>
+            None of this requires you to come back. We thought you should see it."<br><br>
+            <b>— Tenured AI</b>
+          </div>
+          <a class="cta">Open your Passport →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Re-engagement · Day 7 · "What you'd do today."</div>
+          <div class="body">
+            <b>Subject:</b> What you'd actually do today if you came back.<br><br>
+            "If you opened the platform right now, here's what's available in under twenty minutes:<br><br>
+            <b>· Open the Tenured Agent.</b> Five minutes. The Agent re-calibrates your baseline against current ontology state and identifies any decayed nodes.<br>
+            <b>· One Forge refresh session.</b> Twelve minutes. Restores active state on your two highest-decay nodes.<br>
+            <b>· Look at your Decay Atlas.</b> Two minutes. See what's drifted. Decide what's worth re-verifying.<br><br>
+            That's it. Twenty minutes returns you to active state across your two strongest nodes.<br><br>
+            The Hard-Gate doesn't have to be today. The first twenty minutes do."<br><br>
+            <b>— Tenured AI</b>
+          </div>
+          <a class="cta">Twenty minutes →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Re-engagement · Day 14 · "Goodbye, cleanly."</div>
+          <div class="body">
+            <b>Subject:</b> The clean-stop message.<br><br>
+            "If you are not coming back, the platform's posture is to honor that.<br><br>
+            What this email is not: a 30%-off coupon. A 'we miss you' graphic. A guilt trip about the time you invested.<br><br>
+            What it is: a clean explanation.<br><br>
+            Three things to know:<br><br>
+            <b>1.</b> Your Passport remains. Permanently. Anchored on-chain. We cannot revoke it. You can return in two years, five years, fifteen years, and the credentials you earned will be cryptographically verifiable.<br><br>
+            <b>2.</b> Your data exports remain available. You can pull a signed JSON of your full Vault at any time, with or without an active subscription.<br><br>
+            <b>3.</b> We will stop emailing you. This is the last touch.<br><br>
+            If you want to come back, the door is open. If not, take care."<br><br>
+            <b>— Tenured AI</b>
+          </div>
+          <a class="cta">Return to the platform →</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §06 · LANDING PAGE COPY ============ -->
+    <section class="bk" id="landing">
+      <div class="kicker"><span class="num">§06</span><span class="lbl">Landing Page</span></div>
+      <h2 class="sec">tenured.ai/proving-ground — the conversion surface.</h2>
+      <p class="sec-sub">Every paid placement points here. The page must convert cold traffic from Google/Meta/TikTok/LinkedIn into Hard-Gate sign-ups. Editorial layout, asymmetric, generous white space, no glossy SaaS gloss.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 01</span>
+          <span class="a-title">Hero Section — Above the Fold</span>
+        </div>
+        <div class="visual-block">
+          <p><b>Layout.</b> Editorial grid. Headline left-aligned, occupying the left 7 columns of a 12-column grid. Right 5 columns: Anchor C visual (the professional steering light through fragmented data). Sora display headline, wide tracking, deep ink. Sovereign Gradient on the verb. Asymmetric, generous white space below. Ambient shadow on the visual card only, no border.</p>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Verify what you can <span style="color:var(--amber);font-style:italic">actually</span> do.</div>
+          <div class="body">
+            <b>Sub-headline (max 30 words):</b><br>
+            "The Proving Ground is an air-gapped, adversarial verification environment. The four-agent council watches every keystroke. The credential is anchored on-chain. Owned by you, forever."<br><br>
+            <b>Primary CTA:</b> Attempt your first Hard-Gate<br>
+            <b>Secondary link:</b> See what the Proving Ground actually looks like ↓
+          </div>
+          <a class="cta">Attempt your first Hard-Gate →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 02</span>
+          <span class="a-title">Section 2 — The Strategic Tension</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Your résumé is fiction. Your work is the only evidence left.</div>
+          <div class="body">
+            "Large language models have made traditional credentials forensically empty. A degree, a coding test, a take-home assignment, a LinkedIn endorsement no longer prove what they used to.<br><br>
+            75% of HR leaders now prioritize skills-based hiring over degrees (SHRM, 2024). Senior hiring managers stopped using portfolio quality as signal in 2023 — they assume AI authorship by default, and they're correct often enough.<br><br>
+            The signal you've spent your career building has collapsed. We rebuilt it."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 03</span>
+          <span class="a-title">Section 3 — What the Proving Ground Actually Is (Three Pillars)</span>
+        </div>
+        <div class="visual-block">
+          <p><b>Layout.</b> Three-column tonal layering. Each column is a #FFFFFF card lifted from the #F6F3EF sectional background by ambient shadow. Sora h3 headline per column, mono kicker, Inter body, no bullet points.</p>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Pillar 1 · Adversarial by architecture.</div>
+          <div class="body">
+            "The Adversary Logic Engine injects three escalating tiers of chaos. Broken dependencies. Malformed inputs. Gaslighting prompt injections from the Chaos Agent. The Bully Logic Persistence Loop re-injects in the same domain when it detects pattern-matched memorized solutions. The session is recorded across six concurrent telemetry channels. An LLM cannot solve it because an LLM cannot see the live ALE state. The platform's Invigilator agent detects AI-typical keystroke patterns. The test is engineered against the cheat."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Pillar 2 · Consensus, not credentials.</div>
+          <div class="body">
+            "A four-agent council watches the session. Mentor. Invigilator. Auditor. Chaos. Each agent reports independently against six telemetry channels. The Weighted Consensus Protocol requires three of four signatures and a Weighted Consensus Score above the Credential Authorization Threshold. If consensus holds, a Consensus Certificate mints. If consensus fails, the Gate is logged to your private history and never appears on your Passport. The credential is not granted. It is earned."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Pillar 3 · Anchored. Not stored.</div>
+          <div class="body">
+            "Every Consensus Certificate is Merkle-anchored to Polygon mainnet under your Decentralized Identifier. Independent of our servers. Independent of any employer. Open-source verification clients are published to GitHub so any third party can validate without trusting us. If Tenured AI shut down tomorrow, every certificate you've earned remains cryptographically verifiable, forever. The credential is yours. The architecture guarantees it."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 04</span>
+          <span class="a-title">Section 4 — Social Proof Without Vanity (the Numbers Bar)</span>
+        </div>
+        <div class="visual-block">
+          <p><b>Layout.</b> Inverse-surface dark band against the warm page. Mono numbers, amber CRT glow. Numbers spaced asymmetrically, with editorial captions in Inter. No "trusted by" logo strip — that's SaaS grammar. We use measured data.</p>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The Sovereign Ledger · Live Data</div>
+          <div class="body">
+            <b>21</b> · Filed patents (PAT-001 through PAT-021)<br>
+            <b>97</b> · Trade secrets registered under DTSA<br>
+            <b>3</b> · Trademarks: AICI™, AIOI™, AIBS™<br>
+            <b>1</b> · Sovereign Ledger anchored on Polygon mainnet<br>
+            <b>4</b> · Chains of redundancy (Polygon · Ethereum · Arbitrum · Optimism)<br>
+            <b>$150K</b> · Performance Bond attached at Triple-85 clearance<br>
+            <b>25%</b> · Chubb Gold tier premium credit on D&amp;O / E&amp;O policies
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 05</span>
+          <span class="a-title">Section 5 — The Six-Month Path</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">From sign-up to Triple-85.</div>
+          <div class="body">
+            "Most candidates reach Triple-85 — the bondable threshold — between month 5 and month 8 of consistent practice. The platform isn't selling shortcuts. It's selling a path that ends with a credential that's actually real.<br><br>
+            <b>Month 1 — Baseline.</b> Sign up. Placement Hard-Gates find your starting line. Daily Forge begins. AICI stabilizes near 60. Decay Atlas shows where you actually need work.<br><br>
+            <b>Months 2–3 — Build.</b> First Refresh Labs. AIOI rises as you face scoped agentic challenges. First scoped Consensus Certificates earned.<br><br>
+            <b>Month 4 — First Hard-Gate.</b> First adversarial Hard-Gate. Real chaos injections. Real four-agent council. If cleared, AICI crosses 80. If not, retake. Failed attempts never appear on your Passport.<br><br>
+            <b>Months 5–6 — Triple-85.</b> Multiple Hard-Gates cleared. All three sub-scores cross 85. Triple-85 status mints on-chain. Bondable. The I-100 protocol opens — recruiters reveal you for $120 each."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 06</span>
+          <span class="a-title">Section 6 — Final CTA + Trust Footer</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The Proving Ground is open.</div>
+          <div class="body">
+            "Sign up free. First 30 days unrestricted. If your school is a Genesis Institution, the subscription is $0. If not, $19 a month — about one streaming subscription, locked at that rate through end-of-2027 by published policy.<br><br>
+            One Forge session today. One scoped Hard-Gate by month 4. One Consensus Certificate that walks with you for the rest of your career."
+          </div>
+          <a class="cta">Sign up free →</a>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Final-CTA copy variants: "Sign up free" (action), "Enter the Proving Ground" (place), "Earn the Triple-85" (outcome). <b>Hypothesis:</b> "Enter the Proving Ground" wins on cold paid traffic; "Earn the Triple-85" wins on warm/email traffic. <b>Decision metric:</b> Form-completion conversion rate by traffic source.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §07 · ORGANIC SOCIAL ============ -->
+    <section class="bk" id="social">
+      <div class="kicker"><span class="num">§07</span><span class="lbl">Organic Social</span></div>
+      <h2 class="sec">The owned-media voice. Long-form. Patient.</h2>
+      <p class="sec-sub">Organic social does what paid cannot: it builds the cultural authority that makes paid land. The cadence is weekly, not daily. Each post is editorial-quality — a small artifact, not a content-marketing byproduct.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 01</span>
+          <span class="a-title">LinkedIn · Founder Thought Leadership — Weekly Cadence</span>
+          <span class="a-tag tag-primary">LINKEDIN</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Cadence</div><div class="spec-val">2 founder posts per week. One technical, one strategic. Always with a Photo Ideas anchor or a screen from the platform.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Week 1 · Technical · "The Bully Logic Persistence Loop"</div>
+          <div class="body">
+            "We patented something nobody else would think to patent: the second time a candidate gets a problem wrong on a Hard-Gate, the platform doesn't show them the same problem again.<br><br>
+            It shows them a different problem in the same domain — same underlying mechanism, different symptoms. Then a third problem, again same mechanism. We call it the Bully Logic Persistence Loop. It exists because the Adversary Logic Engine has one job: defeat pattern-matching.<br><br>
+            Memorized solutions die on the second injection. Candidates who actually understand the underlying mechanism survive all three. The four-agent council watches across all of it.<br><br>
+            This is PAT-001 in plain language. The reason a Hard-Gate clearance means something is that the platform is engineered to make every kind of cheating fail systematically. Not as policy. As architecture.<br><br>
+            — Dameon, Founder @ Tenured AI"
+          </div>
+          <a class="cta">Read the Proving Ground spec →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Week 1 · Strategic · "75%"</div>
+          <div class="body">
+            "75% of HR leaders now prioritize skills-based hiring over degrees. (SHRM 2024.)<br><br>
+            Sit with that number for a second. Three out of four senior HR leaders in the United States have publicly stated they no longer trust the primary signal they were trained to evaluate.<br><br>
+            What they're really saying is: 'The credential infrastructure of the last sixty years has collapsed, and we don't have a replacement yet.'<br><br>
+            We built the replacement. It's anchored to Polygon mainnet. It has 21 patents and 97 trade secrets behind it. It's called the Sovereign Passport.<br><br>
+            The Proving Ground opens this Tuesday at 9:00 AM Central. Genesis cohort is 1,000 slots.<br><br>
+            — Dameon, Founder @ Tenured AI"
+          </div>
+          <a class="cta">Join the Genesis cohort →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Week 2 · Technical · "What the Sovereign Passport actually carries"</div>
+          <div class="body">
+            "Twelve patents have visible surfaces on a single Sovereign Passport. Here's the actual list.<br><br>
+            PAT-001 — Command Authority composite score. Your headline metric.<br>
+            PAT-002 — Proof of Friction records in the Evidence Locker.<br>
+            PAT-003 — Lambda decay coefficient per ontology node, visible in the Decay Atlas.<br>
+            PAT-004 — Consensus Certificate structure with four agent signatures.<br>
+            PAT-005 — Vector-Graph Career Memory of every artifact you've produced.<br>
+            PAT-010 — Sovereign Ledger anchoring to Polygon.<br>
+            PAT-011 — Tenure Points compounding.<br>
+            PAT-019 — Asymmetric Liability flags (the OL classifier).<br>
+            PAT-020 — Node-persistent annotations (your own re-statements pinned to nodes).<br><br>
+            Three more are involved in the underwriting layer — PAT-013, PAT-014, PAT-017.<br><br>
+            A Passport is not a profile. It's an infrastructure artifact.<br><br>
+            — Dameon, Founder @ Tenured AI"
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 02</span>
+          <span class="a-title">Twitter / X · Pithy Voice · Daily</span>
+          <span class="a-tag tag-blue">X</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Cadence</div><div class="spec-val">1 founder + 1 brand post per day. Often a single declarative sentence. Sometimes a screenshot of the Proving Ground.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Five Sample Daily Posts</div>
+          <div class="body">
+            <b>Post 1 (declarative):</b> "Your résumé is fiction. Your work is the only evidence left."<br><br>
+            <b>Post 2 (specific):</b> "21 patents. 97 trade secrets registered under DTSA. 3 trademarks. One verification platform. Tenured AI."<br><br>
+            <b>Post 3 (provocation):</b> "If your bootcamp graduates ten thousand engineers a year with the same capstone project, the certificate isn't a credential. It's a coincidence."<br><br>
+            <b>Post 4 (anchored):</b> "Every Consensus Certificate is anchored to Polygon under your DID. Independent of our servers. If we vanish tomorrow, your credential is still cryptographically verifiable. Forever."<br><br>
+            <b>Post 5 (visual):</b> [Screenshot of Hard-Gate terminal session, amber CRT telemetry overlay] "The Proving Ground is open. tenured.ai"
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 03</span>
+          <span class="a-title">Instagram · Editorial Visual Cadence — Weekly</span>
+          <span class="a-tag tag-mentor">INSTAGRAM</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Cadence</div><div class="spec-val">2 carousel posts per week. Each carousel is a 4–6 panel editorial story. Designed to be screenshot-shareable.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Carousel 1 · "The Anatomy of a Sovereign Passport" · 6 panels</div>
+          <div class="body">
+            <b>Panel 1 (hero):</b> Sora display headline "The anatomy of a Sovereign Passport." Anchor B visual.<br>
+            <b>Panel 2:</b> "Command Authority. The composite metric. The number a recruiter sees first."<br>
+            <b>Panel 3:</b> "Triple-Threat: AICI™ · AIOI™ · AIBS™. All three above 85 = bondable."<br>
+            <b>Panel 4:</b> "Evidence Locker. Every Hard-Gate clearance. Forensic. Browsable. Replayable."<br>
+            <b>Panel 5:</b> "Decay Atlas. Which nodes are active. Which are drifting. Your real knowledge state."<br>
+            <b>Panel 6 (CTA):</b> "Yours. Anchored on-chain. Mint your first credential. tenured.ai"
+          </div>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">Carousel 2 · "What a Hard-Gate Actually Looks Like" · 5 panels</div>
+          <div class="body">
+            <b>Panel 1 (hero):</b> "What's actually on a Hard-Gate."<br>
+            <b>Panel 2:</b> "An air-gapped sandbox. Production-grade engineering task. No internet egress."<br>
+            <b>Panel 3:</b> "The Adversary Logic Engine injects chaos. Broken dependencies. Malformed inputs. Gaslighting prompt injection."<br>
+            <b>Panel 4:</b> "Four agents watch. Mentor. Invigilator. Auditor. Chaos. Three of four signatures required to mint."<br>
+            <b>Panel 5 (CTA):</b> "Survive once. Mint forever. tenured.ai/proving-ground"
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §08 · SALES ENABLEMENT ============ -->
+    <section class="bk" id="sales">
+      <div class="kicker"><span class="num">§08</span><span class="lbl">Sales Enablement</span></div>
+      <h2 class="sec">For the team in the field. The materials that close.</h2>
+      <p class="sec-sub">Six surfaces for the sales team to use in active deals — recruiter onboarding, enterprise SOW prep, university MOU walk-throughs, state partnership briefings. Each one references the six audience pitch decks already produced, but in a faster, conversational format for live use.</p>
+
+      <div class="grid2">
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">SALES · 01</span>
+            <span class="a-title">The Three-Sentence Pitch</span>
+            <span class="a-tag tag-primary">EVERY DEAL</span>
+          </div>
+          <div class="copy-block">
+            <div class="headline">The 30-second elevator script (one sentence per breath)</div>
+            <div class="body">
+              "Tenured AI is the verification infrastructure for AI-era talent. Every credential is earned in an adversarial Hard-Gate, anchored on Polygon mainnet, and owned by the candidate. Recruiters and enterprises pay for verified hiring. The platform routes 40% of every transaction back to the candidate's alma mater and 20% to the State Treasury, perpetually."
+            </div>
+          </div>
+        </div>
+
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">SALES · 02</span>
+            <span class="a-title">The Eight-Question Discovery Script</span>
+            <span class="a-tag tag-mentor">DISCOVERY</span>
+          </div>
+          <ul class="std">
+            <li><b>1.</b> "When did you last hire an AI engineer? How long did the loop take?"</li>
+            <li><b>2.</b> "What's your current pass-through rate from take-home to offer?"</li>
+            <li><b>3.</b> "How are you handling LLM-authored portfolios in your screen?"</li>
+            <li><b>4.</b> "What's the cost of a 180-day strike to your team — fee refund plus relationship damage?"</li>
+            <li><b>5.</b> "Have you priced AI-hallucination liability into your D&amp;O policy yet?"</li>
+            <li><b>6.</b> "What's your current verification spend per senior hire? LinkedIn Recruiter, HackerRank, Codility, all of it stacked?"</li>
+            <li><b>7.</b> "What's the strategic case for your CFO if you avoided one blown senior placement this year?"</li>
+            <li><b>8.</b> "When you imagine the world where credentials AI cannot fake are table stakes — who is your firm's first move?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SALES · 03</span>
+          <span class="a-title">Objection-Handling Brief — Five Hardest Questions</span>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 1 · "Why not LinkedIn Talent Insights or HackerRank?"</div>
+          <div class="body">
+            "LinkedIn measures self-reported skills. HackerRank measures coding-test performance. Neither survives LLM-cheating attacks; both have publicly acknowledged this. Tenured AI's Adversary Logic Engine is the only verification surface that the platform's own technical staff cannot defeat — because the test was specifically engineered against the cheat. The credential is anchored on-chain, independent of our infrastructure. The closest parallel isn't LinkedIn; it's a professional license."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 2 · "What if you go out of business?"</div>
+          <div class="body">
+            "Every credential is Merkle-anchored to Polygon mainnet under the candidate's DID. We don't store credentials; we anchor them. Open-source verification clients are published to GitHub. If Tenured AI shut down tomorrow, every Consensus Certificate remains cryptographically verifiable by any third party, forever. The Underwriting Reserve is held in third-party-administered escrow, not on our balance sheet. The Chubb pilot adds an additional reinsurance layer. The structure is wind-down-safe by design."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 3 · "Our procurement office can't sign with a startup."</div>
+          <div class="body">
+            "Three structural facts address that: the credentials are anchored on a public chain, not on our servers; the 40/40/20 dividend split is enforced at the smart-contract layer, not in our terms of service; and the IP foundation includes 21 filed patents, 97 trade secrets under DTSA, and 3 trademarks — defensible at USPTO, auditable by your counsel. We can provide the full IP due-diligence package under mutual NDA. The structural risk profile is the inverse of typical SaaS procurement."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 4 · "Our engineers won't use another platform."</div>
+          <div class="body">
+            "We're not asking them to. The Hard-Gate is two hours, four times a year. The Forge is fifteen minutes a day for the engineers who choose to maintain active state on specific nodes. The Sovereign Passport is the surface they actually want — because LinkedIn no longer works for what they're trying to communicate. We expect 30–40% of senior engineers on the platform to keep their accounts active long after their first Triple-85 mints, not because we asked, but because the credential matters to them personally."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 5 · "How is this different from a coding certificate?"</div>
+          <div class="body">
+            "A coding certificate proves you watched the videos. A Consensus Certificate proves you survived a four-agent adversarial verification with live chaos injection, anchored on-chain. The certificate-vs-credential distinction matters at the structural level — one is a course completion artifact, the other is a forensic record. Senior hiring managers stopped accepting course certificates as a hiring signal in 2023. The credential gap they identify is exactly what the Proving Ground was built to close."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SALES · 04</span>
+          <span class="a-title">The Six-Audience One-Pager Briefcase</span>
+          <span class="a-tag tag-blue">LEAVE-BEHIND</span>
+        </div>
+        <ul class="std">
+          <li><b>TenuredAI_OnePager_State_Leadership.html</b> — 20% Treasury share + Kill-Switch Dashboard</li>
+          <li><b>TenuredAI_OnePager_Enterprise.html</b> — $11,250 / $150K Performance Bond + Chubb Gold</li>
+          <li><b>TenuredAI_OnePager_University_Leadership.html</b> — 40% perpetual GDA dividend</li>
+          <li><b>TenuredAI_OnePager_Recruiters.html</b> — 200 starter reveal credits + I-100/B-300</li>
+          <li><b>TenuredAI_OnePager_Students.html</b> — $0 at Genesis Institutions, Passport for life</li>
+          <li><b>TenuredAI_OnePager_SelfLearners.html</b> — $19/mo replaces $5K cert-stack</li>
+        </ul>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic">Already produced in this project. The sales team has them as leave-behinds for every meeting. Each one is print-PDF-ready via the toolbar.</p>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SALES · 05</span>
+          <span class="a-title">The FAQ Briefcase</span>
+          <span class="a-tag tag-blue">LEAVE-BEHIND</span>
+        </div>
+        <ul class="std">
+          <li><b>TenuredAI_FAQ_Master.html</b> — 56 questions, two-voice, sectional nav</li>
+          <li><b>Six audience FAQs</b> — State (23), Enterprise (41), Universities (32), Recruiters (29), Students (32), Self-learners (31)</li>
+          <li><b>Two voices each.</b> Short version for warm conversations. Institutional-detail expander for risk / procurement / legal.</li>
+        </ul>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic">Already produced in this project. Use the master FAQ in the early discovery, the audience FAQs in the active-deal phase, and the institutional-detail expanders for the procurement / legal review.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ §09 · CONTENT MARKETING ============ -->
+    <section class="bk" id="content">
+      <div class="kicker"><span class="num">§09</span><span class="lbl">Content Marketing</span></div>
+      <h2 class="sec">Six long-form content pieces. Quarterly cadence.</h2>
+      <p class="sec-sub">Long-form content is where Sovereign Authority does its slow work — building cultural authority over months. Each piece is editorial quality, 1,800–3,500 words, anchored to a Photo Ideas visual, with a published date and a permanent URL.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 01</span>
+          <span class="a-title">Long-Form Outline · "The Proficiency Paradox: Why Your Credentials Stopped Working in November 2022"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 2,800 words. The pillar piece of the launch quarter.</li>
+          <li><b>Hook.</b> "On November 30, 2022, ChatGPT launched. Within six months, the verification value of every existing credential collapsed simultaneously."</li>
+          <li><b>Section 1.</b> The historical baseline — how degrees, certificates, and portfolios worked from 1947 to 2022.</li>
+          <li><b>Section 2.</b> The collapse — five concrete examples of how LLMs broke each signal.</li>
+          <li><b>Section 3.</b> The structural diagnosis — what a post-LLM credential must do that no pre-LLM credential could.</li>
+          <li><b>Section 4.</b> Four structural requirements: adversarial, multi-agent-verified, telemetry-anchored, on-chain-portable.</li>
+          <li><b>Section 5.</b> The new category — verified work, not declared competency.</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 1 — "The Signal Shift" (résumés dissolving into ochre).</li>
+          <li><b>CTA.</b> Attempt a Hard-Gate at <em>tenured.ai/proving-ground</em>.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 02</span>
+          <span class="a-title">Long-Form Outline · "Why We Patented the Bully Logic Persistence Loop"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 2,200 words. Technical-credibility piece.</li>
+          <li><b>Hook.</b> "PAT-001 has a section nobody talks about. It's the section that makes everything else work."</li>
+          <li><b>Sections.</b> What pattern-matching cheating actually looks like; how the platform detects it; the Bully Logic re-injection sequence; why three escalating injections is the right number; what the four-agent council sees during a Bully Logic event.</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 8 — "Adversarial Fluidity."</li>
+          <li><b>CTA.</b> Review the Proving Ground UX spec.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 03</span>
+          <span class="a-title">Long-Form Outline · "What 'Anchored to a Public Chain' Actually Means for Your Credential"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 1,900 words. Procurement / risk audience.</li>
+          <li><b>Hook.</b> "Most credentials live in a database. Yours lives on Polygon mainnet. Here's why that's not a marketing claim — it's a structural commitment."</li>
+          <li><b>Sections.</b> The difference between storage and anchoring; what a Merkle root actually does; how third-party verification works without trusting us; multi-chain redundancy (Polygon · Ethereum · Arbitrum · Optimism); the wind-down scenario.</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 5 — "The Sovereign Archive."</li>
+          <li><b>CTA.</b> Read the FAQ §G (Platform Risk).</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 04</span>
+          <span class="a-title">Long-Form Outline · "The Math of $11,250: How the Performance Bond Actually Works"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 1,800 words. Enterprise / risk audience.</li>
+          <li><b>Hook.</b> "Most insurance products price the average. The Performance Bond prices the asymmetry."</li>
+          <li><b>Sections.</b> π = $5K × λ/CLI × volatility (the premium formula in plain language); V_u = $150K (the strike payout); the 180-day window; the Chubb tier-credit mechanics (15/25/35%); what happens when a bond actually triggers (the Gavel).</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 6 — "Risk Underwriting."</li>
+          <li><b>CTA.</b> Review the Sovereign Underwriting UX spec.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 05</span>
+          <span class="a-title">Long-Form Outline · "Why 40% to the University Is a Structural Number"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 2,400 words. University / institutional audience.</li>
+          <li><b>Hook.</b> "Universities are their alumni's largest shareholders. They just don't capture the dividend. Until now."</li>
+          <li><b>Sections.</b> The traditional model (single transaction at tuition); the Sovereign Ledger model (perpetual 40% routing); why 40% is earned, not granted; the L-200 League Table as the successor to U.S. News; the Genesis Institution MOU.</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 10 — "The Activation: Opening the Sovereign Ledger."</li>
+          <li><b>CTA.</b> Begin the Genesis Institution conversation.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 06</span>
+          <span class="a-title">Long-Form Outline · "The Two-Phase Flashcard: A Mechanism Engineered Against Decay"</span>
+        </div>
+        <ul class="std">
+          <li><b>Word count.</b> 2,000 words. Student / self-learner audience.</li>
+          <li><b>Hook.</b> "Why fifteen minutes a day compounds — and why the platform's competitors charge thousands for the same outcome."</li>
+          <li><b>Sections.</b> Phase 1 recall mechanics; Phase 2 compression (12 words or fewer); λ decay coefficient per node; the Refresh Lab scheduling logic; the Decay Atlas as the personal record; comparative against Anki / Quizlet / Coursera.</li>
+          <li><b>Visual anchor.</b> Photo Ideas image 7 — "The Habituation Engine: The Beauty of the Streak."</li>
+          <li><b>CTA.</b> Sign up free. Run a Forge session today.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ============ §10 · MEASUREMENT PLAN ============ -->
+    <section class="bk" id="measure">
+      <div class="kicker"><span class="num">§10</span><span class="lbl">Measurement Plan</span></div>
+      <h2 class="sec">How we know it worked.</h2>
+      <p class="sec-sub">Every channel ships with measurable hypotheses. Below: the dashboard the campaign team reviews weekly, the metrics that determine renewal / pivot / kill, and the test cadence.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · 01</span>
+          <span class="a-title">The Weekly Dashboard — Top-Line Metrics</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">North-star</div><div class="spec-val">Genesis cohort filled (1,000 Hard-Gate attempts) within 72 hours of launch. <em>Target: T+72h fill rate &gt; 95%.</em></div></div>
+        <div class="spec-row"><div class="spec-key">Top of funnel</div><div class="spec-val">Cost-per-Hard-Gate-signup (CAC). <em>Target: $80 (Google Search), $120 (Meta), $95 (LinkedIn).</em></div></div>
+        <div class="spec-row"><div class="spec-key">Mid funnel</div><div class="spec-val">Signup → First Forge session conversion. <em>Target: 64% within 48h.</em></div></div>
+        <div class="spec-row"><div class="spec-key">Activation</div><div class="spec-val">First Forge session → Hard-Gate attempt within 30 days. <em>Target: 22% (industry baseline 8%).</em></div></div>
+        <div class="spec-row"><div class="spec-key">Credential</div><div class="spec-val">Hard-Gate attempt → Consensus Certificate mint. <em>Target: 38% first-try clearance, 70% by attempt 3.</em></div></div>
+        <div class="spec-row"><div class="spec-key">Long-term</div><div class="spec-val">90-day Triple-85 conversion. <em>Target: 18% of activated cohort.</em></div></div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · 02</span>
+          <span class="a-title">The Pivot / Kill Triggers</span>
+        </div>
+        <ul class="std">
+          <li><b>Pivot trigger 1.</b> If CAC exceeds 1.4× target by Week 4, retire bottom-performing 50% of ad units; reallocate to top performer.</li>
+          <li><b>Pivot trigger 2.</b> If Signup → First Forge falls below 40% in any given week, audit landing-page hero variant and email Day-0 message immediately.</li>
+          <li><b>Pivot trigger 3.</b> If TikTok creator-led performs below 0.6× of Meta video on CVR, retire TikTok creator-led; shift budget to Meta video and LinkedIn Sponsored.</li>
+          <li><b>Kill trigger 1.</b> If 30-day Hard-Gate attempt rate falls below 8% (industry baseline), the activation pipeline is broken, not the acquisition. Stop spending immediately; debug product onboarding.</li>
+          <li><b>Kill trigger 2.</b> If first-Hard-Gate clearance rate is below 20%, the threshold is calibrated too hard. Audit through the council telemetry to determine whether the chaos calibration is mis-set.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · 03</span>
+          <span class="a-title">A/B Testing Cadence</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Weekly</div><div class="spec-val">Headline variants on all paid placements. 80/20 traffic split. Minimum sample 500 per variant.</div></div>
+        <div class="spec-row"><div class="spec-key">Bi-weekly</div><div class="spec-val">Landing-page hero copy + CTA combinations. Server-side split.</div></div>
+        <div class="spec-row"><div class="spec-key">Monthly</div><div class="spec-val">Email subject-line tests across Welcome / Promo / Nurture sequences. Minimum sample 2,000 sends per variant.</div></div>
+        <div class="spec-row"><div class="spec-key">Quarterly</div><div class="spec-val">Long-form content pillar refresh based on top-performing themes from organic social and search.</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">CLOSING PRINCIPLE</span>
+        <h3>"The campaign doesn't end. The launch is one quarter."</h3>
+        <p>This asset library covers Q1 of the Proving Ground launch. The Sovereign Authority voice is built for the long horizon — the second, third, fourth quarters build a category around what the first quarter announced. The next four quarterly content pillars and channel expansions ride on the foundation laid here. The architecture, like the Sovereign Passport itself, is designed to compound.</p>
+      </div>
+    </section>
+
+
+    <footer class="foot">
+      <p>The Proving Ground is open. The credential market is rebuilt.</p>
+      <p class="mono">CAMPAIGN ASSET LIBRARY · v1.0 · 10 SECTIONS · DIGITAL CURATOR · SOVEREIGN AUTHORITY · 2026</p>
+      <p class="mono">Hand-off-ready. Production-grade. Built for Creative Director review.</p>
+    </footer>
+
+  </div>
+  </main>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

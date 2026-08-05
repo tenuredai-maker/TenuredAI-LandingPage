@@ -40,6 +40,7 @@ export default function Footer() {
               <li><Link to="/learners" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Passport</Link></li>
               <li><Link to="/chaos-lab" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Proving Ground</Link></li>
               <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>
+              <li><Link to="/recruiters" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Recruiters</Link></li>
             </ul>
           </div>
 
@@ -48,6 +49,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link to="/manifesto" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Manifesto</Link></li>
               <li><Link to="/docs" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Methodology</Link></li>
+              <li><Link to="/method" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Method &amp; Codex</Link></li>
               <li><Link to="/responsible-ai" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Responsible AI</Link></li>
               <li><Link to="/rules" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Rules of Engagement</Link></li>
               <li><Link to="/podcasts" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Podcasts</Link></li>

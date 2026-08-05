@@ -35,6 +35,7 @@ export default function TopNavBar() {
   const navLinks = [
     { name: 'Manifesto', path: '/manifesto' },
     { name: 'Passport', path: '/learners' },
+    { name: 'Method', path: '/method' },
     { name: 'Proving Ground', path: '/chaos-lab' },
     { name: 'Pricing', path: '/pricing' },
   ];

@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · The Score Compendium · TAI-SC-001 · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;--sc-highest:#E5E2DE;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;--on-primary-container:#4E3700;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--cyan:#22D3EE;--mentor:#4F8A6B;--error:#BA1A1A;--error-container:#FFDAD6;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --maxw:1320px;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;--sc-highest:#31312F;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--on-primary:#4E3700;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;--mentor:#7FBF9B;
+  --outline:#9A8F80;--outline-variant:#4E4639;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::selection{background:rgba(197,160,89,.3)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+code,.mono{font-family:var(--font-mono);background:var(--sc-low);padding:2px 6px;border-radius:4px;font-size:.92em;color:var(--primary)}
+strong{color:var(--on-surface);font-weight:600}
+em{color:var(--on-surface);font-style:italic}
+.shell{display:grid;grid-template-columns:288px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 24px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.brand .mark{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em}
+.brand .mark .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em}
+.nav-group{margin-top:22px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:10px}
+.nav-group a{display:block;padding:5px 0;font-size:13px;opacity:.75;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:8px}
+.content{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+section.bk{padding:88px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:var(--maxw);margin-inline:auto;padding-inline:40px}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+h2.sec{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:700;max-width:26ch;margin-bottom:22px;color:var(--on-surface)}
+h3.sub{font-size:1.25rem;font-weight:700;margin:40px 0 14px;color:var(--on-surface)}
+h4.minor{font-size:1rem;font-weight:700;margin:24px 0 10px;color:var(--primary);font-family:var(--font-headline)}
+.lede{font-size:1.1rem;line-height:1.6;color:var(--on-surface-variant);max-width:68ch;margin-bottom:44px}
+p.body{margin-bottom:14px;font-size:14px;line-height:1.7;color:var(--on-surface-variant);max-width:78ch}
+.hero{padding:120px 0 80px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:20ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p{font-size:1.18rem;color:var(--on-surface-variant);max-width:62ch;margin-top:26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:30px;margin-top:44px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface-variant)}
+.hero .meta b{display:block;font-size:22px;color:var(--on-surface);font-weight:400}
+.hero-glow{position:absolute;top:-22%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.18),transparent 70%);filter:blur(40px);pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.diagram-wrap{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial);margin:40px 0}
+.diagram-wrap .dx-cap{margin-top:18px;padding:14px 20px;background:var(--sc-low);border-radius:var(--r-lg)}
+.diagram-wrap .dx-cap .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);font-weight:700;display:block;margin-bottom:7px}
+.diagram-wrap .dx-cap p{font-size:13.5px;color:var(--on-surface-variant);max-width:78ch;font-style:italic}
+.diagram-wrap svg{display:block;width:100%;height:auto;max-width:100%}
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:13px;margin:20px 0}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 14px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:14px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+.matrix tr td p{margin:0;color:var(--on-surface-variant)}
+.rationale{margin:20px 0;padding:18px 22px;background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial)}
+.rationale .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tertiary);font-weight:700;display:block;margin-bottom:7px}
+.rationale p{font-size:13.5px;color:var(--on-surface-variant);max-width:78ch}
+.dnote{margin:20px 0;padding:18px 22px;border-radius:var(--r-lg);background:var(--tertiary-container)}
+.dnote .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-tertiary-container);font-weight:700;display:block;margin-bottom:7px}
+.dnote p{font-size:13.5px;color:var(--on-tertiary-container);max-width:78ch}
+/* ===== COMPENDIUM-SPECIFIC: THE SPECIMEN PLATES ===== */
+.plate{background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--ambient);padding:40px;margin:48px 0;position:relative;overflow:hidden}
+.plate::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)'/%3E%3C/svg%3E")}
+.plate .plate-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.plate .glyph{font-family:var(--font-mono);font-weight:700;font-size:clamp(2.6rem,5.5vw,4.2rem);letter-spacing:-.02em;line-height:1}
+.plate .glyph .tm{font-size:.35em;vertical-align:super;color:var(--on-surface-variant)}
+.plate .glyph.gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent}
+.plate .glyph.blue{color:var(--tertiary)}
+.plate .reg{text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);line-height:2}
+.plate .formal{font-family:var(--font-headline);font-size:1.05rem;font-weight:600;margin-bottom:6px}
+.plate .epithet{font-style:italic;color:var(--on-surface-variant);font-size:.95rem;margin-bottom:22px}
+.plate .formula{font-family:var(--font-mono);font-size:13px;background:var(--term);color:var(--amber);padding:16px 22px;border-radius:var(--r-lg);margin:22px 0;box-shadow:var(--crt-glow);overflow-x:auto;white-space:nowrap}
+.plate .formula .dim{color:#9A8F80}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:22px 0}
+.comp-cell{background:var(--sc-low);border-radius:var(--r-lg);padding:16px 18px}
+.comp-cell .cname{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);font-weight:700;display:block;margin-bottom:7px}
+.comp-cell p{font-size:13px;color:var(--on-surface-variant);line-height:1.6}
+.proof-strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.proof-strip .stamp{font-family:var(--font-mono);font-size:11px;padding:7px 14px;border-radius:6px;background:var(--sc-low);color:var(--on-surface-variant)}
+.proof-strip .stamp b{color:var(--tertiary);font-weight:700}
+/* tier ladder */
+.tier-row{display:grid;grid-template-columns:64px 1fr 200px 150px;gap:16px;align-items:center;background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial);padding:16px 20px;margin-bottom:10px}
+@media(max-width:780px){.tier-row{grid-template-columns:48px 1fr}.tier-row .tr-focus,.tier-row .tr-chaos{display:none}}
+.tier-row .tr-num{font-family:var(--font-mono);font-size:22px;color:var(--primary);font-weight:700}
+.tier-row .tr-name{font-weight:600;font-size:14px}
+.tier-row .tr-name span{display:block;font-weight:400;font-size:12.5px;color:var(--on-surface-variant)}
+.tier-row .tr-focus{font-family:var(--font-mono);font-size:11px;color:var(--tertiary)}
+.tier-row .tr-chaos{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);text-align:right}
+/* persona dossier cards */
+.dossier{background:var(--sc-lowest);border-radius:var(--r-xl);box-shadow:var(--editorial);padding:26px 28px;margin:18px 0}
+.dossier .d-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px}
+.dossier .d-title{font-family:var(--font-headline);font-weight:700;font-size:1.02rem}
+.dossier .d-id{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.08em}
+.dossier .d-gate{font-family:var(--font-mono);font-size:11px;color:var(--tertiary);margin-bottom:12px}
+.dossier p{font-size:13.5px;color:var(--on-surface-variant);max-width:80ch;margin-bottom:10px;line-height:1.65}
+.dossier .d-chaos{font-size:13px;background:var(--sc-low);border-radius:var(--r-lg);padding:12px 16px;color:var(--on-surface-variant)}
+.dossier .d-chaos .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);font-weight:700;display:block;margin-bottom:5px;text-shadow:0 0 8px rgba(255,191,0,.35)}
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.foot{padding:56px 0 88px;color:var(--on-surface-variant);font-size:13px}
+ul,ol{padding-left:22px}
+ul li,ol li{margin-bottom:6px;color:var(--on-surface-variant);line-height:1.7;font-size:14px}
+hr.thin{border:none;border-top:1px solid var(--outline-variant);margin:30px 0;opacity:.5}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">Tenured AI<span class="dot">.</span></span></div>
+    <div class="ver">THE SCORE COMPENDIUM · TAI-SC-001 · v1.0 · 2026</div>
+    <nav class="nav-group">
+      <h4>Frontmatter</h4>
+      <a href="#exec"><span class="sn">§1</span>Executive Summary</a>
+      <a href="#architecture"><span class="sn">§2</span>The Triple-Threat Architecture</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>The Specimen Plates</h4>
+      <a href="#aici"><span class="sn">§3</span>AICI™ · Competency Index</a>
+      <a href="#aioi"><span class="sn">§4</span>AIOI™ · Orchestration Index</a>
+      <a href="#aioied"><span class="sn">§5</span>AIOI-ED™ · Educator Designation</a>
+      <a href="#aibs"><span class="sn">§6</span>AIBS™ · Builder Score</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>Verification Mechanics</h4>
+      <a href="#verification"><span class="sn">§7</span>Evidence Locker &amp; Decay</a>
+      <a href="#delta"><span class="sn">§8</span>Performance Delta (Δ)</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>The Persona Codex</h4>
+      <a href="#codex"><span class="sn">§9</span>The 100-Persona Grid</a>
+      <a href="#grid"><span class="sn">§10</span>Persona Requirement Grid</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>Provenance</h4>
+      <a href="#ip"><span class="sn">§11</span>IP Provenance Register</a>
+      <a href="#glossary"><span class="sn">§12</span>Glossary</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>Close</h4>
+      <a href="#colophon"><span class="sn">★</span>Colophon</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="hero-glow"></div>
+      <div class="kicker"><span class="num">TAI-SC-001 / 00</span><span class="lbl">The Score Compendium · Scores &amp; Personas · Sovereign Edition</span></div>
+      <h1>One ledger. Four marks. <span class="gild">A hundred ways to prove it.</span></h1>
+      <p>The complete reference volume for the Tenured AI Triple-Threat Scoring Engine — AICI™, AIOI™, the AIOI-ED™ educator designation, and AIBS™ — bound together with the 100-Persona Verification Codex that operationalizes them inside The Proving Ground™. Every score is defined by auditable functional competencies. Every persona is a calibrated adversarial configuration. Nothing in this volume is a vanity metric.</p>
+      <div class="meta">
+        <div>CORE MARKS<b>3 + 1 SUB</b></div>
+        <div>PERSONA GRID<b>100 / 10 TIERS</b></div>
+        <div>VERIFICATION GATE<b>85% HARD</b></div>
+        <div>PROVENANCE<b>21 PAT · 97 TS</b></div>
+      </div>
+    </header>
+
+    <!-- §1 EXECUTIVE SUMMARY -->
+    <section class="bk" id="exec">
+      <div class="kicker"><span class="num">TAI / 01</span><span class="lbl">Frontmatter · Thesis</span></div>
+      <h2 class="sec">EXECUTIVE SUMMARY — The End of the Single Number</h2>
+      <p class="lede">The prevailing paradigm in competency assessment is the single-score model: administer a test, print a number, call it a measure of a human being. That model collapses in the AI-native economy, because market utility now derives from three categorically different cognitive capabilities that are not strongly correlated — theoretical literacy, operational orchestration, and engineering construction.</p>
+      <p class="body">This Compendium is the canonical register for the platform's answer: the <strong>Triple-Threat Scoring Engine</strong>, a quantification layer (TAI-PAT-011) that processes forensically verifiable session telemetry through three parallel, independently calibrated heuristic scoring engines, plus a Weighted Multi-Factor (WMF) sub-engine for institutional and educational leadership. The four marks read as a logical hierarchy — <em>Competency</em> (I know it) → <em>Orchestration</em> (I manage it) → <em>Builder</em> (I create it) — with the <em>-ED designation</em> certifying those who govern and disseminate.</p>
+      <p class="body">The marks are deliberately split between <strong>Indices</strong> and a <strong>Score</strong>. An Index is a standing — where you rank in the world. A Score is a performance — how you executed on a specific build. The psychological distinction is intentional: AICI™ and AIOI™ describe your position on the ledger; AIBS™ describes what you shipped under fire.</p>
+      <p class="body">The second half of this volume — <strong>The Persona Codex</strong> — is what prevents the marks from decaying into résumé keywords. Each of the 100 personas, organized into 10 technical impact tiers, is a precise adversarial configuration for the Tenured Agent inside The Proving Ground™: a Hard-Gate score weighting, a broken-world scenario, and a Chaos Engine setting calibrated to that profession's real failure modes. A score on this platform is not a self-report. It is the residue of survived friction.</p>
+      <div class="rationale">
+        <span class="tag">Doctrine · Verification over Decor</span>
+        <p>Every mark in this Compendium is defined by Functional Competencies that can be independently audited — Blind Prompt Challenges, Workflow Logic Maps, repository scans, forensic telemetry replays. Scores above the 85% threshold trigger a mandatory Proof-of-Work deposit into the Evidence Locker. This is the professional moat: the score is only as strong as the evidence chained beneath it.</p>
+      </div>
+    </section>
+
+    <!-- §2 ARCHITECTURE -->
+    <section class="bk" id="architecture">
+      <div class="kicker"><span class="num">TAI / 02</span><span class="lbl">System · The Quantification Layer</span></div>
+      <h2 class="sec">THE TRIPLE-THREAT ARCHITECTURE</h2>
+      <p class="lede">The scoring engine is not a quiz grader. It is the mathematical layer of the platform — the machinery that transforms raw adversarial session telemetry from The Proving Ground™ into a standardized, multi-dimensional, forensically grounded competency profile that employers, underwriters, and regulators can independently audit and financially underwrite.</p>
+
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1400 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Triple-Threat Scoring Engine pipeline">
+          <!-- telemetry source -->
+          <rect x="40" y="200" width="240" height="160" rx="12" fill="#16140F"/>
+          <text x="160" y="250" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:13px;fill:#FFBF00">PROVING GROUND™</text>
+          <text x="160" y="278" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#9A8F80">PAT-001 · 002 · 008</text>
+          <text x="160" y="306" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#D1C5B4">Six-Channel Telemetry</text>
+          <text x="160" y="326" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#D1C5B4">Proof-of-Friction Records</text>
+          <!-- arrows to engines -->
+          <line x1="280" y1="280" x2="380" y2="120" stroke="#D1C5B4" stroke-width="2"/>
+          <line x1="280" y1="280" x2="380" y2="280" stroke="#D1C5B4" stroke-width="2"/>
+          <line x1="280" y1="280" x2="380" y2="440" stroke="#D1C5B4" stroke-width="2"/>
+          <!-- engines -->
+          <rect x="380" y="60" width="340" height="120" rx="12" fill="#FFFFFF" stroke="#C5A059" stroke-width="2"/>
+          <text x="550" y="105" text-anchor="middle" style="font-family:Sora,serif;font-size:24px;font-weight:700;fill:#775A19">AICI™ Engine</text>
+          <text x="550" y="132" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#4E4639">Foundational Literacy &amp; Strategic Reasoning</text>
+          <text x="550" y="155" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#7F7667">PARALLEL HEURISTIC ENGINE 1/3</text>
+          <rect x="380" y="220" width="340" height="120" rx="12" fill="#FFFFFF" stroke="#2C4771" stroke-width="2"/>
+          <text x="550" y="265" text-anchor="middle" style="font-family:Sora,serif;font-size:24px;font-weight:700;fill:#2C4771">AIOI™ Engine</text>
+          <text x="550" y="292" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#4E4639">Agentic Orchestration &amp; Multi-Agent Management</text>
+          <text x="550" y="315" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#7F7667">CONSUMES PAT-004 WCP OUTPUTS</text>
+          <rect x="380" y="380" width="340" height="120" rx="12" fill="#FFFFFF" stroke="#775A19" stroke-width="2"/>
+          <text x="550" y="425" text-anchor="middle" style="font-family:Sora,serif;font-size:24px;font-weight:700;fill:#775A19">AIBS™ Engine</text>
+          <text x="550" y="452" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#4E4639">Engineering &amp; Artifact Construction Mastery</text>
+          <text x="550" y="475" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#7F7667">ARTIFACT ORIGINALITY ENGINE · PAT-005</text>
+          <!-- sub-engine -->
+          <rect x="430" y="170" width="240" height="34" rx="17" fill="#DBE2F9"/>
+          <text x="550" y="192" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:11px;fill:#001A41">AIOI-ED™ WMF SUB-ENGINE</text>
+          <!-- arrows to aggregator -->
+          <line x1="720" y1="120" x2="830" y2="280" stroke="#D1C5B4" stroke-width="2"/>
+          <line x1="720" y1="280" x2="830" y2="280" stroke="#D1C5B4" stroke-width="2"/>
+          <line x1="720" y1="440" x2="830" y2="280" stroke="#D1C5B4" stroke-width="2"/>
+          <!-- aggregator -->
+          <rect x="830" y="200" width="260" height="160" rx="12" fill="#F6F3EF"/>
+          <text x="960" y="252" text-anchor="middle" style="font-family:Sora,serif;font-size:17px;font-weight:700;fill:#1C1C1A">Vector Aggregation</text>
+          <text x="960" y="276" text-anchor="middle" style="font-family:Sora,serif;font-size:17px;font-weight:700;fill:#1C1C1A">Module</text>
+          <text x="960" y="308" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:11px;fill:#775A19">V_TT = ⟨AICI, AIOI, AIBS⟩</text>
+          <text x="960" y="330" text-anchor="middle" style="font-family:Inter,sans-serif;font-size:11px;fill:#4E4639">Triple-Threat Vector Assembly</text>
+          <!-- arrow to ledger -->
+          <line x1="1090" y1="280" x2="1180" y2="280" stroke="#D1C5B4" stroke-width="2"/>
+          <!-- ledger -->
+          <rect x="1180" y="200" width="180" height="160" rx="12" fill="#FFFFFF" stroke="#C5A059" stroke-width="2"/>
+          <text x="1270" y="258" text-anchor="middle" style="font-family:Sora,serif;font-size:16px;font-weight:700;fill:#775A19">Sovereign</text>
+          <text x="1270" y="282" text-anchor="middle" style="font-family:Sora,serif;font-size:16px;font-weight:700;fill:#775A19">Ledger</text>
+          <text x="1270" y="312" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#4E4639">PAT-010 · DID ANCHOR</text>
+          <text x="1270" y="332" text-anchor="middle" style="font-family:'JetBrains Mono',monospace;font-size:10px;fill:#4E4639">ZK SELECTIVE DISCLOSURE</text>
+        </svg>
+        <div class="dx-cap">
+          <span class="tag">FIG. 1 · Telemetry-to-Credential Pipeline</span>
+          <p>Forensic telemetry produced under adversarial friction flows into three parallel, independently calibrated heuristic scoring engines. The AIOI-ED™ WMF sub-engine sits within the orchestration channel for users in educational or institutional oversight roles. The Vector Aggregation Module assembles the composite Triple-Threat Vector for cryptographic anchoring to the user's Decentralized Identity.</p>
+        </div>
+      </div>
+
+      <h3 class="sub">2.1 — Why Three Engines, Not One Rubric</h3>
+      <p class="body">A unidimensional score conflates dimensions that the market prices separately. A brilliant prompt strategist may be a mediocre systems builder; an elite RAG engineer may be a hazard in a boardroom. The Triple-Threat Vector preserves the shape of a professional's capability instead of flattening it — which is why the canonical visualization for these marks is a <strong>Radar Chart</strong> or high-density financial health bar, never a generic progress bar. The shape <em>is</em> the signal.</p>
+      <h3 class="sub">2.2 — The Family of Marks</h3>
+      <table class="matrix">
+        <thead><tr><th>Mark</th><th>Formal Usage Name</th><th>Class</th><th>Primary Market</th><th>Key Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>AICI™</td><td><p>Tenured™ AI Competency Index</p></td><td><p>Index — a standing</p></td><td><p>Corporate Hiring / HR / All Workers</p></td><td><p>Fluency</p></td></tr>
+          <tr><td>AIOI™</td><td><p>Tenured™ AI Orchestration Index</p></td><td><p>Index — a standing</p></td><td><p>Management / Operations</p></td><td><p>Efficiency</p></td></tr>
+          <tr><td>AIOI-ED™</td><td><p>Tenured™ AI Orchestration Index · Educator Designation</p></td><td><p>Sub-designation</p></td><td><p>Education / University / Enterprise Governance</p></td><td><p>Governance</p></td></tr>
+          <tr><td>AIBS™</td><td><p>Tenured™ AI Builder Score</p></td><td><p>Score — a performance</p></td><td><p>Engineering / Developers</p></td><td><p>Innovation</p></td></tr>
+        </tbody>
+      </table>
+      <div class="dnote">
+        <span class="tag">Trademark Doctrine</span>
+        <p>The marks function as a Family of Marks. The phonetic symmetry of A-I-C-I and A-I-O-I is memorable by design, and "AIOI" is materially less common than adjacent strings, strengthening defensibility in USPTO Class 042 (Software as a Service). The hierarchy encodes the career ladder itself: Competency → Orchestration → Builder.</p>
+      </div>
+    </section>
+
+    <!-- §3 AICI -->
+    <section class="bk" id="aici">
+      <div class="kicker"><span class="num">TAI / 03</span><span class="lbl">Specimen Plate I · The Foundation</span></div>
+      <h2 class="sec">AICI™ — THE AI COMPETENCY INDEX</h2>
+      <p class="lede">The baseline mark that everyone carries — the general standard for being AI-ready, rendered as a real-time measurement of competencies rather than a one-time certificate. AICI™ measures the ability to use AI as a cognitive partner: safely, ethically, and with precision.</p>
+
+      <div class="plate">
+        <div class="plate-head">
+          <div class="glyph gild">AICI<span class="tm">™</span></div>
+          <div class="reg">SPECIMEN PLATE I<br>ENGINE 1/3 · FOUNDATION LAYER<br>SOURCE: PAT-011 · PAT-002 TELEMETRY</div>
+        </div>
+        <div class="formal">Tenured™ AI Competency Index — "The Foundation"</div>
+        <div class="epithet">A real-time measurement of the ability to use AI as a cognitive partner safely and efficiently.</div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">Prompt Precision</span><p>Mastery of advanced logic — Chain-of-Thought, Few-Shot, N-Shot — to eliminate hallucinations and converge on target output in minimal iterations.</p></div>
+          <div class="comp-cell"><span class="cname">Algorithmic Literacy</span><p>Understanding how LLMs and diffusion models actually work, well enough to predict where they will fail before they do.</p></div>
+          <div class="comp-cell"><span class="cname">Risk &amp; Ethics</span><p>Proficiency in identifying PII leaks, biased outputs, and the legal boundaries of generative AI in professional settings.</p></div>
+          <div class="comp-cell"><span class="cname">Critical Evaluation</span><p>Auditing AI outputs for bias and accuracy — fact-checking against primary sources rather than vibes.</p></div>
+          <div class="comp-cell"><span class="cname">Multimodal Agility</span><p>Switching between text, code, voice, and image models based on the task's actual complexity, not habit.</p></div>
+        </div>
+        <div class="proof-strip">
+          <span class="stamp"><b>VERIFY:</b> 5 Blind Prompt Challenges — target output in ≤3 iterations</span>
+          <span class="stamp"><b>PROOF:</b> Black-Box challenge session recording → Evidence Locker</span>
+          <span class="stamp"><b>VIBE:</b> Non-technical, but you still need to know your stuff</span>
+        </div>
+      </div>
+
+      <h3 class="sub">3.1 — Who Carries It</h3>
+      <p class="body">Students and the entire general workforce. AICI™ is the universal entry mark: it certifies that the holder can create, produce, and revise with AI tools while remaining responsible for the output. It is generally non-technical, but it has teeth — a high AICI™ requires demonstrated restraint, verification habits, and platform agility under observation.</p>
+      <div class="rationale">
+        <span class="tag">Persona Exemplar · The Copywriter</span>
+        <p>Jane is a copywriter who uses AI tools to draft social posts and run grammar passes on long-form content. Her AICI™ score reflects her ability to use those tools effectively — and to certify that the outputs are ethical and accurate before anything ships. Her index is a standing: it tells a recruiter where she ranks in the world on responsible AI fluency.</p>
+      </div>
+    </section>
+
+    <!-- §4 AIOI -->
+    <section class="bk" id="aioi">
+      <div class="kicker"><span class="num">TAI / 04</span><span class="lbl">Specimen Plate II · The Bridge</span></div>
+      <h2 class="sec">AIOI™ — THE AI ORCHESTRATION INDEX</h2>
+      <p class="lede">The strategy mark. AIOI™ measures the move from using tools to orchestrating systems: designing, integrating, and managing AI-driven workflows and fleets of agents inside a business or educational operation — and answering the only questions that matter: is it profitable, safe, responsible, efficient, and effective?</p>
+
+      <div class="plate">
+        <div class="plate-head">
+          <div class="glyph blue">AIOI<span class="tm">™</span></div>
+          <div class="reg">SPECIMEN PLATE II<br>ENGINE 2/3 · ORCHESTRATION LAYER<br>SOURCE: PAT-011 · PAT-004 WCP OUTPUTS</div>
+        </div>
+        <div class="formal">Tenured™ AI Orchestration Index — "The Bridge"</div>
+        <div class="epithet">A real-time measurement of the ability to design and manage AI-driven workflows and teams.</div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">Process Mapping</span><p>Identifying manual friction in an operation and architecting the AI injection points that deliver maximum ROI.</p></div>
+          <div class="comp-cell"><span class="cname">Agentic Management</span><p>Managing a fleet of agents — keeping context shared, preventing looping errors, and knowing when the swarm is lying to you.</p></div>
+          <div class="comp-cell"><span class="cname">Governance &amp; Compliance</span><p>Aligning all AI use with the 2026 regulatory landscape — EU AI Act, US federal guidelines — and auditing model transparency.</p></div>
+          <div class="comp-cell"><span class="cname">AI ROI Modeling</span><p>Calculating Time-Saved versus Token-Cost for a specific implementation, then defending that math in a budget review.</p></div>
+          <div class="comp-cell"><span class="cname">HITL Design</span><p>Engineering the hand-off points where a human must review an AI's work — and the change leadership to make teams honor them.</p></div>
+        </div>
+        <div class="proof-strip">
+          <span class="stamp"><b>VERIFY:</b> Workflow Logic Map upload — multi-agent automation of a complex department task</span>
+          <span class="stamp"><b>PROOF:</b> Mermaid / flowchart diagram → Evidence Locker</span>
+          <span class="stamp"><b>WHO:</b> Administrators, professors, consultants, operators</span>
+        </div>
+      </div>
+
+      <h3 class="sub">4.1 — The Measuring Job</h3>
+      <p class="body">AIOI™ holders are the platform's measurers and deciders. The index certifies education, orchestration, administration, results measurement, and benchmarking — a solid technical understanding paired with fluency in KPIs. At the K-12 level the same focus applies with different weighting: the orchestrator is graded on catching errors and managing AI output rather than architecting enterprise pipelines.</p>
+      <div class="rationale">
+        <span class="tag">Persona Exemplar · The Director of Operations</span>
+        <p>Mark is a Director of Operations. His AIOI™ standing reflects how he evaluates new AI platforms for the company — pressure-testing their effect on customer satisfaction and cost-efficiency KPIs, and certifying compliance with data privacy law before a single seat is purchased.</p>
+      </div>
+    </section>
+
+    <!-- §5 AIOI-ED -->
+    <section class="bk" id="aioied">
+      <div class="kicker"><span class="num">TAI / 05</span><span class="lbl">Specimen Plate II-A · The Institutional Authority</span></div>
+      <h2 class="sec">AIOI-ED™ — THE EDUCATOR DESIGNATION</h2>
+      <p class="lede">A specialized sub-designation within AIOI™, focused entirely on standardizing AI governance in academic and institutional leadership. It is less about doing the work and more about leading it — the essential mark for Provosts, Department Heads, EdTech administrators, C-suite executives, and enterprise architects.</p>
+
+      <div class="plate">
+        <div class="plate-head">
+          <div class="glyph blue">AIOI-ED<span class="tm">™</span></div>
+          <div class="reg">SPECIMEN PLATE II-A<br>WMF SUB-ENGINE · GOVERNANCE LAYER<br>SOURCE: PAT-011 SUB-ENGINE · TS-012 WEIGHTS</div>
+        </div>
+        <div class="formal">Tenured™ AI Orchestration Index · Educator Designation — "The Institutional Authority"</div>
+        <div class="epithet">The governance and technical architecture of AI-native learning environments.</div>
+        <div class="formula">S<span class="dim">_ED</span> = (0.4 × E) + (0.3 × S) + (0.3 × D)&nbsp;&nbsp;<span class="dim">// Weighted Multi-Factor Index — Efficiency · Security · Debug Speed</span></div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">E · Efficiency — 40%</span><p>Personalized throughput: scaling individualized learning paths across 30+ diverse users simultaneously without exponential latency or token-cost growth.</p></div>
+          <div class="comp-cell"><span class="cname">S · Security — 30%</span><p>Sanitized orchestration: robustness against prompt injection, data leakage, and unauthorized access — including validation of every RAG source feeding the curriculum.</p></div>
+          <div class="comp-cell"><span class="cname">D · Debug Speed — 30%</span><p>Reliability factor: Mean Time to Recovery when an automated curriculum hits an edge case or hallucination. Debugging here means course correction, not just code.</p></div>
+        </div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">Institutional Integrity</span><p>Protecting student data and institutional IP — managing AI-native curricula without compromising original thought, with private educational data held inside controlled RAG environments (Data Sovereignty).</p></div>
+          <div class="comp-cell"><span class="cname">Hybrid Classroom Orchestration</span><p>Deploying AI agents as intelligent tutors under human oversight (Agentic Curriculum Design) and managing Personalization Logic at scale.</p></div>
+          <div class="comp-cell"><span class="cname">Verified Leadership</span><p>Marks the holder as an AI-Native Leader able to set quality-assurance benchmarks for hiring and faculty development.</p></div>
+        </div>
+        <div class="proof-strip">
+          <span class="stamp"><b>VERIFY:</b> AI-native learning paths + HITL grading controls + Cognitive Load management</span>
+          <span class="stamp"><b>PAIRING:</b> High AICI™ + High AIOI™ (-ED) → Verified AI Learning Architect</span>
+        </div>
+      </div>
+
+      <h3 class="sub">5.1 — Why Education Gets Its Own Plate</h3>
+      <p class="body">Education is the one sector where the orchestration failure mode is not lost revenue but lost human development. The -ED designation therefore carries its own WMF calibration: efficiency is weighted highest because personalization at scale is the entire promise, while security and debug speed are weighted equally because a leaked student record and a hallucinating curriculum are both institutional catastrophes. The sub-metrics — AI-Pedagogy, Personalization Logic, Integrity Management ("AI-Resistant" assessments and "AI-Inclusive" rubrics) — translate the abstract index into faculty-room reality.</p>
+    </section>
+
+    <!-- §6 AIBS -->
+    <section class="bk" id="aibs">
+      <div class="kicker"><span class="num">TAI / 06</span><span class="lbl">Specimen Plate III · The Engine</span></div>
+      <h2 class="sec">AIBS™ — THE AI BUILDER SCORE</h2>
+      <p class="lede">The hard-tech mark, and the only one of the four that is a Score rather than an Index — because it measures performance under fire, not standing. AIBS™ is strictly focused on output, products, and engineering: not whether you can use AI, but whether you can build with it and have the artifact survive an audit.</p>
+
+      <div class="plate">
+        <div class="plate-head">
+          <div class="glyph gild">AIBS<span class="tm">™</span></div>
+          <div class="reg">SPECIMEN PLATE III<br>ENGINE 3/3 · CONSTRUCTION LAYER<br>SOURCE: PAT-011 · PAT-005 ARTIFACT VAULT</div>
+        </div>
+        <div class="formal">Tenured™ AI Builder Score — "The Technical Architect"</div>
+        <div class="epithet">A high-fidelity, real-time measurement of competencies focused strictly on output, products, and engineering.</div>
+        <div class="formula">AIBS = (0.4 · Architecture) + (0.3 · Security) + (0.2 · Efficiency) + (0.1 · Cost)&nbsp;&nbsp;<span class="dim">// composite construction weighting</span></div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">RAG &amp; Vector Engineering</span><p>Building retrieval systems that ground models in private data — pipeline integrity from embedding to eviction.</p></div>
+          <div class="comp-cell"><span class="cname">Agentic Programming</span><p>Coding autonomous agents that use tools and execute multi-step plans inside a real software environment.</p></div>
+          <div class="comp-cell"><span class="cname">API &amp; Pipeline Architecture</span><p>The plumbing — latency, rate limits, token cost, and secure Next.js/Node.js integrations at production scale.</p></div>
+          <div class="comp-cell"><span class="cname">Fine-Tuning &amp; Quantization</span><p>Optimizing open-weight models for specific hardware and use cases — SLM versus LLM selection as an economic decision.</p></div>
+          <div class="comp-cell"><span class="cname">Code Quality &amp; Security</span><p>AI-generated code that is robust, performant, and free of vulnerabilities — the score's reliability spine.</p></div>
+          <div class="comp-cell"><span class="cname">Debug Speed</span><p>A core WMF factor: how quickly the builder identifies and resolves technical failure under adversarial pressure.</p></div>
+        </div>
+        <h4 class="minor">The Four-Dimensional Session Rubric</h4>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);max-width:78ch;margin-bottom:14px">Inside The Proving Ground™, every AIBS™ session is graded across four dimensions simultaneously: <strong>Technical Accuracy</strong>, <strong>Problem-Solving Process</strong>, <strong>Stress-Response Resilience</strong>, and <strong>Domain Reasoning Depth</strong>. A perfect artifact produced through a chaotic, autopiloted process does not score like a clean one.</p>
+        <div class="proof-strip">
+          <span class="stamp"><b>VERIFY:</b> GitHub connected — AI Auditor scans repo for RAG quality &amp; vulnerabilities</span>
+          <span class="stamp"><b>PROOF:</b> Verified sandbox/testnet deployment of an active RAG pipeline → Evidence Locker</span>
+          <span class="stamp"><b>VIBE:</b> Creator-centric — using AI vs. building with it</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- §7 VERIFICATION MECHANICS -->
+    <section class="bk" id="verification">
+      <div class="kicker"><span class="num">TAI / 07</span><span class="lbl">Mechanics · The Formula for Trust</span></div>
+      <h2 class="sec">VERIFICATION MECHANICS — Evidence, Decay, and the 85% Standard</h2>
+      <p class="lede">A mark that cannot decay is a vanity metric with a date stamp. The Tenured marks are living instruments: every score above the verification threshold demands a Proof-of-Work deposit, and every verified competency node begins eroding the moment it is minted.</p>
+
+      <h3 class="sub">7.1 — The "High" Standard</h3>
+      <p class="body">A "High" score on any mark is defined as <strong>85% or greater</strong> — and crossing that line is consequential. Every score above 85% triggers a mandatory <strong>Proof-of-Work requirement</strong> before the badge mints:</p>
+      <table class="matrix">
+        <thead><tr><th>Mark</th><th>Verification Event</th><th>Evidence Locker Deposit</th></tr></thead>
+        <tbody>
+          <tr><td>AICI™</td><td><p>Five Blind Prompt Challenges — specific target output achieved within three iterations or fewer.</p></td><td><p>Recording of the user solving a Black-Box prompt challenge.</p></td></tr>
+          <tr><td>AIOI™</td><td><p>Workflow Logic Map demonstrating automation of a complex department-level task.</p></td><td><p>Mermaid / flowchart diagram of a multi-agent workflow the user designed.</p></td></tr>
+          <tr><td>AIOI-ED™</td><td><p>AI-native learning paths with Human-in-the-Loop grading controls and Cognitive Load management within automated curricula.</p></td><td><p>Curriculum architecture with HITL checkpoints, validated against the WMF rubric.</p></td></tr>
+          <tr><td>AIBS™</td><td><p>GitHub connected; the platform's AI Auditor scans the repository for RAG implementation quality and security vulnerabilities.</p></td><td><p>Verified deployment on a testnet or sandbox showing an active RAG pipeline.</p></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">7.2 — λ-Decay: The Mark That Breathes</h3>
+      <p class="body">Every competency node carried by a mark is subject to the exponential decay model disclosed in PAT-003 — <code>S(N, t) = S₀(N) × e^(−λ_N · t)</code> — where each of the 4,000+ ontology nodes carries its own decay coefficient, cross-referenced against a real-time Market Velocity Index. When decay crosses domain-specific thresholds, the system escalates through a three-tier adaptive response: <strong>Notify</strong> (soft threshold), <strong>Recalibrate</strong> (hard threshold — learning path modification and credential expiry warning), and <strong>Re-Verify</strong> (critical threshold — Chaos Agent dispatch for full node re-verification inside The Proving Ground™, with credential suspension).</p>
+      <div class="rationale">
+        <span class="tag">Anti-Gaming · Autopilot Detection</span>
+        <p>The telemetry layer continuously evaluates sessions against a five-condition autopilot criterion — including the confidence-coherence break, where declared confidence holds steady while verified accuracy fluctuates. Genuine expertise is distinguished from autopilot by residual keystroke variance, exploratory command behavior, and calibrated confidence. Upon detection, a Chaos Scenario is dispatched mid-session. You cannot coast to a Tenured mark.</p>
+      </div>
+
+      <h3 class="sub">7.3 — Hard-Gates and the Chaos Engine</h3>
+      <p class="body">Each persona configuration (§8) declares a <strong>Hard-Gate Focus</strong> — the score weighting that session telemetry must satisfy — and a <strong>Chaos Engine Setting</strong> that defines exactly how the Tenured Agent will attack. The gate is the bar; the chaos is the wind. Together they guarantee that a 90% AIBS™ earned by a Semantic Firewall Developer means survival of a multi-turn jailbreak attempt, not completion of a multiple-choice quiz.</p>
+      <div class="dnote">
+        <span class="tag">Visualization Doctrine</span>
+        <p>The Triple-Threat marks are never presented as bullet points or generic progress bars. Canonical surfaces: the Radar Chart (the shape of capability), interconnected node graphs (the ontology view), and high-density financial-style health bars with λ-decay tickers (the terminal view). Score digits render in the Inktrap mono system with the amber CRT micro-glow.</p>
+      </div>
+    </section>
+
+    <!-- §8 PERFORMANCE DELTA -->
+    <section class="bk" id="delta">
+      <div class="kicker"><span class="num">TAI / 08</span><span class="lbl">The Operator · Six Instantiations · Four Reference Types</span></div>
+      <h2 class="sec">PERFORMANCE DELTA (Δ) — The Unified Adaptive Operator</h2>
+      <p class="lede">Performance Delta is the single mathematical operator governing adaptive system response throughout the platform — the nervous system connecting the four marks to every engine that grows, decays, prioritizes, and underwrites them. It appears in six formally distinct instantiations, each with its own reference type, sign convention, and downstream response cascade. This is the reason a Tenured mark is a real-time measurement and not a date-stamped certificate.</p>
+
+      <div class="plate">
+        <div class="plate-head">
+          <div class="glyph gild">Δ</div>
+          <div class="reg">THE UNIFIED OPERATOR<br>SIX INSTANTIATIONS · FOUR REFERENCE TYPES<br>PRIMARY CLAIM BASIS: TAI-PAT-006 (LPO ENGINE)</div>
+        </div>
+        <div class="formal">General Form — Unified Delta Definition</div>
+        <div class="epithet">All six instantiations share one mathematical form; the reference state defines the type, and the sign of Δ determines which cascade fires.</div>
+        <div class="formula">Δ[context] = f(current_state) − f(reference_state)&nbsp;&nbsp;<span class="dim">// Δ&gt;0 → escalation capacity · Δ&lt;0 → intervention · Δ=0 → maintenance mode</span></div>
+        <div class="comp-grid">
+          <div class="comp-cell"><span class="cname">TYPE A · Baseline-Relative</span><p>Reference = population median or prior self-performance. The "how fast" dimension — performance-relative difficulty scaling. Instantiations: Δ₁, Δ₃.</p></div>
+          <div class="comp-cell"><span class="cname">TYPE B · Threshold-Relative</span><p>Reference = the static per-node Sovereign Threshold T_S. The "how valid" dimension. Same reference, opposite signs, different consuming systems. Instantiations: Δ₂, Δ₅.</p></div>
+          <div class="comp-cell"><span class="cname">TYPE C · Band-Relative</span><p>Reference = center of the active Educational Homeostasis band [γ_min, γ_max]. The "how much challenge" dimension — independent from Δ₁ despite both involving γ. Instantiation: Δ₄.</p></div>
+          <div class="comp-cell"><span class="cname">TYPE D · Trajectory-Relative</span><p>Reference = the signal&rsquo;s own prior rate of change — a second-order measure with no prior-art analog. The primary §103 non-obviousness differentiator. Instantiation: Δ₆.</p></div>
+        </div>
+      </div>
+
+      <h3 class="sub">8.1 — The Six Instantiations</h3>
+      <table class="matrix">
+        <thead><tr><th>Δ</th><th>Name · Type · Patent</th><th>Canonical Structure</th><th>What It Drives</th></tr></thead>
+        <tbody>
+          <tr><td>Δ₁</td><td><p><strong>TTR Performance Delta</strong> · TYPE A · PAT-005</p></td><td><p><code>Δ₁ = TTR_baseline_N − TTR_actual_session</code> — seeds the Growth Coefficient: <code>γ = 1 + α·(Δ₁/TTR_baseline_N) + β·(1 − EVI)</code></p></td><td><p>How fast scores grow. Positive Δ₁ → Accelerated Growth or Sovereign Surge band; successor environment complexity escalates and the Chaos Agent earns Tier-3 injection permissions.</p></td></tr>
+          <tr><td>Δ₂</td><td><p><strong>Credential Decay Delta</strong> · TYPE B · PAT-003</p></td><td><p><code>Δ₂ = St − T_S(node)</code>, where <code>St = S₀·e^(−λ_eff·t)</code> — credential margin above the validity floor.</p></td><td><p>The three-state lifecycle of every mark: Active Sovereign → Decay Warning → Re-Verification Triggered. Not "how fast?" but "how much validity remains?"</p></td></tr>
+          <tr><td>Δ₃</td><td><p><strong>CA Session Delta</strong> · TYPE A (self) · PAT-001/002</p></td><td><p><code>Δ₃ = CA_k − CA_(k−1)</code> — session-over-session Command Authority velocity against the user&rsquo;s own prior performance.</p></td><td><p>The empirical signal of genuine skill acquisition. Sustained positive Δ₃ over K sessions is what separates real growth from a lucky session; sustained negative trend triggers path intervention.</p></td></tr>
+          <tr><td>Δ₄</td><td><p><strong>Homeostasis Delta</strong> · TYPE C · PAT-005/006</p></td><td><p><code>Δ₄ = γ_raw − γ_band_center</code> — evaluated <em>after</em> Δ₁ produces γ_raw; an independent second gate, with <code>γ_final = clamp(γ_raw, 1.05, 1.25)</code>.</p></td><td><p>The zone of optimal challenge. A user can be blisteringly fast (high Δ₁) and still get clamped — the next environment must challenge, never overwhelm or underwhelm. Bands: Gentle Progression [1.05–1.10] · Accelerated Growth [1.10–1.18] · Sovereign Surge [1.18–1.25].</p></td></tr>
+          <tr><td>Δ₅</td><td><p><strong>Competency Gap Delta</strong> · TYPE B · PAT-006</p></td><td><p><code>Δ₅ = T_S(node) − St = −Δ₂</code> — same reference, opposite sign, different consumer: <code>Priority(node) = w_gap·Δ₅ + w_λ·λ_N + w_market·MVI_N</code></p></td><td><p>The learning-path priority queue. Nodes with a large gap, a high decay rate, and high market velocity jump the queue — the engine that decides what you must refresh next to defend your marks.</p></td></tr>
+          <tr><td>Δ₆</td><td><p><strong>Market Velocity Delta</strong> · TYPE D · NOVEL</p></td><td><p><code>Δ₆ = dMVI_N/dt</code> — second-order domain acceleration, adjusting decay via <code>λ_N_adj = λ_N·(1 + k_Δ6·Δ₆)</code> and firing the Cascade Propagation Engine when θ_cascade is breached.</p></td><td><p>Proactive credential maintenance. When a domain starts evolving faster than it was, your marks begin decaying faster <em>before</em> your skills visibly lapse — re-verification arrives ahead of obsolescence. No prior-art adaptive system does this.</p></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">8.2 — How Δ Animates the Marks</h3>
+      <p class="body">Read the four Specimen Plates through the Δ taxonomy and the system snaps into focus. The Type-A deltas (Δ₁, Δ₃) are the <strong>growth channel</strong> — they decide how quickly an AICI™, AIOI™, or AIBS™ value rises and how aggressively the next Proving Ground session scales. The Type-B deltas (Δ₂, Δ₅) are the <strong>validity channel</strong> — Δ₂ guards each mark&rsquo;s credential state while Δ₅ ranks the refresh work that defends it. The Type-C delta (Δ₄) is the <strong>pedagogical governor</strong>, holding every session inside Educational Homeostasis. And the Type-D delta (Δ₆) is the <strong>market sensor</strong>, accelerating decay on marks whose underlying domains are moving — which is precisely why a 2025-vintage RAG verification and a 2026-vintage one are not worth the same premium.</p>
+      <div class="rationale">
+        <span class="tag">IP Significance · The Multi-Reference Architecture</span>
+        <p>No prior-art adaptive learning or credentialing system simultaneously evaluates performance deltas against four distinct reference types and routes a different calibrated response to each. That multi-reference-type architecture is the novel independent-claim basis for the Learning Path Optimization Engine (TAI-PAT-006), with Δ₆&rsquo;s trajectory-relative reference as the strongest §103 non-obviousness argument. Formula structures are patent-claimed; every calibration value — TTR baselines, T_S thresholds, the α/β weights, band-assignment formulas, w-coefficients, k_Δ6, window lengths — is a sealed trade secret.</p>
+      </div>
+
+      <h3 class="sub">8.3 — The Financial Bridge: From Δ to the Bond</h3>
+      <p class="body">The deltas do not stop at pedagogy — they price risk. The PAT-018 two-phase verification substrate captures declared confidence before verified accuracy, and PAT-019&rsquo;s <strong>Asymmetric Liability Classification</strong> scores the gap with asymmetric penalties: an overconfident miss is weighted more heavily than an underconfident one, because overconfidence is what institutions actually pay for in production failures. Sustained miscalibration walks a node through a five-tier liability classification (Calibrated → Slight Risk → Elevated → High → Critical), and each tier transition adjusts the holder&rsquo;s <strong>Performance Bond OSD</strong> via the PAT-019 → PAT-013 financial bridge — with a defined recovery curve back through re-verification. This is the mechanism that lets an underwriter treat a Triple-Threat Vector as an insurable instrument, and it is consumed downstream by the EWARD dashboard&rsquo;s AIRF™ readiness forecasts and the recruiter signal services.</p>
+      <div class="dnote">
+        <span class="tag">Plain Reading</span>
+        <p>Your scores grow when you beat your baselines (Δ₁, Δ₃), stay valid while you clear your thresholds (Δ₂), tell you what to refresh first (Δ₅), never overwhelm you (Δ₄), and decay faster when your field accelerates (Δ₆) — and the honesty of your confidence is financially underwritten the whole way down.</p>
+      </div>
+    </section>
+
+    <!-- §9 PERSONA CODEX -->
+    <section class="bk" id="codex">
+      <div class="kicker"><span class="num">TAI / 09</span><span class="lbl">The Codex · 100 Configurations · 10 Tiers</span></div>
+      <h2 class="sec">THE PERSONA CODEX — The 100-Persona Verification Grid</h2>
+      <p class="lede">A score needs a battlefield. The Persona Codex is the complete operational blueprint of 100 adversarial configurations — each one a profession, a broken world, a Hard-Gate weighting, and a Chaos Engine setting. Inside The Proving Ground™ the Tenured Agent pivots from supportive co-pilot to precise, adversarial system evaluator, scaled to the active Persona_ID.</p>
+
+      <h3 class="sub">9.1 — The Ten-Tier Ladder</h3>
+      <div class="tier-row"><div class="tr-num">01</div><div class="tr-name">The Architects<span>Low-level infrastructure, memory models, hardware mechanics, system constraints — agent swarms, GPU clusters, neuro-symbolic systems, edge AI, vector databases.</span></div><div class="tr-focus">AIOI-ED · AICI</div><div class="tr-chaos">CHAOS: EXTREME</div></div>
+      <div class="tier-row"><div class="tr-num">02</div><div class="tr-name">The Orchestrators<span>Middleware, API synchronization, full-stack building blocks, automation loops — prompt architecture, fine-tuning, conversational systems, hardware liaison work.</span></div><div class="tr-focus">AIOI-ED</div><div class="tr-chaos">CHAOS: HIGH</div></div>
+      <div class="tier-row"><div class="tr-num">03</div><div class="tr-name">The Strategists<span>Enterprise ROI valuation, boardroom strategy, adoption workflows, change leadership — CAIO, transformation consultants, agentic product managers, talent partners.</span></div><div class="tr-focus">AICI · AIBS</div><div class="tr-chaos">CHAOS: MEDIUM</div></div>
+      <div class="tier-row"><div class="tr-num">04</div><div class="tr-name">The Guardians<span>Compliance auditing, security verification, adversarial red teaming, defensive logic — ethics officers, bias auditors, XAI researchers, data sovereignty managers.</span></div><div class="tr-focus">AIBS · AICI</div><div class="tr-chaos">CHAOS: HIGH / STRESS</div></div>
+      <div class="tier-row"><div class="tr-num">05</div><div class="tr-name">The Specialized Creatives<span>Multi-model asset consistency, invisible interfaces, narrative structures, sovereign builder leverage — generative pipelines and the Sovereign Brand Architect.</span></div><div class="tr-focus">AIOI · AIBS</div><div class="tr-chaos">CHAOS: VARIABLE</div></div>
+      <div class="tier-row"><div class="tr-num">06</div><div class="tr-name">The Protocol &amp; Ledger Architects<span>RWA tokenization, smart contract execution, verification loops, cross-chain orchestration, decentralized identity, MPC custody.</span></div><div class="tr-focus">AIBS · AIOI</div><div class="tr-chaos">CHAOS: ORACLE / REPLAY</div></div>
+      <div class="tier-row"><div class="tr-num">07</div><div class="tr-name">The Data Mesh &amp; Pipeline Engineers<span>Long-context optimization, vector routing, stream cleaning — unstructured ingestion, semantic graph building, hot/warm/cold index economics.</span></div><div class="tr-focus">AIOI · AICI</div><div class="tr-chaos">CHAOS: QUERY FLOOD</div></div>
+      <div class="tier-row"><div class="tr-num">08</div><div class="tr-name">The Agent SREs<span>Automated loop circuit-breaking, infrastructure cost containment, model fallback orchestration, quantization integrity, cold-start optimization.</span></div><div class="tr-focus">AIOI</div><div class="tr-chaos">CHAOS: THROTTLE / SCALE-TO-ZERO</div></div>
+      <div class="tier-row"><div class="tr-num">09</div><div class="tr-name">Security &amp; Adversarial Defense<span>Prompt sanitization, model extraction defense, payload neutralization, zero-trust agent access — semantic firewalls and hardened trust.</span></div><div class="tr-focus">AIBS</div><div class="tr-chaos">CHAOS: JAILBREAK / PROBING</div></div>
+      <div class="tier-row"><div class="tr-num">10</div><div class="tr-name">Sovereign Enterprise Orchestrators<span>Automated onboarding, dynamic portfolio synthesis, lead-flow scaling, compute arbitrage, multi-tenant guarding — leverage and growth.</span></div><div class="tr-focus">AICI · AIOI</div><div class="tr-chaos">CHAOS: DATA DECAY / SQUEEZE</div></div>
+
+      <h3 class="sub">9.2 — Anatomy of a Configuration</h3>
+      <p class="body">Every entry in the Codex follows the same four-part dossier: <strong>The Profile</strong> (who they are and what they actually struggle with), <strong>The Hard-Gate Focus</strong> (the score weighting the session must satisfy), <strong>The Proving Ground</strong> (the broken world they are dropped into), and <strong>The Chaos Engine Setting</strong> (how the Tenured Agent attacks mid-session). Ten representative dossiers — one per tier — follow.</p>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 1 · AI Hardware Liaison</span><span class="d-id">P_ORCH_10 · DOSSIER 020</span></div><div class="d-gate">HARD-GATE — AIBS 90% · AIOI 10%</div><p>Maps compiled software models directly onto diverse processing chips — NPUs, TPUs, Apple Silicon, custom ASICs — balancing model computation graphs against hardware layouts, memory bandwidth limits, and layer-by-layer quantization mappings.</p><p><strong>The Proving Ground:</strong> A 13B parameter model must deploy onto a mobile chipset with a restrictive neural engine cache; unsupported tensor operations throw unhandled compilation failures. Build custom operation fallbacks and map the layer weights safely.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Thermal / Power Throttling</span>The Tenured Agent dynamically limits memory bandwidth allocation by 50%, tracking whether the runtime scales execution cycles efficiently or hard-freezes.</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 2 · Workflow Automation Developer</span><span class="d-id">P_ORCH_05 · DOSSIER 015</span></div><div class="d-gate">HARD-GATE — AIOI 80% · AIBS 20%</div><p>Designs multi-stage autonomous pipelines — deterministic DAGs of LLM functions — where specialized AI workers execute sequence-dependent business tasks. Their craft is the error-recovery path: when Step 3 of 10 fails, the workflow must not derail.</p><p><strong>The Proving Ground:</strong> An automated invoicing pipeline deadlocks when its translation agent fails on a rare currency format. Build a fallback error-routing loop that auto-flags the exception and keeps the queue executing.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Silent Cascading Failure</span>Step 1 injects subtly incorrect data masked as a successful run — do the downstream verification filters catch it, or push it through to completion?</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 3 · Chief AI Officer (CAIO)</span><span class="d-id">P_STRAT_01 · DOSSIER 021</span></div><div class="d-gate">HARD-GATE — AICI 60% · AIBS 40%</div><p>Owns the entire enterprise AI agenda — strategy, capital allocation, risk governance, cultural transformation — and must move teams past pilot paralysis into sustained production value, against boardroom risk constraints and the hidden cost of unoptimized inference.</p><p><strong>The Proving Ground:</strong> A generative customer-service workflow has bloated the API token budget 350% over projections while drawing critical EU AI Act compliance warnings. Construct a 12-month remediation roadmap: restructure model selection toward local open-source for low-risk tasks, and establish a rigid governance framework.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Boardroom Friction</span>Resistant executive avatars — a skeptical CFO, an anxious General Counsel — inject random cost penalties and privacy objections mid-presentation to test change-management resilience.</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 4 · Data Sovereignty Manager</span><span class="d-id">P_GUARD_08 · DOSSIER 038</span></div><div class="d-gate">HARD-GATE — AICI 50% · AIBS 50%</div><p>Ensures absolute privacy compliance (GDPR, CCPA) within training and retrieval architectures — anonymization, differential privacy injection, secure multi-party computation. No PII may ever leak into persistent context or training checkpoints.</p><p><strong>The Proving Ground:</strong> A "Right to be Forgotten" request arrives after the user's data has been processed into a production vector index. Design a precise vector eviction script that purges the embeddings without corrupting index balance or retrieval performance.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · PII Leakage Simulation</span>Sophisticated semantic probing queries attempt to extract hidden personal metrics — are the masking filters air-tight?</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 5 · Sovereign Brand Architect</span><span class="d-id">P_CREAT_10 · DOSSIER 050</span></div><div class="d-gate">HARD-GATE — AIOI 80% · AIBS 20%</div><p>Enables independent creators and elite builders to weaponize the platform for personal leverage — packaging technical capability, automated lead acquisition, and verified Sovereign Passport metrics into a market footprint that lets one professional compete with a mid-sized agency.</p><p><strong>The Proving Ground:</strong> Construct a fully automated outbound discovery, onboarding, and capability-verification pipeline. The current stack drops conversions because the handoff between outreach, portfolio generation, and scheduling lacks personalized context validation — integrate an automated context-gathering step feeding the portfolio engine.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Lead Ingestion Influx</span>A flood of erratic mock business inquiries tests whether the architecture scales smoothly or suffers context degradation and resource allocation errors.</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 6 · RWA Tokenization Specialist</span><span class="d-id">P_LEDG_01 · DOSSIER 051</span></div><div class="d-gate">HARD-GATE — AIOI 60% · AIBS 40%</div><p>Bridges institutional finance and distributed ledgers — engineering dynamic, yield-bearing vaults governed by smart contracts that adjust to market collateral, with oracle data integrity as the perpetual struggle.</p><p><strong>The Proving Ground:</strong> Inside an ERC-4626 tokenized vault, streaming collateral valuations are desynchronizing from the oracle contract, producing faulty fractional share minting. Refactor the validation hooks to enforce strict price-feed bounds.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Oracle Latency Disruption</span>A sudden network drop from primary oracle nodes — does the vault default to an automated circuit-breaker, or print unbacked tokens?</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 7 · Real-Time Vector Routing Specialist</span><span class="d-id">P_DATA_01 · DOSSIER 061</span></div><div class="d-gate">HARD-GATE — AIOI 65% · AICI 35%</div><p>Directs semantic inquiries to the most cost-efficient vector index by query complexity — dynamic traffic control across hot, warm, and cold stores to minimize operational token cost.</p><p><strong>The Proving Ground:</strong> A data router is defaulting every query to an expensive high-dimensional index, running up token bills for trivial tasks. Optimize the routing layer.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Query Flood</span>Thousands of mixed-intent requests test whether the routing layer splits data footprints correctly under load.</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 8 · Agentic Rate-Limit Throttle Architect</span><span class="d-id">P_SRE_09 · DOSSIER 079</span></div><div class="d-gate">HARD-GATE — AIOI 70% · AICI 30%</div><p>Implements adaptive traffic systems — dynamic backoff queues and request smoothing — so internal agent swarms respect third-party provider limits instead of triggering automatic blocks.</p><p><strong>The Proving Ground:</strong> A customer-support swarm fires thousands of simultaneous shipment lookups and gets the company blocked by an external shipping API. Rebuild the throttle layer.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Strict Provider Throttle</span>Third-party API acceptance drops to 5 requests per minute — do the backoff queues hold?</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 9 · Semantic Firewall Middleware Developer</span><span class="d-id">P_SEC_01 · DOSSIER 081</span></div><div class="d-gate">HARD-GATE — AIBS 90% · AIOI 10%</div><p>Builds high-speed validation routes that intercept hidden prompt-injection attacks before they touch the core model — sophisticated linguistic analysis that detects character emulation and social-engineering tricks, far past simple blocklists.</p><p><strong>The Proving Ground:</strong> A customer-service bot is trivially bypassed by character-emulation tricks asking it to ignore its safety instructions. Harden it.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Multi-Turn Jailbreak Attempt</span>A complex conversation designed to slowly trick the firewall into allowing system command access.</div></div>
+
+      <div class="dossier"><div class="d-head"><span class="d-title">Tier 10 · High-Velocity Lead Acquisition Architect</span><span class="d-id">P_ENT_01 · DOSSIER 091</span></div><div class="d-gate">HARD-GATE — AICI 60% · AIOI 40%</div><p>Constructs autonomous discovery pipelines that parse market telemetry to source, score, and enrich high-value leads — self-optimizing outreach far past static CRM management, with data freshness as the perpetual battle.</p><p><strong>The Proving Ground:</strong> An outbound pipeline stalls because the enrichment agent pulls stale corporate records, cratering engagement. Restore data freshness without manual tracking.</p><div class="d-chaos"><span class="tag">CHAOS ENGINE · Data Telemetry Decay</span>The lead stream is seeded with expired domains and dead API hooks — does the pipeline flag and drop bad data before burning compute?</div></div>
+
+      <div class="rationale">
+        <span class="tag">Codex Completeness</span>
+        <p>The full register — Personas 001–100, with complete Profiles, Hard-Gate weightings, Proving Ground scenarios, and Chaos Engine settings for every entry — is maintained in the tiered configuration documents (Tier 1–5 Detailed Configurations; Tiers 6–10 Expansion) and the Tenured Agent Core Context Initialization Guide v2.0, which locks the 10-tier hierarchy into the Agent's long-term context for automated scenario generation.</p>
+      </div>
+    </section>
+
+    <!-- §10 REQUIREMENT GRID -->
+    <section class="bk" id="grid">
+      <div class="kicker"><span class="num">TAI / 10</span><span class="lbl">The Grid · Verified Badge Thresholds</span></div>
+      <h2 class="sec">THE PERSONA REQUIREMENT GRID — Unlocking the Verified Badge</h2>
+      <p class="lede">Marks and personas converge here. To unlock a Verified Persona Badge, a user must meet the minimum thresholds below across the three core marks — with a "High" defined as 85% or greater, and every High score backed by an Evidence Locker deposit.</p>
+      <table class="matrix">
+        <thead><tr><th>Persona Title</th><th>AICI™</th><th>AIOI™</th><th>AIBS™</th><th>Special Requirement</th></tr></thead>
+        <tbody>
+          <tr><td>AI Digital Strategist</td><td><p><strong>85%</strong></p></td><td><p><strong>85%</strong></p></td><td><p>&lt;40%</p></td><td><p>Case Study Submission</p></td></tr>
+          <tr><td>AI Implementation Specialist</td><td><p>60%</p></td><td><p>70%</p></td><td><p><strong>85%</strong></p></td><td><p>GitHub Repository Link</p></td></tr>
+          <tr><td>AI Product Founder / Architect</td><td><p><strong>85%</strong></p></td><td><p><strong>85%</strong></p></td><td><p><strong>85%</strong></p></td><td><p>The "Triple-85" Badge</p></td></tr>
+          <tr><td>AI Change Agent / Coach</td><td><p><strong>85%</strong></p></td><td><p>60%</p></td><td><p>&lt;30%</p></td><td><p>—</p></td></tr>
+          <tr><td>AI Instructional Designer</td><td><p><strong>85%</strong></p></td><td><p><strong>85%</strong></p></td><td><p>&lt;50%</p></td><td><p>AIOI-ED™ Tag Verified</p></td></tr>
+          <tr><td>AI Infrastructure Engineer</td><td><p>40%</p></td><td><p>50%</p></td><td><p><strong>85%</strong></p></td><td><p>—</p></td></tr>
+          <tr><td>AI Transformation Lead</td><td><p>75%</p></td><td><p><strong>85%</strong></p></td><td><p>60%</p></td><td><p>ROI Impact Report</p></td></tr>
+          <tr><td>AI Governance Auditor / Ethicist</td><td><p><strong>90%</strong></p></td><td><p><strong>85%</strong></p></td><td><p>40%</p></td><td><p>Ethics Examination Passed</p></td></tr>
+        </tbody>
+      </table>
+      <div class="rationale">
+        <span class="tag">Reading the Grid</span>
+        <p>Note the deliberate "Low" ceilings: a Digital Strategist with a sub-40% AIBS™ is not penalized — the grid certifies that their strength is strategic, not constructive, and prices the profile honestly. The grid prevents the universal-genius résumé. A user pairing High AICI™ with High AIOI™ carrying the -ED tag mints as a <strong>Verified AI Learning Architect</strong>.</p>
+      </div>
+    </section>
+
+    <!-- §11 IP PROVENANCE -->
+    <section class="bk" id="ip">
+      <div class="kicker"><span class="num">TAI / 11</span><span class="lbl">Provenance · Patents &amp; Trade Secrets</span></div>
+      <h2 class="sec">IP PROVENANCE REGISTER — What Stands Beneath the Marks</h2>
+      <p class="lede">Every mechanism in this Compendium traces to a documented IP position: a provisional patent filing, a registered or claimed trademark, or an inventoried trade secret held under DTSA-compliant controls. The marks are not marketing language — they are the public surface of a layered fortress.</p>
+
+      <h3 class="sub">11.1 — The Complete Patent Provenance · PAT-001 through PAT-021</h3>
+      <table class="matrix">
+        <thead><tr><th>Filing</th><th>Mechanism</th><th>Role in the Scoring System</th></tr></thead>
+        <tbody>
+          <tr><td>TAI-PAT-001</td><td><p>Friction Injection Logic / Adversary Logic Engine</p></td><td><p>Defines The Proving Ground™ — Environmental Epistemic Closure, Constraint Injection, Bully Logic Persistence — generating the Chaos Scenario telemetry and artifact evidence every scoring engine consumes.</p></td></tr>
+          <tr><td>TAI-PAT-002</td><td><p>AI Learning Telemetry &amp; Feedback Loop (ALTFL)</p></td><td><p>Six-channel forensic capture (keystroke, eye-gaze, latency, error-correction, mentor interaction, micro-hint response) producing the Time-Series Signature, Command Authority stream (Δ₃ source), and Proof-of-Friction records; hosts the Inference Decay, Autopilot, and Confidence-Calibration detectors.</p></td></tr>
+          <tr><td>TAI-PAT-003</td><td><p>Master Ontology Skill-Decay Algorithm</p></td><td><p>λ-decay across 4,000+ nodes with Market Velocity cross-reference, Sovereign Threshold Gate (Δ₂), Cascade Propagation, and the three-tier adaptive response. Keeps every mark alive — or kills it honestly.</p></td></tr>
+          <tr><td>TAI-PAT-004</td><td><p>Multi-Agent Learning Orchestration — Four-Agent Council</p></td><td><p>Auditor, Invigilator, Mentor, and Chaos agents under a Weighted Consensus Protocol; the multi-agent evaluation package consumed directly by the AIOI™ engine.</p></td></tr>
+          <tr><td>TAI-PAT-005</td><td><p>Tenured Growth Loop / Artifact Vault</p></td><td><p>Artifact capture, EVI computation, the Growth Coefficient γ (Δ₁ seed), Grit Moat modifiers, and the artifact bundle feeding the AIBS™ Artifact Originality Engine.</p></td></tr>
+          <tr><td>TAI-PAT-006</td><td><p>AI Learning Path Optimization Engine (ALPOE)</p></td><td><p>The Performance Delta framework&rsquo;s primary independent-claim home — the multi-reference Δ architecture, the Δ₅ priority queue, Educational Homeostasis enforcement, and the chained-multiplier token mint (base × verification × streak × confidence × liability × σ).</p></td></tr>
+          <tr><td>TAI-PAT-007</td><td><p>Skill Proximity &amp; Prerequisite Graphs</p></td><td><p>Proximity modeling and prerequisite mapping across the ontology — the structural substrate beneath sub-skill scoping and granular re-verification.</p></td></tr>
+          <tr><td>TAI-PAT-008</td><td><p>Ephemeral Container Orchestration</p></td><td><p>Air-gapped session instantiation, network egress enforcement, cryptographic purge on termination, and zero-knowledge session proofs — the integrity guarantee beneath every Hard-Gate score.</p></td></tr>
+          <tr><td>TAI-PAT-009</td><td><p>Chaos Injection Engine &amp; Scenario Library</p></td><td><p>Controlled adversarial failure testing — the tiered Chaos Library and injection mechanics that give each persona dossier its Chaos Engine Setting.</p></td></tr>
+          <tr><td>TAI-PAT-010</td><td><p>Sovereign Talent Ledger Architecture</p></td><td><p>Anchors the Triple-Threat Vector to the holder&rsquo;s DID — Machine-Readable Trace Records, off-chain Evidence Locker with Merkle-proof retrieval, and zero-knowledge selective disclosure via the Sovereign Passport.</p></td></tr>
+          <tr><td>TAI-PAT-011</td><td><p>Multi-Dimensional Competency Quantification</p></td><td><p><strong>The Compendium&rsquo;s spine.</strong> Three parallel, independently calibrated heuristic scoring engines (AICI™ / AIOI™ / AIBS™), the AIOI-ED™ WMF sub-engine, and the Vector Aggregation Module assembling V_TT.</p></td></tr>
+          <tr><td>TAI-PAT-012</td><td><p>Skill Graph &amp; Workforce Intelligence Model</p></td><td><p>Efficiency Multiplier σ values, Synergy node-pair logic, and the organizational DAG — translating individual vectors into workforce-level intelligence.</p></td></tr>
+          <tr><td>TAI-PAT-013</td><td><p>Enterprise Workforce AI Readiness Dashboard (EWARD)</p></td><td><p>Real-time institutional competency visibility — AIRF™ readiness forecasts, Decay Trajectory Projection, TTR_org prediction, and (via continuation) privacy-preserving recruiter discovery and enterprise risk underwriting.</p></td></tr>
+          <tr><td>TAI-PAT-014</td><td><p>AI Credential Economy Framework</p></td><td><p>The 40/40/20 dividend engine, staking mechanics, activity multipliers, and bond-economy structures that consume Performance Bond valuations as institutional financial instruments.</p></td></tr>
+          <tr><td>TAI-PAT-015</td><td><p>Institutional Knowledge Graph Synthesis &amp; Ontology Resolution</p></td><td><p>The 4,000+ node Master Ontology DAG — consensus score weighting, semantic-distance collision detection, and the resolution logic against which every scored node is defined.</p></td></tr>
+          <tr><td>TAI-PAT-016</td><td><p>Dual-Token Economics &amp; Agent Governance</p></td><td><p>$TIA / $TENURED token architecture, multi-sig treasury controls, staking contracts, and Tenured Agent governance — the settlement layer behind score-linked dividends.</p></td></tr>
+          <tr><td>TAI-PAT-017</td><td><p>Modal Logic Verification Framework</p></td><td><p>Kripke-model institutional reasoning — □ (necessity) and ◇ (possibility) semantics over competency claims, multi-agent consensus with SMT solver integration, and proof-traced explainability. The formal answer to "is this person <em>necessarily</em> competent?"</p></td></tr>
+          <tr><td>TAI-PAT-018</td><td><p>Two-Phase Knowledge Verification System</p></td><td><p>Gesture-declared confidence (Phase 1) verified against demonstrated accuracy (Phase 2), with retroactive multipliers and anti-gaming latency gates — the Channel-5 confidence-calibration substrate feeding telemetry and the autopilot detector.</p></td></tr>
+          <tr><td>TAI-PAT-019</td><td><p>Confidence-Weighted Scoring with Asymmetric Liability Classification</p></td><td><p>Overconfident misses penalized asymmetrically; five-tier liability classification with hysteresis bands; tier transitions drive Performance Bond OSD recalibration — <strong>the financial bridge from score to underwriting</strong>.</p></td></tr>
+          <tr><td>TAI-PAT-020</td><td><p>Node-Persistent Annotation System</p></td><td><p>Annotations bound to ontology nodes rather than documents — persistent learning context that survives surface changes and optionally enriches de-identified recruiter profiles.</p></td></tr>
+          <tr><td>TAI-PAT-021</td><td><p>Property-Driven Modular Drill Interface</p></td><td><p>JSON-configuration-driven verification surfaces — including the financial_bridge property that registers new drill types with the bond and recruiter signal systems — enabling the verification layer to scale without code-level rework.</p></td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">11.2 — Trade Secret Posture (Inventory Level)</h3>
+      <p class="body">The calibration values that make the marks defensible — per-node λ coefficients, WMF weight derivations, anti-gaming thresholds, consensus weightings — are held as inventoried trade secrets, never published. The register documents 97 trade secrets across nine domains (41 Critical-tier), with 48% under dual TS + Patent protection. Domain 2 — Competency Mathematics &amp; Decay Scoring — concentrates the scoring system's protected calibrations, including the Inference Decay Coefficient calibration (TS-009), the WMF Index weights (TS-012), the per-node AINSI™ λ coefficients (TS-013), and the anti-gaming threshold matrices (TS-014, TS-015). The Performance Delta operator carries its own controlling formal specification, which supersedes the informal TS-024 register entry and fixes the canonical notation for all six Δ instantiations across patent claims and engineering documents.</p>
+      <div class="dnote">
+        <span class="tag">Disclosure Boundary</span>
+        <p>This Compendium publishes formula <em>structures</em> (the public layer disclosed in the patent filings) and never the calibration <em>values</em>. The WMF form S_ED = 0.4E + 0.3S + 0.3D is public; the node-level coefficients, threshold matrices, and detection signatures beneath it are sealed. A competitor reproducing the platform's output distributions without these calibrations is the forensic tell.</p>
+      </div>
+    </section>
+
+    <!-- §12 GLOSSARY -->
+    <section class="bk" id="glossary">
+      <div class="kicker"><span class="num">TAI / 12</span><span class="lbl">Reference · Terms of Art</span></div>
+      <h2 class="sec">GLOSSARY</h2>
+      <table class="matrix">
+        <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+        <tbody>
+          <tr><td>Command Authority (CA)</td><td><p>The composite telemetry score measuring a human&rsquo;s ability to detect and override AI failure under adversarial pressure; its session-over-session velocity is Δ₃.</p></td></tr>
+          <tr><td>Educational Homeostasis</td><td><p>The zone-of-optimal-challenge constraint: every session&rsquo;s complexity increment is clamped into the [1.05, 1.25] γ band — Gentle Progression, Accelerated Growth, or Sovereign Surge — by the Δ₄ gate.</p></td></tr>
+          <tr><td>Growth Coefficient (γ)</td><td><p>The complexity scaler computed from Δ₁ and the artifact Edge-case Vulnerability Index (EVI); determines how aggressively the successor Proving Ground environment escalates.</p></td></tr>
+          <tr><td>Market Velocity Index (MVI)</td><td><p>The per-domain rate-of-change signal — framework churn, standard adoption, architectural shifts — whose own acceleration (dMVI/dt) is the novel Δ₆ trigger.</p></td></tr>
+          <tr><td>Performance Bond OSD</td><td><p>The on-score-deposit dimension of a holder&rsquo;s Performance Bond, recalibrated by PAT-019 liability tier transitions and restored along a defined re-verification recovery curve.</p></td></tr>
+          <tr><td>Performance Delta (Δ)</td><td><p>The unified adaptive operator, Δ = f(current) − f(reference), in six instantiations across four reference types — baseline, threshold, band, and trajectory (§8).</p></td></tr>
+          <tr><td>Sovereign Threshold (T_S)</td><td><p>The per-node validity floor against which Δ₂ (credential margin) and Δ₅ (competency gap) are measured; values held as trade secrets.</p></td></tr>
+          <tr><td>Chaos Engine Setting</td><td><p>The per-persona adversarial condition the Tenured Agent injects mid-session — throttles, floods, jailbreaks, spoofed telemetry — calibrated to that profession's real failure modes.</p></td></tr>
+          <tr><td>Evidence Locker</td><td><p>The verified proof-of-work archive chained to every score above the 85% threshold; off-chain artifact storage retrievable via Merkle proofs.</p></td></tr>
+          <tr><td>Hard-Gate Focus</td><td><p>The score weighting (e.g., AIBS 90% · AIOI 10%) that session telemetry must satisfy for a persona's verification to mint.</p></td></tr>
+          <tr><td>λ-Decay</td><td><p>The per-node exponential erosion of verified competency over time, S(N,t) = S₀(N)·e^(−λ_N·t), cross-referenced against market velocity.</p></td></tr>
+          <tr><td>Proof of Friction</td><td><p>The cryptographically signed forensic record of an adversarial session — the platform's institutional primitive of trust.</p></td></tr>
+          <tr><td>The Proving Ground™</td><td><p>The sandboxed, ephemeral, adversarial evaluation environment (Xterm.js / WebContainer execution) in which all Hard-Gate verification occurs.</p></td></tr>
+          <tr><td>Sovereign Passport</td><td><p>The forensic-grade credential surface that carries the Triple-Threat Vector, badge mints, and decay state, with holder-controlled selective disclosure.</p></td></tr>
+          <tr><td>Tenured Agent</td><td><p>The dual-mode system intelligence — Mentor on platform routes, adversarial evaluator inside The Proving Ground™.</p></td></tr>
+          <tr><td>Triple-Threat Vector (V_TT)</td><td><p>The composite ⟨AICI, AIOI, AIBS⟩ output of the three parallel engines, cryptographically anchored to the holder's DID.</p></td></tr>
+          <tr><td>WMF Index</td><td><p>Weighted Multi-Factor Index — the Efficiency / Security / Debug-Speed composite governing the AIOI-ED™ sub-engine.</p></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ★ COLOPHON -->
+    <section class="bk" id="colophon">
+      <div class="kicker"><span class="num">TAI / ★</span><span class="lbl">Colophon · Document Control</span></div>
+      <h2 class="sec">DOCUMENT COLOPHON</h2>
+      <p class="body"><strong>Document ID:</strong> TAI-SC-001 · <strong>Title:</strong> The Score Compendium — Scores &amp; Personas, Sovereign Edition · <strong>Version:</strong> 1.0 · <strong>Completion:</strong> Q2 2026 · <strong>Classification:</strong> Confidential · Internal &amp; Partner Distribution</p>
+      <p class="body"><strong>Companion Documents:</strong> TAI-WP-001-BULL (Institutional White Paper, Full Edition) · Persona Detailed Configurations, Tiers 1–10 · Tenured Agent Core Context Initialization Guide v2.0 · TAI Trade Secret Register v2 · Complete Patent Portfolio Summary (PAT-001–021) · Performance Delta (Δ) Formal Specification (controlling definition; supersedes TS-024 informal).</p>
+      <p class="body"><strong>Authoring Authority:</strong> Tenured AI — Scoring Standards &amp; Persona Architecture · <strong>Design System:</strong> The Digital Curator / Gilded Slate Editorial Modernity · Typeset in Sora, Inter, and JetBrains Mono on a #FCF9F5 stationery base, with boundaries rendered solely through tonal shifts.</p>
+      <hr class="thin">
+      <h4 class="minor">© 2026 Tenured AI, Inc. All Rights Reserved.</h4>
+      <p class="body">AICI™, AIOI™, AIOI-ED™, AIBS™, The Proving Ground™, Tenured Agent™, and Sovereign Talent Ledger™ are trademarks of Tenured AI, Inc. Formula structures referenced herein are disclosed in provisional patent filings; all calibration values remain protected trade secrets.</p>
+    </section>
+
+    <footer class="foot">
+      <span class="mono">TAI-SC-001 · END OF VOLUME · VERIFICATION OVER DECOR</span>
+    </footer>
+
+  </div>
+  </main>
+</div>
+<button class="themebtn" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark'">◐ THEME</button>
+</body>
+</html>

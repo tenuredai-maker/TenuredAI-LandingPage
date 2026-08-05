@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sovereign Underwriting Surface — I-100 · EWARD · L-200</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   I-100 RECRUITER · EWARD ENTERPRISE · L-200 INSTITUTIONAL
+   UI/UX Specification · Sovereign Underwriting Surface
+   ============================================================ */
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;--sc-highest:#E5E2DE;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;--on-primary-container:#4E3700;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--cyan:#22D3EE;--mentor:#4F8A6B;--error:#BA1A1A;--error-container:#FFDAD6;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --maxw:1320px;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+  --tier-1:#3D2914;--tier-2:#5E3D1A;--tier-3:#8A6020;--tier-4:#B8862E;--tier-5:#E8C37E;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;--sc-highest:#31312F;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--on-primary:#4E3700;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;--mentor:#7FBF9B;
+  --outline:#9A8F80;--outline-variant:#4E4639;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::selection{background:rgba(197,160,89,.3)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+code,.mono{font-family:var(--font-mono)}
+
+.shell{display:grid;grid-template-columns:288px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 24px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.brand .mark{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em}
+.brand .mark .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em}
+.nav-group{margin-top:22px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:10px}
+.nav-group a{display:block;padding:5px 0;font-size:13px;opacity:.75;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:8px}
+
+.content{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+section.bk{padding:88px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:var(--maxw);margin-inline:auto;padding-inline:40px}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+h2.sec{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:700;max-width:24ch;margin-bottom:22px}
+.lede{font-size:1.1rem;line-height:1.6;color:var(--on-surface-variant);max-width:68ch;margin-bottom:44px}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:22px}
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+@media(max-width:860px){.g2,.g3,.g4,.g5{grid-template-columns:1fr}}
+
+.hero{padding:120px 0 80px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:20ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p{font-size:1.18rem;color:var(--on-surface-variant);max-width:62ch;margin-top:26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:30px;margin-top:44px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface-variant)}
+.hero .meta b{display:block;font-size:22px;color:var(--on-surface);font-weight:400}
+.hero-glow{position:absolute;top:-22%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.18),transparent 70%);filter:blur(40px);pointer-events:none}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-live{background:rgba(255,191,0,.14);color:#8a6500;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;font-size:10px}
+[data-theme="dark"] .badge-live{color:var(--amber)}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:var(--crt-glow);animation:pulse 1.6s infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.rationale{margin-top:20px;padding:18px 22px;background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial)}
+.rationale .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tertiary);font-weight:700;display:block;margin-bottom:7px}
+.rationale p{font-size:13.5px;color:var(--on-surface-variant);max-width:78ch}
+.dnote{margin-top:18px;padding:18px 22px;border-radius:var(--r-lg);background:var(--tertiary-container)}
+.dnote .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-tertiary-container);font-weight:700;display:block;margin-bottom:7px}
+.dnote p{font-size:13.5px;color:var(--on-tertiary-container);max-width:78ch}
+
+.device{margin:0 auto;background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--ambient);overflow:hidden}
+.device .bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:var(--sc-low)}
+.device .bar i{width:10px;height:10px;border-radius:50%;background:var(--outline-variant);display:block}
+.device .bar .t{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.06em}
+.wf{padding:20px}
+.wf-row{display:flex;gap:10px;margin-bottom:10px}
+.wf-box{background:var(--sc-low);border-radius:10px;padding:14px}
+.wf-label{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px}
+.wf-line{height:8px;border-radius:4px;background:var(--outline-variant);opacity:.5;margin:6px 0}
+.wf-cta{background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:10px 18px;font-size:12px;font-weight:700;display:inline-block;cursor:pointer}
+.wf-pill{background:var(--sc-high);border-radius:var(--r-pill);padding:6px 12px;font-size:11px;display:inline-block}
+.wf-pill.on{background:var(--sovereign);color:#FFF}
+.wf-pill.blue{background:var(--tertiary);color:#FFF}
+
+/* AIRF tier badges */
+.airf{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-pill);font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.04em;color:#FFF}
+.airf-1{background:var(--tier-1)}.airf-2{background:var(--tier-2)}.airf-3{background:var(--tier-3)}.airf-4{background:var(--tier-4)}.airf-5{background:var(--tier-5);color:#3D2914}
+
+/* OSD heatmap */
+.osd-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;background:var(--sc-low);padding:8px;border-radius:8px}
+.osd-cell{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;font-weight:700;color:#FFF}
+
+/* score/health */
+.score{font-family:var(--font-mono);font-size:12px}
+.scoreline{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.scoreline .v{font-size:18px;font-weight:700;color:var(--on-surface)}
+.health{height:7px;border-radius:var(--r-pill);background:var(--sc-high);overflow:hidden}
+.health>i{display:block;height:100%;border-radius:var(--r-pill);background:var(--sovereign)}
+.health.blue>i{background:var(--tertiary)}.health.decay>i{background:var(--error)}
+
+/* tables */
+.tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:12.5px}
+.tbl th{text-align:left;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 12px 6px;font-weight:400}
+.tbl td{background:var(--sc-low);padding:12px;vertical-align:middle}
+.tbl td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.tbl td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+/* states */
+.states{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+@media(max-width:860px){.states{grid-template-columns:1fr}}
+.state{border-radius:var(--r-lg);padding:18px;background:var(--sc-lowest);box-shadow:var(--editorial)}
+.state .h{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.state.empty .h{color:var(--on-surface-variant)}.state.loading .h{color:var(--primary)}.state.error .h{color:var(--error)}
+.state p{font-size:13px;color:var(--on-surface-variant)}
+
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+@media(max-width:860px){.specs{grid-template-columns:1fr}}
+.specs .s{background:var(--sc-low);border-radius:var(--r-lg);padding:14px}
+.specs .s b{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);display:block;margin-bottom:7px}
+.specs .s p{font-size:12.5px;color:var(--on-surface-variant)}
+
+.scr-head{display:flex;align-items:baseline;gap:14px;margin:40px 0 6px;flex-wrap:wrap}
+.scr-head .no{font-family:var(--font-mono);font-size:13px;color:var(--primary)}
+.scr-head h3{font-size:1.3rem;font-weight:700}
+.scr-sub{font-size:14px;color:var(--on-surface-variant);max-width:72ch;margin-bottom:18px}
+
+/* corridor map */
+.corridor{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-xl);padding:24px;position:relative;overflow:hidden}
+.corridor::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 60%);pointer-events:none}
+
+/* themebtn */
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.foot{padding:56px 0 88px;color:var(--on-surface-variant);font-size:13px}
+.foot .mono{font-size:12px}
+
+/* matrix */
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:13px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 14px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:14px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:18%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">Sovereign Underwriting<span class="dot">.</span></span></div>
+    <div class="ver">I-100 · EWARD · L-200 · SPEC v1.0</div>
+    <nav class="nav-group">
+      <h4>Foundations</h4>
+      <a href="#concept"><span class="sn">F1</span>The $100B Mechanism</a>
+      <a href="#three-surfaces"><span class="sn">F2</span>Three B2B Surfaces</a>
+      <a href="#airf"><span class="sn">F3</span>AIRF™ · 5-Tier Gate</a>
+      <a href="#privacy"><span class="sn">F4</span>3-Phase Privacy Protocol</a>
+      <a href="#math"><span class="sn">F5</span>Underwriting Math</a>
+      <a href="#osd"><span class="sn">F6</span>OSD & TTR_org</a>
+      <a href="#corridor"><span class="sn">F7</span>The Corridor Pulse</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>I-100 · Recruiter (RSS)</h4>
+      <a href="#r1"><span class="sn">R1</span>Command Center Home</a>
+      <a href="#r2"><span class="sn">R2</span>Boolean Query Builder</a>
+      <a href="#r3"><span class="sn">R3</span>Match Count · Phase 1</a>
+      <a href="#r4"><span class="sn">R4</span>De-Identified Pool · Phase 2</a>
+      <a href="#r5"><span class="sn">R5</span>Candidate Card (Sealed)</a>
+      <a href="#r6"><span class="sn">R6</span>Reveal Credits</a>
+      <a href="#r7"><span class="sn">R7</span>Connect Request · Phase 3</a>
+      <a href="#r8"><span class="sn">R8</span>Pipeline Tracker</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>EWARD · Enterprise</h4>
+      <a href="#e1"><span class="sn">E1</span>EWARD Dashboard</a>
+      <a href="#e2"><span class="sn">E2</span>OSD Heatmap</a>
+      <a href="#e3"><span class="sn">E3</span>Coverage Gap Atlas</a>
+      <a href="#e4"><span class="sn">E4</span>Chaos Scenario Simulator</a>
+      <a href="#e5"><span class="sn">E5</span>Bond Issuance Console</a>
+      <a href="#e6"><span class="sn">E6</span>Claim Adjudication (Strike)</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>L-200 · War Room</h4>
+      <a href="#l1"><span class="sn">L1</span>League Table</a>
+      <a href="#l2"><span class="sn">L2</span>Institution Detail</a>
+      <a href="#l3"><span class="sn">L3</span>Corridor Dominance</a>
+      <a href="#l4"><span class="sn">L4</span>GDA Dividend Ledger</a>
+    </nav>
+    <nav class="nav-group">
+      <h4>Close</h4>
+      <a href="#a11y"><span class="sn">A</span>Accessibility</a>
+      <a href="#notes"><span class="sn">★</span>Designer's Notes</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="hero-glow"></div>
+      <div class="kicker"><span class="num">UW / 00</span><span class="lbl">Sovereign Underwriting Surface</span></div>
+      <h1>Stop hiring on faith. <span class="gild">Underwrite the hire.</span></h1>
+      <p>The complete UI/UX specification for the platform's three B2B surfaces — I-100 Recruiter Command Center (RSS), EWARD Enterprise Risk Dashboard, and the L-200 Institutional War Room. Where the Sovereign Passport becomes a financial instrument and talent becomes a hedged asset.</p>
+      <div class="meta">
+        <div>SURFACES<b>3</b></div>
+        <div>SCREENS<b>18</b></div>
+        <div>AUDIENCES<b>Recruiter · CFO · Provost</b></div>
+        <div>PATENT<b>PAT-013 · 014</b></div>
+      </div>
+    </header>
+
+    <!-- F1 · CONCEPT -->
+    <section class="bk" id="concept">
+      <div class="kicker"><span class="num">UW / F1</span><span class="lbl">Foundations · The $100B Mechanism</span></div>
+      <h2 class="sec">From talent platform to financial infrastructure.</h2>
+      <p class="lede">Tenured AI doesn't just grade talent — it <i>underwrites</i> it. By capturing 24/7 telemetric "Proof of Friction" through the Proving Ground, the platform provides the first-ever Financial Guarantee for human performance. The three B2B surfaces in this spec are how that guarantee is bought, monitored, and claimed.</p>
+      <div class="grid g3">
+        <div class="card">
+          <div class="badge badge-soft" style="margin-bottom:14px">FOR THE RECRUITER</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Stop hiring liabilities</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">The I-100 Recruiter Command Center filters every candidate through the 4-condition AIRF™ authenticity gate. You only see candidates who've proven skills in live simulations — and only after they accept your reveal request.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-blue" style="margin-bottom:14px">FOR THE CFO</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Hedge the workforce</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">EWARD mathematically audits your team's Sovereign Density, predicts time-to-recover from disruption, identifies single points of failure, and issues underwriteable Performance Bonds your insurer will accept.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-gild" style="margin-bottom:14px">FOR THE PROVOST</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Compete on outcomes</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">The L-200 War Room ranks universities by Gross Dividend Asset (GDA) — real dollars returned via the 40/40/20 split — instead of rankings prestige. Compete on graduates' verified market valuation, not on a magazine list.</p>
+        </div>
+      </div>
+      <div class="rationale">
+        <span class="tag">Strategy · why three surfaces are one product</span>
+        <p>These look like three products but they are one underwriting machine. Recruiters buy access to verified talent; enterprises buy bonds against that talent's failure; institutions earn dividends when their graduates are hired and bonded. Each surface feeds the others — the recruiter's reveal credit funds the dividend that ranks the institution that produced the candidate the enterprise just underwrote. Designing them as one specification (with a shared underwriting math, a shared Corridor Pulse, a shared Sovereign Passport feed) is what makes the three-way flywheel legible to anyone reviewing the build.</p>
+      </div>
+    </section>
+
+    <!-- F2 · THREE SURFACES -->
+    <section class="bk" id="three-surfaces">
+      <div class="kicker"><span class="num">UW / F2</span><span class="lbl">Foundations · Three B2B Surfaces</span></div>
+      <h2 class="sec">One machine, three control rooms.</h2>
+      <p class="lede">Each surface is a distinct interface with its own primary user, its own primary verb, and its own KPI — but all three read against the same Corridor Pulse, the same Underwriting Ledger, and the same Sovereign Passport supply.</p>
+      <table class="matrix">
+        <thead><tr><th>Surface</th><th>Primary user</th><th>Primary verb</th><th>Primary KPI</th><th>Patent</th></tr></thead>
+        <tbody>
+          <tr><td>I-100 · RSS</td><td>Senior technical recruiter</td><td>Discover & connect</td><td>AIRF Tier-5 reveal cost-per-hire</td><td>PAT-013</td></tr>
+          <tr><td>EWARD</td><td>CIO · CFO · Risk Officer</td><td>Audit & bond</td><td>OSD · TTR_org · Bond coverage</td><td>PAT-013 · 014</td></tr>
+          <tr><td>L-200 War Room</td><td>Provost · State legislator</td><td>Rank & compete</td><td>GDA · Sovereign Density · Corridor Dominance</td><td>PAT-013</td></tr>
+        </tbody>
+      </table>
+      <div class="dnote">
+        <span class="tag">Designer's Note · separate surfaces, shared spine</span>
+        <p>It would be tempting to merge these into "a B2B dashboard with three tabs." That would be the wrong move. Each audience operates under different time pressure (recruiter: minutes; enterprise: quarters; institution: years), and a single tabbed UI would punish the recruiter's speed and underserve the institution's depth. So we design three independent surfaces sharing a common data spine (Corridor Pulse, Passport feed, underwriting math) but presenting completely different control rooms. That's how an underwriting bank actually works: one bond ledger, many product desks.</p>
+      </div>
+    </section>
+
+    <!-- F3 · AIRF -->
+    <section class="bk" id="airf">
+      <div class="kicker"><span class="num">UW / F3</span><span class="lbl">Foundations · AIRF™ 5-Tier Authenticity Gate</span></div>
+      <h2 class="sec">Four conditions. Five tiers. Zero "flashcard engineers."</h2>
+      <p class="lede">The AIRF™ Classifier (PAT-013, Module 1352) is the platform's filter against false signal. A candidate earns a tier only when <i>all four</i> conditions clear simultaneously: Verified Count, Accuracy, Calibration Gap, and Overconfident Liability count. This is what lets a recruiter mathematically reject the arrogant-but-unproven candidate that LinkedIn would surface.</p>
+      <div class="grid g5">
+        <div class="tile" style="text-align:center"><div class="airf airf-1" style="margin-bottom:10px">TIER 1</div><div style="font-weight:600;font-size:13px">Below Threshold</div><p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:6px">Insufficient signal — recruiters do not see by default.</p></div>
+        <div class="tile" style="text-align:center"><div class="airf airf-2" style="margin-bottom:10px">TIER 2</div><div style="font-weight:600;font-size:13px">Familiar</div><p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:6px">Some verification, calibration not yet trustworthy.</p></div>
+        <div class="tile" style="text-align:center"><div class="airf airf-3" style="margin-bottom:10px">TIER 3</div><div style="font-weight:600;font-size:13px">Working Knowledge</div><p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:6px">Recruiter-visible. Reliable in standard scenarios.</p></div>
+        <div class="tile" style="text-align:center"><div class="airf airf-4" style="margin-bottom:10px">TIER 4</div><div style="font-weight:600;font-size:13px">Verified Practitioner</div><p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:6px">High Verified Count + low OL. Bond-eligible.</p></div>
+        <div class="tile" style="text-align:center"><div class="airf airf-5" style="margin-bottom:10px">TIER 5</div><div style="font-weight:600;font-size:13px">Sovereign Practitioner</div><p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:6px">All conditions clear. Triple-85 candidate.</p></div>
+      </div>
+      <div class="card" style="margin-top:24px">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--primary);font-weight:700;margin-bottom:12px">THE 4-CONDITION GATE — ALL MUST CLEAR</div>
+        <table class="tbl">
+          <thead><tr><th>Condition</th><th>Definition</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td><b>Verified Count</b></td><td>Number of Hard-Gate / Lab verifications across cross-surface attribution.</td><td>Volume of evidence — a single Gate is a sample, not a track record.</td></tr>
+            <tr><td><b>Accuracy</b></td><td>Proportion of verifications that passed without override.</td><td>Quality — high-volume + low-accuracy is noise.</td></tr>
+            <tr><td><b>Calibration Gap</b></td><td>Difference between self-rated and verified competency.</td><td>Honesty signal — high gap = overconfidence.</td></tr>
+            <tr><td><b>Overconfident Liability (OL) Count</b></td><td>High-confidence answers that failed verification.</td><td>The "arrogant liability" filter — even one OL caps tier.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · the four-condition gate is the moat</span><p>Most "skill scores" can be gamed by volume — answer enough questions, the score goes up. The AIRF™ gate is mathematically impossible to game because the four conditions <i>conflict</i>: high Verified Count without Calibration discipline produces OL events that cap your tier. The honest, careful candidate clears all four; the showboat clears one or two and gets capped at Tier 1 or 2. Surfacing this gate clearly in the recruiter UI (with the OL count visible per candidate) is what converts "Tenured AI grades skills" into "Tenured AI mathematically filters liabilities" — a much stronger product claim.</p></div>
+    </section>
+
+    <!-- F4 · PRIVACY -->
+    <section class="bk" id="privacy">
+      <div class="kicker"><span class="num">UW / F4</span><span class="lbl">Foundations · 3-Phase Privacy-Preserving Match Protocol</span></div>
+      <h2 class="sec">Recruiters pay to reach. Candidates choose to be reached.</h2>
+      <p class="lede">PAT-013 Module 1354 inverts the power dynamic of every existing talent platform. The recruiter sees a match count, then de-identified profiles, then — and only after paying a credit and the candidate accepting — the identity. Top talent will pay nothing to participate; recruiters will pay premium SaaS fees to reach them.</p>
+      <div class="grid g3">
+        <div class="card">
+          <div class="badge badge-soft" style="margin-bottom:12px">PHASE 1</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Match Count</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant)">Recruiter runs a Boolean query. Result: "42 matches at Tier 4+ in Houston-Energy corridor." Zero identifying information. Free.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-soft" style="margin-bottom:12px">PHASE 2</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">De-Identified Profiles</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant)">"Candidate c0001 · Tier 5 · 7 Lab Verifications · AIBS 87." Tiers, scores, attribution sources visible. No name, no contact, no employer. Included with base subscription.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-gild" style="margin-bottom:12px">PHASE 3</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Opt-In Reveal</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant)">Recruiter spends a Reveal Credit + submits a structured Hire Brief. Candidate reviews recruiter, role, comp. <i>Only if they accept</i> is identity disclosed. The credit is consumed regardless.</p>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · friction is the feature</span><p>Every existing recruiter platform optimizes for recruiter ease — fast contact, mass outreach, easy InMails. This is precisely why senior engineers hate them. We do the opposite: deliberately add friction to recruiter contact (credits + structured brief + opt-in), which selects for serious specific opportunities and protects the candidate's attention. That asymmetric cost — cheap to be a candidate, expensive to be a recruiter — is what attracts the talent pool LinkedIn cannot reach.</p></div>
+    </section>
+
+    <!-- F5 · UNDERWRITING MATH -->
+    <section class="bk" id="math">
+      <div class="kicker"><span class="num">UW / F5</span><span class="lbl">Foundations · The Underwriting Math</span></div>
+      <h2 class="sec">π, V<sub>u</sub>, and the Strike Event.</h2>
+      <p class="lede">Three formulas govern every bond on the platform. The Premium (π) is what the employer pays. The Underwritten Value (V<sub>u</sub>) is what the platform guarantees. The Strike Event is what fires the claim. All three are surfaced — never hidden — in the EWARD console, so the CFO sees exactly what they're buying.</p>
+      <div class="grid g3">
+        <div class="card">
+          <div class="badge badge-blue" style="margin-bottom:10px">PREMIUM (π)</div>
+          <div style="background:var(--term);color:var(--inverse-on-surface);border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:13px;text-align:center"><span style="color:var(--amber)">π = Base × (λ / CLI)</span></div>
+          <p style="font-size:13px;color:var(--on-surface-variant);margin-top:10px">Low Decay (λ) + high Continuous Learning Index (CLI) = low premium. The honest learner pays less to be insured.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-gild" style="margin-bottom:10px">UNDERWRITTEN VALUE (V<sub>u</sub>)</div>
+          <div style="background:var(--term);color:var(--inverse-on-surface);border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:11.5px;text-align:center;line-height:1.6"><span style="color:var(--amber)">V<sub>u</sub> = (Salary + Regional Premium)<br>× AICI<sub>conf</sub> × Volatility</span></div>
+          <p style="font-size:13px;color:var(--on-surface-variant);margin-top:10px">The payout if the hire fails a Hard-Gate audit in the first 180 days. NYC-Finance multiplier (1.4x) vs Houston-Energy.</p>
+        </div>
+        <div class="card">
+          <div class="badge" style="background:var(--error);color:#FFF;margin-bottom:10px">STRIKE EVENT</div>
+          <div style="background:var(--term);color:var(--inverse-on-surface);border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:11.5px;line-height:1.6"><span style="color:var(--error)">if AICI &lt; strike_threshold</span><br><span style="color:var(--amber)">&amp;&amp; corrective_gate = FAIL:</span><br><span style="color:#8FA5D6">claim_status → TRIGGERED</span></div>
+          <p style="font-size:13px;color:var(--on-surface-variant);margin-top:10px">Two simultaneous conditions trigger payout from the Underwriting Reserve. Documented in the Strike sequence (E6).</p>
+        </div>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · the math is the moat, render it as the moat</span><p>These formulas are the platform's defensible IP. Showing them clearly in the EWARD UI — not as decoration but as the actual underwriting display — is a deliberate trust move: the CFO who sees π = Base × (λ/CLI) on their dashboard understands exactly what they're paying for and why. Hiding the math would make this look like another vendor's black-box SaaS; rendering it makes it look like a Bloomberg terminal. We use the inverse-vault surface, mono type, and amber CRT glow specifically to make these formulas feel like instrumentation.</p></div>
+    </section>
+
+    <!-- F6 · OSD & TTR_org -->
+    <section class="bk" id="osd">
+      <div class="kicker"><span class="num">UW / F6</span><span class="lbl">Foundations · OSD & TTR_org</span></div>
+      <h2 class="sec">The two numbers a CFO actually wants.</h2>
+      <p class="lede">Organizational Sovereign Density (OSD) is the percentage of an enterprise's workforce verified at Tier 4+ in the skills the enterprise actually depends on. Time-to-Recovery (TTR_org) is how fast that organization can recover from a defined AI disruption, projected from the verified Growth Coefficients of its staff. These two numbers run the EWARD dashboard.</p>
+      <div class="grid g2">
+        <div class="card">
+          <div class="badge badge-gild" style="margin-bottom:12px">OSD · Organizational Sovereign Density</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.7">OSD = Σ (St<sub>N</sub> × w<sub>N</sub> × σ<sub>N</sub>) / W<sub>c_total</sub></div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:12px">Cohort-level Sovereign Density per node domain. Surfaces "Absolute Gaps" (no one cleared), "Partial Gaps" (insufficient depth), "Prospective Gaps" (decaying), and "Prerequisite Chain" gaps (downstream dependency holes).</p>
+        </div>
+        <div class="card">
+          <div class="badge" style="background:var(--error);color:#FFF;margin-bottom:12px">TTR_org · Time-to-Recovery</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.7">TTR_org = Gap<sub>δ</sub> / mean(γ<sub>cohort</sub> × (1/λ<sub>sim</sub>))</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:12px">The Chaos Scenario Simulator injects a disruption (e.g., "Vector DB ecosystem shift"), recomputes cohort λ, and projects how many weeks the org needs to restore OSD. The number a CRO loses sleep over.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- F7 · CORRIDOR PULSE -->
+    <section class="bk" id="corridor">
+      <div class="kicker"><span class="num">UW / F7</span><span class="lbl">Foundations · The Corridor Pulse</span></div>
+      <h2 class="sec">Real-time supply and demand for verified skill.</h2>
+      <p class="lede">The Corridor Market Pulse (Table 11) is the underlying signal feed every surface reads. It carries market_volatility_index, failure_impact_score, and benchmark_aici_threshold per corridor (Houston-Energy, NYC-Finance, etc). The Pulse is what makes the Regional Premium real money — and what makes the underwriting math defensible.</p>
+      <div class="corridor">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;position:relative;z-index:1"><span class="dot-live"></span><span style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.1em">CORRIDOR PULSE · LIVE</span></div>
+        <div class="grid g3" style="position:relative;z-index:1">
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:#C5A059">HOUSTON · ENERGY-AI</div><div style="font-family:var(--font-mono);font-size:1.4rem;color:var(--inverse-on-surface);margin-top:4px">$248K <span style="font-size:11px;color:var(--mentor)">▲ 4.2%</span></div><div style="font-family:var(--font-mono);font-size:10px;color:rgba(243,240,236,.55);margin-top:4px">strike 85 · vol 1.2x · OSD 0.42</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:#C5A059">NYC · FINANCE-AI</div><div style="font-family:var(--font-mono);font-size:1.4rem;color:var(--inverse-on-surface);margin-top:4px">$312K <span style="font-size:11px;color:var(--mentor)">▲ 6.8%</span></div><div style="font-family:var(--font-mono);font-size:10px;color:rgba(243,240,236,.55);margin-top:4px">strike 88 · vol 1.4x · OSD 0.31</div></div>
+          <div><div style="font-family:var(--font-mono);font-size:10px;color:#C5A059">SF · COMPLIANCE</div><div style="font-family:var(--font-mono);font-size:1.4rem;color:var(--inverse-on-surface);margin-top:4px">$284K <span style="font-size:11px;color:var(--error)">▼ 1.1%</span></div><div style="font-family:var(--font-mono);font-size:10px;color:rgba(243,240,236,.55);margin-top:4px">strike 87 · vol 1.3x · OSD 0.38</div></div>
+        </div>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · the corridor turns ranking into pricing</span><p>The Corridor Pulse is what turns the platform from "we rank candidates" into "we price them." When the Pulse shows NYC-Finance at 1.4x volatility and a strike of 88, the recruiter sees the same number the enterprise's CFO sees, the same number the institution's provost is being ranked against. One unified feed running underneath three surfaces is what makes the underwriting flywheel — recruiter pays → enterprise hires → bond stakes → institution earns dividend → ranks up — visible as a coherent market, not a software product.</p></div>
+    </section>
+
+    <!-- I-100 INTRO -->
+    <section class="bk" id="i100-intro">
+      <div class="kicker"><span class="num">UW / I-100</span><span class="lbl">Recruiter Command Center (RSS)</span></div>
+      <h2 class="sec">The recruiter's terminal — but they pay to use it.</h2>
+      <p class="lede">Eight screens covering the full Recruiter Signal Service flow. Boolean search against the AIRF-filtered pool, the three-phase privacy protocol made operational, structured connect requests, and pipeline tracking. Every interaction reinforces that contact is rationed and the candidate holds the veto.</p>
+    </section>
+
+    <!-- R1 · COMMAND CENTER HOME -->
+    <section class="bk" id="r1">
+      <div class="scr-head"><span class="no">R1</span><h3>I-100 Command Center · Home</h3></div>
+      <p class="scr-sub">A Bloomberg-style command surface for the recruiter. Live Corridor Pulse at the top, recent search activity, active pipeline, available reveal credits, and the single primary action: New Search.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">I-100 · COMMAND CENTER</span></div>
+          <div class="wf">
+            <div class="corridor" style="padding:14px"><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;position:relative;z-index:1"><span class="dot-live"></span><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">CORRIDOR PULSE</span></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);position:relative;z-index:1;line-height:1.7">HOU $248K ▲4.2% &nbsp;·&nbsp; NYC $312K ▲6.8% &nbsp;·&nbsp; SF $284K ▼1.1%</div></div>
+            <div class="wf-row" style="margin-top:10px"><div class="wf-box" style="flex:1"><span class="wf-label">Reveal credits</span><span style="font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--primary)">128</span></div><div class="wf-box" style="flex:1"><span class="wf-label">Active pipeline</span><span style="font-family:var(--font-mono);font-size:20px;font-weight:700">11</span></div><div class="wf-box" style="flex:1"><span class="wf-label">Avg time-to-accept</span><span style="font-family:var(--font-mono);font-size:13px">2.1 days</span></div></div>
+            <div style="margin-top:10px"><span class="wf-cta">New search →</span></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Recent searches</span><div style="font-family:var(--font-mono);font-size:11px;line-height:1.8;color:var(--on-surface-variant)">▸ RAG+AIBS≥85 · Houston · 42 matches<br>▸ Compliance auditor · NYC · 18 matches<br>▸ Tier-5 + Triple-85 · all corridors · 6 matches</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Live Corridor Pulse strip, KPI tile row (credits / pipeline / time-to-accept), primary "New search" CTA, recent searches with one-tap re-run, active brief snapshots.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap pulse → expanded market view. Tap credits → buy more. Tap pipeline tile → R8. Each recent-search row is one tap to re-run with current Pulse state.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Empty</div><p>New recruiter: "Run your first search to see the verified Houston-NYC corridor." Single onboarding CTA, no marketing copy clutter.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Pulse hydrates first (it's shared), KPIs stream in, recent searches resolve last.</p></div>
+            <div class="state error"><div class="h">Pulse stale</div><p>"Corridor Pulse last refreshed 14 min ago — showing cached." Honest staleness flag; searches still run against the cached state.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the home is a trading desk, not a CRM</span><p>Most ATS/recruiter products open with a candidate pipeline (CRM convention). We open with the Corridor Pulse (trading-desk convention). This single choice repositions the entire surface — the recruiter isn't "managing candidates," they're "operating in a market." The mono pricing strip up top sets a tone that propagates to every subsequent screen: information is dense, time-sensitive, and priced.</p></div>
+    </section>
+
+    <!-- R2 · QUERY BUILDER -->
+    <section class="bk" id="r2">
+      <div class="scr-head"><span class="no">R2</span><h3>Boolean Query Builder</h3></div>
+      <p class="scr-sub">The forensic search interface. Filter by AIRF tier, score thresholds, attribution source (Lab / Hard-Gate / Refresh), corridor, decay state, and persona. The cross-surface attribution filter — "only candidates verified in a Live Lab Simulation, not multiple-choice" — is the killer move against flashcard engineers.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">QUERY BUILDER</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Skill nodes</span><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span class="wf-pill on" style="font-size:10px">RAG Architecture</span><span class="wf-pill on" style="font-size:10px">Vector DB</span><span class="wf-pill" style="font-size:10px">+ add</span></div></div>
+            <div class="wf-row" style="margin-top:8px"><div class="wf-box" style="flex:1"><span class="wf-label">AIRF tier ≥</span><div style="display:flex;gap:3px;margin-top:4px"><span class="airf airf-4" style="font-size:9px">4</span><span class="airf airf-5" style="font-size:9px">5</span></div></div><div class="wf-box" style="flex:1"><span class="wf-label">AIBS ≥</span><span style="font-family:var(--font-mono);font-size:14px">85</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Attribution source · MUST INCLUDE</span><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span class="wf-pill on" style="font-size:10px">Live Lab</span><span class="wf-pill on" style="font-size:10px">Hard-Gate</span><span class="wf-pill" style="font-size:10px;opacity:.5">Quiz · excluded</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Corridor · Decay state</span><div style="display:flex;gap:4px;margin-top:4px"><span class="wf-pill on" style="font-size:10px">Houston</span><span class="wf-pill" style="font-size:10px">Active Sovereign only</span></div></div>
+            <div style="margin-top:12px"><span class="wf-cta">Get match count →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Skill-node chip selector (autocomplete from ontology), AIRF tier minimum, score thresholds (AICI/AIOI/AIBS), attribution-source filter (include/exclude), corridor + decay-state filters, persona-ID picker.</p></div>
+            <div class="s"><b>Interactions</b><p>Query updates as chips are added (match count preview in real-time). "Save query" for re-use. Power users can drop to a raw Boolean text view via ⌘+E.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Empty</div><p>Pre-populated with the recruiter's last query. First-time: one example query as a starting point.</p></div>
+            <div class="state loading"><div class="h">Counting</div><p>Real-time match count below the CTA shimmers as filters change; updates within 200ms via cached counters.</p></div>
+            <div class="state error"><div class="h">Conflict</div><p>If filters return 0 (e.g., Tier-5 + AIBS ≥95 + Houston): "0 matches — your filters are stricter than the available pool. Try Tier 4+." Constructive, not a dead end.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- R3 · MATCH COUNT -->
+    <section class="bk" id="r3">
+      <div class="scr-head"><span class="no">R3</span><h3>Match Count · Phase 1</h3></div>
+      <p class="scr-sub">The first cryptographic answer. The recruiter sees how many candidates match — zero identifying information, zero scores, zero attribution. Just a count and a ZKP proof that the count is real.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">PHASE 1 · MATCH COUNT</span></div>
+          <div class="wf" style="text-align:center;padding:32px">
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.15em">VERIFIED MATCHES</div>
+            <div style="font-family:var(--font-headline);font-weight:800;font-size:4rem;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;margin:14px 0">42</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant)">candidates at AIRF Tier 4+ in Houston-Energy corridor</div>
+            <div style="margin-top:14px;display:flex;gap:6px;justify-content:center"><span class="badge badge-blue" style="font-size:10px">✓ ZKP cohort proof</span><span class="badge badge-soft" style="font-size:10px">no identity disclosed</span></div>
+            <div style="margin-top:18px;display:flex;gap:8px;justify-content:center"><span class="wf-cta">Unlock Phase 2 →</span><span class="wf-pill" style="font-size:10px">Refine query</span></div>
+            <div style="margin-top:10px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">Phase 2 is included in your subscription · no credits required</div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Massive mono count, query summary, ZKP cohort proof chip ("the count is mathematically real"), two CTAs (advance to Phase 2 / refine), pricing transparency.</p></div>
+            <div class="s"><b>Interactions</b><p>Advance is one tap, no friction (Phase 2 is included). Refine returns to the builder with current filters preserved.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Zero</div><p>"0 matches — your filters exceed the current pool." Constructive copy + suggested loosening (e.g., "drop AIBS to ≥80 → 18 matches").</p></div>
+            <div class="state loading"><div class="h">Counting</div><p>Count animates from 0 → final value over 600ms. The animation is the only "moment" we let ourselves have here.</p></div>
+            <div class="state error"><div class="h">Stale Pulse</div><p>If the Corridor Pulse data is stale: "Showing cached count (14 min). Refresh?" Honest, never silently old.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the count animation is the only ceremony</span><p>This is the recruiter's first "wow." A count is a tiny piece of information — but rendered at 4rem in the gilded gradient with a ZKP proof beside it, it lands like a market quote. The 600ms count-up is the only animated moment we allow on this entire surface (everything else is composed and static), because that one moment is what separates the platform from "another job search."</p></div>
+    </section>
+
+    <!-- R4 · PHASE 2 -->
+    <section class="bk" id="r4">
+      <div class="scr-head"><span class="no">R4</span><h3>De-Identified Pool · Phase 2</h3></div>
+      <p class="scr-sub">The recruiter now sees the pool. Anonymized cards — c0001, c0002, c0003 — each carrying AIRF tier, scores, attribution source, decay state. Enough signal to decide who to reveal. Zero identifying detail.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">PHASE 2 · 42 DE-IDENTIFIED</span></div>
+          <div class="wf">
+            <div class="wf-row" style="gap:6px;flex-wrap:wrap"><span class="wf-pill on" style="font-size:10px">Tier 5+</span><span class="wf-pill" style="font-size:10px">Active only</span><span class="wf-pill" style="font-size:10px">Sort: AIBS ▼</span></div>
+            <div class="wf-box" style="margin-top:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);font-weight:700">c0001</span><span class="airf airf-5">TIER 5</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:11px">AIBS 87 · AICI 92</span></div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);margin-top:6px">7 Lab verifications · Houston · streak 14d · Triple-85</div></div>
+            <div class="wf-box" style="margin-top:6px"><div style="display:flex;align-items:center;gap:8px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);font-weight:700">c0002</span><span class="airf airf-4">TIER 4</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:11px">AIBS 85 · AICI 88</span></div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);margin-top:6px">4 Lab · 2 Hard-Gate · Houston · 0 OL events</div></div>
+            <div class="wf-box" style="margin-top:6px"><div style="display:flex;align-items:center;gap:8px"><span style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);font-weight:700">c0003</span><span class="airf airf-3">TIER 3</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:11px">AIBS 80 · AICI 84</span></div><div style="font-family:var(--font-mono);font-size:9px;color:var(--error);margin-top:6px">⚠ 2 OL events · calibration gap 0.18</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Filter/sort chips above list, anonymized candidate rows (cNNNN ID, AIRF tier, scores, attribution summary, OL flag if any), pagination, "compare selected" tray.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap row → Candidate Card (R5). Multi-select to compare. The cNNNN IDs are stable per recruiter (so the same candidate appears as c0001 across the recruiter's sessions) but unguessable across recruiters.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">None visible</div><p>"All 42 candidates are below your visibility filter. Adjust filters above." Never blank — always with a constructive next step.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Rows shimmer in pages of 20; AIRF chips resolve last (they require the most computation).</p></div>
+            <div class="state error"><div class="h">Stale</div><p>Per-row "data 8 min old" timestamp if Pulse is stale. Recruiter can sort by freshness.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · the cNNNN ID is the relationship's first chapter</span><p>Stable-per-recruiter IDs (c0001 is "the same candidate" every time this recruiter sees them) but unguessable across recruiters give a structurally honest experience: the recruiter can build a mental model of "their" prospects without ever de-anonymizing them. This makes the eventual reveal feel like a milestone — "c0001 has been on my shortlist for two weeks, now I'm requesting reveal" — rather than a name-grab. Anonymity becomes the first chapter of the relationship, not its absence.</p></div>
+    </section>
+
+    <!-- R5 · CANDIDATE CARD -->
+    <section class="bk" id="r5">
+      <div class="scr-head"><span class="no">R5</span><h3>Candidate Card · Sealed</h3></div>
+      <p class="scr-sub">A full Phase-2 dossier on a single candidate. AIRF condition breakdown (the 4-condition gate visible), score history, attribution sources, evidence count by surface, OL incidents. Everything except the identity.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">c0001 · TIER 5 SEALED</span></div>
+          <div class="wf">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span style="font-family:var(--font-mono);font-size:14px;font-weight:700">c0001</span><span class="airf airf-5">TIER 5</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--mentor)">✓ ALL 4 CONDITIONS CLEAR</span></div>
+            <div class="wf-box"><span class="wf-label">AIRF · 4-condition gate</span>
+              <div style="font-family:var(--font-mono);font-size:10px;line-height:1.9;margin-top:4px">Verified Count <span style="color:var(--mentor)">62 ✓</span><br>Accuracy <span style="color:var(--mentor)">96.3% ✓</span><br>Calibration Gap <span style="color:var(--mentor)">0.04 ✓</span><br>OL Count <span style="color:var(--mentor)">0 ✓</span></div>
+            </div>
+            <div class="wf-row" style="margin-top:8px"><div class="wf-box" style="flex:1"><span class="wf-label">AICI</span><span style="font-family:var(--font-mono);font-size:14px;font-weight:700">92</span></div><div class="wf-box" style="flex:1"><span class="wf-label">AIOI</span><span style="font-family:var(--font-mono);font-size:14px;font-weight:700">88</span></div><div class="wf-box" style="flex:1"><span class="wf-label">AIBS</span><span style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--tertiary)">87</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Attribution · cross-surface</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.8;margin-top:4px">7 Live Lab · 4 Hard-Gate · 2 Refresh<br>0 quiz · 0 self-report</div></div>
+            <div style="margin-top:10px;display:flex;gap:8px"><span class="wf-cta">Request reveal (1 credit) →</span><span class="wf-pill" style="font-size:10px">Save to shortlist</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Sealed-ID header, 4-condition breakdown with per-condition pass/fail, Triple-Threat tiles, cross-surface attribution counts, 90-day score history, OL incident log (if any), reveal CTA + shortlist.</p></div>
+            <div class="s"><b>Interactions</b><p>Reveal triggers R7 (Connect Request). Shortlist saves to recruiter's pipeline without consuming a credit. Long-press a metric → its forensic definition (educates the recruiter on AIRF).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>A sealed card always has signal.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>4-condition gate is the slowest item to resolve (it requires the most computation); shows last with a brief shimmer.</p></div>
+            <div class="state error"><div class="h">Candidate withdrew</div><p>If the candidate has revoked their pool participation since the search: "c0001 is no longer in the pool" — composed, never aggressive recovery prompts.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- R6 · REVEAL CREDITS -->
+    <section class="bk" id="r6">
+      <div class="scr-head"><span class="no">R6</span><h3>Reveal Credits</h3></div>
+      <p class="scr-sub">Where the recruiter actually pays. Credits are the unit of intent — each reveal request consumes one credit whether the candidate accepts or declines. Tiered pricing rewards specificity over volume.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">REVEAL CREDITS</span></div>
+          <div class="wf">
+            <div class="wf-box" style="text-align:center;background:var(--inverse-surface);color:var(--inverse-on-surface);padding:18px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.15em">CURRENT BALANCE</div><div style="font-family:var(--font-mono);font-size:2.2rem;color:var(--primary-container);margin-top:6px">128</div></div>
+            <div class="wf-row" style="margin-top:10px;gap:8px">
+              <div class="wf-box" style="flex:1;text-align:center"><div style="font-family:var(--font-headline);font-weight:600;font-size:18px">25</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);margin-top:2px">credits</div><div style="font-family:var(--font-mono);font-size:13px;color:var(--primary);margin-top:6px">$1,250</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">$50/each</div></div>
+              <div class="wf-box" style="flex:1;text-align:center;box-shadow:0 0 0 2px var(--primary-container)"><div style="font-family:var(--font-headline);font-weight:600;font-size:18px">100</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);margin-top:2px">credits · best</div><div style="font-family:var(--font-mono);font-size:13px;color:var(--primary);margin-top:6px">$4,200</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">$42/each</div></div>
+              <div class="wf-box" style="flex:1;text-align:center"><div style="font-family:var(--font-headline);font-weight:600;font-size:18px">500</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);margin-top:2px">credits</div><div style="font-family:var(--font-mono);font-size:13px;color:var(--primary);margin-top:6px">$17,500</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">$35/each</div></div>
+            </div>
+            <div style="margin-top:10px;font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-align:center">Accept rate this quarter: <span style="color:var(--mentor);font-weight:700">74%</span> · ROI signal</div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Balance hero (inverse vault surface, mono), three pricing tiers (with "best value" highlight), the recruiter's personal accept-rate as ROI signal, payment method, receipt history.</p></div>
+            <div class="s"><b>Interactions</b><p>Purchase is one tap to a system payment sheet. Accept-rate is a non-trivial tell: a 74% rate means structured briefs are working; a 30% rate suggests the recruiter should refine their query/brief approach.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Low balance</div><p>At &lt;5 credits: gentle banner "low balance" on R5 reveal CTAs — never a hard block until 0.</p></div>
+            <div class="state loading"><div class="h">Purchasing</div><p>"Processing payment…" via system sheet. Credits land instantly on confirmation.</p></div>
+            <div class="state error"><div class="h">Payment fail</div><p>"Payment declined — your existing balance and pipeline are unaffected." Never alarmist.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · accept-rate as the recruiter's mirror</span><p>Showing the recruiter's own personal accept-rate (74% in this case) is the most strategically useful number on this entire surface. It privately tells a poor-performing recruiter that their pitch is broken before they spend more credits — protecting both the candidate pool from spam and the recruiter from wasted budget. We surface it as a quiet stat, not a scolding banner; the recruiter's competitiveness does the rest.</p></div>
+    </section>
+
+    <!-- R7 · CONNECT REQUEST -->
+    <section class="bk" id="r7">
+      <div class="scr-head"><span class="no">R7</span><h3>Connect Request · Phase 3</h3></div>
+      <p class="scr-sub">The structured reveal. The recruiter writes a Hire Brief; the candidate reviews it; only on acceptance is identity disclosed. A receipt is generated either way (the credit is consumed). This is the moment the platform converts curiosity into commitment on both sides.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">CONNECT · c0001 · 1 CREDIT</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Role</span><div class="wf-line" style="width:80%"></div></div>
+            <div class="wf-row" style="margin-top:6px"><div class="wf-box" style="flex:1"><span class="wf-label">Comp band</span><span style="font-family:var(--font-mono);font-size:13px">$280–340k</span></div><div class="wf-box" style="flex:1"><span class="wf-label">Bond stake</span><span style="font-family:var(--font-mono);font-size:13px">$150k</span></div></div>
+            <div class="wf-box" style="margin-top:6px"><span class="wf-label">Scope · 90 days · senior IC</span><div class="wf-line" style="width:60%"></div></div>
+            <div class="wf-box" style="margin-top:6px"><span class="wf-label">Recruiter identity disclosed to candidate</span><div style="font-family:var(--font-mono);font-size:11px;margin-top:4px">Sarah Hodge · Hodge Talent · verified employer</div></div>
+            <div class="wf-box" style="margin-top:6px;background:var(--error-container)"><span class="wf-label" style="color:var(--on-error-container)">CREDIT WARNING</span><div style="font-size:11.5px;color:var(--on-error-container);margin-top:4px">1 credit is consumed on send, regardless of candidate's decision.</div></div>
+            <div style="margin-top:10px;display:flex;gap:8px"><span class="wf-cta">Send to candidate →</span><span class="wf-pill" style="font-size:10px">Save draft</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Required structured fields (role, scope, comp band, bond stake), verified-employer chip, free-form message, credit-consumption warning, send CTA + draft.</p></div>
+            <div class="s"><b>Interactions</b><p>Required fields block send (no half-baked briefs reach candidates). Brief is delivered to the candidate via Agent Mentor message ("A verified employer sent you a structured hire brief"). Receipt hash issued to recruiter immediately.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Draft</div><p>Starts with the recruiter's template (if saved). Auto-saves every 800ms — never lose a draft.</p></div>
+            <div class="state loading"><div class="h">Sending</div><p>"Routing to candidate's Agent…" determinate; receipt with delivery hash shown on confirmation.</p></div>
+            <div class="state error"><div class="h">Declined</div><p>"Candidate declined — credit consumed, no reason given by default." Composed, no shame on either side. If the candidate attached a reason, it appears here.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- R8 · PIPELINE TRACKER -->
+    <section class="bk" id="r8">
+      <div class="scr-head"><span class="no">R8</span><h3>Pipeline Tracker</h3></div>
+      <p class="scr-sub">The recruiter's working CRM. Every reveal request and its state: pending, accepted, declined, hired, bonded. Each row links to the candidate's now-disclosed Sovereign Passport (if accepted) or remains sealed (if declined).</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">PIPELINE · 11 ACTIVE</span></div>
+          <div class="wf">
+            <table class="tbl"><thead><tr><th>Candidate</th><th>State</th><th>Sent</th></tr></thead>
+              <tbody>
+                <tr><td><b>Dr. Lena Park</b><div style="font-size:10px;color:var(--mentor)">✓ Accepted · disclosed</div></td><td><span class="airf airf-5" style="font-size:9px">T5</span></td><td><span style="font-family:var(--font-mono);font-size:10px">2d ago</span></td></tr>
+                <tr><td><b>c0014</b><div style="font-size:10px;color:var(--on-surface-variant)">⏳ Pending</div></td><td><span class="airf airf-4" style="font-size:9px">T4</span></td><td><span style="font-family:var(--font-mono);font-size:10px">1d ago</span></td></tr>
+                <tr><td><b>c0007</b><div style="font-size:10px;color:var(--error)">✕ Declined</div></td><td><span class="airf airf-5" style="font-size:9px">T5</span></td><td><span style="font-family:var(--font-mono);font-size:10px">4d ago</span></td></tr>
+                <tr><td><b>c0003</b><div style="font-size:10px;color:var(--tertiary)">★ Hired · bonded $150k</div></td><td><span class="airf airf-5" style="font-size:9px">T5</span></td><td><span style="font-family:var(--font-mono);font-size:10px">2w ago</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>State table (candidate ID/name, state, AIRF tier, time since send), filters (state, age, tier), export to CSV, "hired & bonded" highlight, accept-rate analytics in header.</p></div>
+            <div class="s"><b>Interactions</b><p>Accepted rows link to the disclosed Sovereign Passport view. Hired+bonded rows link to the EWARD bond record (E5). Declined rows are kept for accept-rate calculation but stay sealed.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Empty</div><p>"No active reveals — run a search to start your pipeline." Single CTA.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Rows hydrate by state group (hired first, then accepted, pending, declined).</p></div>
+            <div class="state error"><div class="h">Sync drift</div><p>"Pipeline last synced 12 min ago" badge; never silently old. Recruiter can force-refresh.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EWARD INTRO -->
+    <section class="bk" id="eward-intro">
+      <div class="kicker"><span class="num">UW / EWARD</span><span class="lbl">Enterprise Risk Dashboard · PAT-013</span></div>
+      <h2 class="sec">For the CFO who lost sleep over AI hires.</h2>
+      <p class="lede">Six screens for the enterprise — CIO, CFO, Risk Officer. EWARD audits the org's Sovereign Density, runs Chaos Scenario Simulations to project recovery from disruption, and issues underwriteable Performance Bonds your insurer will accept. The Chubb pilot makes 15–35% premium credits real. The Strike Event makes payouts mechanical.</p>
+    </section>
+
+    <!-- E1 · EWARD DASHBOARD -->
+    <section class="bk" id="e1">
+      <div class="scr-head"><span class="no">E1</span><h3>EWARD Dashboard</h3></div>
+      <p class="scr-sub">The CFO's command surface. OSD headline, TTR_org projection, active bonds and their coverage, Chubb pilot tier status, and an "Absolute Gaps" risk register. Reads like a balance sheet for human capital.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">EWARD · ACME ENERGY · 2,400 STAFF</span></div>
+          <div class="wf">
+            <div class="wf-row" style="gap:8px"><div class="wf-box" style="flex:1;background:var(--inverse-surface);color:var(--inverse-on-surface);text-align:center"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">OSD</span><div style="font-family:var(--font-mono);font-size:1.6rem;color:var(--primary-container);margin-top:4px">0.42</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">target 0.65</div></div><div class="wf-box" style="flex:1;background:var(--inverse-surface);color:var(--inverse-on-surface);text-align:center"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">TTR_ORG</span><div style="font-family:var(--font-mono);font-size:1.6rem;color:var(--primary-container);margin-top:4px">17wk</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">vs disruption</div></div><div class="wf-box" style="flex:1;background:var(--inverse-surface);color:var(--inverse-on-surface);text-align:center"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">BONDED</span><div style="font-family:var(--font-mono);font-size:1.6rem;color:var(--primary-container);margin-top:4px">$3.6M</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">24 hires</div></div></div>
+            <div class="wf-box" style="margin-top:10px;background:linear-gradient(135deg,rgba(197,160,89,.1),rgba(44,71,113,.06))"><div style="display:flex;align-items:center;gap:8px"><span class="badge badge-gild" style="font-size:10px">CHUBB PILOT · GOLD</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--mentor)">25% PREMIUM CREDIT · $3.75M/yr</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">⚠ Absolute Gaps · single points of failure</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.8;margin-top:4px;color:var(--error)">▸ Vector DB latency · 0 verified<br>▸ EU AI Act compliance · 1 verified · risk concentrated<br>▸ Multi-agent consensus · 2 verified · below target</div></div>
+            <div class="wf-row" style="margin-top:8px;gap:6px"><span class="wf-cta">Run Chaos Sim →</span><span class="wf-pill" style="font-size:10px">Issue bond</span><span class="wf-pill" style="font-size:10px">Quarterly report</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Three KPI tiles (OSD / TTR_org / Bonded value) on inverse vault surface, Chubb tier strip with premium credit, Absolute Gaps risk register, three primary actions (Sim / Bond / Report).</p></div>
+            <div class="s"><b>Interactions</b><p>Tap KPI → drill into the OSD Heatmap (E2). Chubb tier links to tier requirements + upgrade path. Gap rows route to a staged hiring brief (E5).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Onboarding</div><p>New tenant pre-survey: "Connect your HRIS to compute baseline OSD." Single setup CTA.</p></div>
+            <div class="state loading"><div class="h">Computing</div><p>OSD recomputes nightly; TTR_org refreshes on Pulse change. Shimmer per tile; cached value labeled until refresh confirms.</p></div>
+            <div class="state error"><div class="h">Pulse drift</div><p>"Corridor Pulse stale · TTR_org showing last-good projection" — never silently old when the projection depends on live market data.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the CFO's spreadsheet, rendered as a vault</span><p>OSD and TTR_org are the only two numbers the CFO actually wants. Everything else on this surface serves those two. We render them on the inverse vault surface in mono amber — borrowing the visual code of a Bloomberg terminal — because the CFO who shows this dashboard to their board needs it to look like a financial instrument, not a HR tool. The Chubb tier strip lives right below as the immediate economic translation: this OSD level is worth $3.75M/year in premium credits, today.</p></div>
+    </section>
+
+    <!-- E2 · OSD HEATMAP -->
+    <section class="bk" id="e2">
+      <div class="scr-head"><span class="no">E2</span><h3>OSD Heatmap</h3></div>
+      <p class="scr-sub">The organization's Sovereign Density rendered across the skill ontology. Three tiers of zoom — domain → node → contributor (sigma-weighted). Privacy-preserving: ZKP aggregation never exposes individual scores; the heatmap shows cohort coverage only.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">OSD HEATMAP · ACME ENERGY</span></div>
+          <div class="wf">
+            <div class="wf-row" style="gap:6px"><span class="wf-pill on" style="font-size:10px">Domain</span><span class="wf-pill" style="font-size:10px">Node</span><span class="wf-pill" style="font-size:10px">Contributor</span></div>
+            <div class="osd-grid" style="margin-top:10px">
+              <div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF">00</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF">12</div><div class="osd-cell" style="background:#775A19;color:#FFF">38</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914">88</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div><div class="osd-cell" style="background:#B8862E;color:#FFF">64</div>
+            </div>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)"><span>gap</span><span style="width:10px;height:10px;background:#BA1A1A;border-radius:2px"></span><span style="width:10px;height:10px;background:#8a3a1a;border-radius:2px"></span><span style="width:10px;height:10px;background:#775A19;border-radius:2px"></span><span style="width:10px;height:10px;background:#B8862E;border-radius:2px"></span><span style="width:10px;height:10px;background:#E8C37E;border-radius:2px"></span><span>sovereign</span><span style="margin-left:auto">numbers = % of cohort verified</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Zoom-tier selector (Domain / Node / Contributor), 8×8 heatmap cells with cohort % overlay, color-coded by coverage band (Absolute Gap → Sovereign), four gap-category filters, legend.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap cell → drill into that node (next zoom tier). Each cell exposes ZKP cohort proof on hover ("This cohort coverage is mathematically attested without revealing individuals"). Filter by gap category at the top.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Onboarding</div><p>Pre-baseline: heatmap shows as uniform light grey with "Run baseline assessment to populate."</p></div>
+            <div class="state loading"><div class="h">Aggregating</div><p>Cells fade in from grey to color as ZKP aggregations confirm. Slow on purpose (~1.2s) — the cohort math is deliberate work.</p></div>
+            <div class="state error"><div class="h">Insufficient data</div><p>Cells with &lt;3 verified contributors gray out with "Cohort below privacy floor — increase verification or hide." Never breaches the k-anonymity threshold.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · privacy floor is non-negotiable</span><p>EWARD operates on cohort math, never individual scores — that's what makes it institutionally usable (no GDPR/HIPAA-grade issues, no individual exposure inside the org). The k-anonymity privacy floor (cells with &lt;3 contributors gray out) is a hard rule rendered visually: the CFO sees both the data they're allowed to see <i>and</i> the data they're explicitly not allowed to see, which builds trust with the workforce being measured. Surfaces that can't be inspected lose internal political support; this one shows its restraint.</p></div>
+    </section>
+
+    <!-- E3 · COVERAGE GAP ATLAS -->
+    <section class="bk" id="e3">
+      <div class="scr-head"><span class="no">E3</span><h3>Coverage Gap Atlas</h3></div>
+      <p class="scr-sub">The remediation roadmap. Every gap classified into four categories — Absolute, Partial, Prospective (decay-projected), Prerequisite Chain — each with a cost-to-close estimate and a path: hire externally via I-100, upskill internally via Forge, or wait.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">GAP ATLAS · 14 OPEN</span></div>
+          <div class="wf">
+            <div class="wf-row" style="gap:4px;flex-wrap:wrap"><span class="wf-pill on" style="font-size:10px">Absolute · 3</span><span class="wf-pill" style="font-size:10px">Partial · 7</span><span class="wf-pill" style="font-size:10px">Prospective · 3</span><span class="wf-pill" style="font-size:10px">Prereq Chain · 1</span></div>
+            <div class="wf-box" style="margin-top:8px;box-shadow:inset 3px 0 0 var(--error)"><div style="display:flex;align-items:center"><span style="font-size:12.5px;font-weight:600">Vector DB latency</span><span class="badge" style="background:var(--error);color:#FFF;font-size:9px;margin-left:auto">ABSOLUTE</span></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);margin-top:4px">0 verified · projected $84K hire cost · 6wk to close</div><div class="wf-row" style="margin-top:6px;gap:4px"><span class="wf-pill" style="font-size:9px">Hire (I-100)</span><span class="wf-pill" style="font-size:9px">Upskill (Forge)</span></div></div>
+            <div class="wf-box" style="margin-top:6px"><div style="display:flex;align-items:center"><span style="font-size:12.5px;font-weight:600">EU AI Act compliance</span><span class="badge" style="background:var(--primary);color:#FFF;font-size:9px;margin-left:auto">PARTIAL</span></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);margin-top:4px">1 verified · concentration risk · 4wk upskill 3 to close</div></div>
+            <div class="wf-box" style="margin-top:6px"><div style="display:flex;align-items:center"><span style="font-size:12.5px;font-weight:600">RAG architecture</span><span class="badge badge-blue" style="font-size:9px;margin-left:auto">PROSPECTIVE</span></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);margin-top:4px">8 verified · decay trajectory · breach in 11wk</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Gap-category filters, gap rows (title, type chip, current coverage, cost-to-close, ETA, action chips), sortable by impact or by closeable-quickness.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap row → drill into that node's verified cohort. "Hire" → routes to I-100 with the gap pre-loaded as a search. "Upskill" → routes to Forge with cohort + node preloaded.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No gaps</div><p>"Your cohort meets all current strategic requirements." Quiet, dignified. The platform doesn't manufacture work.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Gaps stream by category severity (Absolute first); cost-to-close estimates resolve last (they require a Pulse read).</p></div>
+            <div class="state error"><div class="h">Pulse stale</div><p>"Cost estimates cached" badge per row; gap identification still works without live Pulse.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- E4 · CHAOS SCENARIO SIMULATOR -->
+    <section class="bk" id="e4">
+      <div class="scr-head"><span class="no">E4</span><h3>Chaos Scenario Simulator</h3></div>
+      <p class="scr-sub">The CFO's stress test. Inject a hypothetical disruption — "Vector DB ecosystem migration," "EU AI Act enforcement," "regional energy-AI outage" — and EWARD recomputes lambda, projects TTR_org, identifies resilience anchors, and produces a Readiness Forecast Report. What-if analysis for human capital.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">CHAOS SIM · WHAT-IF</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Scenario</span><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px"><span class="wf-pill on" style="font-size:10px">EU AI Act enforcement</span><span class="wf-pill" style="font-size:10px">Vector DB shift</span><span class="wf-pill" style="font-size:10px">Custom</span></div></div>
+            <div class="wf-row" style="margin-top:8px"><div class="wf-box" style="flex:1"><span class="wf-label">Disruption mult</span><span style="font-family:var(--font-mono);font-size:14px">2.4x λ</span></div><div class="wf-box" style="flex:1"><span class="wf-label">Time horizon</span><span style="font-family:var(--font-mono);font-size:14px">12 wk</span></div></div>
+            <div class="wf-box" style="margin-top:8px;background:var(--inverse-surface);color:var(--inverse-on-surface)"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">PROJECTED IMPACT</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.8;margin-top:6px">TTR_org: <span style="color:var(--error)">17wk → 31wk</span><br>OSD breach: <span style="color:var(--error)">at T = 4.2 wk</span><br>Bond margin call: <span style="color:var(--error)">$1.2M exposure</span><br>Resilience anchors: <span style="color:var(--mentor)">3 staff</span></div></div>
+            <div style="margin-top:10px"><span class="wf-cta">Generate Readiness Report →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Scenario picker (preset + custom), λ disruption-multiplier slider, time-horizon picker, projected impact card on inverse vault surface (TTR_org delta, OSD breach time, bond exposure, anchors), report CTA.</p></div>
+            <div class="s"><b>Interactions</b><p>Parameters update the projection in real-time. "Resilience anchors" tap-through identifies (anonymously) which cohort members are the load-bearing skill holders — critical for retention strategy.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Pre-sim</div><p>"Pick a scenario or describe a custom disruption." Two example scenarios as one-tap starting points.</p></div>
+            <div class="state loading"><div class="h">Simulating</div><p>"Running cascade propagation across 4,000 nodes…" determinate; ~1.5s. The CFO needs to feel the math is real.</p></div>
+            <div class="state error"><div class="h">Anchors at risk</div><p>If resilience anchors are themselves in Decay state: "Your anchors are decaying. Re-verify them before relying on this projection." Honest about the projection's fragility.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the simulator's job is to scare the right CFO</span><p>This screen has one job: convert "we should probably train our team on AI" into "we have a $1.2M bond exposure if EU AI Act enforcement accelerates and we need to act this quarter." The mono inverse-vault projection card is intentionally severe — error-red TTR deltas, hard dollar exposure — because the CFO who needs this surface should feel the urgency the numbers actually warrant. Soft-pedaling the projection would be the same dishonesty as a credit agency rounding a rating up.</p></div>
+    </section>
+
+    <!-- E5 · BOND ISSUANCE -->
+    <section class="bk" id="e5">
+      <div class="scr-head"><span class="no">E5</span><h3>Bond Issuance Console</h3></div>
+      <p class="scr-sub">Where a hire becomes a bonded hire. Reads the candidate's Sovereign Passport (post-reveal), computes π and V_u against the Corridor Pulse, presents the policy in plain math, and writes it atomically to the Underwriting Ledger on commit.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">BOND ISSUANCE · LENA PARK</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Hire context</span><div style="font-family:var(--font-mono);font-size:11px;margin-top:4px">Dr. Lena Park · Houston-Energy · $200K base + $25K premium</div></div>
+            <div class="wf-row" style="margin-top:8px"><div class="wf-box" style="flex:1;text-align:center"><span class="wf-label">π PREMIUM</span><span style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--primary);display:block;margin-top:2px">$11,250</span><span style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">5% of package</span></div><div class="wf-box" style="flex:1;text-align:center"><span class="wf-label">V_u GUARANTEE</span><span style="font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--primary);display:block;margin-top:2px">$150K</span><span style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">first 180 days</span></div></div>
+            <div class="wf-box" style="margin-top:8px;background:var(--term);color:var(--inverse-on-surface);font-family:var(--font-mono);font-size:10px;line-height:1.7"><span style="color:var(--amber)">UNDERWRITING MATH</span><br>π = $5K × (λ=0.08 / CLI=0.92) × 1.2x vol = <span style="color:#C5A059">$11,250</span><br>V_u = ($200K + $25K) × 0.94 × 1.2 = <span style="color:#C5A059">$150K</span><br>strike threshold AICI = <span style="color:#C5A059">80</span></div>
+            <div style="margin-top:10px"><span class="wf-cta">Bind policy · commit to ledger →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Hire-context summary (from I-100 Connect or HRIS), π and V_u tiles with formula derivation, mono math readout, strike-threshold display, "bind policy" CTA that writes atomically to Underwriting Ledger.</p></div>
+            <div class="s"><b>Interactions</b><p>Math updates live as the recruiter adjusts comp / vol / strike. Bind requires explicit confirmation with hash receipt. Ledger write is atomic (all-or-none, never partial settlement).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No staged hire</div><p>"Stage a hire from I-100 Pipeline or HRIS to issue a bond." Single route.</p></div>
+            <div class="state loading"><div class="h">Binding</div><p>"Writing to Underwriting Ledger…" determinate; ledger hash returned on confirm. Animation is deliberately weighty (~1.2s) — this is a real financial commitment.</p></div>
+            <div class="state error"><div class="h">Atomic failure</div><p>If the atomic write fails any leg: "Bond not issued — your money and stake are untouched. Retry?" The 40/40/20 split is atomic by design.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- E6 · CLAIM ADJUDICATION (Strike) -->
+    <section class="bk" id="e6">
+      <div class="scr-head"><span class="no">E6</span><h3>Claim Adjudication · The Strike Event</h3></div>
+      <p class="scr-sub">When a bonded hire's AICI drifts below the strike threshold and they fail the corrective Hard-Gate, this screen handles the claim. Evidence chamber playback, liquidation calculator, and the gavel action that releases the $150K from the Underwriting Reserve.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">F-300 CLAIM · STRIKE TRIGGERED</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:var(--error-container);box-shadow:inset 3px 0 0 var(--error)"><div style="display:flex;align-items:center;gap:8px"><span class="badge" style="background:var(--error);color:#FFF;font-size:10px">⚠ STRIKE TRIGGERED</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--on-error-container)">2026-09-14 · day 142 of 180</span></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--on-error-container);margin-top:8px;line-height:1.8">▸ AICI drift: 92 → 78 (strike 80)<br>▸ Corrective Hard-Gate: FAIL<br>▸ Bond status: TRIGGERED</div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Evidence chamber</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">▸ Telemetry replay · 47 micro-challenges<br>▸ Daily drift trace · 90 days<br>▸ Corrective Gate session · 0x4f2a…</div></div>
+            <div class="wf-box" style="margin-top:8px;background:var(--inverse-surface);color:var(--inverse-on-surface);text-align:center"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">PAYOUT FROM UNDERWRITING RESERVE</span><div style="font-family:var(--font-mono);font-size:1.8rem;color:var(--primary-container);margin-top:4px">$150,000</div></div>
+            <div style="margin-top:10px;display:flex;gap:8px"><span class="wf-cta">⚖ Gavel · release payout</span><span class="wf-pill" style="font-size:10px">Dispute</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Strike summary (drift, corrective-gate result, day count), evidence chamber (telemetry replay, drift trace, session hashes), payout card (inverse vault), Gavel action + Dispute escape hatch.</p></div>
+            <div class="s"><b>Interactions</b><p>Gavel triggers atomic payout from the Underwriting Reserve. Dispute opens a structured adjudication panel (third-party Auditor Agent reviews the evidence). Receipt hash issued on either outcome.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No claims</div><p>"No strike events this quarter — all bonded hires within strike margins." The platform's brag screen.</p></div>
+            <div class="state loading"><div class="h">Adjudicating</div><p>"Verifying evidence hashes against Sovereign Ledger…" determinate. The gavel cannot fire before evidence verifies — fairness over speed.</p></div>
+            <div class="state error"><div class="h">Disputed</div><p>If the user disputes the strike: claim is held in escrow, Auditor Agent reviews, both sides see the same evidence chamber. Composed, never adversarial UI.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the Gavel is the most consequential action in the platform</span><p>Releasing $150K from the Reserve based on evidence is the closest the platform comes to an actual courtroom moment. We use the literal gavel verb — not "Process Payout" or "Release Funds" — because the action deserves its weight. The evidence chamber sits visible right above it, the dispute escape hatch is always available, and the payout animation is deliberately slow. This single screen is what makes the entire underwriting story credible: when a strike happens, the platform <i>actually pays</i>, and the CFO sees the receipt hash that proves it.</p></div>
+    </section>
+
+    <!-- L-200 INTRO -->
+    <section class="bk" id="l200-intro">
+      <div class="kicker"><span class="num">UW / L-200</span><span class="lbl">Institutional War Room</span></div>
+      <h2 class="sec">Stop ranking on prestige. Rank on real dollars.</h2>
+      <p class="lede">Four screens for provosts, deans, and state legislators. The League Table ranks institutions by Gross Dividend Asset — actual dollars returned via the 40/40/20 split — alongside Sovereign Density and Corridor Dominance. The platform stops being "another EdTech vendor" and becomes the league office.</p>
+    </section>
+
+    <!-- L1 · LEAGUE TABLE -->
+    <section class="bk" id="l1">
+      <div class="scr-head"><span class="no">L1</span><h3>League Table</h3></div>
+      <p class="scr-sub">The headline rank. Top 5 Power Houses by GDA, with Triple-Threat averages, Sovereign Density, and Corridor Dominance shown alongside. Updates live as hires close and dividends route.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">L-200 · LEAGUE TABLE · Q3 2026</span></div>
+          <div class="wf">
+            <table class="tbl"><thead><tr><th>#</th><th>Institution</th><th>GDA</th><th>SD</th></tr></thead>
+              <tbody>
+                <tr><td><span style="font-family:var(--font-mono);color:var(--primary);font-weight:700">01</span></td><td><b>University of Houston</b><div style="font-family:var(--font-mono);font-size:9px;color:var(--mentor)">Energy-AI · 62% corridor</div></td><td><span style="font-family:var(--font-mono);font-size:13px;color:var(--primary);font-weight:700">$8.4M</span></td><td><span style="font-family:var(--font-mono);font-size:11px">0.41</span></td></tr>
+                <tr><td><span style="font-family:var(--font-mono);font-weight:700">02</span></td><td><b>NYU Stern</b><div style="font-family:var(--font-mono);font-size:9px;color:var(--mentor)">Finance-AI · 38% corridor</div></td><td><span style="font-family:var(--font-mono);font-size:13px">$6.2M</span></td><td><span style="font-family:var(--font-mono);font-size:11px">0.36</span></td></tr>
+                <tr><td><span style="font-family:var(--font-mono);font-weight:700">03</span></td><td><b>Rice University</b><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">Energy-AI · 18%</div></td><td><span style="font-family:var(--font-mono);font-size:13px">$4.1M</span></td><td><span style="font-family:var(--font-mono);font-size:11px">0.34</span></td></tr>
+                <tr><td><span style="font-family:var(--font-mono);font-weight:700">04</span></td><td><b>Columbia Engineering</b><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">Finance-AI · 24%</div></td><td><span style="font-family:var(--font-mono);font-size:13px">$3.8M</span></td><td><span style="font-family:var(--font-mono);font-size:11px">0.32</span></td></tr>
+                <tr><td><span style="font-family:var(--font-mono);font-weight:700">05</span></td><td><b>UT Austin</b><div style="font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">Energy-AI · 8%</div></td><td><span style="font-family:var(--font-mono);font-size:13px">$2.9M</span></td><td><span style="font-family:var(--font-mono);font-size:11px">0.28</span></td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:8px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);text-align:center">GDA = Gross Dividend Asset · SD = Sovereign Density (% Triple-85) · Updates live</div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Ranked institution rows (GDA, Sovereign Density, dominant corridor + share), quarter selector, filter by region/sector, live-update indicator, historical trajectory sparklines.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap institution row → Institution Detail (L2). Tap corridor share → Corridor Dominance (L3). Live ticker scrolls when a new hire closes and a dividend routes.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Pre-launch</div><p>"League Table activates when first dividend routes through participating institutions." Honest about platform stage.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Rows hydrate top-to-bottom; GDA values stream in last.</p></div>
+            <div class="state error"><div class="h">Quarter not closed</div><p>Mid-quarter view shows "Q3 in progress · live ranking" — never silently presents a partial quarter as final.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the rank is a real dollar number</span><p>U.S. News rankings are an editorial product. The L-200 League Table is a financial fact: institution X earned $8.4M in real dividends from its graduates this quarter. That's the platform's most defensible institutional pitch — a provost cannot argue with their bank account. Rendering this as a financial table (mono, dollars, sparklines) instead of a "leaderboard" (which would feel like gamification) is what makes it persuasive to the people who decide university budgets.</p></div>
+    </section>
+
+    <!-- L2 · INSTITUTION DETAIL -->
+    <section class="bk" id="l2">
+      <div class="scr-head"><span class="no">L2</span><h3>Institution Detail</h3></div>
+      <p class="scr-sub">A single institution's full economic profile. GDA flow, Sovereign Density by program, top-earning graduates (anonymized + Tier 5+), corridor share trend. The provost's quarterly review.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">UNIVERSITY OF HOUSTON</span></div>
+          <div class="wf">
+            <div class="wf-row"><div class="wf-box" style="flex:1;text-align:center"><span class="wf-label">GDA (YTD)</span><span style="font-family:var(--font-mono);font-size:1.4rem;color:var(--primary);font-weight:700">$8.4M</span></div><div class="wf-box" style="flex:1;text-align:center"><span class="wf-label">SD</span><span style="font-family:var(--font-mono);font-size:1.4rem;font-weight:700">0.41</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">SD by program</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.9;margin-top:4px">CS / AI <span style="color:var(--mentor);float:right">0.62</span><br>Petroleum Eng <span style="color:var(--mentor);float:right">0.54</span><br>Business <span style="color:var(--on-surface-variant);float:right">0.18</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Top earning grads (anon · YTD dividend to U of H)</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">c0001 · $42K · Energy-AI<br>c0019 · $38K · Energy-AI<br>c0044 · $31K · Finance-AI</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>GDA + SD headline tiles, program-level SD breakdown, top dividend-earning anonymous grad list, corridor share trend, alumni-pool growth chart, peer comparison chip.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap program → SD heatmap scoped to that program. Top grads anonymized at the cNNNN level (same as I-100). "Compare to peer" overlays a rival institution's trajectory.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No grads</div><p>"No Sovereign-active graduates yet from this institution." Honest baseline.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>GDA tile first (cached value); program breakdown second; peer overlays last.</p></div>
+            <div class="state error"><div class="h">FERPA boundary</div><p>If grad pool falls below k-anonymity floor for a program: "Cohort below privacy floor for this program — showing institutional total only." Hard rule, visible to the provost.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- L3 · CORRIDOR DOMINANCE -->
+    <section class="bk" id="l3">
+      <div class="scr-head"><span class="no">L3</span><h3>Corridor Dominance</h3></div>
+      <p class="scr-sub">Market share of verified hires by region × sector. "U of H owns 62% of Energy-AI verified roles in Houston." The metric that converts the League Table from rank into territory.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">CORRIDOR · HOU ENERGY-AI</span></div>
+          <div class="wf">
+            <div class="corridor" style="padding:16px"><div style="position:relative;z-index:1"><div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.1em">HOUSTON · ENERGY-AI · 247 ROLES YTD</div><div style="margin-top:14px;display:grid;grid-template-columns:repeat(10,1fr);gap:3px"><div style="grid-column:span 6;background:var(--primary-container);height:24px;border-radius:3px;display:flex;align-items:center;padding:0 8px;font-family:var(--font-mono);font-size:9px;color:#3D2914;font-weight:700">U of H · 62%</div><div style="grid-column:span 2;background:#B8862E;height:24px;border-radius:3px;display:flex;align-items:center;padding:0 6px;font-family:var(--font-mono);font-size:8px;color:#FFF">Rice 18%</div><div style="grid-column:span 1;background:#8a6020;height:24px;border-radius:3px"></div><div style="grid-column:span 1;background:#5E3D1A;height:24px;border-radius:3px"></div></div><div style="font-family:var(--font-mono);font-size:9px;color:var(--inverse-on-surface);opacity:.6;margin-top:8px">U of H 62% · Rice 18% · UT 8% · Texas A&M 6% · Other 6%</div></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Trend · 4 quarters</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.8;margin-top:4px">Q4 2025: 51% → Q1: 54% → Q2: 58% → <span style="color:var(--mentor)">Q3: 62%</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Corridor selector (region × sector), stacked share bar (mono institution labels), 4-quarter trend, total roles count, "your share growing/shrinking" indicator.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap any institution's share segment → drill into that institution's L2. Toggle absolute vs relative share. Export to a quarterly board-pack PDF.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Emerging corridor</div><p>"Corridor not yet defined — minimum 50 verified hires required." Honest threshold.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Share bar animates left-to-right by share; trend resolves last.</p></div>
+            <div class="state error"><div class="h">Single-actor corridor</div><p>If one institution holds &gt;90%: "Concentration alert — share dominance may not reflect true market diversity." Honest about the data's tell.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- L4 · GDA DIVIDEND LEDGER -->
+    <section class="bk" id="l4">
+      <div class="scr-head"><span class="no">L4</span><h3>GDA Dividend Ledger</h3></div>
+      <p class="scr-sub">Every dollar that flowed to the institution under the 40/40/20 split. A live, append-only treasury log: which grad, which hire, which corridor, which amount, which hash. Auditable to the cent.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">GDA LEDGER · U of H</span></div>
+          <div class="wf">
+            <div style="background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:10px;line-height:2"><span style="color:var(--amber)">2026-09-14</span> · c0044 hire · ACME Energy · <span style="color:#C5A059">+$2,000</span> · 0x77ab…<br><span style="color:var(--amber)">2026-09-12</span> · c0019 hire · NRG · <span style="color:#C5A059">+$2,000</span> · 0x4f2a…<br><span style="color:var(--amber)">2026-09-08</span> · c0001 hire · Schlumberger · <span style="color:#C5A059">+$2,000</span> · 0x9c1b…<br><span style="color:var(--amber)">2026-09-04</span> · c0019 retention bonus · <span style="color:#C5A059">+$400</span> · 0x3e0a…<br><span style="color:var(--amber)">2026-09-01</span> · Q3 settlement · <span style="color:#C5A059">+$48,200</span> · 0x1d8f…</div>
+            <div style="margin-top:8px;font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-align:center">YTD total: <span style="color:var(--primary);font-weight:700">$8,412,000</span> · 247 entries</div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Append-only ledger entries (date, event, dollar amount, hash), YTD total, quarterly settlement highlights, filter by event type, downloadable CSV for state treasury reconciliation.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap entry → cryptographic verification of the dividend transaction. Read-only — no edit, no delete. Reconciles with the institution's actual bank deposits via the verification hash.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Genesis</div><p>"Genesis · this ledger begins with your first dividend event." Dignified, not empty.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Entries stream newest-first; YTD total resolves last (it's a full ledger scan).</p></div>
+            <div class="state error"><div class="h">Reconciliation drift</div><p>If on-platform total diverges from the institution's deposit total: explicit "drift detected · contact treasury ops" banner. The platform's job is to make accounting impossible to fudge.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B-300 RECRUITER BATTLE -->
+    <section class="bk" id="b300">
+      <div class="kicker"><span class="num">UW / B-300</span><span class="lbl">Recruiter Battle · Live Auction</span></div>
+      <h2 class="sec">When two recruiters want the same Tier-5.</h2>
+      <p class="lede">A bonus surface, distinct from the I-100 1:1 reveal flow. When a Tier-5 / Triple-85 candidate consents to be auctionable, multiple recruiters bid in a live timed market. Snipe protection extends the clock; the 40% institutional dividend recalculates in real-time. The Bloomberg-terminal moment of the entire platform.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">B-300 · BATTLE · ⏱ 00:42</span></div>
+          <div class="wf">
+            <div class="corridor" style="padding:14px"><div style="position:relative;z-index:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="dot-live" style="background:var(--error);box-shadow:0 0 8px 2px rgba(186,26,26,.3)"></span><span style="font-family:var(--font-mono);font-size:9px;color:var(--error);letter-spacing:.1em">SNIPE WINDOW · BIDS EXTEND CLOCK</span></div><div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">TOP BID · LIVE</div><div style="font-family:var(--font-mono);font-size:2.2rem;color:var(--primary-container);margin-top:4px">$348,000</div><div style="font-family:var(--font-mono);font-size:9px;color:var(--inverse-on-surface);opacity:.6">Hodge Talent · 12s ago</div></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Bid history · 3 firms</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.8;margin-top:4px">Hodge Talent · <span style="color:var(--primary);font-weight:700">$348K</span> · 12s<br>Korn Ferry · $342K · 41s<br>Hodge Talent · $338K · 1m 04s<br>Spencer Stuart · $325K · 1m 38s</div></div>
+            <div class="wf-box" style="margin-top:8px;background:var(--tertiary-container)"><span class="wf-label" style="color:var(--on-tertiary-container)">U of H DIVIDEND (40% LIVE)</span><div style="font-family:var(--font-mono);font-size:1.4rem;color:var(--on-tertiary-container);margin-top:4px">$139,200</div></div>
+            <div class="wf-row" style="margin-top:10px;gap:4px"><span class="wf-pill" style="font-size:10px">+$1K</span><span class="wf-pill" style="font-size:10px">+$5K</span><span class="wf-pill" style="font-size:10px">Custom</span><span class="wf-cta">⚔ Counter-bid →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Live top-bid hero (inverse vault), countdown clock with snipe-window flag, bid history, live 40% institutional dividend recalculation, Quick-Bid increments (+$1K / +$5K), custom counter-bid input.</p></div>
+            <div class="s"><b>Interactions</b><p>Bid in the final 30s adds 30s to the clock (snipe protection). Each bid updates dividend tile in real-time. Resolution lock at 00:00 → high-contrast overlay names the winner, routes to bond issuance (E5).</p></div>
+            <div class="s"><b>Auction integrity</b><p>Bids are escrowed (recruiter's account is held), not promises. Withdraw allowed only before final 30s. Bid retraction in the snipe window invalidates the recruiter for this candidate.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Pre-auction</div><p>"Auction begins in 4 hours — candidate has consented to bidding." Countdown to start; recruiters can pre-stage Quick-Bids.</p></div>
+            <div class="state loading"><div class="h">Bidding</div><p>Each bid logs instantly; the dividend tile shimmers as it recalculates against the new top bid.</p></div>
+            <div class="state error"><div class="h">Candidate withdrew</div><p>Auction closes with no winner; all escrowed bids release; candidate's account flagged for 60-day cooldown to discourage abuse of the platform's auction infrastructure.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the auction is the platform's distillation</span><p>The Recruiter Battle is everything Tenured AI argues, compressed into 90 seconds: a verified Tier-5 candidate, multiple serious recruiters paying real money, a live institutional dividend rising on screen, snipe protection borrowed from professional procurement, atomic settlement to a bond. We render this with the most aggressive financial-terminal grammar in the entire system — pulsing red snipe window, inverse vault top-bid, mono everywhere — because this is the surface that converts the whole story into a single visceral moment. Anyone seeing this auction live understands the business model.</p></div>
+    </section>
+
+    <!-- L5 · STATE KILL-SWITCH DASHBOARD -->
+    <section class="bk" id="l5">
+      <div class="scr-head"><span class="no">L5</span><h3>State Kill-Switch Dashboard · Regional Integrity Monitor</h3></div>
+      <p class="scr-sub">For state legislators and university Regents. A Command Authority (CA) heatmap across regions and institutions — early warning when CA scores drop at a satellite campus (signaling LLM-cheating or educational quality collapse) before dividend flow is compromised.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">L-200 · STATE INTEGRITY · TX</span></div>
+          <div class="wf">
+            <div class="corridor" style="padding:14px"><div style="display:flex;align-items:center;gap:8px;position:relative;z-index:1;margin-bottom:8px"><span class="dot-live"></span><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">CA INTEGRITY · 47 INSTITUTIONS</span></div><div class="osd-grid" style="grid-template-columns:repeat(10,1fr);position:relative;z-index:1">
+              <div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914;font-size:7px">+9</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF;font-size:7px">↓8</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF;font-size:7px">↓8</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914;font-size:7px">+9</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF;font-size:7px">↓28</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914;font-size:7px">+9</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914;font-size:7px">+9</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#8a3a1a;color:#FFF;font-size:7px">↓8</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF;font-size:7px">↓28</div><div class="osd-cell" style="background:#B8862E;color:#FFF;font-size:7px">+3</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF;font-size:7px">↓28</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#BA1A1A;color:#FFF;font-size:7px">↓28</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#775A19;color:#FFF;font-size:7px">—</div><div class="osd-cell" style="background:#E8C37E;color:#3D2914;font-size:7px">+9</div>
+            </div></div>
+            <div class="wf-box" style="margin-top:8px;box-shadow:inset 3px 0 0 var(--error)"><div style="display:flex;align-items:center;gap:8px"><span class="badge" style="background:var(--error);color:#FFF;font-size:10px">⚠ EARLY WARNING</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px">2 institutions</span></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);margin-top:6px;line-height:1.7">▸ Sat. Campus North-3 · CA ↓ 28% in 30d<br>▸ Sat. Campus East-7 · CA ↓ 22% in 30d</div></div>
+            <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-cta">Intervene</span><span class="wf-pill" style="font-size:10px">Dividend hold</span><span class="wf-pill" style="font-size:10px">Audit</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>State/region selector, CA delta heatmap (30/60/90-day windows), early-warning institution list with drop magnitude, three intervention actions (Intervene / Dividend hold / Audit).</p></div>
+            <div class="s"><b>Interactions</b><p>Tap institution cell → CA trajectory + likely cause (LLM-cheating pattern detected, faculty turnover, etc). Intervene routes to a structured remediation brief; Dividend hold escrows 40% pending audit.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Steady state</div><p>"No regional integrity drift detected this quarter." Quiet calm — the platform's stability brag.</p></div>
+            <div class="state loading"><div class="h">Computing</div><p>CA deltas recompute nightly; cells fade in from grey as confirmed.</p></div>
+            <div class="state error"><div class="h">False positive risk</div><p>Small sample sizes show "n &lt; threshold — drift not yet statistically significant." Honest about signal vs noise.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the State as a third audience that doesn't know it yet</span><p>The Kill-Switch Dashboard is Tenured AI's pitch to state legislators wrapped as a product. A state with $20M/year in workforce dividend flow needs an integrity monitor, and we provide it — turning the 20% State Treasury split from a payment line into a governance product. This single screen reframes the entire platform: not "an EdTech vendor universities pay" but "a public good states co-administer." The visual restraint (no celebration colors, calm intervention CTAs) is what makes it look like a governance instrument rather than a software dashboard.</p></div>
+    </section>
+
+    <!-- ACCESSIBILITY -->
+    <section class="bk" id="a11y">
+      <div class="kicker"><span class="num">UW / A</span><span class="lbl">Accessibility</span></div>
+      <h2 class="sec">Financial infrastructure must be readable by every operator.</h2>
+      <p class="lede">EWARD and L-200 are operated by executives, treasurers, auditors, and legislators — many over 50, many with mature reading-accommodation needs. The underwriting math must be readable, the heatmaps narratable, the auction operable from a keyboard.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:14px">WCAG 2.2 AA</h3>
+          <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+            <li>· <b style="color:var(--on-surface)">Mono finance numerals</b> use ≥14px on screens; "$" prefix and "%" suffix mandatory so screen readers parse currency/percent correctly.</li>
+            <li>· <b style="color:var(--on-surface)">Heatmap cells</b> always carry both the color band AND the numeric coverage (00, 12, 38, 64, 88) — never color-only.</li>
+            <li>· <b style="color:var(--on-surface)">Reduce Motion:</b> count-up animations (R3, R6, E1) degrade to instant final values; auction snipe flash becomes a static color.</li>
+            <li>· <b style="color:var(--on-surface)">Targets:</b> Quick-Bid chips, gavel, intervention buttons all ≥ 44×44pt. Keyboard equivalents for every gesture.</li>
+            <li>· <b style="color:var(--on-surface)">Contrast:</b> mono amber on inverse vault validated at 4.8:1; error reds on error-container validated at 5.2:1.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:14px">VoiceOver & Dynamic Type</h3>
+          <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+            <li>· <b style="color:var(--on-surface)">Heatmaps</b> expose a navigable data table fallback ("Vector DB latency, 0% coverage, Absolute Gap, est cost $84K, est ETA 6 weeks") so a non-visual user reads the org's risk register as a list.</li>
+            <li>· <b style="color:var(--on-surface)">Auction (B-300)</b> announces every bid via aria-live polite with the new top bid + dividend update, so a blind recruiter can compete in real-time.</li>
+            <li>· <b style="color:var(--on-surface)">Strike Event (E6)</b> announces the gavel commit as "Strike payout committed, $150,000 released, receipt hash 0x77ab" — auditable by ear.</li>
+            <li>· <b style="color:var(--on-surface)">Dynamic Type</b> scales to AX5; the financial tables reflow column-by-column rather than truncating mono numerals.</li>
+            <li>· <b style="color:var(--on-surface)">k-anonymity floors</b> announce explicitly when triggered ("Below privacy floor — cohort hidden") rather than silently skipping a cell.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGNER'S NOTES -->
+    <section class="bk" id="notes">
+      <div class="kicker"><span class="num">UW / ★</span><span class="lbl">Designer's Notes</span></div>
+      <h2 class="sec">Eight decisions that bind the three surfaces.</h2>
+      <p class="lede">The throughlines a future team must preserve to keep the I-100, EWARD, and L-200 reading as one underwriting machine rather than three loosely-related dashboards.</p>
+      <div class="grid g2">
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">01</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Three surfaces, one Corridor Pulse.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Every screen reads against the same shared Pulse feed. Recruiters, CFOs, and provosts see consistent market data because they are operating in one market.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">02</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Friction is a feature, not a bug.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Reveal credits, structured Hire Briefs, atomic bond commits, deliberate gavel — every consequential action is rendered with weight. Speed is for the recruiter; gravity is for the bond.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">03</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Show the math, render the moat.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">π, V_u, OSD, TTR_org, GDA are all surfaced as readable formulas on inverse vault surfaces. The patents are the moat; rendering them as instrumentation is what makes that moat legible.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">04</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Privacy as power, k-anonymity as law.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Phase 1/2/3 protocol inverts recruiter-candidate power. OSD heatmap enforces k-anonymity even when a CFO wants to drill deeper. Privacy is the product.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">05</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Failure is paid, not hidden.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">The Strike Event renders with full evidence + a literal gavel + a real wire of $150K. A platform that pays out builds trust no marketing copy can match.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">06</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Rank on dollars, not prestige.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">L-200 League Table uses GDA (real dividend dollars) as #1 metric. Universities can argue with editors; they cannot argue with their own bank deposits.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">07</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">The State is a customer too.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">The Kill-Switch Dashboard treats state legislators as third audience — their 20% revenue share needs an integrity monitor. This reframes the platform as a public good.</p></div>
+        <div class="tile" style="grid-column:1/-1"><span style="font-family:var(--font-mono);color:var(--primary)">08</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">The Recruiter Battle is the entire platform in 90 seconds.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Verified Tier-5 candidate, multiple serious bidders, live institutional dividend, snipe protection, atomic settlement to a bond. Anyone who watches the auction once understands the business model — which is why this surface gets the most aggressive financial grammar in the entire system. It is the surface that sells the platform to investors, regulators, and rival firms in a single screen.</p></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="kicker"><span class="num">UW / END</span></div>
+      <p style="font-family:var(--font-headline);font-size:1.4rem;font-weight:600;color:var(--on-surface);max-width:40ch">The Sovereign Underwriting Surface. Where talent becomes a hedged asset.</p>
+      <p class="mono" style="margin-top:22px">I-100 · EWARD · L-200 · B-300 · UI/UX SPEC v1.0 · 20 SCREENS · 4 AUDIENCES · PAT-013 · PAT-014 · WCAG 2.2 AA</p>
+    </footer>
+
+  </div>
+  </main>
+</div>
+
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+</body>
+</html>

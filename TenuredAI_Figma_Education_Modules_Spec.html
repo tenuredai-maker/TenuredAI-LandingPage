@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Education Modules · Figma Design Ops Specification</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--tertiary:#8FA5D6;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4,h5{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 22px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em;margin-bottom:6px}
+.brand .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.5}
+.nav-group{margin-top:24px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:9px}
+.nav-group a{display:block;padding:5px 0;font-size:13px;opacity:.78;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:6px}
+
+.content{max-width:1080px;margin:0 auto;padding:0 40px}
+.hero{padding:80px 0 50px}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:18ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p.lede{font-size:1.15rem;color:var(--on-surface-variant);max-width:62ch;margin-top:22px;line-height:1.6}
+
+section.bk{padding:70px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:1080px;margin-inline:auto;padding-inline:40px}
+h2.sec{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin-bottom:12px;max-width:26ch}
+.sec-sub{font-size:15px;color:var(--on-surface-variant);max-width:66ch;margin-bottom:36px;line-height:1.6}
+
+.card{background:var(--sc-lowest);border-radius:var(--r-xl);padding:28px;box-shadow:var(--editorial);margin-bottom:20px}
+.card-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.card-head .c-id{font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.12em;font-weight:700;padding:5px 11px;border-radius:var(--r-pill);background:rgba(197,160,89,.14);flex-shrink:0}
+.card-head .c-title{font-family:var(--font-headline);font-weight:700;font-size:1.18rem;flex:1;min-width:200px}
+.card-head .c-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;background:var(--sc-high);color:var(--on-surface-variant);font-weight:700}
+.card-head .c-tag.tp{background:var(--sovereign);color:#FFF}
+.card-head .c-tag.tb{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.card-head .c-tag.tm{background:rgba(79,138,107,.16);color:var(--mentor)}
+.card-head .c-tag.te{background:rgba(186,26,26,.12);color:var(--error)}
+
+.spec{display:grid;grid-template-columns:160px 1fr;gap:14px;padding:10px 0;font-size:13.5px;border-bottom:1px dashed rgba(127,118,103,.18)}
+.spec:last-child{border-bottom:none}
+.spec-k{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding-top:2px}
+.spec-v{color:var(--on-surface);line-height:1.55}
+.spec-v em{font-style:normal;background:rgba(197,160,89,.14);padding:1px 6px;border-radius:4px;color:var(--primary);font-family:var(--font-mono);font-size:12px}
+.spec-v code{font-family:var(--font-mono);font-size:12px;background:var(--sc-low);padding:2px 7px;border-radius:5px;color:var(--on-surface)}
+
+.code{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-lg);padding:20px 24px;font-family:var(--font-mono);font-size:12.5px;line-height:1.75;overflow-x:auto;margin:14px 0;position:relative;white-space:pre}
+.code::before{content:attr(data-lang);position:absolute;top:8px;right:14px;font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em;opacity:.7;text-transform:uppercase}
+
+.sketch{background:#16140F;border-radius:var(--r-lg);padding:22px;margin:18px 0;font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);line-height:1.55;position:relative;overflow:hidden}
+.sketch::before{content:"WIREFRAME · ASCII";display:block;font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em;font-weight:700;margin-bottom:12px;opacity:.8}
+.sketch pre{white-space:pre;color:var(--inverse-on-surface);opacity:.85}
+
+.prop-table{width:100%;border-collapse:separate;border-spacing:0 8px;margin-top:14px;font-size:13px}
+.prop-table th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--on-surface-variant);text-transform:uppercase;padding:8px 14px;font-weight:700}
+.prop-table td{background:var(--sc-low);padding:11px 14px;vertical-align:top;line-height:1.5}
+.prop-table td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:24%}
+.prop-table td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+.prop-table td code{font-family:var(--font-mono);font-size:11.5px;background:var(--sc-lowest);padding:1px 6px;border-radius:4px}
+
+.callout{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:32px;position:relative;overflow:hidden;margin:30px 0}
+.callout::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.callout .seal{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px;position:relative;z-index:1}
+.callout h3{font-family:var(--font-headline);font-size:1.5rem;font-weight:700;line-height:1.2;margin-bottom:10px;color:var(--primary-container);position:relative;z-index:1}
+.callout p{font-size:14.5px;color:var(--inverse-on-surface);opacity:.88;line-height:1.65;position:relative;z-index:1;max-width:62ch}
+
+ul.std{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.85}
+ul.std li{padding-left:18px;position:relative;margin-bottom:6px}
+ul.std li::before{content:"·";position:absolute;left:0;color:var(--primary);font-weight:700}
+ul.std li b{color:var(--on-surface);font-weight:700}
+
+.foot{padding:60px 0 100px;color:var(--on-surface-variant);font-size:13px}
+.foot p{font-family:var(--font-headline);font-size:1.3rem;font-weight:600;color:var(--on-surface);max-width:42ch}
+.foot .mono{font-size:12px;margin-top:22px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{.themebtn,.printbtn,.sidebar{display:none !important}.shell{grid-template-columns:1fr}.card{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">Tenured AI<span class="dot">.</span> Figma Spec</div>
+    <div class="ver">EDUCATION MODULES<br>FIGMA DESIGN OPS HANDOFF<br>M-301 / M-310 / M-320 / M-330 / M-340 / M-350<br>v1.0 · 2026</div>
+
+    <nav class="nav-group">
+      <h4>Foundation</h4>
+      <a href="#overview"><span class="sn">01</span>Overview &amp; Loop Integration</a>
+      <a href="#tp-economy"><span class="sn">02</span>The TP Economy</a>
+      <a href="#tokens"><span class="sn">03</span>Design Tokens</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Module Surfaces</h4>
+      <a href="#hub"><span class="sn">04</span>M-301 Module Hub</a>
+      <a href="#reader"><span class="sn">05</span>M-310 Article Reader</a>
+      <a href="#video"><span class="sn">06</span>M-320 Video Player</a>
+      <a href="#podcast"><span class="sn">07</span>M-330 Podcast Player</a>
+      <a href="#source"><span class="sn">08</span>M-340 Annotated Source</a>
+      <a href="#check"><span class="sn">09</span>M-350 Comprehension Check</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Cross-Surface</h4>
+      <a href="#telemetry"><span class="sn">10</span>Active-Presence Telemetry</a>
+      <a href="#annotations"><span class="sn">11</span>Annotation Integration</a>
+      <a href="#prototype"><span class="sn">12</span>Prototype Flows</a>
+      <a href="#handoff"><span class="sn">13</span>Dev Handoff</a>
+      <a href="#a11y"><span class="sn">14</span>Accessibility</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="kicker"><span class="num">FIGMA DESIGN OPS SPEC</span><span class="lbl">Education Modules · M-301 family · v1.0</span></div>
+      <h1>The content-consumption surfaces. <span class="gild">Now they earn TP too.</span></h1>
+      <p class="lede">A production-grade Figma Design Ops specification covering the content-consumption surfaces missing from the original Learning Loop spec — M-301 Module Hub plus five reader-mode surfaces (article, video, podcast, annotated source) and the M-350 Comprehension Check. Critically, this spec defines the <i>Tenure Points economy for content viewing</i> — how passive engagement earns TP, how comprehension multiplies it, how the patents (PAT-002 telemetry, PAT-019 confidence, PAT-020 annotations) make the credit defensible. The drill surfaces credit verification; these surfaces credit the reading and watching that builds the verification capacity.</p>
+    </header>
+
+
+    <!-- ============ §01 · OVERVIEW & LOOP INTEGRATION ============ -->
+    <section class="bk" id="overview">
+      <div class="kicker"><span class="num">§01</span><span class="lbl">Overview &amp; Loop Integration</span></div>
+      <h2 class="sec">Where these surfaces sit. How they connect to L-100.</h2>
+      <p class="sec-sub">The Education Modules are an extension of the Learning Loop — they live under the same L-100 Forge Hub umbrella but operate on a different mechanic. Where L-110 (Quiz) and L-120 (Flashcard) credit <i>verification</i>, the M-3xx surfaces credit <i>engagement with the source material that prepares verification</i>. The Tenured Agent surfaces module recommendations into the L-100 Hub the same way it surfaces drill recommendations.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">CONTEXT · 01</span>
+          <span class="c-title">Screen identities in the platform manifest</span>
+        </div>
+        <div class="spec"><div class="spec-k">M-301</div><div class="spec-v">Module Hub — entry point listing available modules by node, type, and decay-relevance</div></div>
+        <div class="spec"><div class="spec-k">M-310</div><div class="spec-v">Article Reader — long-form text content with reading-pace telemetry</div></div>
+        <div class="spec"><div class="spec-k">M-320</div><div class="spec-v">Video Player — video lecture with chapter markers, transcript, attention telemetry</div></div>
+        <div class="spec"><div class="spec-k">M-330</div><div class="spec-v">Podcast Player — audio content with synchronized transcript and timestamp annotations</div></div>
+        <div class="spec"><div class="spec-k">M-340</div><div class="spec-v">Annotated Source Viewer — code samples / patent excerpts / technical specs with PAT-020 inline annotations</div></div>
+        <div class="spec"><div class="spec-k">M-350</div><div class="spec-v">Comprehension Check — end-of-module 3-question verification gauntlet (reuses L-110 Quiz mechanic)</div></div>
+        <div class="spec"><div class="spec-k">Patents</div><div class="spec-v">PAT-002 (AI Learning Telemetry &amp; Feedback Loop — active-presence detection), PAT-006 (Adaptive Learning Path — module recommendation), PAT-019 (Confidence-Weighted — comprehension check), PAT-020 (Node-Persistent Annotations — annotation TP credit)</div></div>
+        <div class="spec"><div class="spec-k">Backend</div><div class="spec-v">MOD-002 (ALTFL telemetry), MOD-006 (ALPOE path orchestration), MOD-301 (Module Content Service)</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">CONTEXT · 02</span>
+          <span class="c-title">Loop topology — where modules connect</span>
+        </div>
+        <div class="sketch">
+<pre>                    ┌────────────────────────────┐
+                    │   L-100  THE FORGE HUB     │
+                    │   Daily entry · streak     │
+                    └─────────────┬──────────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                   ▼
+     ┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+     │ M-301 MODULE  │   │ L-110 / L-120 │   │ L-200 REFRESH │
+     │ HUB           │   │ DRILL         │   │ LAB           │
+     │ (NEW · this   │   │ SURFACES      │   │               │
+     │  spec)        │   │               │   │               │
+     └───────┬───────┘   └───────┬───────┘   └───────┬───────┘
+             │                   │                   │
+   ┌─────────┼───────┐           │                   │
+   ▼  ▼  ▼  ▼  ▼     │           │                   │
+  M-310 M-320 M-330  │           │                   │
+  M-340              │           │                   │
+   │                 │           │                   │
+   ▼                 │           │                   │
+  M-350              │           │                   │
+  COMPREHENSION      │           │                   │
+  CHECK              │           │                   │
+   │                 │           │                   │
+   └─────────┬───────┴───────────┴───────────────────┘
+             ▼
+   ┌────────────────────────────┐
+   │   TP MINTING               │
+   │   Base (time-attested)     │
+   │   + Comprehension mult     │
+   │   + Annotation credit      │
+   │   → L-400 Ledger           │
+   └────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">DESIGN ETHOS — THIS FAMILY</span>
+        <h3>"The reading is the soil. The drill is the seed. The credential is the harvest."</h3>
+        <p>The original Learning Loop spec covered the drill — the seed. It assumed the soil was already there. In practice, engineers who arrive at the platform without the right conceptual foundation cannot drill productively. The M-3xx surfaces are the soil — the reading, watching, listening that prepares the conceptual frame the drill then verifies. The TP economy this spec defines is what makes the soil-tending worth doing. Without TP for content engagement, the platform's incentive structure would reward only the verification step and ignore the preparation. That would be incoherent — the platform's premise is that <i>both</i> are necessary.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ §02 · TP ECONOMY ============ -->
+    <section class="bk" id="tp-economy">
+      <div class="kicker"><span class="num">§02</span><span class="lbl">The TP Economy for Content Viewing</span></div>
+      <h2 class="sec">Hybrid model. Patent-aligned. Anti-gaming by architecture.</h2>
+      <p class="sec-sub">This is the most consequential section of the spec. The TP economy must reward genuine engagement without creating exploitable loops. The model below threads the three patents — PAT-002 (telemetry attests presence), PAT-019 (confidence multiplies value), PAT-020 (annotation persists usefulness).</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">ECONOMY · 01</span>
+          <span class="c-title">The three TP sources per module</span>
+          <span class="c-tag tp">PATENT-ALIGNED</span>
+        </div>
+
+        <table class="prop-table">
+          <thead><tr><th>Source</th><th>Rate</th><th>Patent</th><th>Anti-gaming mechanism</th></tr></thead>
+          <tbody>
+            <tr><td><b>Time-attested viewing (base)</b></td><td>Reading: 1 TP per 5 min<br>Video: 1 TP per 3 min<br>Podcast: 1 TP per 4 min<br>Source: 1 TP per 4 min</td><td>PAT-002 ALTFL</td><td>Active-presence detection · scrubbing forfeits the segment · tab-focus loss pauses accrual · max 80% of nominal TP creditable from passive viewing alone (forces the comprehension check for full credit)</td></tr>
+            <tr><td><b>Comprehension multiplier</b></td><td>×0.5 (fail) to ×3.0 (perfect at Underwritten)</td><td>PAT-019 confidence-weighted</td><td>End-of-module 3-question check using L-110 Quiz Gauntlet mechanic · Underwritten wrong answer still triggers OL flag</td></tr>
+            <tr><td><b>Annotation credit</b></td><td>2 TP per substantive annotation (≥ 80 char, anchored to specific timestamp / paragraph / line)</td><td>PAT-020 node-persistent annotations</td><td>Annotation must be a substantive note, not a copy-paste of source content · auto-detector for substantive vs. trivial · max 5 annotation credits per module</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">ECONOMY · 02</span>
+          <span class="c-title">The worked example — a 20-minute video module</span>
+        </div>
+
+        <table class="prop-table">
+          <thead><tr><th>Scenario</th><th>Time TP</th><th>Comp. mult.</th><th>Anno. TP</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>Scrubbed to end · skipped check</td><td>0</td><td>—</td><td>0</td><td><b>0 TP</b></td></tr>
+            <tr><td>Active viewing · skipped check</td><td>6 TP (capped at 80% of 7 max — passive cap)</td><td>—</td><td>0</td><td><b>6 TP</b></td></tr>
+            <tr><td>Active viewing · check failed</td><td>7 TP</td><td>×0.5</td><td>0</td><td><b>4 TP (rounded)</b></td></tr>
+            <tr><td>Active viewing · check 2/3 correct</td><td>7 TP</td><td>×1.0</td><td>0</td><td><b>7 TP</b></td></tr>
+            <tr><td>Active viewing · check 3/3 at Moderate confidence</td><td>7 TP</td><td>×1.5</td><td>0</td><td><b>11 TP</b></td></tr>
+            <tr><td>Active viewing · check 3/3 at Confident · 2 annotations</td><td>7 TP</td><td>×2.0</td><td>4 TP</td><td><b>18 TP</b></td></tr>
+            <tr><td>Active viewing · check 3/3 at Underwritten · 5 annotations</td><td>7 TP</td><td>×3.0</td><td>10 TP</td><td><b>31 TP</b></td></tr>
+            <tr><td>Active viewing · check at Underwritten · 1 wrong</td><td>7 TP</td><td>×0.0 + <b>OL flag fires</b></td><td>0</td><td><b>0 TP + Overconfident Liability classification</b></td></tr>
+          </tbody>
+        </table>
+
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic"><b style="color:var(--on-surface)">Critical observation:</b> the spread from 0 TP (scrubbed, no check) to 31 TP (full engagement) is intentionally wide. The platform's data design rewards the engineer who genuinely engaged with the content and is able to demonstrate it. The OL trigger on Underwritten failure is the same mechanic as the L-110 Quiz Gauntlet — overconfidence at the highest stake produces a Performance Bond review, not just a missed multiplier.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">ECONOMY · 03</span>
+          <span class="c-title">The streak interaction</span>
+        </div>
+        <div class="spec"><div class="spec-k">Streak counter contribution</div><div class="spec-v">A completed module (active viewing + passed comprehension check at any tier) counts the same as a Forge drill session for the daily streak counter. Per PAT-006, the streak multiplier applies to module TP exactly as it applies to drill TP.</div></div>
+        <div class="spec"><div class="spec-k">Streak example</div><div class="spec-v">An engineer at the ×1.50 streak tier (10+ consecutive days) who earns 18 base TP from a video module receives 18 × 1.50 = 27 TP credited to the Ledger. The streak compounding is consistent across drill and content surfaces.</div></div>
+        <div class="spec"><div class="spec-k">Anti-stuff defense</div><div class="spec-v">A user attempting to maintain a streak by completing only 2-minute "modules" with a single comprehension question is bounded by the platform's minimum-engagement floor: a module must have ≥ 8 minutes of attested time AND ≥ 3 comprehension-check questions to qualify for streak credit. Below the floor, the module is logged but the streak does not advance.</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">PATENT-ALIGNMENT NOTE</span>
+        <h3>"The economy is the architecture. The architecture is the patent."</h3>
+        <p>PAT-002 says: telemetry is a verification signal. PAT-019 says: confidence-weighted scoring multiplies stake-aware engagement. PAT-020 says: annotations persist usefulness. The TP economy for content viewing operationalizes all three. The platform cannot credit passive sitting-through as competency — that would betray PAT-019's core claim. The platform cannot credit only comprehension because that would discount PAT-002's telemetry-as-signal claim. The hybrid is patent-coherent.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ §03 · DESIGN TOKENS ============ -->
+    <section class="bk" id="tokens">
+      <div class="kicker"><span class="num">§03</span><span class="lbl">Design Tokens</span></div>
+      <h2 class="sec">Inherits Learning Loop. Three module-specific groups.</h2>
+      <p class="sec-sub">The Education Modules inherit the Learning Loop token system (surface colors, confidence scale, decay states, multiplier tiers, typography). The module surfaces add three semantic families: module-type (5 types), presence-state (3 states for active/idle/lost), and TP-source-attribution (3 sources matching the economy above).</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">TOKEN · 01</span>
+          <span class="c-title">Module-type tokens</span>
+        </div>
+        <div class="spec"><div class="spec-k">module/type/article</div><div class="spec-v">Background tint: <code>rgba(143,165,214,.06)</code> · glyph: ▤ · accent: Intellectual Blue #2C4771</div></div>
+        <div class="spec"><div class="spec-k">module/type/video</div><div class="spec-v">Background tint: <code>rgba(197,160,89,.06)</code> · glyph: ▶ · accent: ochre #C5A059</div></div>
+        <div class="spec"><div class="spec-k">module/type/podcast</div><div class="spec-v">Background tint: <code>rgba(79,138,107,.06)</code> · glyph: ◐ (waveform reduced) · accent: mentor green #4F8A6B</div></div>
+        <div class="spec"><div class="spec-k">module/type/source</div><div class="spec-v">Background tint: <code>rgba(28,28,26,.04)</code> · glyph: { } · accent: warm charcoal #1C1C1A</div></div>
+        <div class="spec"><div class="spec-k">module/type/check</div><div class="spec-v">Background tint: Sovereign Gradient at 4% opacity · glyph: ◇ · accent: ochre #C5A059</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">TOKEN · 02</span>
+          <span class="c-title">Presence-state tokens (PAT-002)</span>
+          <span class="c-tag tp">3-STATE PRESENCE</span>
+        </div>
+        <div class="spec"><div class="spec-k">presence/active</div><div class="spec-v">Mentor green #4F8A6B · pulse 2.4s ease-in-out · indicates active-presence detected · TP accrual on</div></div>
+        <div class="spec"><div class="spec-k">presence/idle</div><div class="spec-v">Amber #FFBF00 · static · 8+ seconds without input · TP accrual paused (does not reset)</div></div>
+        <div class="spec"><div class="spec-k">presence/lost</div><div class="spec-v">Error muted #FF8B7A · static · tab-focus lost OR 30+ seconds idle · TP accrual paused · segment will be marked non-creditable if state persists &gt; 60s</div></div>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic">Per PAT-002, the presence telemetry runs continuously during module viewing. The state pill is visible in every module surface's upper-right corner so the user knows their TP accrual status. The platform does not hide the telemetry from the user; honesty about what's measured is part of the trust commitment.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">TOKEN · 03</span>
+          <span class="c-title">TP-source-attribution tokens</span>
+        </div>
+        <div class="spec"><div class="spec-k">tp-source/time</div><div class="spec-v">Color: <code>loop/decay/active</code> mentor green · used in TP breakdown to label time-attested portion</div></div>
+        <div class="spec"><div class="spec-k">tp-source/comprehension</div><div class="spec-v">Color: <code>loop/multiplier/streak-15</code> ochre · used to label comprehension multiplier portion</div></div>
+        <div class="spec"><div class="spec-k">tp-source/annotation</div><div class="spec-v">Color: <code>tertiary</code> Intellectual Blue · used to label annotation-credit portion</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">TOKEN · 04</span>
+          <span class="c-title">Typography additions for content surfaces</span>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Token</th><th>Family</th><th>Size / Line</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td>reader/article</td><td>Inter · 400</td><td>18 / 32</td><td>Long-form article body · max-width 680px · letter-spacing -0.005em</td></tr>
+            <tr><td>reader/heading</td><td>Sora · 700</td><td>32 / 38</td><td>Article H1 · subhead</td></tr>
+            <tr><td>reader/h2</td><td>Sora · 700</td><td>24 / 30</td><td>Article H2</td></tr>
+            <tr><td>reader/h3</td><td>Inter · 700</td><td>18 / 24</td><td>Article H3 — switches to Inter for hierarchy contrast</td></tr>
+            <tr><td>source/code</td><td>JetBrains Mono · 400</td><td>14 / 22</td><td>Annotated source content · syntax highlighted</td></tr>
+            <tr><td>caption/transcript</td><td>Inter · 400</td><td>15 / 24</td><td>Video / podcast transcript synchronized with playback</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ============ §04 · M-301 MODULE HUB ============ -->
+    <section class="bk" id="hub">
+      <div class="kicker"><span class="num">§04</span><span class="lbl">M-301 · Module Hub</span></div>
+      <h2 class="sec">The entry point. Modules organized by node, type, and decay-relevance.</h2>
+      <p class="sec-sub">M-301 is where the user lands when the Tenured Agent recommends a module ("/refresh {node} → M-301") or when the user navigates from L-100's quick-access tiles. The hub surfaces module recommendations driven by PAT-006 path orchestration — modules tied to the user's current decay-warning nodes appear first, modules adjacent to scheduled Hard-Gates appear second, exploratory modules appear last.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 01</span>
+          <span class="c-title">M-301 / Module Hub / Default</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-301 / Module Hub / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill height</div></div>
+        <div class="spec"><div class="spec-k">Fill</div><div class="spec-v"><code>loop/bg/canvas</code> #FCF9F5</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Vertical · padding <code>40 80</code> · gap <code>32</code></div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">hub-header (Fill × 120) · filter-row (Fill × 56) · recommended-row (Fill × 320) · all-modules-grid (Fill × variable)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  EDUCATION MODULES                                            ⌘K ◐ ⎙    │
+│  47 modules tied to your active ontology · TP-eligible                   │
+│                                                                          │
+│  [ ALL ]  ▤ Articles  ▶ Videos  ◐ Podcasts  { } Source                  │
+│  Filter:  ★ Recommended  ⚠ Decay-driven  □ Hard-Gate prep                │
+│                                                                          │
+│  RECOMMENDED FOR YOU · (3 · driven by current decay state)               │
+│  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐         │
+│  │ ▶ Vector DB      │ │ ▤ Prompt Inj.    │ │ { } RAG-arch     │         │
+│  │   Latency Tuning │ │   Defense Brief  │ │   reference impl │         │
+│  │   22 min · ⚠ warn│ │   12 min · ⚠ warn│ │   18 min         │         │
+│  │   Est: +24 TP    │ │   Est: +14 TP    │ │   Est: +20 TP    │         │
+│  └──────────────────┘ └──────────────────┘ └──────────────────┘         │
+│                                                                          │
+│  ALL MODULES (44 more)                                                   │
+│  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐         │
+│  │ ▶ Multi-Agent... │ │ ◐ Podcast: Patent│ │ ▤ Article: AICI  │         │
+│  │   28 min         │ │   34 min         │ │   8 min          │         │
+│  │   Est: +18 TP    │ │   Est: +14 TP    │ │   Est: +10 TP    │         │
+│  └──────────────────┘ └──────────────────┘ └──────────────────┘         │
+│  ... (paginated grid)                                                    │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 01</span>
+          <span class="c-title">component / module-card</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">340 × 200px (fixed in grid · responsive 1/2/3 columns based on viewport)</div></div>
+        <div class="spec"><div class="spec-k">Fill</div><div class="spec-v"><code>loop/bg/surface</code> · radius/lg (16px) · elevation/sm</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Vertical · padding <code>20 24</code> · gap <code>12</code></div></div>
+        <div class="spec"><div class="spec-k">Properties</div><div class="spec-v"><code>moduleId</code> · <code>moduleType</code> (variant article/video/podcast/source/check) · <code>title</code> · <code>durationMinutes</code> · <code>nodeName</code> · <code>nodeDecayState</code> · <code>estimatedTp</code> · <code>completed</code> (boolean) · <code>completionTp</code> (number · only present if completed)</div></div>
+
+        <table class="prop-table">
+          <thead><tr><th>State variant</th><th>Visual</th></tr></thead>
+          <tbody>
+            <tr><td><code>state=fresh</code></td><td>Default presentation · type-glyph in top-left · estimated TP in lower-right with mono/sm "Est: +{N} TP"</td></tr>
+            <tr><td><code>state=in-progress</code></td><td>Progress bar at bottom edge (4px height, ochre fill at completion %) · estimated TP replaced with "Resume · {N} min left"</td></tr>
+            <tr><td><code>state=completed</code></td><td>Mentor-green checkmark in top-right · "Earned: +{N} TP" in mono/sm · subtle 4px left accent in mentor green</td></tr>
+            <tr><td><code>state=decay-driven</code></td><td>4px left accent in <code>loop/decay/warning</code> amber · "⚠ Decay-driven" label · scheduled by PAT-006 path orchestration</td></tr>
+            <tr><td><code>state=ol-flagged</code></td><td>Module was previously completed with OL trigger · 4px left accent in error red · "OL recorded · re-attempt available" label</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ============ §05 · M-310 ARTICLE READER ============ -->
+    <section class="bk" id="reader">
+      <div class="kicker"><span class="num">§05</span><span class="lbl">M-310 · Article Reader</span></div>
+      <h2 class="sec">Long-form text. Reading-pace telemetry. Inline annotations.</h2>
+      <p class="sec-sub">The Article Reader is the most editorially restrained module surface. It's optimized for technical reading: 680px content column, generous line height, ample white-space, no sidebar distraction. The reading-pace telemetry runs in the background; the presence indicator surfaces in the upper-right.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 02</span>
+          <span class="c-title">M-310 / Article Reader / Default</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-310 / Article Reader / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill height</div></div>
+        <div class="spec"><div class="spec-k">Layout</div><div class="spec-v">Editorial-split inverse: content column 680px centered, annotation drawer right (collapsible, 320px when open)</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Horizontal · padding <code>40 120</code> · gap <code>40</code></div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">reader-header (Fill × 96, sticky) · article-content (680px centered) · annotation-drawer (320px right · collapsible) · reader-footer (Fill × 80, sticky bottom)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  ◅ Vector DB Latency Tuning         ⚙ ● active · 14:32 elapsed · 8/22min│ ← reader-header
+│  ───────────────────────                                                 │
+│                                                                          │
+│                ┌──────────────────────────────────┐                      │
+│                │                                  │                      │
+│                │  Vector DB Latency Tuning        │   ┌─ ANNOTATIONS ─┐ │
+│                │                                  │   │ 3 on this node│ │
+│                │  When working with HNSW          │   │               │ │
+│                │  indexes serving 50M+            │   │ Mar 12        │ │
+│                │  embeddings, the recall-latency  │   │ "efSearch     │ │
+│                │  tradeoff hinges on efSearch...  │   │  threshold    │ │
+│                │                                  │   │  dropped at   │ │
+│                │  [Article body · 680px column]   │   │  the 100→200  │ │
+│                │                                  │   │  inflection"  │ │
+│                │                                  │   │               │ │
+│                │  ...                             │   │ + Add note    │ │
+│                │                                  │   └───────────────┘ │
+│                └──────────────────────────────────┘                      │
+│                                                                          │
+│  ⌛ Reading pace: avg · TP accruing · +8 TP banked  [ Comprehension → ] │ ← reader-footer
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 02</span>
+          <span class="c-title">component / reader-header</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Fill width × 96px · sticky to viewport top</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Horizontal · padding <code>20 80</code> · gap <code>32</code> · align center</div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">back-button (Hug) · article-title (Fill) · presence-indicator (Hug) · time-elapsed-readout (mono/sm)</div></div>
+        <div class="spec"><div class="spec-k">Critical detail</div><div class="spec-v">The presence-indicator is <b>always</b> visible · users can see in real time whether their TP is accruing · the indicator's mode-bound color (mentor-green active · amber idle · error lost) is the user's only ambient signal of their accrual state</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 03</span>
+          <span class="c-title">component / reader-footer</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Fill width × 80px · sticky to viewport bottom</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Horizontal · padding <code>16 80</code> · gap <code>24</code> · align center</div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">reading-pace-indicator (Hug · mono "avg/slow/fast") · tp-running-total (mono/sm "+{N} TP banked") · spacer (Fill) · comprehension-check-cta (Hug · only enabled at ≥ 85% article scroll)</div></div>
+        <div class="spec"><div class="spec-k">Comprehension gate</div><div class="spec-v">The "Comprehension →" button is disabled until the user has scrolled to within 85% of the article's bottom · disabled state shows "Reach the end to verify" · this prevents users from skipping straight to the comprehension check without reading</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §06 · M-320 VIDEO PLAYER ============ -->
+    <section class="bk" id="video">
+      <div class="kicker"><span class="num">§06</span><span class="lbl">M-320 · Video Player</span></div>
+      <h2 class="sec">Lecture playback. Chapter markers. Attention telemetry. Anti-scrub.</h2>
+      <p class="sec-sub">The Video Player is the most consequential anti-gaming surface in the spec. The standard video-player UX includes a scrub bar that allows the user to skip to the end and earn completion credit. The M-320 design <i>does not allow scrubbing past unseen content for TP purposes</i> — chapter markers can be navigated, but the time-attestation engine only credits time the user actually watched.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 03</span>
+          <span class="c-title">M-320 / Video Player / Default</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-320 / Video Player / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill height</div></div>
+        <div class="spec"><div class="spec-k">Layout</div><div class="spec-v">Editorial split: video player + transcript left (920px), annotation drawer right (320px)</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Horizontal · padding <code>40 80</code> · gap <code>32</code></div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">player-stack (Fill 920px · video + chapters + transcript) · annotation-drawer (320px)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  ◅ Multi-Agent Consensus Patterns    ⚙ ● active · 7:14 / 28:00          │
+│  ───────────────────────                                                 │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────┐  ┌────────────┐  │
+│  │                                                  │  │ ANNOTATIONS│  │
+│  │  [VIDEO PLAYER · 16:9 · 920×518px]              │  │ 5 on this  │  │
+│  │                                                  │  │ node       │  │
+│  │  Now playing: Threshold Signature Aggregator     │  │            │  │
+│  │  ┃━━━━━━━━━━━━━┃━━━━━━━━━━━━━━━━━━━━━━━━━━━ ━ ━ │  │ 07:42      │  │
+│  │  ▲ creditable  ▲ playhead   ▲ uncredited        │  │ "K=3/N=3    │  │
+│  │                                                  │  │  is the     │  │
+│  │  CHAPTERS                                        │  │  default —  │  │
+│  │  ✓ 00:00 Intro              ⊕ accrual: 100%    │  │  premium    │  │
+│  │  ✓ 02:14 Auditor agent      ⊕ accrual: 100%    │  │  uses K=4/  │  │
+│  │  ✓ 05:32 Invigilator agent  ⊕ accrual: 100%    │  │  N=5"       │  │
+│  │  ▶ 07:14 Threshold (now)    ⊕ accrual: 100%    │  │            │  │
+│  │  ○ 12:08 Consensus output                       │  │ + Add note │  │
+│  │  ○ 15:42 Examples           [scrub disabled]    │  │            │  │
+│  │                                                  │  │            │  │
+│  │  TRANSCRIPT (synchronized · click to navigate)   │  │            │  │
+│  │  ...                                             │  │            │  │
+│  └──────────────────────────────────────────────────┘  └────────────┘  │
+│                                                                          │
+│  ⌛ Watched: 7:14 active · +2 TP banked         [ Comprehension → ]    │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 04</span>
+          <span class="c-title">component / video-progress-bar</span>
+          <span class="c-tag tp">ANTI-SCRUB · FLAGSHIP</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Fill width × 8px tall</div></div>
+        <div class="spec"><div class="spec-k">Composition</div><div class="spec-v">Two layered tracks:<br>· Background track: full width, <code>sc-low</code> color<br>· Creditable-watched overlay: only the segments the user actually watched (active-presence) are colored mentor-green<br>· Playhead glyph: ▼ at current position<br>· Uncredited regions (segments user scrubbed past): rendered with hatched pattern · NOT colored green</div></div>
+        <div class="spec"><div class="spec-k">Properties</div><div class="spec-v"><code>totalDuration</code> · <code>creditableSegments</code> (array of [start,end] pairs) · <code>playheadPosition</code> · <code>chapterMarkers</code> (array)</div></div>
+
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic"><b style="color:var(--on-surface)">The architectural commitment:</b> the user can absolutely scrub. The platform doesn't disable scrubbing — that would be infantilizing. But the platform also doesn't credit scrubbed time. The visual feedback is honest about what was credited and what wasn't. A user who scrubbed past a five-minute segment will see that five minutes rendered as hatched-uncredited on the bar. They can re-watch the segment to mark it creditable; they can skip the comprehension check; they can do whatever they want. The platform tells them what the consequences are.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 05</span>
+          <span class="c-title">component / chapter-marker-list</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Fill width × variable height</div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">N × chapter-marker rows · each row 40px high</div></div>
+        <div class="spec"><div class="spec-k">Per-row composition</div><div class="spec-v">Status glyph (left: ✓ watched-creditable · ▶ now · ○ unwatched) · timestamp (mono/sm) · chapter title (Inter body) · accrual indicator (right: "⊕ accrual: 100%" or hatched indicator)</div></div>
+        <div class="spec"><div class="spec-k">Interaction</div><div class="spec-v">Clicking a chapter marker jumps the playhead but does NOT mark the intermediate segments as credited · the platform plays the chapter, the user must watch it actively for credit</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §07 · M-330 PODCAST PLAYER ============ -->
+    <section class="bk" id="podcast">
+      <div class="kicker"><span class="num">§07</span><span class="lbl">M-330 · Podcast Player</span></div>
+      <h2 class="sec">Audio with synchronized transcript. Background-listening allowed but flagged.</h2>
+      <p class="sec-sub">The Podcast Player handles audio content. Unlike video, podcasts are often consumed in the background (driving, cooking, walking) — the platform must accommodate this without abandoning the active-presence requirement. The compromise: background listening earns reduced base TP (50% rate) and cannot earn the full comprehension multiplier, but it does count toward streak credit.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 04</span>
+          <span class="c-title">M-330 / Podcast Player / Default</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-330 / Podcast Player / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill height (desktop); responsive to mobile player at 375 × Fill</div></div>
+        <div class="spec"><div class="spec-k">Layout</div><div class="spec-v">Centered single column · 720px max-width content column</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Vertical · padding <code>40 120</code> · gap <code>32</code> · centered</div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">podcast-header (Fill × 120) · waveform-player (Fill × 200) · transcript-stream (Fill · auto-scroll synchronized) · footer-with-bg-toggle (Fill × 80)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  ◅ Podcast: PAT-019 Walkthrough                  ⚙ ● active · 12:18/34min│
+│                                                                          │
+│             ┌──────────────────────────────────────────┐                 │
+│             │  PAT-019 Walkthrough · Episode 4         │                 │
+│             │  with Dameon Smith, Founder              │                 │
+│             │  ◐ 12:18 of 34:08                        │                 │
+│             │                                          │                 │
+│             │  ◐ waveform ━━━━━━━━━━━━━━━━━━━━━━ ━ ━ ━ │                 │
+│             │                                          │                 │
+│             │  ⏮ -15s   ▶/⏸   +15s ⏭     1.0× ◑       │                 │
+│             │                                          │                 │
+│             │  [ ⓘ Background listening: off ]         │                 │
+│             │  (toggle on to allow tab-switch w/ 50%   │                 │
+│             │   TP rate; comprehension cap at ×1.5)    │                 │
+│             └──────────────────────────────────────────┘                 │
+│                                                                          │
+│  TRANSCRIPT (synchronized · click to seek)                                │
+│  ────────────────                                                        │
+│  12:14  Dameon: ...the asymmetric multiplier is the core claim. A wrong  │
+│         answer at level 1 'Guessing' is penalized at half the rate of a  │
+│         level 3 'Moderate'. A wrong answer at level 5 'Underwritten'     │
+│  12:34  triggers a Performance Bond OSD review.                          │
+│                                                                          │
+│  12:42  Host: So the asymmetry is encoded directly into the score        │
+│         formula?                                                          │
+│  ...                                                                     │
+│                                                                          │
+│  ⌛ Listened: 12:18 active · +3 TP banked          [ Comprehension → ]  │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 06</span>
+          <span class="c-title">component / background-listening-toggle</span>
+        </div>
+        <div class="spec"><div class="spec-k">Purpose</div><div class="spec-v">Explicit opt-in for background-mode listening — the user acknowledges that TP accrual will be reduced and the comprehension multiplier will be capped</div></div>
+        <div class="spec"><div class="spec-k">Default state</div><div class="spec-v">Off · user must explicitly toggle on · the toggle's off state shows "TP accrual: 100% rate" and on shows "TP accrual: 50% rate · comp mult capped at ×1.5"</div></div>
+        <div class="spec"><div class="spec-k">Why this matters</div><div class="spec-v">The platform's data integrity requires that the user cannot retroactively claim background mode after losing focus. Background mode must be explicitly chosen <i>before</i> focus is lost; otherwise focus-loss is treated as presence/lost. This prevents users from gaming the system by turning on background mode after the fact to recover lost TP.</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §08 · M-340 ANNOTATED SOURCE ============ -->
+    <section class="bk" id="source">
+      <div class="kicker"><span class="num">§08</span><span class="lbl">M-340 · Annotated Source Viewer</span></div>
+      <h2 class="sec">Code samples, patent excerpts, technical specs. Annotation-first design.</h2>
+      <p class="sec-sub">M-340 surfaces the most annotation-friendly content — code samples, patent excerpts, technical specifications. Per PAT-020, annotations made here persist against the ontology node and surface in future Refresh Labs, Forge sessions, and Tenured Agent suggestions. The visual register is JetBrains Mono throughout, syntax-highlighted, with right-margin annotation cards.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 05</span>
+          <span class="c-title">M-340 / Annotated Source / Default</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-340 / Annotated Source / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill height</div></div>
+        <div class="spec"><div class="spec-k">Fill</div><div class="spec-v"><code>loop/bg/canvas</code> with a 3% noise overlay (mimics the V-100 terminal grain — this is technical content, not editorial)</div></div>
+        <div class="spec"><div class="spec-k">Layout</div><div class="spec-v">Two-column · source content left 720px · annotation rail right 480px (wider than article reader's drawer because annotations here are first-class content)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  ◅ PAT-010 §3.1 · Merkle Tree Constructor  ⚙ ● active · 6:42 elapsed   │
+│                                                                          │
+│  ┌──────────────────────────────────────┐  ┌──────────────────────────┐ │
+│  │  1   The Merkle Tree Constructor    │  │  ANNOTATIONS · 7         │ │
+│  │  2   receives four inputs:           │  │  ──────────────          │ │
+│  │  3                                   │  │                          │ │
+│  │  4   (a) H_art, the cryptographic    │  │  Line 4 · Mar 12         │ │
+│  │  5       hash of all user-generated  │  │  "H_art binds to the     │ │
+│  │  6       technical artifacts...      │  │   Sovereign Passport     │ │
+│  │  7                                   │  │   via the same hash       │ │
+│  │  8   (b) H_tel, the cryptographic    │  │   referenced in PAT-008  │ │
+│  │  9       hash of the complete        │  │   §4.2"                  │ │
+│  │  10      Proof of Friction record;   │  │                          │ │
+│  │  11                                  │  │  Line 18 · Mar 14        │ │
+│  │  12  ...                             │  │  "K=3/N=3 default with   │ │
+│  │  13                                  │  │   K=4/N=5 for premium    │ │
+│  │  14  R = Hash(Hash(H_art ‖ H_tel)    │  │   tiers — important to  │ │
+│  │  15      ‖ Hash(Σ ‖ M))              │  │   note when discussing  │ │
+│  │  16                                  │  │   the premium credential │ │
+│  │  17  This structure enables any      │  │   tier upgrade path"     │ │
+│  │  18  single leaf to be verified      │  │                          │ │
+│  │  19  ...                             │  │  + Add note at cursor    │ │
+│  │  20                                  │  │                          │ │
+│  └──────────────────────────────────────┘  └──────────────────────────┘ │
+│                                                                          │
+│  ⌛ Reviewed: 6:42 active · +1 TP banked · 2 anno credits  [ Check → ] │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 07</span>
+          <span class="c-title">component / annotation-anchor</span>
+        </div>
+        <div class="spec"><div class="spec-k">Purpose</div><div class="spec-v">The clickable affordance in the left margin of the source content that opens an annotation drawer at that specific line</div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">12 × 12px · positioned in the source line-number gutter</div></div>
+        <div class="spec"><div class="spec-k">Properties</div><div class="spec-v"><code>lineNumber</code> · <code>hasExistingAnnotation</code> (boolean) · <code>annotationCount</code> (number)</div></div>
+        <div class="spec"><div class="spec-k">State variants</div><div class="spec-v"><code>empty</code> (+ icon at 40% opacity, only visible on hover) · <code>existing</code> (◐ glyph in tertiary blue with count badge if &gt;1) · <code>just-added</code> (briefly pulses mentor green for 320ms after annotation save)</div></div>
+        <div class="spec"><div class="spec-k">TP economics</div><div class="spec-v">Each substantive annotation (≥ 80 char anchored at a specific line) earns 2 TP per PAT-020. Maximum 5 annotation credits per module session — additional annotations are saved but do not earn TP. This prevents annotation-spamming for TP farming.</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §09 · M-350 COMPREHENSION CHECK ============ -->
+    <section class="bk" id="check">
+      <div class="kicker"><span class="num">§09</span><span class="lbl">M-350 · Comprehension Check</span></div>
+      <h2 class="sec">End-of-module verification. Reuses L-110 Quiz Gauntlet mechanic.</h2>
+      <p class="sec-sub">M-350 is the multiplier moment. 3 questions, confidence-weighted per PAT-019, identical mechanic to L-110 Quiz Gauntlet. Per the TP economy: the comprehension check turns base time-attested TP into the meaningful range. The Underwritten-confidence-wrong-answer still triggers OL flag, consistent with all other PAT-019 surfaces.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FRAME · 06</span>
+          <span class="c-title">M-350 / Comprehension Check / Default</span>
+          <span class="c-tag tp">PAT-019 REUSE</span>
+        </div>
+        <div class="spec"><div class="spec-k">Frame name</div><div class="spec-v"><code>M-350 / Comprehension Check / Default</code></div></div>
+        <div class="spec"><div class="spec-k">Component reuse</div><div class="spec-v">Reuses L-110 components: <code>quiz-question-card</code>, <code>answer-option</code>, <code>confidence-pill-row</code>, <code>ai-auditor-panel</code> — directly, not as variants. This is the most important architectural decision in this spec: the comprehension check is not a "lite quiz," it is a quiz, with the same scoring mechanics and the same OL trigger.</div></div>
+        <div class="spec"><div class="spec-k">Differences from L-110</div><div class="spec-v">3 questions only (vs L-110's typical 5–12) · questions are auto-generated from module content via Anthropic API · the post-check screen shows TP breakdown across base + multiplier + annotations</div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">1440 × Fill</div></div>
+        <div class="spec"><div class="spec-k">Layout</div><div class="spec-v">Editorial-split (same as L-110)</div></div>
+
+        <div class="sketch">
+<pre>┌─────────────────────────────────────────────────────────────────────────┐
+│  ◅ Comprehension Check · 2 of 3                                          │
+│                                                                          │
+│  ┌──────────────────────────────────────┐  ┌────────────────────────┐   │
+│  │  Q2 · Multi-Agent Consensus           │  │ MODULE SUMMARY         │   │
+│  │                                       │  │ Multi-Agent Consensus  │   │
+│  │  In the default K=3/N=3 configuration │  │ 28 min · video         │   │
+│  │  of the Threshold Signature           │  │ +8 TP base banked      │   │
+│  │  Aggregator, what happens if only 2   │  │                        │   │
+│  │  of the 3 verification agents sign?   │  │ ANNOTATIONS THIS RUN   │   │
+│  │                                       │  │ 2 added · +4 TP        │   │
+│  │  ○ A) The credential is anchored with │  │                        │   │
+│  │       a partial-signature note       │  │ ──────────             │   │
+│  │  ○ B) The credential is rejected      │  │                        │   │
+│  │  ○ C) The credential is anchored at   │  │ Estimated total at     │   │
+│  │       reduced tier                    │  │ current cadence:       │   │
+│  │  ○ D) The session is voided           │  │ ×1.5 multiplier        │   │
+│  │                                       │  │ → +12 TP from check    │   │
+│  │  CONFIDENCE                           │  │ Total: +24 TP          │   │
+│  │  ◐ 1  ◐ 2  ◐ 3  ◐ 4  ◐ 5             │  │                        │   │
+│  │  guess  low  mod  conf  ★UW           │  │ (Underwritten ★ would │   │
+│  │                                       │  │  push to +28 TP if you │   │
+│  │  [ Submit answer →            ]       │  │  go 3/3 · OL risk if   │   │
+│  └──────────────────────────────────────┘  │  any wrong)            │   │
+│                                              └────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────┘</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 08</span>
+          <span class="c-title">component / comprehension-result-card</span>
+        </div>
+        <div class="spec"><div class="spec-k">Trigger</div><div class="spec-v">All 3 comprehension questions answered</div></div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Fill content-column width × 320px</div></div>
+        <div class="spec"><div class="spec-k">Fill</div><div class="spec-v">If passed: <code>loop/bg/surface</code> with subtle Sovereign Gradient tint at 4% · If failed: <code>sc-low</code> · If OL triggered: error-tint background at 8%</div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">result-headline (Sora · "Comprehension verified" or "Comprehension not verified" or "OL flag triggered") · tp-breakdown-list (base · multiplier · annotation lines) · total-tp-mono (mono/lg) · cta-row (continue / next module / view ledger)</div></div>
+        <div class="spec"><div class="spec-k">TP breakdown pattern</div><div class="spec-v">"Time-attested: +8 TP · Comprehension ×2.0: +16 TP · Annotations (2 of 5): +4 TP · <b>Total: 28 TP minted</b>"</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §10 · ACTIVE-PRESENCE TELEMETRY ============ -->
+    <section class="bk" id="telemetry">
+      <div class="kicker"><span class="num">§10</span><span class="lbl">Component · Active-Presence Telemetry</span></div>
+      <h2 class="sec">PAT-002 made visible. The honesty surface.</h2>
+      <p class="sec-sub">Per PAT-002, the platform continuously monitors learning telemetry — keystrokes, scroll patterns, focus state, mouse movement. For content viewing, this telemetry determines whether time accrues toward TP. The platform's commitment is to make this telemetry visible to the user, not hidden. The presence-indicator component is the user-facing surface of this telemetry.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 09</span>
+          <span class="c-title">component / presence-indicator</span>
+          <span class="c-tag tp">PAT-002</span>
+        </div>
+        <div class="spec"><div class="spec-k">Dimensions</div><div class="spec-v">Hug × 24px · positioned in upper-right of every module surface</div></div>
+        <div class="spec"><div class="spec-k">Auto-layout</div><div class="spec-v">Horizontal · gap <code>8</code> · align center · padding <code>4 10</code></div></div>
+        <div class="spec"><div class="spec-k">Children</div><div class="spec-v">state-glyph (8×8 dot) · state-label (mono/sm letter-spacing 0.12em · "active" / "idle" / "lost")</div></div>
+
+        <table class="prop-table">
+          <thead><tr><th>State</th><th>Trigger</th><th>TP accrual</th><th>Recovery</th></tr></thead>
+          <tbody>
+            <tr><td><code>active</code></td><td>Mouse, scroll, or keystroke within last 8 seconds AND tab focused AND window not minimized</td><td>Full rate</td><td>—</td></tr>
+            <tr><td><code>idle</code></td><td>8+ seconds since last interaction · tab still focused</td><td>Paused (does not reset)</td><td>Any interaction → instantly back to active</td></tr>
+            <tr><td><code>lost</code></td><td>Tab focus lost OR window minimized OR 30+ seconds idle</td><td>Paused · if persists &gt; 60s, the current segment is marked non-creditable</td><td>Refocus + interact → back to active · the previously-lost segment is not retroactively credited</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 10</span>
+          <span class="c-title">subcomponent / presence-toast (state transitions)</span>
+        </div>
+        <div class="spec"><div class="spec-k">Purpose</div><div class="spec-v">When presence transitions to <code>lost</code> for &gt; 30s, a non-blocking toast appears informing the user that TP accrual has paused</div></div>
+        <div class="spec"><div class="spec-k">Position</div><div class="spec-v">Top-right, below presence-indicator · slides down 240ms · auto-dismiss after 8s OR on any user interaction</div></div>
+        <div class="spec"><div class="spec-k">Content pattern</div><div class="spec-v">"TP accrual paused · presence not detected for 30s · interact to resume"</div></div>
+        <div class="spec"><div class="spec-k">Visual</div><div class="spec-v">Background <code>sc-lowest</code> · 4px left accent in <code>presence/lost</code> error color · radius/md (8px) · elevation/sm</div></div>
+        <div class="spec"><div class="spec-k">Honesty rule</div><div class="spec-v">The toast does not panic, does not threaten, does not gamify the loss. It states what happened. The user can choose to engage or not. The platform's data integrity does not depend on guilt-tripping the user.</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §11 · ANNOTATION INTEGRATION ============ -->
+    <section class="bk" id="annotations">
+      <div class="kicker"><span class="num">§11</span><span class="lbl">Annotation Integration (PAT-020)</span></div>
+      <h2 class="sec">Cross-surface persistence. Cross-surface credit.</h2>
+      <p class="sec-sub">Annotations made in any M-3xx surface persist against the underlying ontology node per PAT-020. The same annotation surfaces in future Refresh Labs on that node, in L-120 Flashcard sessions tagged to that node, and in the Tenured Agent's responses about that node. The TP credit for the annotation is paid <i>once</i> at the time of authorship; the persistence is free.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 11</span>
+          <span class="c-title">component / module-annotation-drawer (shared)</span>
+        </div>
+        <div class="spec"><div class="spec-k">Inheritance</div><div class="spec-v">Inherits the <code>annotation-drawer</code> component from the Learning Loop spec · M-3xx surfaces use it identically · annotations made in modules surface in L-100 / L-120 / L-200 the same way</div></div>
+        <div class="spec"><div class="spec-k">Module-specific addition</div><div class="spec-v">The annotation card in a module surface includes an "Anchor" field — the specific timestamp (video / podcast) or line number (source) or paragraph (article) the annotation is tied to · annotations from other surfaces surface here without an anchor field (they're node-anchored, not position-anchored)</div></div>
+        <div class="spec"><div class="spec-k">TP credit indicator</div><div class="spec-v">Annotations that earned TP show a small "+2 TP" mono badge · annotations beyond the 5-per-module cap show no badge but are saved · annotations from prior sessions show no badge (TP was paid then)</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">COMP · 12</span>
+          <span class="c-title">component / substantive-annotation-detector</span>
+        </div>
+        <div class="spec"><div class="spec-k">Purpose</div><div class="spec-v">Automatically determines whether a saved annotation qualifies for TP credit · prevents trivial annotations (single-word, copy-paste of source content, repetitive) from farming TP</div></div>
+        <div class="spec"><div class="spec-k">Heuristic rules</div><div class="spec-v">Length ≥ 80 chars AND NOT &gt; 60% match against source content AND NOT a duplicate of the user's existing annotations on the same node AND contains at least one connective phrase ("because", "however", "implies", "compared to", etc.) per the detector's training set</div></div>
+        <div class="spec"><div class="spec-k">User feedback</div><div class="spec-v">If a saved annotation does not qualify for TP, the user sees "Saved · not TP-eligible (too brief / too similar to source)" rather than no feedback · honest about the reason</div></div>
+        <div class="spec"><div class="spec-k">Override</div><div class="spec-v">Users can flag a detector decision they disagree with · the flag enters a moderation queue · no immediate TP override · platform reviews flags weekly</div></div>
+      </div>
+    </section>
+
+
+    <!-- ============ §12 · PROTOTYPE FLOWS ============ -->
+    <section class="bk" id="prototype">
+      <div class="kicker"><span class="num">§12</span><span class="lbl">Prototype Flows</span></div>
+      <h2 class="sec">Four canonical flows. The module lifecycle, choreographed.</h2>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FLOW · 01</span>
+          <span class="c-title">Module open · first 60 seconds</span>
+        </div>
+        <div class="spec"><div class="spec-k">Trigger</div><div class="spec-v">User clicks a module-card from M-301 Hub or from Tenured Agent suggestion</div></div>
+        <div class="spec"><div class="spec-k">Duration</div><div class="spec-v">Cross-fade transition 240ms · presence engagement begins on first interaction</div></div>
+
+        <ul class="std" style="margin-top:14px">
+          <li><b>0–240ms.</b> Cross-fade from M-301 to the module-specific surface (M-310 / M-320 / M-330 / M-340).</li>
+          <li><b>240ms onward.</b> Presence-indicator initialized at <code>idle</code> (no interactions yet · TP accrual paused).</li>
+          <li><b>First interaction.</b> Mouse movement, scroll, click, or keystroke → presence transitions to <code>active</code> → TP accrual begins.</li>
+          <li><b>First minute milestone.</b> At elapsed 1:00 of active time, the running-total TP indicator surfaces "+1 TP banked" (article) or "+0 TP banked" (video — first TP banks at 3:00).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FLOW · 02</span>
+          <span class="c-title">Presence lost → recovered</span>
+        </div>
+        <div class="spec"><div class="spec-k">Trigger</div><div class="spec-v">User switches tab or window loses focus during a module session</div></div>
+
+        <ul class="std" style="margin-top:14px">
+          <li><b>Focus lost (t=0).</b> Presence-indicator transitions to <code>lost</code> · TP accrual paused.</li>
+          <li><b>t=0 to 30s.</b> No toast yet · platform gives a grace window for transient context-switches.</li>
+          <li><b>t=30s.</b> Toast appears: "TP accrual paused · presence not detected for 30s · interact to resume" · slides in 240ms.</li>
+          <li><b>t=60s, still lost.</b> Current viewing segment is marked non-creditable (the prior 60s of intended viewing won't earn TP, even after recovery).</li>
+          <li><b>User returns and interacts.</b> Presence → <code>active</code> · TP accrual resumes from this point · the prior non-creditable segment remains uncredited.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FLOW · 03</span>
+          <span class="c-title">Comprehension Check completion · TP mint sequence</span>
+        </div>
+        <div class="spec"><div class="spec-k">Trigger</div><div class="spec-v">User submits the third comprehension question</div></div>
+        <div class="spec"><div class="spec-k">Duration</div><div class="spec-v">800ms total · ceremonial · matches the L-100 session-close flow timing</div></div>
+
+        <ul class="std" style="margin-top:14px">
+          <li><b>0–240ms.</b> Final question's answer-state renders (correct / incorrect markers on options · AI Auditor explanation surfaces if wrong).</li>
+          <li><b>240–560ms.</b> comprehension-result-card fades in below the question. TP breakdown lines tick in sequence: time-attested → multiplier → annotations (100ms stagger each).</li>
+          <li><b>560–800ms.</b> Total TP mono/lg number animates from 0 to final value. If the result triggered OL flag, the error-tint background and OL annotation fade in at 720ms.</li>
+          <li><b>Background.</b> ForgeTpLedger entry written. Streak counter updated if this completion took the user across a milestone threshold (5/10/15-day streak).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FLOW · 04</span>
+          <span class="c-title">Module → next-module recommendation (PAT-006 path orchestration)</span>
+        </div>
+        <div class="spec"><div class="spec-k">Trigger</div><div class="spec-v">Comprehension check completed (any outcome)</div></div>
+        <div class="spec"><div class="spec-k">Behavior</div><div class="spec-v">After 1.2s on the result card, a "Next recommended →" suggestion surfaces, driven by PAT-006 path orchestration. The recommendation is contextual: if the user passed at high confidence, the next module is one tier deeper in the same node; if the user failed or triggered OL, the next recommendation is a foundational module on the same node; if no relevant next module, the suggestion routes back to L-100 Hub.</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">FLOW · 05</span>
+          <span class="c-title">Motion timing tokens (inherited from Learning Loop)</span>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td>motion/duration/fast</td><td>120ms</td><td>Hover, focus, presence-indicator state shifts</td></tr>
+            <tr><td>motion/duration/base</td><td>240ms</td><td>Module-surface cross-fades, drawer expand, toast slide</td></tr>
+            <tr><td>motion/duration/result</td><td>560ms</td><td>Comprehension result-card reveal</td></tr>
+            <tr><td>motion/duration/session-close</td><td>800ms</td><td>TP mint sequence</td></tr>
+            <tr><td>motion/easing/standard</td><td>cubic-bezier(0.4, 0, 0.2, 1)</td><td>Most transitions</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ============ §13 · DEV HANDOFF ============ -->
+    <section class="bk" id="handoff">
+      <div class="kicker"><span class="num">§13</span><span class="lbl">Dev Handoff</span></div>
+      <h2 class="sec">Tailwind extensions, component map, telemetry hooks.</h2>
+      <p class="sec-sub">The Education Module surfaces inherit the Learning Loop's Tailwind config. The most consequential engineering addition: the presence-telemetry service that runs in the background of every M-3xx surface.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">HANDOFF · 01</span>
+          <span class="c-title">Tailwind extensions (additive to Learning Loop)</span>
+        </div>
+        <div class="code" data-lang="tailwind.config.js · module extension">
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        module: {
+          // Type tints (background, 6-8% opacity over canvas)
+          'tint-article': 'rgba(143,165,214,.06)',
+          'tint-video':   'rgba(197,160,89,.06)',
+          'tint-podcast': 'rgba(79,138,107,.06)',
+          'tint-source':  'rgba(28,28,26,.04)',
+          'tint-check':   'rgba(197,160,89,.04)',
+          // Type accents
+          'accent-article': '#2C4771',
+          'accent-video':   '#C5A059',
+          'accent-podcast': '#4F8A6B',
+          'accent-source':  '#1C1C1A',
+          // Presence states
+          'presence-active': '#4F8A6B',
+          'presence-idle':   '#FFBF00',
+          'presence-lost':   '#FF8B7A',
+        },
+      },
+      animation: {
+        'presence-active': 'pulseMentor 2.4s ease-in-out infinite',
+      },
+    },
+  },
+};
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">HANDOFF · 02</span>
+          <span class="c-title">Component → React file mapping</span>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Figma path</th><th>React file path</th></tr></thead>
+          <tbody>
+            <tr><td><code>component / module-card</code></td><td><code>/components/modules/ModuleCard.tsx</code></td></tr>
+            <tr><td><code>component / reader-header</code></td><td><code>/components/modules/ReaderHeader.tsx</code></td></tr>
+            <tr><td><code>component / reader-footer</code></td><td><code>/components/modules/ReaderFooter.tsx</code></td></tr>
+            <tr><td><code>component / video-progress-bar</code></td><td><code>/components/modules/VideoProgressBar.tsx</code></td></tr>
+            <tr><td><code>component / chapter-marker-list</code></td><td><code>/components/modules/ChapterMarkerList.tsx</code></td></tr>
+            <tr><td><code>component / background-listening-toggle</code></td><td><code>/components/modules/BackgroundListeningToggle.tsx</code></td></tr>
+            <tr><td><code>component / annotation-anchor</code></td><td><code>/components/modules/AnnotationAnchor.tsx</code></td></tr>
+            <tr><td><code>component / comprehension-result-card</code></td><td><code>/components/modules/ComprehensionResultCard.tsx</code></td></tr>
+            <tr><td><code>component / presence-indicator</code></td><td><code>/components/modules/PresenceIndicator.tsx</code></td></tr>
+            <tr><td><code>component / presence-toast</code></td><td><code>/components/modules/PresenceToast.tsx</code></td></tr>
+            <tr><td><code>service / presence-telemetry</code></td><td><code>/lib/presence/PresenceTelemetry.ts</code></td></tr>
+            <tr><td><code>service / substantive-annotation-detector</code></td><td><code>/lib/annotations/SubstantiveDetector.ts</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">HANDOFF · 03</span>
+          <span class="c-title">PresenceTelemetry service stub</span>
+        </div>
+        <div class="code" data-lang="PresenceTelemetry.ts (Pat-002 hook)">
+// Background service running for every M-3xx surface.
+// Emits presence-state events; consumed by the surface's
+// PresenceIndicator + TP accrual computation.
+
+type PresenceState = 'active' | 'idle' | 'lost';
+
+interface PresenceEvent {
+  ts: number;
+  state: PresenceState;
+  segmentStart?: number;
+  segmentEnd?: number;
+  creditable: boolean;
+}
+
+class PresenceTelemetry {
+  private state: PresenceState = 'idle';
+  private lastInteraction = Date.now();
+  private tabFocused = true;
+  private currentSegmentStart = Date.now();
+
+  constructor(private onTransition: (ev: PresenceEvent) =&gt; void) {
+    window.addEventListener('mousemove', this.touch);
+    window.addEventListener('keydown', this.touch);
+    window.addEventListener('scroll', this.touch);
+    document.addEventListener('visibilitychange', this.onVisChange);
+    window.addEventListener('blur', this.onBlur);
+    window.addEventListener('focus', this.onFocus);
+    this.tick();
+  }
+
+  private touch = () =&gt; {
+    this.lastInteraction = Date.now();
+    if (this.state !== 'active' && this.tabFocused) {
+      this.transition('active');
+    }
+  };
+
+  private onVisChange = () =&gt; {
+    if (document.hidden) this.transition('lost');
+    else if (this.tabFocused) this.touch();
+  };
+
+  private onBlur  = () =&gt; { this.tabFocused = false; this.transition('lost'); };
+  private onFocus = () =&gt; { this.tabFocused = true; this.touch(); };
+
+  private tick = () =&gt; {
+    const now = Date.now();
+    const sinceInteraction = (now - this.lastInteraction) / 1000;
+    if (this.state === 'active' && sinceInteraction &gt; 8)  this.transition('idle');
+    if (this.state === 'idle'   && sinceInteraction &gt; 30) this.transition('lost');
+    setTimeout(this.tick, 1000);
+  };
+
+  private transition(next: PresenceState) {
+    if (next === this.state) return;
+    const ts = Date.now();
+    // Segment closure: previous segment is creditable iff state was active.
+    this.onTransition({
+      ts,
+      state: next,
+      segmentStart: this.currentSegmentStart,
+      segmentEnd: ts,
+      creditable: this.state === 'active',
+    });
+    this.state = next;
+    this.currentSegmentStart = ts;
+  }
+}
+
+export { PresenceTelemetry, PresenceState, PresenceEvent };
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">HANDOFF · 04</span>
+          <span class="c-title">Asset exports</span>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Asset</th><th>Format</th><th>Sizes</th><th>Naming</th></tr></thead>
+          <tbody>
+            <tr><td>Module-type glyphs (5)</td><td>SVG</td><td>16, 20, 24px</td><td><code>icon-module-{article|video|podcast|source|check}.svg</code></td></tr>
+            <tr><td>Presence-state dots (3)</td><td>SVG</td><td>8, 12px</td><td><code>icon-presence-{active|idle|lost}.svg</code></td></tr>
+            <tr><td>Chapter-marker status glyphs (3)</td><td>SVG</td><td>12px</td><td><code>icon-chapter-{watched|now|unwatched}.svg</code></td></tr>
+            <tr><td>Anti-scrub hatch pattern</td><td>SVG · tileable</td><td>16 × 8px tile</td><td><code>pattern-uncredited-hatch.svg</code></td></tr>
+            <tr><td>Annotation-anchor glyphs (2)</td><td>SVG</td><td>12px</td><td><code>icon-anno-{empty|existing}.svg</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ============ §14 · ACCESSIBILITY ============ -->
+    <section class="bk" id="a11y">
+      <div class="kicker"><span class="num">§14</span><span class="lbl">Accessibility</span></div>
+      <h2 class="sec">WCAG 2.2 AA. Captions, transcripts, presence announcement, screen-reader equivalence for the anti-scrub bar.</h2>
+      <p class="sec-sub">The Education Module surfaces are particularly accessibility-consequential because they include video, audio, and visual telemetry feedback — three categories that historically exclude users with disabilities. The architecture below makes each accessible without compromising the patent's claims.</p>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">A11Y · 01</span>
+          <span class="c-title">Video captions and transcript (M-320)</span>
+        </div>
+        <ul class="std">
+          <li><b>Captions.</b> All M-320 video content ships with closed captions at launch · WebVTT format · captions are the default-on state, not opt-in.</li>
+          <li><b>Transcript.</b> The synchronized transcript visible below the video player is the screen-reader-equivalent of the video itself · readable independently of playback · clickable to seek.</li>
+          <li><b>Audio descriptions.</b> Modules whose content depends on visual material (diagrams, code) ship with an alternate audio-described track · the user can toggle between primary and described tracks via the player controls.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">A11Y · 02</span>
+          <span class="c-title">Podcast transcript (M-330)</span>
+        </div>
+        <ul class="std">
+          <li><b>Transcript-first.</b> The synchronized transcript is a primary content element, not a secondary affordance · sized at reader/article scale (18/32) · same content the audio delivers.</li>
+          <li><b>Speaker labels.</b> Every transcript line is labeled with the speaker · screen reader announces speaker change on transition.</li>
+          <li><b>Transcript-only mode.</b> A toggle allows the user to dismiss the waveform player entirely and consume the podcast as text — TP accrues at the article rate (1 per 5 min) in this mode.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">A11Y · 03</span>
+          <span class="c-title">Anti-scrub bar — screen-reader equivalence</span>
+        </div>
+        <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">The video-progress-bar's anti-scrub visualization is a visual surface. Screen-reader users receive the same information via aria semantics:</p>
+        <ul class="std" style="margin-top:14px">
+          <li><b>aria-label on progress bar.</b> "Video progress. {N}% watched and creditable. {M}% scrubbed and uncredited."</li>
+          <li><b>aria-live announcement on segment-credit state change.</b> "Segment from 5:00 to 7:30 marked uncredited."</li>
+          <li><b>Chapter markers.</b> Each marker has aria-label including its watched-credited state.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">A11Y · 04</span>
+          <span class="c-title">Presence-indicator announcement</span>
+        </div>
+        <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">Per the platform's broader accessibility commitment, the presence-indicator state announces to screen readers on transition:</p>
+        <ul class="std" style="margin-top:14px">
+          <li><b>active.</b> Polite live region: "Active. TP accrual on."</li>
+          <li><b>idle.</b> Polite live region: "Idle. TP accrual paused."</li>
+          <li><b>lost (after 30s).</b> Assertive live region: "Presence not detected. TP accrual paused. Interact to resume."</li>
+        </ul>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-top:14px;font-style:italic">Special consideration: screen-reader users may have legitimate active-presence patterns the platform's mouse/keystroke detector misses (using screen-reader navigation keys differently from sighted keyboard navigation). The presence service includes a screen-reader-detection branch that treats screen-reader navigation events as active-presence interactions.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="c-id">A11Y · 05</span>
+          <span class="c-title">Reduced-motion handling</span>
+        </div>
+        <ul class="std">
+          <li><b><code>prefers-reduced-motion: reduce</code></b> honored everywhere.</li>
+          <li>Comprehension result-card animations → instant appearance · no slide-in or tick animation.</li>
+          <li>Presence-indicator pulse → static color, no pulse.</li>
+          <li>Presence-toast slide-down → fade-in only.</li>
+          <li>Module cross-fade transitions → reduce to 100ms cross-fade.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <span class="seal">CLOSING — THE A11Y COMMITMENT</span>
+        <h3>"Engineers with disabilities should not be excluded from the TP economy."</h3>
+        <p>The TP economy is not optional infrastructure. It is the platform's credentialing currency. An accessibility surface that locks out screen-reader users from earning TP would lock them out from credentialing parity. The above architecture closes that gap. Screen-reader navigation events count as active-presence. Transcripts are first-class content. Captions are default. The anti-scrub bar has full aria semantics. The Education Modules ship to AA at launch, with AAA on every text-content path.</p>
+      </div>
+    </section>
+
+
+    <footer class="foot">
+      <p>Six surfaces. One TP economy. The soil that feeds the seed.</p>
+      <p class="mono">FIGMA DESIGN OPS SPECIFICATION · EDUCATION MODULES · M-301 / M-310 / M-320 / M-330 / M-340 / M-350 · v1.0 · 2026</p>
+      <p class="mono">Drop into <code>tenured-ai-design-system</code> Figma file under the "Education Modules" page. Inherits Learning Loop tokens.</p>
+    </footer>
+
+  </div>
+  </main>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

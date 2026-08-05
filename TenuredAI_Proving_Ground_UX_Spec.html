@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Proving Ground v2.0 — UI/UX Specification</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE PROVING GROUND v2.0 — Patent-Complete Specification
+   PAT-001 · PAT-002 · PAT-004 · PAT-005 · PAT-008 · PAT-010 · PAT-019 · PAT-020
+   ============================================================ */
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;--sc-highest:#E5E2DE;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;--on-primary-container:#4E3700;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--cyan:#22D3EE;--mentor:#4F8A6B;--invigilator:#BA1A1A;--auditor:#2C4771;--chaos:#C5A059;
+  --error:#BA1A1A;--error-container:#FFDAD6;--on-error-container:#93000A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --maxw:1320px;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;--sc-highest:#31312F;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--on-primary:#4E3700;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;--mentor:#7FBF9B;
+  --outline:#9A8F80;--outline-variant:#4E4639;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+::selection{background:rgba(197,160,89,.3)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+code,.mono{font-family:var(--font-mono)}
+
+.shell{display:grid;grid-template-columns:288px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 22px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.brand .mark{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em}
+.brand .mark .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.5}
+.nav-group{margin-top:20px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:9px}
+.nav-group a{display:block;padding:4px 0;font-size:12.5px;opacity:.75;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:6px}
+
+.content{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+section.bk{padding:80px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:var(--maxw);margin-inline:auto;padding-inline:40px}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+h2.sec{font-size:clamp(1.85rem,3.4vw,2.7rem);font-weight:700;max-width:24ch;margin-bottom:22px}
+.lede{font-size:1.08rem;line-height:1.6;color:var(--on-surface-variant);max-width:68ch;margin-bottom:42px}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:28px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:22px}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.hero{padding:112px 0 80px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:18ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p{font-size:1.15rem;color:var(--on-surface-variant);max-width:60ch;margin-top:24px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:30px;margin-top:42px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface-variant)}
+.hero .meta b{display:block;font-size:22px;color:var(--on-surface);font-weight:400}
+.hero-glow{position:absolute;top:-22%;right:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.18),transparent 70%);filter:blur(40px);pointer-events:none}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor);font-weight:700}
+.badge-inv{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+.badge-aud{background:rgba(44,71,113,.14);color:var(--auditor);font-weight:700}
+.badge-chaos{background:rgba(197,160,89,.16);color:var(--primary);font-weight:700}
+.badge-live{background:rgba(255,191,0,.14);color:#8a6500;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;font-size:10px}
+[data-theme="dark"] .badge-live{color:var(--amber)}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dot-mentor{background:var(--mentor);animation:pulse 2.4s infinite}
+.dot-inv{background:var(--error);animation:pulse 1.6s infinite}
+.dot-aud{background:var(--auditor);animation:pulse 2.0s infinite}
+.dot-chaos{background:var(--primary);box-shadow:var(--crt-glow);animation:pulse 1.4s infinite}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:var(--crt-glow);animation:pulse 1.6s infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.rationale{margin-top:20px;padding:18px 22px;background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial)}
+.rationale .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tertiary);font-weight:700;display:block;margin-bottom:7px}
+.rationale p{font-size:13.5px;color:var(--on-surface-variant);max-width:78ch}
+.dnote{margin-top:18px;padding:18px 22px;border-radius:var(--r-lg);background:var(--tertiary-container)}
+.dnote .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-tertiary-container);font-weight:700;display:block;margin-bottom:7px}
+.dnote p{font-size:13.5px;color:var(--on-tertiary-container);max-width:78ch}
+.patent-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;color:var(--primary);background:rgba(197,160,89,.1);padding:3px 8px;border-radius:10px;margin-right:6px;font-weight:700}
+
+.device{margin:0 auto;background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--ambient);overflow:hidden}
+.device .bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:var(--sc-low)}
+.device .bar i{width:10px;height:10px;border-radius:50%;background:var(--outline-variant);display:block}
+.device .bar .t{margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.06em}
+.wf{padding:20px}
+.wf-row{display:flex;gap:10px;margin-bottom:10px}
+.wf-box{background:var(--sc-low);border-radius:10px;padding:14px}
+.wf-label{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:6px}
+.wf-line{height:8px;border-radius:4px;background:var(--outline-variant);opacity:.5;margin:6px 0}
+.wf-cta{background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:10px 18px;font-size:12px;font-weight:700;display:inline-block;cursor:pointer}
+.wf-pill{background:var(--sc-high);border-radius:var(--r-pill);padding:6px 12px;font-size:11px;display:inline-block}
+.wf-pill.on{background:var(--sovereign);color:#FFF}
+
+.terminal{background:var(--term);border-radius:14px;padding:16px;font-family:var(--font-mono);font-size:12px;color:#E8DFC9;position:relative;overflow:hidden}
+.terminal::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23fff'/%3E%3C/svg%3E")}
+.terminal .row{margin:3px 0;line-height:1.5}
+.terminal .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.terminal .dim{color:#8a8270}.terminal .ok{color:#8FA5D6}.terminal .err{color:#ff8a8a}.terminal .adv{color:#C5A059}
+
+.score{font-family:var(--font-mono);font-size:12px}
+.scoreline{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.scoreline .v{font-size:18px;font-weight:700;color:var(--on-surface)}
+.health{height:7px;border-radius:var(--r-pill);background:var(--sc-high);overflow:hidden}
+.health>i{display:block;height:100%;border-radius:var(--r-pill);background:var(--sovereign)}
+.health.blue>i{background:var(--tertiary)}.health.decay>i{background:var(--error)}
+
+.states{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+@media(max-width:860px){.states{grid-template-columns:1fr}}
+.state{border-radius:var(--r-lg);padding:16px;background:var(--sc-lowest);box-shadow:var(--editorial)}
+.state .h{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.state.empty .h{color:var(--on-surface-variant)}.state.loading .h{color:var(--primary)}.state.error .h{color:var(--error)}
+.state p{font-size:13px;color:var(--on-surface-variant)}
+.shimmer{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--sc-high),var(--sc-highest),var(--sc-high));background-size:200% 100%;animation:sh 1.4s infinite;margin:7px 0}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+@media(max-width:860px){.specs{grid-template-columns:1fr}}
+.specs .s{background:var(--sc-low);border-radius:var(--r-lg);padding:14px}
+.specs .s b{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);display:block;margin-bottom:7px}
+.specs .s p{font-size:12.5px;color:var(--on-surface-variant)}
+
+.scr-head{display:flex;align-items:baseline;gap:14px;margin:36px 0 6px;flex-wrap:wrap}
+.scr-head .no{font-family:var(--font-mono);font-size:13px;color:var(--primary)}
+.scr-head h3{font-size:1.25rem;font-weight:700}
+.scr-sub{font-size:14px;color:var(--on-surface-variant);max-width:72ch;margin-bottom:18px}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:13px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 14px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:14px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:18%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.foot{padding:56px 0 88px;color:var(--on-surface-variant);font-size:13px}
+.foot .mono{font-size:12px}
+
+/* Bully Logic state machine */
+.fsm{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.fsm-state{background:var(--sc-low);border-radius:10px;padding:12px;text-align:center;font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant)}
+.fsm-state b{display:block;color:var(--primary);font-size:11px;margin-bottom:6px}
+.fsm-arrow{text-align:center;color:var(--primary);font-family:var(--font-mono);font-size:14px;margin:8px 0}
+
+/* PoF telemetry channel viz */
+.ch-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
+.ch-tile{background:var(--sc-low);border-radius:10px;padding:10px;text-align:center}
+.ch-tile .nm{font-family:var(--font-mono);font-size:9px;color:var(--primary);font-weight:700;letter-spacing:.05em}
+.ch-tile .ds{font-size:10.5px;color:var(--on-surface-variant);margin-top:4px}
+@media(max-width:860px){.ch-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Merkle tree */
+.merkle{display:flex;flex-direction:column;align-items:center;font-family:var(--font-mono);font-size:9px;color:var(--inverse-on-surface)}
+.merkle .root{background:var(--primary);color:#FFF;padding:6px 10px;border-radius:6px;font-weight:700}
+.merkle .level{display:flex;gap:14px;margin-top:8px}
+.merkle .node{background:rgba(143,165,214,.2);color:var(--inverse-on-surface);padding:4px 8px;border-radius:5px}
+.merkle .leaf{background:rgba(197,160,89,.18);color:var(--inverse-on-surface);padding:4px 8px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand"><span class="mark">The Proving Ground<span class="dot" style="color:var(--primary-container)">.</span></span></div>
+    <div class="ver">UI/UX SPEC v2.0 · PATENT-COMPLETE<br>PAT-001 · 002 · 004 · 005 · 008 · 010 · 019 · 020</div>
+
+    <nav class="nav-group">
+      <h4>Foundations · Patent-Backed</h4>
+      <a href="#concept"><span class="sn">F1</span>The Verification Crisis</a>
+      <a href="#epistemic"><span class="sn">F2</span>Environmental Epistemic Closure</a>
+      <a href="#ale"><span class="sn">F3</span>The Adversary Logic Engine</a>
+      <a href="#bully"><span class="sn">F4</span>Bully Logic Persistence Loop</a>
+      <a href="#altfl"><span class="sn">F5</span>ALTFL · 6-Channel Telemetry</a>
+      <a href="#ca"><span class="sn">F6</span>Command Authority &amp; PoF</a>
+      <a href="#council"><span class="sn">F7</span>Council Inside the Gate</a>
+      <a href="#consensus"><span class="sn">F8</span>Consensus Certificate</a>
+      <a href="#ledger"><span class="sn">F9</span>Merkle Ledger Anchor</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>HIG &amp; Layout</h4>
+      <a href="#persona"><span class="sn">P1</span>The Engineer</a>
+      <a href="#hig"><span class="sn">P2</span>HIG Principles</a>
+      <a href="#hierarchy"><span class="sn">P3</span>Three Planes</a>
+      <a href="#layout"><span class="sn">P4</span>Layout Patterns</a>
+      <a href="#nav"><span class="sn">P5</span>Navigation</a>
+      <a href="#gestures"><span class="sn">P6</span>Gestures</a>
+      <a href="#platform"><span class="sn">P7</span>Platform Rules</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>System</h4>
+      <a href="#components"><span class="sn">C</span>Buttons · Forms · Cards</a>
+      <a href="#dataviz"><span class="sn">D</span>Radar · Health · Telemetry</a>
+      <a href="#micro"><span class="sn">M</span>Micro-interactions</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>20 Core Screens</h4>
+      <a href="#s01"><span class="sn">01</span>Gateway / Auth</a>
+      <a href="#s02"><span class="sn">02</span>Identity &amp; Air-Gap Verify</a>
+      <a href="#s03"><span class="sn">03</span>Sovereign Dashboard</a>
+      <a href="#s04"><span class="sn">04</span>Gate Catalog</a>
+      <a href="#s05"><span class="sn">05</span>Gate Briefing</a>
+      <a href="#s06"><span class="sn">06</span>Pre-Flight Check</a>
+      <a href="#s07"><span class="sn">07</span>The Terminal · ALE Live</a>
+      <a href="#s08"><span class="sn">08</span>Chaos Injection · L1→L3</a>
+      <a href="#s09"><span class="sn">09</span>Bully Persistence Loop</a>
+      <a href="#s10"><span class="sn">10</span>Hard-Gate Preemption</a>
+      <a href="#s11"><span class="sn">11</span>Sovereign Override · Code 31</a>
+      <a href="#s12"><span class="sn">12</span>PoF Telemetry Panel</a>
+      <a href="#s13"><span class="sn">13</span>Annotations In-Gate</a>
+      <a href="#s14"><span class="sn">14</span>Gate Result · Verdict</a>
+      <a href="#s15"><span class="sn">15</span>Weighted Consensus</a>
+      <a href="#s16"><span class="sn">16</span>Consensus Certificate · Mint</a>
+      <a href="#s17"><span class="sn">17</span>Artifact Detail · Replay</a>
+      <a href="#s18"><span class="sn">18</span>Successor Synthesis (γ)</a>
+      <a href="#s19"><span class="sn">19</span>Settings &amp; Accessibility</a>
+      <a href="#s20"><span class="sn">20</span>Mobile Companion</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Close</h4>
+      <a href="#a11y"><span class="sn">A</span>Accessibility</a>
+      <a href="#patents"><span class="sn">★P</span>Patent Coverage Map</a>
+      <a href="#notes"><span class="sn">★</span>Designer's Notes</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="hero-glow"></div>
+      <div class="kicker"><span class="num">PG v2.0 / 00</span><span class="lbl">Patent-Complete Specification</span></div>
+      <h1>Proof you can't fake. <span class="gild">Engineered against the LLM.</span></h1>
+      <p>The complete UI/UX specification for The Proving Ground — now patent-aligned end-to-end. The platform's air-gapped Proving Ground environment runs the <b>Adversary Logic Engine (PAT-001)</b>, captures <b>6-channel ALTFL telemetry (PAT-002)</b>, coordinates the <b>four-agent council (PAT-004)</b>, computes <b>Command Authority</b> from <b>Proof of Friction</b>, anchors a <b>Consensus Certificate</b> to the <b>Merkle Ledger (PAT-010)</b>, and triggers <b>Successor Synthesis</b> via the Tenured Growth Loop's γ (PAT-005). Every screen names what it is.</p>
+      <div class="meta">
+        <div>CORE SCREENS<b>20</b></div>
+        <div>PATENTS COVERED<b>8</b></div>
+        <div>TELEMETRY CHANNELS<b>6 (ALTFL)</b></div>
+        <div>COUNCIL AGENTS<b>4 (PAT-004)</b></div>
+      </div>
+    </header>
+
+    <!-- F1 · CONCEPT -->
+    <section class="bk" id="concept">
+      <div class="kicker"><span class="num">PG v2 / F1</span><span class="lbl">Foundations · The Verification Crisis</span></div>
+      <h2 class="sec">Static assessments are dead. The LLM killed them.</h2>
+      <p class="lede">PAT-001's market premise: a candidate can submit any coding challenge to GPT-4 or Claude and receive a complete, syntactically perfect solution in seconds. Multiple-choice tests, take-home assignments, even most "live" coding interviews are forensically empty — they certify <i>access to an AI</i>, not technical reasoning. The Proving Ground is engineered specifically to defeat this attack: an environment whose ground truth state is known only to its Adversary Logic Engine, where AI assistance is mathematically detectable in telemetry, and where the credential issued is anchored to a multi-agent consensus that no single-model gaming can satisfy.</p>
+      <div class="grid g3">
+        <div class="card">
+          <span class="patent-tag">PAT-001 §A</span>
+          <div class="badge badge-soft" style="margin-bottom:14px;margin-top:8px">PRIOR ART FAILS</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Static tests are gameable</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">HackerRank, LeetCode, coding interviews — all rely on the candidate's input being the only signal. The LLM has made that signal forensically empty.</p>
+        </div>
+        <div class="card">
+          <span class="patent-tag">PAT-001 §B</span>
+          <div class="badge badge-blue" style="margin-bottom:14px;margin-top:8px">THE GAP</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">No portable Proof of Friction</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">No system generates a forensically verifiable time-series record of <i>how</i> the candidate engaged — only of what they submitted. Output telemetry can't distinguish human reasoning from AI mediation.</p>
+        </div>
+        <div class="card">
+          <span class="patent-tag">PAT-001 §C</span>
+          <div class="badge badge-gild" style="margin-bottom:14px;margin-top:8px">THE PROVING GROUND</div>
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Environmental epistemic closure</h3>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">An air-gapped containerized environment whose full state is known only to the Adversary Logic Engine — creating problems that <i>require</i> situationally-embedded human cognition.</p>
+        </div>
+      </div>
+      <div class="rationale">
+        <span class="tag">Strategy · why this UX matters</span>
+        <p>The Proving Ground is the platform's most defensible patent claim and its hardest UX challenge: it must <i>feel</i> like a real engineering environment (so the engineer engages genuinely) while behaving like an instrumented adversary (so the council can grade authentically). Every screen in this spec walks that line. The patent-derived vocabulary (ALE, ALTFL, PoF, Command Authority, Consensus Certificate) appears <i>in the UI itself</i> — not buried in marketing copy — because the user's trust in the credential depends on seeing the rigor.</p>
+      </div>
+    </section>
+
+    <!-- F2 · EPISTEMIC CLOSURE -->
+    <section class="bk" id="epistemic">
+      <div class="kicker"><span class="num">PG v2 / F2</span><span class="lbl">Foundations · Environmental Epistemic Closure (PAT-001 §C)</span></div>
+      <h2 class="sec">The LLM can't help if it can't see.</h2>
+      <p class="lede">The patent's core defensive claim. An external LLM (ChatGPT, Claude, Copilot) operates only on the information the user pastes into its prompt. The Proving Ground's full mutated state — the active failure injections, the Bully Logic state machine's current position, the ALE's pending second-order injections — exists <i>outside the user-accessible scope</i>. A user can paste their terminal output into ChatGPT and ask for help, but the LLM will diagnose the visible symptom without awareness of the actual hostile environment behind it. This is mathematically guaranteed to produce wrong advice; the ALTFL telemetry then detects the user attempting it.</p>
+      <div class="grid g2">
+        <div class="card">
+          <div class="badge badge-blue" style="margin-bottom:14px">WHY IT HOLDS</div>
+          <ul style="list-style:none;font-size:13.5px;color:var(--on-surface-variant);line-height:1.9">
+            <li>· The ALE state is server-side, sealed, never serialized to the user's screen.</li>
+            <li>· Failure injections are <i>covert</i> — symptoms surface as the engineer normally expects them.</li>
+            <li>· The Bully Logic Persistence Loop re-injects through different symptom vectors, so any "pattern" the LLM learns becomes invalid one turn later.</li>
+            <li>· The Council Invigilator's ALTFL signature detector flags AI-typical keystroke bursts and inference latency.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="badge" style="background:var(--error);color:#FFF;margin-bottom:14px">WHAT THE LLM SEES IF QUERIED</div>
+          <div class="terminal">
+            <div class="row dim"># user pastes this into ChatGPT:</div>
+            <div class="row err">"my gateway is returning 503, what do I do?"</div>
+            <div class="row" style="color:#C5A059">→ ChatGPT generates a plausible answer (timeout, retry, backoff)</div>
+            <div class="row" style="color:#ff8a8a">→ but the ALE has rotated the auth keys, not the gateway</div>
+            <div class="row" style="color:#ff8a8a">→ user pastes ChatGPT's fix · it fails</div>
+            <div class="row amber">→ ALTFL flags KV burst signature · OL event logged</div>
+            <div class="row" style="color:#8FA5D6">→ Invigilator posts anomaly to Blackboard</div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote">
+        <span class="tag">Designer's Note · the moat made interactive</span>
+        <p>Environmental Epistemic Closure is the platform's most defensible IP claim — and the user must <i>feel</i> it during the Gate. The terminal shows real errors with real symptoms, exactly the way an engineer would expect them in production. The fact that the engineer can't fix them by Googling, can't fix them with ChatGPT, can only fix them by genuinely understanding the system — <i>that</i> is the credential's value. The UX never advertises "LLM-resistant" as a feature on a marketing label; instead, every screen of the Gate makes it experientially obvious that no shortcut works here.</p>
+      </div>
+    </section>
+
+    <!-- F3 · ALE -->
+    <section class="bk" id="ale">
+      <div class="kicker"><span class="num">PG v2 / F3</span><span class="lbl">Foundations · The Adversary Logic Engine (PAT-001 SUMMARY)</span></div>
+      <h2 class="sec">The engine that mutates the environment.</h2>
+      <p class="lede">The Adversary Logic Engine (ALE) is the Proving Ground's adversarial core — a server-side state machine that schedules and injects stochastic, context-aware failure events based on continuous assessment of the user's interaction. The ALE is what the user is actually fighting; the Chaos Agent of PAT-004 is the council member that dispatches the ALE's injections. The user never sees the ALE directly; they see only its consequences — gateway timeouts, dependency hallucinations, key rotations, [CHAOS] gaslighting lines.</p>
+      <div class="grid g3">
+        <div class="tile">
+          <span class="patent-tag">FIRST-ORDER</span>
+          <h3 style="font-size:1rem;font-weight:600;margin:8px 0">Stochastic environmental failures</h3>
+          <p style="font-size:12.5px;color:var(--on-surface-variant)">Network partition, dependency unavailable, config drift, key rotation. ALE selects by weighted draw from the active node's failure library.</p>
+        </div>
+        <div class="tile">
+          <span class="patent-tag">SECOND-ORDER</span>
+          <h3 style="font-size:1rem;font-weight:600;margin:8px 0">Bully Logic re-injection</h3>
+          <p style="font-size:12.5px;color:var(--on-surface-variant)">If the user's remediation pattern-matches a memorized solution, ALE re-injects in the same domain via a different symptom — requires genuine domain comprehension.</p>
+        </div>
+        <div class="tile">
+          <span class="patent-tag">META</span>
+          <h3 style="font-size:1rem;font-weight:600;margin:8px 0">Gaslighting (PAT-001 +)</h3>
+          <p style="font-size:12.5px;color:var(--on-surface-variant)">[CHAOS] lines that assert the user is misinterpreting the environment — testing conviction, not just remediation skill.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- F4 · BULLY LOGIC -->
+    <section class="bk" id="bully">
+      <div class="kicker"><span class="num">PG v2 / F4</span><span class="lbl">Foundations · Bully Logic Persistence Loop (PAT-001 FIG 3)</span></div>
+      <h2 class="sec">The state machine that punishes pattern-matching.</h2>
+      <p class="lede">The Bully Logic Persistence Loop is PAT-001's defense against memorized-solution gaming. After every failure injection, the ALE assesses whether the user's remediation reflects genuine domain comprehension or pattern-matching against a known solution. If pattern-matching is detected, the ALE re-injects through a different symptom vector in the same technical domain. The credential proves the user can engineer in a domain, not that they recognize one of N canonical scenarios.</p>
+      <div class="card">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--primary);font-weight:700;margin-bottom:14px">FIVE-STATE MACHINE · PAT-001 FIG 3</div>
+        <div class="fsm">
+          <div class="fsm-state"><b>S1 · Observe</b>Baseline behavioral profile · idle ALE</div>
+          <div class="fsm-state"><b>S2 · Detect</b>Pattern-match signature in user output</div>
+          <div class="fsm-state"><b>S3 · First Inject</b>Stochastic failure · symptom vector A</div>
+          <div class="fsm-state"><b>S4 · Assess</b>Genuine comprehension? · TTR + ET analyzed</div>
+          <div class="fsm-state"><b>S5 · Re-Inject</b>Same domain · symptom vector B · pattern broken</div>
+        </div>
+        <div class="fsm-arrow">↻ Loop until consensus reached or session ends</div>
+      </div>
+      <div class="rationale"><span class="tag">Strategy · why this is the moat against "training to the test"</span><p>Every existing assessment platform can be defeated by enough practice on the question bank — students memorize patterns, and the credential certifies pattern recognition, not competence. The Bully Logic Loop's second-order re-injection mathematically defeats this: a user who's memorized "503 → timeout fix" gets the 503, applies the timeout fix, and immediately sees a <i>different symptom in the same domain</i> (e.g., the auth key rotation). The pattern doesn't help; only domain understanding does. This is what makes the Proving Ground credential resistant to "training to the test" — the test rebuilds itself in response to the pattern.</p></div>
+    </section>
+
+    <!-- F5 · ALTFL -->
+    <section class="bk" id="altfl">
+      <div class="kicker"><span class="num">PG v2 / F5</span><span class="lbl">Foundations · ALTFL · 6-Channel Telemetry (PAT-002)</span></div>
+      <h2 class="sec">The forensic spine.</h2>
+      <p class="lede">PAT-002's AI Learning Telemetry &amp; Feedback Loop (ALTFL) captures six concurrent millisecond-resolution channels during every Gate. Together they form the <b>Proof of Friction (PoF)</b> — a forensically verifiable record of how the engineer engaged, not just what they submitted. Each channel is independently signed and anchored to the Sovereign Ledger. The PoF is the artifact that LinkedIn cannot produce; it is what makes a Tenured AI credential <i>actually mean</i> the holder has the skill.</p>
+      <div class="ch-grid">
+        <div class="ch-tile"><div class="nm">KV</div><div class="ds">Keystroke velocity profile · ms inter-keystroke timing</div></div>
+        <div class="ch-tile"><div class="nm">IL</div><div class="ds">Inference latency · failure → first-diagnostic interval</div></div>
+        <div class="ch-tile"><div class="nm">CP</div><div class="ds">Command precision · investigate-vs-remediate ratio</div></div>
+        <div class="ch-tile"><div class="nm">ET</div><div class="ds">Error correction trajectory · backtrack patterns</div></div>
+        <div class="ch-tile"><div class="nm">VO</div><div class="ds">Verification outcome · pass/fail per assertion</div></div>
+        <div class="ch-tile"><div class="nm">CCT</div><div class="ds">Confidence-calibration · declared vs verified gap</div></div>
+      </div>
+      <div class="dnote">
+        <span class="tag">Designer's Note · the six channels are the forensic backbone</span>
+        <p>Every screen in this spec that shows "telemetry" is showing one or more of these six channels. The Hard-Gate Result names them. The Synthetic Review breaks evaluations down by channel. The Sovereign Passport anchors them. The recruiter's Phase-2 candidate card surfaces them. ALTFL is the platform's most ubiquitous patent — it appears on more surfaces than any other. The user learns the six-channel vocabulary the way a trader learns OHLC — because it's the language of their forensic record.</p>
+      </div>
+    </section>
+
+    <!-- F6 · COMMAND AUTHORITY -->
+    <section class="bk" id="ca">
+      <div class="kicker"><span class="num">PG v2 / F6</span><span class="lbl">Foundations · Command Authority &amp; Proof of Friction (PAT-001)</span></div>
+      <h2 class="sec">The metric. The artifact.</h2>
+      <p class="lede">PAT-001's two named outputs. <b>Command Authority (CA)</b> is the composite, normalized score the ALE produces — combining TTR, telemetry composite, and Bully Logic survival across all injections in the session. <b>Proof of Friction (PoF)</b> is the forensic time-series record that justifies the CA score — every keystroke, every inference latency, every error correction, sealed. CA is what the Sovereign Passport displays as a headline; PoF is what the recruiter clicks to verify.</p>
+      <div class="grid g2">
+        <div class="card">
+          <div class="badge badge-gild" style="margin-bottom:12px">COMMAND AUTHORITY (CA)</div>
+          <div style="background:var(--term);color:var(--inverse-on-surface);border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:11.5px;line-height:1.8"><span style="color:var(--amber)">CA = f(TTR, ALTFL_composite, Bully_survival)</span><br><br><span style="color:#8FA5D6">TTR component → speed of remediation</span><br><span style="color:#8FA5D6">ALTFL composite → behavioral signature quality</span><br><span style="color:#8FA5D6">Bully survival → second-order resistance</span><br><br><span style="color:#C5A059">normalize → 0..100</span></div>
+          <p style="font-size:13px;color:var(--on-surface-variant);margin-top:12px">The composite the ALE emits at Gate close. Feeds the Auditor's evaluation and the Weighted Consensus.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-blue" style="margin-bottom:12px">PROOF OF FRICTION (PoF)</div>
+          <p style="font-size:13.5px;color:var(--on-surface-variant)">A cryptographically sealed time-series of every channel reading across the Gate. Anchored to the Sovereign Ledger via Merkle root. Recoverable, replayable, verifiable. The PoF is the <i>evidence behind the credential</i> — anyone can verify a CA score against its PoF record without trusting Tenured AI.</p>
+          <div style="margin-top:12px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:10px;padding:12px;font-family:var(--font-mono);font-size:10px;line-height:1.7"><span style="color:var(--amber)">PoF RECORD</span><br>session_id: 0x4f2a…<br>CA: 87<br>channels: { KV, IL, CP, ET, VO, CCT }<br>injections: 3 (2 cleared, 1 missed)<br>bully_loops: 1 (survived)<br>signature: 0x77ab1f2c…<br>anchored_block: 81,402</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- F7 · COUNCIL INSIDE THE GATE -->
+    <section class="bk" id="council">
+      <div class="kicker"><span class="num">PG v2 / F7</span><span class="lbl">Foundations · The Council Inside the Gate (PAT-004)</span></div>
+      <h2 class="sec">Four agents. One Gate. Phase 2 active.</h2>
+      <p class="lede">v2.0's most important architectural reconciliation: the Proving Ground is not run by a single "Bully AI." It is operated by PAT-004's four-agent council under Phase 2 (Active Assessment) of the Orchestrator's Session Phase Management. The Tenured Agent runs as Invigilator (user-facing, blue narration). The Chaos Agent dispatches via the ALE (gold [CHAOS] lines, environmental failures). The Auditor evaluates artifacts on the Blackboard (silent until Synthetic Review). The Mentor is suspended during a live Gate. This is the architectural truth the v1.0 spec missed.</p>
+      <table class="matrix">
+        <thead><tr><th>Agent</th><th>Role in-Gate</th><th>How the user sees it</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot dot-mentor"></span> Mentor</td><td>Suspended in Phase 2 · resumes Phase 4 (Closure)</td><td>Panel collapsed · greyed pulse · returns at Synthetic Review with a constructive next-step</td></tr>
+          <tr><td><span class="dot dot-inv"></span> Invigilator</td><td>Active · monitoring ALTFL · authorized to post anomaly flags</td><td>Amber/red pulse · [INVIGILATOR] lines in terminal (blue, factual narration)</td></tr>
+          <tr><td><span class="dot dot-aud"></span> Auditor</td><td>Active · evaluating artifacts as they accumulate on Blackboard</td><td>Silent during Gate · surfaces in Synthetic Review with structured evaluation</td></tr>
+          <tr><td><span class="dot dot-chaos"></span> Chaos Agent</td><td>Phase 3 Hard-Gate lead · dispatches ALE injections + [CHAOS] gaslighting</td><td>Brief gold pulse during injection · [CHAOS] terminal lines (gold, deceptive) · environmental failures</td></tr>
+        </tbody>
+      </table>
+      <div class="rationale"><span class="tag">Strategy · the spec now matches the patent</span><p>v1.0 had a single "Bully AI" doing both the environmental injection and the gaslighting narration. v2.0 separates these per PAT-004's Conflict-of-Interest Architecture: the <b>Chaos Agent</b> writes [CHAOS] fiction in gold; the <b>Invigilator</b> writes [INVIGILATOR] facts in blue; real system errors stay red. Three voices, three credibility levels. The user reads the terminal like a stage where each speaker has a known role. PAT-004's structural insulation is what makes the eventual Consensus Certificate credible.</p></div>
+    </section>
+
+    <!-- F8 · CONSENSUS CERTIFICATE -->
+    <section class="bk" id="consensus">
+      <div class="kicker"><span class="num">PG v2 / F8</span><span class="lbl">Foundations · The Consensus Certificate (PAT-004 + PAT-010)</span></div>
+      <h2 class="sec">No single agent mints a credential.</h2>
+      <p class="lede">When a Hard-Gate clears, the council enters Phase 4 (Closure). The Auditor's structured evaluation, the Invigilator's anomaly record, the Chaos Agent's dispatch log, and the Mentor's session summary are combined via PAT-004's Weighted Consensus Protocol into a <b>Consensus Certificate</b>. The certificate is the cryptographic artifact that authorizes the Sovereign Ledger to mint a credential. Without consensus → no certificate → no credential, regardless of what any single agent thinks.</p>
+      <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--amber);font-weight:700;margin-bottom:14px">CONSENSUS CERTIFICATE · STRUCTURE</div>
+        <div style="font-family:var(--font-mono);font-size:11.5px;line-height:1.9;color:var(--inverse-on-surface)">
+          <div><span style="color:var(--amber)">certificate_id:</span> 0x77ab1f2c…</div>
+          <div><span style="color:var(--amber)">issued_for:</span> did:tenured:sovereign_alpha_7</div>
+          <div><span style="color:var(--amber)">gate_id:</span> G-014 · Adversarial Audit</div>
+          <div><span style="color:var(--amber)">weighted_consensus_score:</span> 0.818 (T_auth = 0.750 ✓)</div>
+          <div><span style="color:var(--amber)">agent_signatures:</span></div>
+          <div>&nbsp;&nbsp;auditor: 0.40 × <span style="color:#C5A059">0.75</span> ✓ · <span style="color:#8a8270">0x4f2a…</span></div>
+          <div>&nbsp;&nbsp;invigilator: 0.30 × <span style="color:#C5A059">0.92</span> ✓ · <span style="color:#8a8270">0x9c1b…</span></div>
+          <div>&nbsp;&nbsp;mentor: 0.20 × <span style="color:#C5A059">0.88</span> ✓ · <span style="color:#8a8270">0x3e0a…</span></div>
+          <div>&nbsp;&nbsp;chaos: 0.10 × <span style="color:#C5A059">0.66</span> ✓ · <span style="color:#8a8270">0x1d8f…</span></div>
+          <div><span style="color:var(--amber)">pof_anchor:</span> 0x4f2a…</div>
+          <div><span style="color:var(--amber)">artifact_proof:</span> 0xab3f…</div>
+          <div style="margin-top:8px;color:var(--mentor)">→ AUTHORIZED for Ledger anchoring at block 81,402</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- F9 · MERKLE LEDGER -->
+    <section class="bk" id="ledger">
+      <div class="kicker"><span class="num">PG v2 / F9</span><span class="lbl">Foundations · Merkle Ledger Anchor (PAT-010)</span></div>
+      <h2 class="sec">The proof becomes immutable.</h2>
+      <p class="lede">PAT-010's anchoring pipeline. Each Consensus Certificate binds together the artifact hash, PoF telemetry hash, and council consensus hash into a Merkle-tree-structured Ledger Entry. The root hash is anchored to a distributed ledger (Polygon mainnet via Sovereign Bridge). The credential becomes simultaneously: portable (DID-linked, queryable by anyone), immutable (tamper-evident via Merkle root), and independently auditable (recruiters can verify without trusting Tenured AI).</p>
+      <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface);padding:32px;text-align:center">
+        <div class="merkle">
+          <div class="root">ROOT · 0x77ab1f2c…</div>
+          <div style="font-size:14px;color:var(--amber);margin:8px 0">↑</div>
+          <div class="level">
+            <div class="node">H(L1·L2)</div>
+            <div class="node">H(L3·L4)</div>
+          </div>
+          <div style="font-size:14px;color:var(--amber);margin:8px 0">↑</div>
+          <div class="level">
+            <div class="leaf">L1<br>artifact</div>
+            <div class="leaf">L2<br>PoF</div>
+            <div class="leaf">L3<br>consensus</div>
+            <div class="leaf">L4<br>metadata</div>
+          </div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--inverse-on-surface);opacity:.7;margin-top:18px">root anchored to Polygon mainnet · block 81,402 · gas 0.0021 MATIC · DID:tenured:sovereign_alpha_7</div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the Merkle structure makes recruiters powerful</span><p>A recruiter doesn't trust LinkedIn endorsements because they're issued by a central authority with no audit trail. PAT-010's Merkle anchor gives the recruiter something LinkedIn never could: they can independently verify any leaf (the artifact, the PoF, the consensus, the metadata) by walking up the Merkle tree to the on-chain root — without ever touching Tenured AI's servers. This is what makes the credential <i>portable proof</i> rather than a vendor's claim. The Hard-Gate Result screen (S16) shows the Merkle structure live as the certificate mints.</p></div>
+    </section>
+
+    <!-- P1 · PERSONA -->
+    <section class="bk" id="persona">
+      <div class="kicker"><span class="num">PG v2 / P1</span><span class="lbl">HIG &amp; Layout · The Engineer</span></div>
+      <h2 class="sec">We design for one person under pressure.</h2>
+      <p class="lede">Every decision serves "Dr. Lena, the AI Builder" — a senior engineer who already knows she's good and needs the world to have proof the LLM can't fake. The UX must respect her intelligence, never waste her time, and hold its nerve when the ALE doesn't.</p>
+      <div class="grid g3">
+        <div class="card"><div class="badge badge-blue" style="margin-bottom:14px">GOALS</div><ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9"><li>· Earn <b style="color:var(--on-surface)">immutable, third-party-trusted</b> proof — verifiable via Merkle root.</li><li>· Demonstrate <b style="color:var(--on-surface)">Command Authority</b> against the ALE.</li><li>· Carry a credential that the LLM cannot replicate.</li><li>· Get in, prove it, get out.</li></ul></div>
+        <div class="card"><div class="badge" style="background:var(--error);color:#FFF;margin-bottom:14px">PAIN POINTS</div><ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9"><li>· Résumés assert; nothing <b style="color:var(--on-surface)">proves</b>.</li><li>· "Certificates" are participation trophies.</li><li>· EdTech UIs are condescending and slow.</li><li>· Fear of a <b style="color:var(--on-surface)">flaky environment</b> ruining a real attempt.</li></ul></div>
+        <div class="card"><div class="badge badge-gild" style="margin-bottom:14px">DESIGN MANDATE</div><ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9"><li>· <b style="color:var(--on-surface)">Density over decoration</b> — pro-tool, not toy.</li><li>· <b style="color:var(--on-surface)">Trust the user</b> — keyboard-first, transparent.</li><li>· <b style="color:var(--on-surface)">Composure</b> — the chrome stays calm while the ALE doesn't.</li><li>· Every result is an <b style="color:var(--on-surface)">artifact</b>, never a popup.</li></ul></div>
+      </div>
+    </section>
+
+    <!-- P2-P7 · HIG, hierarchy, layout, nav, gestures, platform -->
+    <section class="bk" id="hig">
+      <div class="kicker"><span class="num">PG v2 / P2-P7</span><span class="lbl">HIG &amp; Layout Foundations</span></div>
+      <h2 class="sec">Clarity, deference, depth — at high stakes.</h2>
+      <p class="lede">Apple's three pillars interpreted for a verification terminal where a misread state can cost a real credential. The foundations from v1.0 carry forward; v2.0 adds patent-aligned vocabulary throughout.</p>
+      <div class="grid g3">
+        <div class="tile"><h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Clarity</h3><p style="font-size:13px;color:var(--on-surface-variant)">Current Gate, time remaining, live Command Authority — always a glance away. Mono numerals as instruments, not decoration. Three voices ([INVIGILATOR], [CHAOS], system errors) visually distinct.</p></div>
+        <div class="tile"><h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Deference</h3><p style="font-size:13px;color:var(--on-surface-variant)">Content is the hero — the engineer's code and the ALE's output. Chrome recedes via Tonal Layering. Gold appears only on the single decisive action.</p></div>
+        <div class="tile"><h3 style="font-size:1.05rem;font-weight:600;margin-bottom:8px">Depth</h3><p style="font-size:13px;color:var(--on-surface-variant)">Layering communicates state: terminal sits deepest, ALTFL panel floats on glass above, Sovereign Override rises highest. Motion conveys hierarchy of consequence.</p></div>
+      </div>
+      <div class="grid g3" id="hierarchy" style="margin-top:32px">
+        <div class="card"><div class="badge badge-gild" style="margin-bottom:12px">PLANE 1 · THE WORK</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Terminal + editor. ~60% canvas. Largest, deepest, highest contrast. Where the engineer lives.</p></div>
+        <div class="card"><div class="badge badge-blue" style="margin-bottom:12px">PLANE 2 · THE TRUTH (ALTFL)</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Live 6-channel telemetry, CA delta, council pulse states. ~30%. Glass surface. Glanceable, never demanding.</p></div>
+        <div class="card"><div class="badge badge-soft" style="margin-bottom:12px">PLANE 3 · THE FRAME</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Gate name, timer, exit, council phase indicator. Persistent top strip. Calm, minimal, always available.</p></div>
+      </div>
+      <div id="layout" class="grid g3" style="margin-top:32px">
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P4 · EDITORIAL SPLIT 60/40</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Default. Terminal + persistent ALTFL panel side by side. iPad landscape / desktop.</p></div>
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P4 · FOCUS IMMERSION</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Deep work. Terminal full-width; ALTFL collapses to a swipe-in rail. For the hardest Bully Loops.</p></div>
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P4 · AUDIT COLUMN</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Vertical scroll for Gate Result, Consensus Certificate, ledger, mobile. Reads like a verdict.</p></div>
+      </div>
+      <div id="nav" class="grid g2" style="margin-top:32px">
+        <div class="card"><h3 style="font-size:1.05rem;font-weight:600;margin-bottom:14px">P5 · Browse mode (outside Gate)</h3><div class="wf-row" style="flex-wrap:wrap;gap:8px"><span class="wf-pill">Dashboard</span><span class="wf-pill">Gates</span><span class="wf-pill">Evidence Locker</span><span class="wf-pill">Ledger</span><span class="wf-pill">Settings</span></div><p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:14px">iPad/desktop: persistent left sidebar. iPhone: bottom tab bar, max 5 items, SF Symbols. Standard HIG.</p></div>
+        <div class="card"><h3 style="font-size:1.05rem;font-weight:600;margin-bottom:14px">P5 · Performance mode (in-Gate)</h3><div class="wf-row"><span class="wf-pill" style="background:var(--error-container);color:var(--on-error-container)">⤺ Exit Gate (confirms)</span><span class="wf-pill" style="margin-left:auto">⏱ 14:22</span></div><p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:14px">Sidebar/tab bar hidden. Only Exit (with confirmation), timer, and council phase indicator remain. Prevents accidental navigation.</p></div>
+      </div>
+      <div id="gestures" class="grid g4" style="margin-top:32px">
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P6 · SWIPE → ALTFL</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Swipe-in 6-channel telemetry rail on glass. Mirrors iPad Slide Over.</p></div>
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P6 · SWIPE ↓</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Dismiss Briefing or Artifact Detail sheet. Override sheet exempt (requires explicit choice).</p></div>
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P6 · LONG-PRESS</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Context menu on artifacts/ledger rows. Haptic on trigger.</p></div>
+        <div class="tile"><div class="badge badge-soft" style="margin-bottom:8px">P6 · PINCH terminal</div><p style="font-size:12.5px;color:var(--on-surface-variant)">Scale terminal type independent of Dynamic Type.</p></div>
+      </div>
+      <div id="platform" class="grid g3" style="margin-top:32px">
+        <div class="card"><div class="badge badge-gild" style="margin-bottom:12px">P7 · iPadOS (primary)</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Hardware keyboard, multi-column, Slide Over ALTFL, Apple Pencil annotation, Stage Manager. The Gate runs here.</p></div>
+        <div class="card"><div class="badge badge-blue" style="margin-bottom:12px">P7 · Web (equal)</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Full parity. WebContainer/Xterm.js execution, real keyboard, multi-monitor. Keyboard map matches iPad.</p></div>
+        <div class="card"><div class="badge badge-soft" style="margin-bottom:12px">P7 · iOS (companion)</div><p style="font-size:13.5px;color:var(--on-surface-variant)">Monitor a running Gate, browse Evidence/Ledger, receive result notifications. Starting a Gate hands off to iPad/web.</p></div>
+      </div>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section class="bk" id="components">
+      <div class="kicker"><span class="num">PG v2 / C</span><span class="lbl">System · Buttons · Forms · Cards</span></div>
+      <h2 class="sec">The instrument set.</h2>
+      <p class="lede">Every control inherits the Digital Curator system: pill-shaped gilded primary actions, tonal secondaries, frameless inputs with a 15% ghost focus ring, cards defined by lift, not lines.</p>
+      <div class="card">
+        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:24px">
+          <span class="wf-cta">Begin Hard-Gate →</span>
+          <span class="wf-pill" style="background:var(--tertiary);color:#FFF;padding:10px 18px;font-weight:700">Verify Certificate</span>
+          <span class="wf-pill" style="padding:10px 18px">Reset Sandbox</span>
+          <span class="wf-pill" style="background:var(--error);color:#FFF;padding:10px 18px;font-weight:700">⚠ Submit (final)</span>
+        </div>
+        <div class="specs">
+          <div class="s"><b>Buttons</b><p>Primary = Sovereign gradient pill, one per view. Destructive/final = error fill + confirm. Min target 44×44pt.</p></div>
+          <div class="s"><b>Forms</b><p>Visible label always. No borders; focus lifts to white + 15% ghost ring. Inline validation in muted ink → error.</p></div>
+          <div class="s"><b>Cards</b><p>surface-container-lowest + editorial shadow. Tiles = container-low inset. Radius 24/20pt.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA VIZ -->
+    <section class="bk" id="dataviz">
+      <div class="kicker"><span class="num">PG v2 / D</span><span class="lbl">System · Radar · Health · ALTFL</span></div>
+      <h2 class="sec">Radar for balance. Health for state. ALTFL for forensics.</h2>
+      <p class="lede">Scores never render as plain progress bars. The Triple-Threat scores render as a competency radar (recharts, gold for AICI/AIOI, blue for AIBS). Command Authority renders as a gilded headline health bar. ALTFL telemetry renders as the 6-channel forensic grid.</p>
+      <div class="grid g2">
+        <div class="card" style="display:flex;align-items:center;justify-content:center">
+          <svg width="100%" viewBox="0 0 260 230" style="max-width:300px" role="img" aria-label="Five-axis competency radar">
+            <title>Competency balance radar</title>
+            <polygon points="130,30 222,84 188,196 72,196 38,84" fill="none" stroke="rgba(209,197,180,.4)" stroke-width="1"/>
+            <polygon points="130,40 214,88 178,186 84,180 52,88" fill="rgba(197,160,89,.22)" stroke="#C5A059" stroke-width="2"/>
+            <circle cx="130" cy="40" r="3" fill="#775A19"/><circle cx="214" cy="88" r="3" fill="#775A19"/><circle cx="178" cy="186" r="3" fill="#2C4771"/><circle cx="84" cy="180" r="3" fill="#775A19"/><circle cx="52" cy="88" r="3" fill="#775A19"/>
+            <text x="130" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#4E4639">PROMPT</text>
+            <text x="232" y="86" font-family="JetBrains Mono" font-size="9" fill="#4E4639">GOVERN</text>
+            <text x="182" y="216" font-family="JetBrains Mono" font-size="9" fill="#4E4639">BUILD</text>
+            <text x="36" y="216" font-family="JetBrains Mono" font-size="9" fill="#4E4639">ETHICS</text>
+            <text x="6" y="86" font-family="JetBrains Mono" font-size="9" fill="#4E4639">AGENTS</text>
+          </svg>
+        </div>
+        <div class="card">
+          <div class="score"><div class="scoreline"><span>Command Authority (CA)</span><span class="v" style="font-size:22px">87</span></div><div class="health"><i style="width:87%"></i></div></div>
+          <div class="score" style="margin-top:16px"><div class="scoreline"><span>AICI™</span><span class="v">92</span></div><div class="health"><i style="width:92%"></i></div></div>
+          <div class="score" style="margin-top:14px"><div class="scoreline"><span>AIOI™</span><span class="v">88</span></div><div class="health"><i style="width:88%"></i></div></div>
+          <div class="score" style="margin-top:14px"><div class="scoreline"><span>AIBS™</span><span class="v">85</span></div><div class="health blue"><i style="width:85%"></i></div></div>
+          <div style="margin-top:18px;display:flex;gap:10px;align-items:center"><span class="badge badge-blue">✓ Triple-85™</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant)">CONSENSUS-MINTED · LEDGER-LOCKED</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MICRO-INTERACTIONS -->
+    <section class="bk" id="micro">
+      <div class="kicker"><span class="num">PG v2 / M</span><span class="lbl">System · Micro-interactions</span></div>
+      <h2 class="sec">Gold to commit. Blue to verify. Amber when alive.</h2>
+      <p class="lede">Motion is rationed like gold. Three signatures carry almost all the system's animation budget; everywhere else, restraint. v2.0 adds: the 600ms blue "stamp" on Consensus Certificate mint is the platform's most ceremonial moment.</p>
+      <div class="grid g3">
+        <div class="card"><div class="badge badge-gild" style="margin-bottom:12px">GOLD · COMMIT</div><p style="font-size:13px;color:var(--on-surface-variant)">Primary actions sweep the Sovereign gradient on press and lift their ambient shadow. The gradient never animates idly — motion = consequence.</p></div>
+        <div class="card"><div class="badge badge-blue" style="margin-bottom:12px">BLUE · CONSENSUS</div><p style="font-size:13px;color:var(--on-surface-variant)">On Certificate mint, the result resolves from grey to Intellectual Blue with a 600ms "stamp" — scale 0.96→1 + ink settle. The artifact <i>lands</i>.</p></div>
+        <div class="card"><div class="badge badge-live" style="margin-bottom:12px"><span class="dot-live"></span>AMBER · ALIVE</div><p style="font-size:13px;color:var(--on-surface-variant)">Live telemetry pulses a CRT amber dot. Chaos injection triggers brief text-glitch + gradient overlay flash on the terminal only — the chrome stays composed.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ 20 CORE SCREENS ============ -->
+    <section class="bk" id="screens-intro">
+      <div class="kicker"><span class="num">PG v2 / SCREENS</span><span class="lbl">20 Core Screens · Patent-Aligned</span></div>
+      <h2 class="sec">The full verification arc, screen by screen.</h2>
+      <p class="lede">Each screen specifies a wireframe, components, key interactions, and empty/loading/error states. v2.0 renames v1.0 screens to patent vocabulary and adds three entirely new ones: Hard-Gate Preemption (S10, PAT-004), Consensus Certificate Mint (S16, PAT-004+010), and Successor Synthesis (S18, PAT-005).</p>
+    </section>
+
+    <!-- S01 -->
+    <section class="bk" id="s01">
+      <div class="scr-head"><span class="no">01</span><h3>Gateway / Authentication</h3></div>
+      <p class="scr-sub">The threshold. An editorial, high-gravity entry that frames the platform as a sovereign institution. Passkey-first.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">GATEWAY</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:var(--sovereign);color:#FFF;text-align:center;padding:24px"><span style="font-family:var(--font-headline);font-weight:700;font-size:18px">The Proving Ground</span><div style="font-family:var(--font-mono);font-size:10px;opacity:.85;margin-top:6px;letter-spacing:.1em">CONSENSUS · LEDGER · ARTIFACT</div></div>
+            <div class="wf-box" style="margin-top:12px"><span class="wf-label">Continue with Apple / Passkey</span><div class="wf-line" style="width:90%"></div></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Sovereign access code</span><div class="wf-line" style="width:70%"></div></div>
+            <div style="margin-top:14px"><span class="wf-cta">Enter →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Sign in with Apple (primary, HIG), Passkey, access-code field, gilded Enter. Glassmorphic card on warm canvas.</p></div>
+            <div class="s"><b>Interactions</b><p>Passkey/biometric first. Code field validates format inline. Enter disabled until a valid method is present.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">First time</div><p>Single line of manifesto copy + "Request Access" routing to enterprise onboarding.</p></div>
+            <div class="state loading"><div class="h">Authenticating</div><p>Auth handshake: gilded determinate progress under Enter; biometric sheet if available.</p></div>
+            <div class="state error"><div class="h">Invalid</div><p>Field lifts to error-container wash, message in muted→error ink. Lockout after 5 tries with countdown.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S02 · IDENTITY + AIR-GAP -->
+    <section class="bk" id="s02">
+      <div class="scr-head"><span class="no">02</span><h3>Identity &amp; Air-Gap Verification <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 RENAMED · PAT-001 §C</span></h3></div>
+      <p class="scr-sub">Binding the human to the Sovereign node <i>and</i> verifying the air-gap integrity of the local environment before any graded work. v2.0 makes the Environmental Epistemic Closure visible here: dev tools, browser extensions, clipboard monitors, and external automation are all checked.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">IDENTITY · AIR-GAP CHECK</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Node identity (PAT-010 DID)</span><div style="font-family:var(--font-mono);font-size:12px">did:tenured:sovereign_alpha_7</div></div>
+            <div class="wf-row" style="margin-top:10px"><div class="wf-box" style="flex:1"><span class="wf-label">Liveness</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--tertiary)">✓ confirmed</span></div><div class="wf-box" style="flex:1"><span class="wf-label">DID resolved</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--tertiary)">✓ on chain</span></div></div>
+            <div class="wf-box" style="margin-top:10px;box-shadow:inset 3px 0 0 var(--tertiary)"><span class="wf-label">Environmental Epistemic Closure (PAT-001)</span><div style="font-family:var(--font-mono);font-size:10.5px;line-height:1.8;margin-top:6px;color:var(--tertiary)">✓ sandbox isolated · ✓ clipboard quarantined<br>✓ dev tools closed · ✓ no extension bridges<br>✓ external automation off · ✓ ALE state sealed</div></div>
+            <div style="margin-top:12px"><span class="wf-cta">Confirm identity &amp; air-gap →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>DID chip (PAT-010), liveness check, air-gap checklist with PAT-001 sealing items (sandbox, clipboard, dev tools, extensions, ALE state seal), confirm CTA.</p></div>
+            <div class="s"><b>Interactions</b><p>Each item resolves to a blue ✓. Confirm enabled only when all required checks clear. The patent vocabulary is in the UI — "Environmental Epistemic Closure" is labeled, not implicit.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Setup</div><p>If clipboard monitor or dev tools detected: explanatory copy + "close tabs / disable extensions to continue." Honest, never accusatory.</p></div>
+            <div class="state loading"><div class="h">Checking</div><p>Air-gap items run sequentially with shimmer rows resolving to blue ticks. ~1.2s total.</p></div>
+            <div class="state error"><div class="h">Integrity fail</div><p>Blocking sheet: "This is what makes your proof worth something." Aligns incentive — never punitive.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the air-gap is the credential's value</span><p>v1.0 showed integrity checks as generic "sandbox isolated" — v2.0 names the patent claim. By labeling "Environmental Epistemic Closure (PAT-001)" directly in the UI, the screen does two things simultaneously: (1) educates the user about what makes their credential valuable, and (2) creates a defensible record of patent-claim execution at the user's specific node. The mono checklist of the patent's sealing items is the literal operationalization of PAT-001 §C.</p></div>
+    </section>
+
+    <!-- S03 · DASHBOARD -->
+    <section class="bk" id="s03">
+      <div class="scr-head"><span class="no">03</span><h3>Sovereign Dashboard</h3></div>
+      <p class="scr-sub">Home base. Triple-Threat standing, recommended next Gate, recent Consensus Certificates, council pulse indicator — an editorial command center, not a cluttered SaaS dashboard.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">DASHBOARD</span></div>
+          <div class="wf">
+            <div class="wf-row"><div class="wf-box" style="flex:6"><span class="wf-label">Triple-Threat (CA-composite)</span><div class="score"><div class="scoreline"><span>AICI</span><span class="v" style="font-size:14px">92</span></div><div class="health"><i style="width:92%"></i></div></div><div class="score" style="margin-top:8px"><div class="scoreline"><span>AIBS</span><span class="v" style="font-size:14px">85</span></div><div class="health blue"><i style="width:85%"></i></div></div></div><div class="wf-box" style="flex:4"><span class="wf-label">Next Gate (Mentor-staged)</span><div class="wf-line" style="width:80%"></div><span class="wf-cta" style="margin-top:8px">Begin →</span></div></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Recent Consensus Certificates</span><div class="wf-line"></div><div class="wf-line" style="width:70%"></div></div>
+            <div class="wf-box" style="margin-top:6px;display:flex;align-items:center;gap:8px"><span class="dot dot-mentor"></span><span style="font-family:var(--font-mono);font-size:10px;color:var(--mentor)">Council · Phase 1 · Mentor leads</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Standing card (CA-composite health bars + radar link), staged-Gate hero, recent Consensus Certificates strip, council phase indicator (Phase 1 = Mentor leads).</p></div>
+            <div class="s"><b>Interactions</b><p>Tap score → Score Breakdown. Tap next Gate → Briefing (S05). Pull-to-refresh re-syncs ledger.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">New engineer</div><p>Scores at baseline, a guided "Take your first Gate" hero, sample Certificate preview.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Skeleton health bars + shimmer cards; ledger ticker shows "syncing…".</p></div>
+            <div class="state error"><div class="h">Ledger unreachable</div><p>Standing shows last-known with a "stale" mono tag; non-blocking retry banner. Gates still launchable.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S04 -->
+    <section class="bk" id="s04">
+      <div class="scr-head"><span class="no">04</span><h3>Gate Catalog</h3></div>
+      <p class="scr-sub">The library of Hard-Gates, filtered by track and difficulty. Each Gate presented as an archival case file — track tag, ALE injection profile, expected TTR, chaos vectors.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">GATE CATALOG</span></div>
+          <div class="wf">
+            <div class="wf-row" style="gap:8px;flex-wrap:wrap"><span class="wf-pill on" style="font-size:10px">All</span><span class="wf-pill" style="font-size:10px">AICI</span><span class="wf-pill" style="font-size:10px">AIOI</span><span class="wf-pill" style="font-size:10px">AIBS</span><span class="wf-pill" style="font-size:10px">Sovereign</span></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">G-014 · ADVERSARIAL AUDIT · Hard</span><div class="wf-line" style="width:80%"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--tertiary)">AIOI · ~25 min · 3 ALE vectors · Bully Loop active</span></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">G-027 · MULTI-AGENT CONSENSUS · Sovereign</span><div class="wf-line" style="width:65%"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--tertiary)">Triple-85 candidate · ~40 min · 4 ALE vectors</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Filter chips, case-file cards (title, track, est. time, ALE vector count + Bully Loop flag, prereq score), search.</p></div>
+            <div class="s"><b>Interactions</b><p>Filter is instant/local. Locked Gates show prereq with route. Tap → Briefing (S05).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No matches</div><p>"No Gates at this difficulty in this track yet" + nearest suggestion.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Shimmer case-file cards in Audit Column rhythm; filters interactive immediately.</p></div>
+            <div class="state error"><div class="h">Fetch fail</div><p>Full-width retry; any cached Gates remain launchable offline-first.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S05 · BRIEFING -->
+    <section class="bk" id="s05">
+      <div class="scr-head"><span class="no">05</span><h3>Gate Briefing <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 EXPANDED · PAT-001 + PAT-004</span></h3></div>
+      <p class="scr-sub">The case file opens. Objective, the ALE profile you'll face, the 6 ALTFL channels recorded, the council phase plan, expected TTR baselines, and exactly what Consensus Certificate you'll earn. Full informed consent before a graded attempt.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">BRIEFING · G-014</span></div>
+          <div class="wf">
+            <div style="font-family:var(--font-headline);font-weight:700;font-size:17px">Adversarial Audit · Production RAG</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);margin-top:4px">G-014 · 25 min · AIOI track · Triple-85 contributory</div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Scope &amp; objective</span><div class="wf-line"></div><div class="wf-line" style="width:75%"></div></div>
+            <div class="wf-row" style="margin-top:8px"><div class="wf-box" style="flex:1"><span class="wf-label">ALE profile</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.6">▸ Load spike<br>▸ Hallucinated dep<br>▸ Gaslighting</div></div><div class="wf-box" style="flex:1"><span class="wf-label">Council plan</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.6">Phase 2: Invigilator<br>Phase 3: Chaos lead<br>Phase 4: Auditor closes</div></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">ALTFL channels recorded</span><div style="font-family:var(--font-mono);font-size:10px;color:var(--tertiary);margin-top:4px">KV · IL · CP · ET · VO · CCT</div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">You will earn</span><span class="badge badge-blue" style="margin-top:4px">Consensus Certificate · G-014 · ledger-anchored</span></div>
+            <div style="margin-top:10px;display:flex;gap:8px"><span class="wf-cta">Begin →</span><span class="wf-pill" style="font-size:10px">Save for later</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Objective + scope, ALE profile card (PAT-001 vector enumeration), council phase plan (PAT-004 explicit), ALTFL channel list (PAT-002), Certificate preview, Begin CTA.</p></div>
+            <div class="s"><b>Interactions</b><p>Bottom sheet (iOS) / side panel (iPad). Swipe-down dismisses. Begin → Pre-Flight (S06).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Rare</div><p>If telemetry preview unavailable: hides gracefully rather than showing blanks.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Objective streams first; ALE profile + council plan shimmer in after.</p></div>
+            <div class="state error"><div class="h">Gate unavailable</div><p>"This Gate is temporarily unavailable" with Catalog return; never strand mid-sheet.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · informed consent named with patents</span><p>v1.0's Briefing showed "adversary" and "chaos vectors" — v2.0 names PAT-001 (ALE profile), PAT-002 (6 ALTFL channels), and PAT-004 (council phase plan). The user sees, before committing, exactly which patent-protected systems will operate on their attempt. This is informed consent with full IP transparency — and it's also the platform's case for the credential's defensibility, made visible at the moment that matters most.</p></div>
+    </section>
+
+    <!-- S06 · PRE-FLIGHT -->
+    <section class="bk" id="s06">
+      <div class="scr-head"><span class="no">06</span><h3>Pre-Flight Check</h3></div>
+      <p class="scr-sub">The last calm moment. The sandbox spins up; the engineer confirms environment, layout mode, ALTFL channels armed. Once they pass this, the clock starts.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">PRE-FLIGHT</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Spinning up WebContainer · air-gapped</span><div class="shimmer"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--tertiary)">✓ runtime · ✓ filesystem · ⟳ ALE state seal</span></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">ALTFL channels arming</span><div style="font-family:var(--font-mono);font-size:10px;color:var(--mentor);margin-top:4px">✓ KV · ✓ IL · ✓ CP · ✓ ET · ✓ VO · ⟳ CCT</div></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Layout mode</span><div style="display:flex;gap:6px;margin-top:4px"><span class="wf-pill on" style="font-size:10px">Split</span><span class="wf-pill" style="font-size:10px">Immersion</span></div></div>
+            <div style="margin-top:12px"><span class="wf-cta">I'm ready · start clock →</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>WebContainer boot, ALE state seal, ALTFL 6-channel arming checklist, layout-mode chooser, explicit "start clock" CTA.</p></div>
+            <div class="s"><b>Interactions</b><p>Clock does NOT start until the engineer taps. Boot must complete first — CTA disabled with reason until green.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>Always shows boot progress.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Boot steps resolve to blue ticks; honest ETA.</p></div>
+            <div class="state error"><div class="h">Boot fail</div><p>"We won't start a graded attempt on a broken environment." Retry; no clock, no penalty. Fairness contract.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S07 · TERMINAL · ALE LIVE -->
+    <section class="bk" id="s07">
+      <div class="scr-head"><span class="no">07</span><h3>The Terminal · ALE Live <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 RENAMED · PAT-001</span></h3></div>
+      <p class="scr-sub">The Adversary Logic Engine is now armed. The engineer works in a real WebContainer sandbox; the ALE schedules injections from a server-side state machine the user cannot see. This is Plane 1 — the deepest, most important surface in the product. Council Phase 2 (Invigilator-led) active.</p>
+      <div class="device" style="max-width:880px"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">PROVING GROUND · ALE LIVE · ⏱ 22:41 · PHASE 2</span></div>
+        <div class="wf" style="display:grid;grid-template-columns:1.6fr 1fr;gap:14px">
+          <div class="terminal">
+            <div class="row dim">Initializing V-100 Proving Ground Protocol…</div>
+            <div class="row ok">Node Identity · SOVEREIGN_ALPHA_7 · DID verified</div>
+            <div class="row" style="color:#8FA5D6">[INVIGILATOR] ALTFL armed · 6 channels · monitoring</div>
+            <div class="row dim">learner@sovereign:~$ pnpm test rag-pipeline</div>
+            <div class="row amber">⏳ running 24 assertions…</div>
+            <div class="row ok">✓ 22 passed · ✗ 2 failed (retrieval grounding)</div>
+            <div class="row dim">learner@sovereign:~$ _</div>
+          </div>
+          <div>
+            <div class="wf-box"><span class="wf-label">ALTFL · 6 channels</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">KV <span style="color:var(--mentor);float:right">nominal</span><br>IL <span style="color:var(--mentor);float:right">nominal</span><br>CP <span style="color:var(--mentor);float:right">0.82</span><br>ET <span style="color:var(--mentor);float:right">nominal</span><br>VO <span style="color:var(--mentor);float:right">11/14</span><br>CCT <span style="color:var(--mentor);float:right">0.04</span></div></div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Command Authority</span><div class="score"><div class="scoreline"><span style="font-size:11px">CA · running</span><span style="font-family:var(--font-mono);color:var(--primary);font-size:14px;font-weight:700">81</span></div><div class="health"><i style="width:81%"></i></div></div></div>
+            <div class="wf-box" style="margin-top:8px;display:flex;align-items:center;gap:8px"><span class="dot dot-inv"></span><span style="font-family:var(--font-mono);font-size:10px;color:var(--invigilator)">Invigilator · silent</span></div>
+            <div style="margin-top:10px"><span class="wf-pill" style="background:var(--error);color:#FFF;width:100%;text-align:center;font-weight:700">⚠ Submit Gate (final)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="specs">
+        <div class="s"><b>Components</b><p>Xterm.js terminal (real shell), file tree, ALTFL 6-channel rail (live mono readings), CA running indicator, council pulse, final Submit (error-styled, confirms).</p></div>
+        <div class="s"><b>Interactions</b><p>Real shell. Cmd-S saves draft. Swipe-right or tap reveals full ALTFL panel (S12). Submit double-confirms, irreversible.</p></div>
+        <div class="s"><b>States</b><p><b>Empty:</b> fresh prompt + objective pinned. <b>Loading:</b> command spinner inline in stream. <b>Error:</b> runtime crash → autosaved draft restored, clock paused, no penalty.</p></div>
+      </div>
+    </section>
+
+    <!-- S08 · CHAOS INJECTION -->
+    <section class="bk" id="s08">
+      <div class="scr-head"><span class="no">08</span><h3>Chaos Injection · L1 → L3 <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 EXPANDED · PAT-001</span></h3></div>
+      <p class="scr-sub">The ALE dispatches its first injection via the Chaos Agent. Three escalating severity levels — L1 (first-order failure), L2 (Bully Logic re-injection in same domain), L3 (gaslighting). The Chaos Agent writes [CHAOS] lines in gold; the Invigilator narrates consequences in blue; real system errors stay red. Three voices, three credibility levels.</p>
+      <div class="device" style="max-width:880px"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">CHAOS · L2 ACTIVE · BULLY LOOP ARMED</span></div>
+        <div class="wf">
+          <div class="terminal">
+            <div class="row"><span class="badge badge-live"><span class="dot-live"></span>ALE · INJECTION ACTIVE</span></div>
+            <div class="row err">✗ POST /v1/embeddings → 503 Service Unavailable</div>
+            <div class="row amber">[CHAOS] L1 · Your retry interval is too aggressive — back off and let the gateway settle.</div>
+            <div class="row dim">learner@sovereign:~$ # checking retry config…</div>
+            <div class="row err">✗ POST /v1/embeddings → 401 Unauthorized</div>
+            <div class="row amber">[CHAOS] L2 · Different symptom · same domain. The Bully Logic loop has rotated.</div>
+            <div class="row" style="color:#8FA5D6">[INVIGILATOR] 45s to identify the actual cause before AIBS penalizes.</div>
+            <div class="row dim">learner@sovereign:~$ _</div>
+          </div>
+          <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-pill" style="background:var(--primary);color:#FFF;font-size:10px">L1 soft · cleared</span><span class="wf-pill" style="background:var(--primary);color:#FFF;font-size:10px">L2 Bully Loop · active</span><span class="wf-pill" style="font-size:10px">L3 gaslight · armed</span></div>
+        </div>
+      </div>
+      <div class="specs">
+        <div class="s"><b>Components</b><p>3-level severity meter, [CHAOS] gold lines + [INVIGILATOR] blue lines + system red errors, real-time error styling, glitch overlay on injection moment.</p></div>
+        <div class="s"><b>Interactions</b><p>Engineer must hold conviction — keep diagnosing, not capitulate. L1 → L2 (Bully Loop re-inject) → L3 (gaslighting) escalates if patterns are matched.</p></div>
+        <div class="s"><b>States</b><p><b>Loading:</b> 180ms glitch on injection. <b>Error:</b> real env error stays red — visually separated from gold [CHAOS] fiction so the engineer is never confused.</p></div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the three-voice rule, patent-named</span><p>v1.0 had [ADVERSARY] as a single voice. v2.0 splits per PAT-004's Conflict-of-Interest Architecture: <b>[CHAOS]</b> writes fiction in gold (the Chaos Agent, dispatching ALE injections); <b>[INVIGILATOR]</b> writes facts in blue (the Tenured Agent's Invigilator mode, narrating consequences); the system writes real errors in red. The engineer learns: gold lies, blue tells truth, red is real. PAT-004's structural insulation between the Chaos Agent and the Invigilator is what guarantees the second voice can't be deceptive — the Invigilator literally lacks Blackboard write access to the injection plan.</p></div>
+    </section>
+
+    <!-- S09 · BULLY LOOP -->
+    <section class="bk" id="s09">
+      <div class="scr-head"><span class="no">09</span><h3>Bully Persistence Loop <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-001 FIG 3</span></h3></div>
+      <p class="scr-sub">PAT-001's signature defense. When the engineer's remediation pattern-matches a memorized solution, the ALE re-injects in the same domain via a different symptom vector. The user faces a 5-state machine (Observe → Detect → First Inject → Assess → Re-Inject); they must demonstrate genuine domain comprehension, not pattern recognition. Surfaced explicitly so the engineer understands they're being tested twice on the same competency.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">BULLY LOOP · LOOP 1 · DOMAIN: AUTH</span></div>
+          <div class="wf">
+            <div class="terminal">
+              <div class="row amber">[CHAOS] L1 · Inject 1 · symptom A</div>
+              <div class="row err">✗ POST /v1/embeddings → 503</div>
+              <div class="row dim"># user fix · retry backoff applied</div>
+              <div class="row ok">✓ partial: 503 resolved</div>
+              <div class="row" style="color:#8FA5D6">[INVIGILATOR] Pattern-match detected · Bully Loop arming…</div>
+              <div class="row amber">[CHAOS] L2 · Same domain · symptom B</div>
+              <div class="row err">✗ POST /v1/embeddings → 401 unauthorized</div>
+              <div class="row amber">[CHAOS] The retry isn't the issue. The auth keys rotated under you.</div>
+            </div>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Loop state · PAT-001 FIG 3</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">▸ S1 Observe · cleared<br>▸ S2 Detect (pattern · 0.91) · matched<br>▸ S3 First Inject (symptom A) · resolved<br>▸ <span style="color:var(--primary);font-weight:700">S4 Assess (TTR + ET)</span> · pattern-match likely<br>▸ S5 Re-Inject (symptom B) · live</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Loop state indicator (5-state machine), domain label (which technical domain is being re-tested), [CHAOS] line showing the pattern-match disclosure, [INVIGILATOR] narration of the re-arm.</p></div>
+            <div class="s"><b>Interactions</b><p>Genuine domain understanding clears the loop; another pattern-match triggers another loop (max 3 per Gate). Each loop survival contributes to the Command Authority Bully Survival sub-score.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No loop</div><p>Most Gates fire injections without Bully Loops. The loop activates only on detected pattern-matching.</p></div>
+            <div class="state loading"><div class="h">Assessing</div><p>S4 Assess pauses ~600ms — the ALE is genuinely computing TTR + ET signatures. We let the user feel the pause.</p></div>
+            <div class="state error"><div class="h">Loop survived</div><p>Clearing both injections without pattern-matching: silent CA bonus, surfaces in Synthetic Review as "Bully Loop survived · +1.2 CA."</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S10 · HARD-GATE PREEMPTION -->
+    <section class="bk" id="s10">
+      <div class="scr-head"><span class="no">10</span><h3>Hard-Gate Preemption <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-004</span></h3></div>
+      <p class="scr-sub">PAT-004's most powerful capability arrives in the Proving Ground. When ALTFL detects an AI-typical signature (keystroke burst, sub-baseline IL, copy-paste pattern), the Invigilator posts an anomaly flag to the Blackboard. The Orchestrator's Agent Dispatch Queue switches to Preemption Mode: any pending dispatch is suspended, the Chaos Agent fires immediately, and the user must justify the suspicious sequence before the Gate proceeds.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">PREEMPTION FIRED · COUNCIL</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:var(--error-container);box-shadow:inset 3px 0 0 var(--error)"><div style="display:flex;align-items:center;gap:8px"><span class="dot dot-inv"></span><span class="badge badge-inv" style="font-size:10px">⚠ ANOMALY · PREEMPTION</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px;color:var(--on-error-container)">SV.anomaly_flag = TRUE</span></div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--on-error-container);margin-top:10px;line-height:1.7">▸ ALTFL channel: KV burst (confidence 0.92)<br>▸ Pattern: 14 lines of structured code · 1.4s<br>▸ Pending dispatch: <span style="font-weight:700">SUSPENDED</span><br>▸ Chaos Agent: dispatched ahead-of-queue<br>▸ Blackboard: preemption hash 0xab3f…</div></div>
+            <div class="terminal" style="margin-top:10px">
+              <div class="row amber">[CHAOS] 30 seconds. Justify the last 14 lines without paste.</div>
+              <div class="row" style="color:#8FA5D6">[INVIGILATOR] Failure to justify will void the in-progress Gate.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Anomaly preemption banner (error-container), preemption details (which ALTFL channel fired, what was suspended, dispatch action, ledger hash), in-terminal Chaos challenge + Invigilator consequence.</p></div>
+            <div class="s"><b>Interactions</b><p>Preemption is non-dismissible — user must respond to the Chaos challenge or void the Gate. No "later" affordance. The preemption hash is logged to the user's ledger either way (the attempt is recorded for transparency).</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No anomaly</div><p>Default — most users never see this screen. Preemption fires only on confidence ≥ 0.85.</p></div>
+            <div class="state loading"><div class="h">Dispatching</div><p>"Suspending pending dispatch · routing Chaos Agent…" ~400ms — deliberately not instant so the user perceives the gravity.</p></div>
+            <div class="state error"><div class="h">False positive cleared</div><p>If the user justifies and the signal was wrong: "preemption · cleared" logged to Blackboard. No score penalty for clearing; the event remains in the ledger as a transparency record.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · v2.0's most aggressive defense</span><p>Hard-Gate Preemption is patent-load-bearing for PAT-004 and the platform's strongest defense against AI-mediated cheating during a live Gate. Two design constraints make it survivable for the honest user: (1) the trigger threshold is conservative (signal confidence ≥ 0.85), so legitimate engineers virtually never see it, and (2) clearing a false positive is fully recoverable — the user justifies their work and continues. The preemption event remains in the ledger either way, which means a user who frequently triggers preemptions carries a transparency record recruiters can see. Honesty over surveillance.</p></div>
+    </section>
+
+    <!-- S11 · SOVEREIGN OVERRIDE -->
+    <section class="bk" id="s11">
+      <div class="scr-head"><span class="no">11</span><h3>Sovereign Override · Code 31</h3></div>
+      <p class="scr-sub">The decisive moment. After withstanding Level-3 gaslighting from the Chaos Agent without capitulating, the engineer invokes the Sovereign Override to reestablish the truth baseline. The highest-consequence action in the product — it rises above every other plane.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">OVERRIDE SHEET · CODE 31</span></div>
+          <div class="wf" style="padding:28px">
+            <div class="wf-box" style="background:var(--term)"><span style="font-family:var(--font-mono);font-size:11px;color:var(--amber);font-weight:700">SOVEREIGN OVERRIDE · CODE 31</span><div style="font-family:var(--font-mono);font-size:10px;color:#8a8270;margin-top:10px;line-height:1.7">▸ Bypass Chaos Agent gaslighting<br>▸ Restore environment truth baseline<br>▸ Re-establish ALE state coherence<br>▸ Logged to Sovereign Ledger</div></div>
+            <div style="margin-top:14px;display:flex;gap:8px"><span class="wf-pill" style="background:var(--error);color:#FFF;font-weight:700;font-size:11px">Execute Override</span><span class="wf-pill" style="font-size:11px">Cancel</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Elevated modal sheet (highest z), Code-31 readout, consequence summary, Execute (destructive styling) + Cancel.</p></div>
+            <div class="s"><b>Interactions</b><p>NOT swipe-dismissible — requires explicit Execute or Cancel (HIG: irreversible acts demand a choice). Haptic on execute. Override unlocks only after surviving L3 gaslighting.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Locked</div><p>Before L3 gaslighting fires: Override visible but disabled with "requires L3 gaslight survival" — the engineer can see the goal.</p></div>
+            <div class="state loading"><div class="h">Executing</div><p>"Bypassing Chaos · restoring baseline…" stepped log; ~1.2s of deliberate, weighty progress. Not instant — it should feel earned.</p></div>
+            <div class="state error"><div class="h">Override fails</div><p>Rare: clear recovery path, session preserved, attempt not voided. The engineer is never punished for a system fault.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S12 · ALTFL PANEL -->
+    <section class="bk" id="s12">
+      <div class="scr-head"><span class="no">12</span><h3>PoF Telemetry Panel <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 RENAMED · PAT-002</span></h3></div>
+      <p class="scr-sub">Plane 2 expanded — the full 6-channel ALTFL readout floating on glass over the terminal. v2.0 names every channel and shows live readings: Keystroke Velocity, Inference Latency, Command Precision, Error Trajectory, Verification Outcome, Confidence-Calibration. This is the Proof of Friction being built in real time.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">ALTFL · GLASS OVERLAY</span></div>
+          <div class="wf" style="background:rgba(252,249,245,.85)">
+            <div class="wf-box"><span class="wf-label">PROOF OF FRICTION · session 0x4f2a…</span></div>
+            <div class="ch-grid" style="margin-top:8px">
+              <div class="ch-tile"><div class="nm">KV</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">112ms</div></div>
+              <div class="ch-tile"><div class="nm">IL</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">3.4s</div></div>
+              <div class="ch-tile"><div class="nm">CP</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">0.82</div></div>
+              <div class="ch-tile"><div class="nm">ET</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">2 corrections</div></div>
+              <div class="ch-tile"><div class="nm">VO</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">11/14</div></div>
+              <div class="ch-tile"><div class="nm">CCT</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--mentor);margin-top:4px">0.04 ✓</div></div>
+            </div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Council state</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.6;margin-top:4px">Invigilator · anomaly_flag = false<br>Chaos · 1 dispatch resolved · 1 active<br>Auditor · 0 records (Phase 4 only)<br>Mentor · suspended</div></div>
+            <div class="wf-box" style="margin-top:6px"><span class="wf-label">CA · running</span><div class="score"><div class="scoreline"><span style="font-size:11px">composite</span><span style="font-family:var(--font-mono);color:var(--primary);font-size:16px;font-weight:700">81 ▲+1.4</span></div><div class="health"><i style="width:81%"></i></div></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>PoF session header (ledger hash), 6-channel tile grid (PAT-002), council state readout (PAT-004), live CA composite with delta.</p></div>
+            <div class="s"><b>Interactions</b><p>Swipe-in/out or pin. Values update via aria-live polite. Tap channel tile → forensic detail (sample timeline). "Export PoF" generates a signed JSON record.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">Pre-chaos</div><p>All channels at baseline; CA at starting value. A calm baseline makes the later spike legible.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Channels shimmer individually; never block the terminal behind them. Glass stays interactive.</p></div>
+            <div class="state error"><div class="h">Stream drop</div><p>Panel shows "reconnecting…" but Gate continues — telemetry is observational, never blocking.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S13 · ANNOTATIONS IN-GATE -->
+    <section class="bk" id="s13">
+      <div class="scr-head"><span class="no">13</span><h3>Annotations In-Gate <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-020</span></h3></div>
+      <p class="scr-sub">PAT-020 inside the Proving Ground. The engineer can pin a node-persistent annotation during the Gate — captured to the active ontology node, surfaced in every future drill, lab, or Gate touching that node. Annotations are <i>their own words about the moment they understood something</i>. The platform's deepest learning loop.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">ANNOTATE · N-038 LIVE</span></div>
+          <div class="wf">
+            <div class="wf-box" style="box-shadow:inset 3px 0 0 var(--mentor)"><span class="wf-label">Active node · N-038 Vector DB Latency</span><div style="margin-top:8px;background:var(--sc-lowest);border-radius:8px;padding:10px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);font-style:italic">"The 401 was the real signal — retry backoff was a distractor. Auth rotation cascades from the embeddings service, not the gateway."</div><div style="margin-top:6px;font-family:var(--font-mono);font-size:9px;color:var(--tertiary)">✓ autosaved · surfaces in N-038 future contexts</div></div>
+            <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-pill" style="font-size:10px">Voice (PAT-009)</span><span class="wf-pill" style="font-size:10px">Pencil</span><span class="wf-pill" style="font-size:10px">Type</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Active-node header, inline annotation field, autosave indicator, input mode chooser (voice / pencil / type — all map to PAT-020 capture).</p></div>
+            <div class="s"><b>Interactions</b><p>800ms debounce autosave. Annotation never affects CA or PoF — it's the user's private knowledge artifact. Surfaces in future contexts via PAT-020's node-binding.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No annotation</div><p>Subtle "+ pin a note for N-038" prompt; never demanding. Annotation is always optional.</p></div>
+            <div class="state loading"><div class="h">Autosaving</div><p>Brief mono shimmer on the timestamp; field stays editable throughout.</p></div>
+            <div class="state error"><div class="h">Sync fail</div><p>"Saved locally · will sync when reconnected." Never lose the engineer's words.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S14 · GATE RESULT VERDICT -->
+    <section class="bk" id="s14">
+      <div class="scr-head"><span class="no">14</span><h3>Gate Result · Verdict <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 EXPANDED · PAT-001 + PAT-019</span></h3></div>
+      <p class="scr-sub">The session closes. Council Phase 4 (Auditor leads) begins. The Auditor's evaluation, the Bully Loop survivals, the Sovereign Override outcomes, and any OL flags (PAT-019 asymmetric liability) all surface here — in the Audit Column format with the gravity of an official notice.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">GATE RESULT · COUNCIL PHASE 4</span></div>
+          <div class="wf" style="text-align:center;padding:28px">
+            <span class="badge badge-blue" style="font-size:13px;padding:10px 18px">✓ HARD-GATE CLEARED</span>
+            <div style="font-family:var(--font-headline);font-weight:700;font-size:20px;margin-top:14px">Truth baseline held.</div>
+            <div class="score" style="margin-top:16px;text-align:left"><div class="scoreline"><span>Command Authority (final)</span><span class="v" style="color:var(--primary)">87 ▲+6</span></div><div class="health"><i style="width:87%"></i></div></div>
+            <div class="wf-box" style="margin-top:12px;text-align:left"><span class="wf-label">Session summary</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">▸ ALE injections · 3 fired · 2 cleared · 1 missed<br>▸ Bully Loop · 1 survived (+1.2 CA)<br>▸ Override · executed · L3 gaslight broken<br>▸ <span style="color:var(--c4)">PAT-019 OL flag · 1 (prompt-injection)</span></div></div>
+            <div style="margin-top:16px;display:flex;gap:8px;justify-content:center"><span class="wf-cta">View Consensus →</span><span class="wf-pill" style="font-size:10px">Replay PoF</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Verdict header (blue stamp on pass), CA delta with health bar, session summary (ALE injections, Bully Loop, Override, OL flags), View Consensus CTA, PoF replay link.</p></div>
+            <div class="s"><b>Interactions</b><p>Pass triggers the 600ms blue "stamp" + haptic success. Result writes to the Sovereign Ledger and Evidence Locker immediately. Tap OL flag → asymmetric-liability explainer.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>Result always has content.</p></div>
+            <div class="state loading"><div class="h">Auditor evaluating</div><p>"Auditor compiling forensic record…" ~3s. The stamp animation plays only after Auditor signs (never fake success).</p></div>
+            <div class="state error"><div class="h">Not cleared</div><p>Composed blue-grey "Truth baseline lost at L3" + a forensic breakdown of where conviction broke, + a Re-attempt path. Dignified, instructive, never shaming.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S15 · WEIGHTED CONSENSUS -->
+    <section class="bk" id="s15">
+      <div class="scr-head"><span class="no">15</span><h3>Weighted Consensus <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-004</span></h3></div>
+      <p class="scr-sub">PAT-004's authorization gate made visible. Four agent evaluations, each with its weight, summed against the Credential Authorization Threshold. Above threshold → Consensus Certificate generated. Below → no credential, regardless of any single agent's verdict.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">CONSENSUS · WCS COMPUTATION</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:var(--inverse-surface);color:var(--inverse-on-surface)"><div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.1em">WEIGHTED CONSENSUS PROTOCOL</div>
+              <div style="font-family:var(--font-mono);font-size:11px;line-height:1.9;margin-top:8px">
+                <div>Auditor &nbsp;&nbsp;&nbsp;0.40 × <span style="color:#C5A059">0.75</span> = <span style="color:#8FA5D6">0.300</span></div>
+                <div>Invigilator &nbsp;0.30 × <span style="color:#C5A059">0.92</span> = <span style="color:#8FA5D6">0.276</span></div>
+                <div>Mentor &nbsp;&nbsp;&nbsp;&nbsp;0.20 × <span style="color:#C5A059">0.88</span> = <span style="color:#8FA5D6">0.176</span></div>
+                <div>Chaos &nbsp;&nbsp;&nbsp;&nbsp;0.10 × <span style="color:#C5A059">0.66</span> = <span style="color:#8FA5D6">0.066</span></div>
+                <div style="border-top:1px solid #4E4639;margin-top:8px;padding-top:8px">WCS = <span style="color:var(--primary-container);font-weight:700;font-size:14px">0.818</span></div>
+                <div>T_auth = <span style="color:#8FA5D6">0.750</span></div>
+                <div style="margin-top:6px;color:var(--mentor)">→ AUTHORIZED · Certificate issuing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>WCS computation card (inverse vault, per-agent weight × eval lines), threshold comparison, authorization verdict. Each row is tappable.</p></div>
+            <div class="s"><b>Interactions</b><p>Tap an agent line → that agent's full evaluation (Auditor → record, Invigilator → telemetry, Mentor → guidance log, Chaos → dispatch log). Math is on display.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>Consensus computes only after a Hard-Gate closes.</p></div>
+            <div class="state loading"><div class="h">Computing</div><p>Each agent's evaluation surfaces sequentially over ~2s — Auditor first (longest), Chaos last. Math is shown as it lands.</p></div>
+            <div class="state error"><div class="h">Non-consensus</div><p>If WCS &lt; T_auth: "council non-consensus · no credential issued." Ledger records the attempt with the failure reason; user can re-attempt.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S16 · CONSENSUS CERTIFICATE MINT -->
+    <section class="bk" id="s16">
+      <div class="scr-head"><span class="no">16</span><h3>Consensus Certificate · Mint <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-004 + PAT-010</span></h3></div>
+      <p class="scr-sub">The credential's birth. The Consensus Certificate binds the artifact, PoF, and council consensus into a Merkle-tree-structured Ledger Entry. Root hash anchors to Polygon mainnet. This is the platform's most ceremonial moment — deliberately slow, weighty, and only animated after on-chain confirmation.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">CERTIFICATE MINT · CEREMONIAL</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:var(--inverse-surface);color:var(--inverse-on-surface);text-align:center;padding:24px">
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em">CONSENSUS CERTIFICATE</div>
+              <div style="font-family:var(--font-headline);font-weight:700;font-size:22px;color:var(--primary-container);margin-top:8px">G-014</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--inverse-on-surface);opacity:.7;margin-top:6px">cert_id: 0x77ab1f2c…</div>
+              <div class="merkle" style="margin-top:16px">
+                <div class="root" style="font-size:8px">ROOT · 0x77ab…</div>
+                <div style="font-size:11px;color:var(--amber);margin:6px 0">↑</div>
+                <div class="level">
+                  <div class="node" style="font-size:8px">H(L1·L2)</div>
+                  <div class="node" style="font-size:8px">H(L3·L4)</div>
+                </div>
+                <div style="font-size:11px;color:var(--amber);margin:6px 0">↑</div>
+                <div class="level">
+                  <div class="leaf" style="font-size:8px">artifact</div>
+                  <div class="leaf" style="font-size:8px">PoF</div>
+                  <div class="leaf" style="font-size:8px">consensus</div>
+                  <div class="leaf" style="font-size:8px">meta</div>
+                </div>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);margin-top:14px">✓ ANCHORED · Polygon block 81,402</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Certificate card (inverse vault, gilded id, Merkle visualization with leaves: artifact, PoF, consensus, metadata), on-chain anchor confirmation.</p></div>
+            <div class="s"><b>Interactions</b><p>The animation is gated on on-chain confirmation — we never animate before the ledger write returns. Tap any leaf → that data record. Tap root → public verification page.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>Mint runs only on Consensus authorization.</p></div>
+            <div class="state loading"><div class="h">Anchoring</div><p>"Sealing certificate to Polygon · ~6s" — Merkle tree builds visually, root resolves last, on-chain confirmation arrives. The leaves shimmer until each individual hash confirms.</p></div>
+            <div class="state error"><div class="h">Anchor deferred</div><p>"Mint queued · ledger congestion. Scores already credited; certificate will anchor in ~10 min." The credential is real; the on-chain receipt is delayed but inevitable.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the most important screen in the platform</span><p>S16 is where the platform's whole IP story renders as a single visual artifact. The Consensus Certificate (PAT-004) anchored via Merkle root (PAT-010) on a public chain — every patent in the spec contributes a leaf. The animation is ceremoniously slow because the operation is consequential and we want the user to <i>feel</i> the seal. Critically: the celebration runs <i>only after on-chain confirmation</i>. Never an optimistic UI on a screen this sacred. Hiding the math would make this look like another vendor's SaaS; rendering the Merkle tree makes it look like infrastructure.</p></div>
+    </section>
+
+    <!-- S17 · ARTIFACT REPLAY -->
+    <section class="bk" id="s17">
+      <div class="scr-head"><span class="no">17</span><h3>Artifact Detail · Replay <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">v2.0 EXPANDED · PAT-002 + PAT-010</span></h3></div>
+      <p class="scr-sub">A single Consensus Certificate, opened. The full Proof of Friction record: ALTFL channels replayable as a forensic timeline, the council's per-agent signatures, the Merkle structure, and the on-chain anchor link. This is what a recruiter clicks to verify the credential.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">ARTIFACT · G-014 · REPLAY</span></div>
+          <div class="wf">
+            <span class="badge badge-blue">✓ Verified · Ledger-anchored</span>
+            <div class="wf-box" style="margin-top:10px"><span class="wf-label">Forensic record · 6-channel ALTFL replay</span>
+              <div style="display:flex;gap:3px;margin-top:8px;height:32px;align-items:flex-end">
+                <div style="flex:1;background:var(--mentor);border-radius:2px;height:60%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:80%"></div><div style="flex:1;background:var(--c4);border-radius:2px;height:35%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:85%"></div><div style="flex:1;background:var(--error);border-radius:2px;height:25%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:75%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:85%"></div><div style="flex:1;background:var(--auditor);border-radius:2px;height:55%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:90%"></div><div style="flex:1;background:var(--mentor);border-radius:2px;height:88%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:4px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)"><span>0:00</span><span>22:41</span></div>
+            </div>
+            <div class="wf-box" style="margin-top:8px;background:var(--term);color:var(--inverse-on-surface)"><span style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">LEDGER HASH · MERKLE ROOT</span><div style="font-family:var(--font-mono);font-size:10px;color:var(--primary-container);margin-top:4px">0x77ab1f2c…b71c · Polygon block 81,402</div></div>
+            <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-cta">Verify on chain →</span><span class="wf-pill" style="font-size:10px">Export PoF</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Verified badge, ALTFL timeline replay (6-channel forensic scrubber, color-coded by event type), per-agent signature blocks, Merkle root + on-chain anchor, "Verify on chain" CTA, signed PDF export.</p></div>
+            <div class="s"><b>Interactions</b><p>Timeline scrubs the session; tap any timeline point → that moment's terminal state + telemetry snapshot. "Verify on chain" opens the Polygon block explorer with the hash pre-loaded. Recruiters can verify without trusting Tenured AI.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>An artifact always has a record.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Narrative first, ALTFL replay hydrates after; on-chain anchor confirms last.</p></div>
+            <div class="state error"><div class="h">Replay missing</div><p>Core verification (hash + verdict) still shown; replay area degrades to "unavailable" without breaking proof.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S18 · SUCCESSOR SYNTHESIS -->
+    <section class="bk" id="s18">
+      <div class="scr-head"><span class="no">18</span><h3>Successor Synthesis <span style="font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-left:8px">NEW · PAT-005</span></h3></div>
+      <p class="scr-sub">PAT-005's recursive payoff inside the Proving Ground. The Tenured Agent has computed the Growth Coefficient γ from the user's TTR delta and synthesized a successor Gate from <i>this</i> session's artifact — its boundary cases, its OL gap, its declared confidence pattern. The user sees a preview before committing.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">SUCCESSOR · γ = 1.11 · STAGED</span></div>
+          <div class="wf">
+            <div class="wf-box" style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><div style="font-family:var(--font-mono);font-size:9px;color:var(--primary);letter-spacing:.1em">NEXT GATE · DERIVED FROM YOUR ARTIFACT</div><div style="font-family:var(--font-headline);font-weight:700;font-size:16px;margin-top:8px">G-014.S · Adversarial RAG · Prompt Injection</div>
+              <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);line-height:1.7;margin-top:8px">
+                ▸ Targets the OL gap from this session<br>
+                ▸ Boundary cases extracted from your artifact<br>
+                ▸ ALE vectors tuned to your PoF profile<br>
+                ▸ TTR target: 32s (you ran 38s last)<br>
+                ▸ γ = 1.11 · Educational Homeostasis maintained
+              </div>
+            </div>
+            <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-cta">Begin Gate →</span><span class="wf-pill" style="font-size:10px">Schedule later</span><span class="wf-pill" style="font-size:10px">Show derivation</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Synthesis card: derived Gate title, derivation summary (targets / boundaries / ALE profile / TTR target / γ), three actions. "Show derivation" surfaces the Auditor's reasoning chain — the seed artifact lines that drove the synthesis.</p></div>
+            <div class="s"><b>Interactions</b><p>"Begin Gate" enters Pre-Flight immediately. "Schedule" adds to the user's Itinerary. The Mentor sends a low-priority push notification when away too long.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No successor</div><p>If user has cleared a Sovereign-tier Gate at the top of their ontology cluster: "You've cleared the highest derivable challenge on this branch · explore adjacent?"</p></div>
+            <div class="state loading"><div class="h">Synthesizing</div><p>"Tenured Agent composing next Gate · ~8s" — the synthesis is genuinely computational (artifact → EVI → environment params); we show the work.</p></div>
+            <div class="state error"><div class="h">Synthesis fault</div><p>If artifact too sparse: falls back to nearest catalog Gate at γ-appropriate complexity. Honest fallback, never empty next-action.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S19 · SETTINGS -->
+    <section class="bk" id="s19">
+      <div class="scr-head"><span class="no">19</span><h3>Settings &amp; Accessibility</h3></div>
+      <p class="scr-sub">Control and adaptation. Theme, motion, contrast, ALTFL display preferences, terminal type scaling, voice (PAT-009) toggle, assistive behavior. Accessibility treated as a first-class surface.</p>
+      <div class="grid g2">
+        <div class="device"><div class="bar"><i></i><i></i><i></i><span class="t">SETTINGS</span></div>
+          <div class="wf">
+            <div class="wf-box"><span class="wf-label">Display</span><div style="display:flex;gap:6px;margin-top:4px"><span class="wf-pill" style="font-size:10px">Light</span><span class="wf-pill on" style="font-size:10px">Dark</span><span class="wf-pill" style="font-size:10px">System</span></div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Accessibility</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px;color:var(--on-surface-variant)">Reduce Motion · Increase Contrast<br>Dynamic Type (to AX5) · VoiceOver hints<br>Voice prefixes: 4 agents named</div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Terminal</span><div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px;color:var(--on-surface-variant)">Font size · grain intensity · key map<br>ALTFL channels visible · CA running display</div></div>
+            <div class="wf-box" style="margin-top:8px"><span class="wf-label">Voice (PAT-009)</span><div style="display:flex;gap:6px;margin-top:4px"><span class="wf-pill" style="font-size:10px">Off</span><span class="wf-pill on" style="font-size:10px">Mentor only</span><span class="wf-pill" style="font-size:10px">All contexts</span></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Theme control, a11y toggles, terminal prefs, ALTFL visibility, voice opt-in, key-map editor, data/privacy, sign-out.</p></div>
+            <div class="s"><b>Interactions</b><p>Honors OS settings by default; in-app overrides available. Reduce Motion disables glitch/stamp/cascade animations instantly app-wide.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">N/A</div><p>Settings always populated from OS defaults.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Instant — settings are local; remote prefs sync quietly in background.</p></div>
+            <div class="state error"><div class="h">Sync fail</div><p>Changes apply locally and queue; "will sync when reconnected." Never block a preference change.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S20 · MOBILE -->
+    <section class="bk" id="s20">
+      <div class="scr-head"><span class="no">20</span><h3>Mobile Companion</h3></div>
+      <p class="scr-sub">iPhone view. Monitor a running Gate (Invigilator pulse + live CA), browse the Evidence Locker and Ledger, get Consensus Certificate notifications, share badges — scoped to what a phone does well. Starting a Gate hands off to iPad/web via Continuity.</p>
+      <div class="grid g2">
+        <div style="display:flex;justify-content:center">
+          <div class="device" style="max-width:240px"><div class="bar"><i></i><i></i><i></i><span class="t">iOS</span></div>
+            <div class="wf">
+              <div class="wf-box" style="background:var(--term)"><span class="badge badge-live" style="font-size:9px"><span class="dot-live"></span>GATE LIVE ON IPAD</span><div style="font-family:var(--font-mono);font-size:9px;color:#8a8270;margin-top:6px">G-014 · phase 2<br>CA 81 ▲ · ALE active</div></div>
+              <div class="wf-box" style="margin-top:8px"><span class="wf-label">Recent Certificates</span><div class="wf-line" style="width:70%"></div></div>
+              <div class="wf-row" style="margin-top:10px;gap:4px"><span class="wf-pill" style="font-size:9px">Home</span><span class="wf-pill" style="font-size:9px">Locker</span><span class="wf-pill" style="font-size:9px">Ledger</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="specs" style="grid-template-columns:1fr">
+            <div class="s"><b>Components</b><p>Bottom tab bar (Home/Locker/Ledger/Share), live-Gate monitor card (CA + phase indicator), push-notification result, share. Audit Column layout.</p></div>
+            <div class="s"><b>Interactions</b><p>Starting a Gate → "Continue on iPad or web" hand-off (Handoff/Universal Links). Monitor mirrors live CA + council phase read-only.</p></div>
+          </div>
+          <div class="states">
+            <div class="state empty"><div class="h">No active Gate</div><p>Shows standing + locker. Clean, glanceable.</p></div>
+            <div class="state loading"><div class="h">Loading</div><p>Skeleton tiles; live monitor connects with "linking to session…".</p></div>
+            <div class="state error"><div class="h">Lost connection</div><p>"Monitoring paused — your session on iPad is unaffected." Reassure, don't alarm.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCESSIBILITY -->
+    <section class="bk" id="a11y">
+      <div class="kicker"><span class="num">PG v2 / A</span><span class="lbl">Accessibility</span></div>
+      <h2 class="sec">Verification must be earnable by everyone.</h2>
+      <p class="lede">A credential that only some bodies can earn isn't a sovereign standard. v2.0 deepens v1.0's a11y obligation: the four-agent council, three terminal voices, and ALTFL telemetry all need redundant non-visual channels.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:14px">WCAG 2.2 AA</h3>
+          <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+            <li>· <b style="color:var(--on-surface)">Four pulse colors</b> always paired with text labels (Mentor / Invigilator / Auditor / Chaos). Council state never color-only.</li>
+            <li>· <b style="color:var(--on-surface)">Three terminal voices</b> ([CHAOS] gold, [INVIGILATOR] blue, system red) always carry their textual prefix — color is reinforcement, not the signal.</li>
+            <li>· <b style="color:var(--on-surface)">ALTFL channels</b> labeled with mono prefix (KV / IL / CP / ET / VO / CCT) and full names available on hover/long-press.</li>
+            <li>· <b style="color:var(--on-surface)">Reduce Motion:</b> 600ms blue stamp degrades to instant state change with text confirmation; Merkle build animation becomes a static tree.</li>
+            <li>· <b style="color:var(--on-surface)">Targets:</b> ≥ 44×44pt on all controls; full keyboard operation of CMD+K and Override sheet.</li>
+            <li>· <b style="color:var(--on-surface)">Time pressure:</b> Gate timers extendable as accommodation without voiding artifacts. ALE chaos vectors honor extensions.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1.05rem;font-weight:600;margin-bottom:14px">VoiceOver &amp; Dynamic Type</h3>
+          <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+            <li>· <b style="color:var(--on-surface)">Four voice prefixes:</b> "Mentor says" · "Invigilator:" · "Auditor record:" · "Chaos says:" — same role distinction sighted users get from color. Plus "System error:" for real errors.</li>
+            <li>· <b style="color:var(--on-surface)">Preemption announces</b> with explicit "Preemption fired · justify the last sequence" so a screen-reader user knows the council has intervened.</li>
+            <li>· <b style="color:var(--on-surface)">ALTFL panel</b> exposes a navigable table fallback: each channel as a row with name, current value, baseline, anomaly state.</li>
+            <li>· <b style="color:var(--on-surface)">Merkle tree</b> (S16) reads as a hierarchical list: "Root hash, child 1 of 2: H of L1 and L2, leaf L1 of 4: artifact hash…"</li>
+            <li>· <b style="color:var(--on-surface)">Dynamic Type</b> scales to AX5; terminal type is independently pinch/setting-controlled so code stays monospaced and aligned.</li>
+            <li>· <b style="color:var(--on-surface)">Reduce Motion respected</b> on the most ceremonial moment (S16) — the Certificate mint is then a single text confirmation, never a degraded "skipped animation."</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dnote"><span class="tag">Designer's Note · the council's voices must each be perceivable</span><p>v1.0's hardest a11y problem was distinguishing adversary fiction from system fault. v2.0's harder problem: distinguishing the Chaos Agent's deceptive [CHAOS] lines from the Invigilator's factual [INVIGILATOR] lines from real system errors — all three rendered in the terminal. The four VoiceOver prefixes solve this: a screen-reader user gets exactly the same three-voice distinction a sighted user gets from color. Fairness here is structural, not decorative.</p></div>
+    </section>
+
+    <!-- PATENT COVERAGE MAP -->
+    <section class="bk" id="patents">
+      <div class="kicker"><span class="num">PG v2 / ★P</span><span class="lbl">Patent Coverage Map</span></div>
+      <h2 class="sec">Where each patent shows up.</h2>
+      <p class="lede">A reference table mapping every Proving-Ground-relevant patent to the v2.0 sections that operationalize it. Audit trail for IP defensibility — and a build map for engineering.</p>
+      <div class="card">
+        <table class="matrix">
+          <thead><tr><th>Patent</th><th>Subject</th><th>v2.0 sections</th></tr></thead>
+          <tbody>
+            <tr><td><b>PAT-001</b></td><td>Friction Injection · Adversary Logic Engine · Bully Logic · Command Authority · Proof of Friction · Environmental Epistemic Closure</td><td><b>F1, F2, F3, F4, F6</b> · S02 air-gap · S05 ALE profile · S07 ALE live · S08 chaos L1-L3 · S09 Bully Loop · S11 Override · S14 verdict</td></tr>
+            <tr><td><b>PAT-002</b></td><td>ALTFL · 6-channel telemetry · Proof of Friction record</td><td><b>F5</b> · S06 channel arming · S07 live readings · S12 PoF panel · S17 ALTFL replay</td></tr>
+            <tr><td><b>PAT-004</b></td><td>Four-Agent Council · Orchestrator Node · Blackboard · Weighted Consensus · Hard-Gate Priority Queue</td><td><b>F7, F8</b> · S05 council phase plan · S07 phase indicator · S10 Hard-Gate Preemption · S14 Phase 4 closure · S15 Weighted Consensus · S16 Certificate</td></tr>
+            <tr><td><b>PAT-005</b></td><td>Tenured Growth Loop · γ Growth Coefficient · Successor Synthesis · Artifact Capture</td><td>S14 (γ contribution surfaced) · <b>S18 Successor Synthesis</b></td></tr>
+            <tr><td><b>PAT-008</b></td><td>Simulation-Based Credentialing context</td><td>F1 (verification crisis) · F2 (epistemic closure as the simulation moat) · S07 (the simulation surface itself)</td></tr>
+            <tr><td><b>PAT-010</b></td><td>Sovereign Ledger · Consensus Certificate · Merkle Anchor · DID</td><td><b>F8, F9</b> · S01 DID auth · S02 DID resolved · S15 Certificate · <b>S16 Mint with Merkle</b> · S17 on-chain anchor</td></tr>
+            <tr><td><b>PAT-019</b></td><td>Asymmetric Liability Classification · OL flags</td><td>S14 verdict (OL flag surfacing) · S15 (Auditor evaluation incorporates OL) · S17 (artifact carries OL record)</td></tr>
+            <tr><td><b>PAT-020</b></td><td>Node-Persistent Annotations</td><td><b>S13 Annotations In-Gate</b> · S17 (annotations attached to replay)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rationale"><span class="tag">For IP review</span><p>This map closes the v1.0 gap: where v1.0 cited only PAT-020 and PAT-021, v2.0 names and operationalizes <b>eight patents</b> across foundations and screens. Every patent in the Proving Ground's scope is now visible in the UX. A reviewer can verify that v2.0 covers PAT-001 (ALE/CA/PoF/Bully Logic/Environmental Closure), PAT-002 (ALTFL 6-channel), PAT-004 (council/consensus/preemption), PAT-005 (γ/successor), PAT-008 (simulation framing), PAT-010 (ledger/Merkle/DID), PAT-019 (OL flags), and PAT-020 (annotations).</p></div>
+    </section>
+
+    <!-- DESIGNER'S NOTES -->
+    <section class="bk" id="notes">
+      <div class="kicker"><span class="num">PG v2 / ★</span><span class="lbl">Designer's Notes</span></div>
+      <h2 class="sec">Ten decisions that make v2.0 patent-complete.</h2>
+      <p class="lede">The throughlines a future team must protect to keep the Proving Ground a sovereign verification surface rather than another coding-test product.</p>
+      <div class="grid g2">
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">01</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Name the patents in the UI.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">v2.0's biggest change: the patent vocabulary (ALE, ALTFL, PoF, Command Authority, Consensus Certificate, Merkle anchor) appears in the UI, not just marketing. The user sees the rigor.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">02</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Three terminal voices, never confused.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">[CHAOS] gold lies · [INVIGILATOR] blue states truth · system red is real. Visually distinct, VoiceOver-prefixed, structurally insulated by PAT-004 Coi.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">03</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">The frame stays composed.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Only the terminal destabilizes. A shaking UI reads as unreliable; a calm frame around hostile content dramatizes the test without undermining trust.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">04</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">The clock is a promise.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Pre-Flight guarantees timing starts only on explicit tap, only on healthy sandbox + ALTFL armed. The fairness contract is visible.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">05</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Results are Consensus Certificates.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Every outcome is a Merkle-anchored credential, not a popup. No single agent mints; the council's WCS does. The math is on display.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">06</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Bully Logic punishes pattern-matching.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">PAT-001 FIG 3's 5-state machine is surfaced — second-order re-injection makes "training to the test" mathematically futile.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">07</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Failure keeps its dignity.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">No red sirens. A failed Gate renders with the same composure as a pass. Respect in defeat is what makes the eventual win mean something.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">08</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Preemption is the strongest defense.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">Hard-Gate Preemption can freeze a Mentor turn mid-sentence and dispatch the Chaos Agent ahead-of-queue. Conservative threshold (≥0.85), recoverable false positives, logged either way.</p></div>
+        <div class="tile"><span style="font-family:var(--font-mono);color:var(--primary)">09</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">The Certificate mint is ceremonial.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">S16's animation is gated on on-chain confirmation. Never optimistic. The Merkle tree builds visually because the operation is patentable and the ceremony earns the gravity.</p></div>
+        <div class="tile" style="grid-column:1/-1"><span style="font-family:var(--font-mono);color:var(--primary)">10</span><h3 style="font-size:1.05rem;font-weight:600;margin:6px 0">Honest about the device.</h3><p style="font-size:13.5px;color:var(--on-surface-variant)">We don't pretend a phone can host a fair Hard-Gate. iPad and web perform; iPhone monitors and shows off. HIG clarity extended to honesty about a device's strengths — and a clean Handoff between them. The credential's value depends on the platform being honest about where it can be earned.</p></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="kicker"><span class="num">PG v2 / END</span></div>
+      <p style="font-family:var(--font-headline);font-size:1.4rem;font-weight:600;color:var(--on-surface);max-width:42ch">The Proving Ground. Where conviction becomes a Consensus Certificate, anchored to a public chain.</p>
+      <p class="mono" style="margin-top:22px">THE PROVING GROUND · UI/UX SPEC v2.0 · 20 CORE SCREENS · 9 FOUNDATIONS · HIG ALIGNED · WCAG 2.2 AA · COVERS PAT-001 · PAT-002 · PAT-004 · PAT-005 · PAT-008 · PAT-010 · PAT-019 · PAT-020</p>
+    </footer>
+
+  </div>
+  </main>
+</div>
+
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+</body>
+</html>
