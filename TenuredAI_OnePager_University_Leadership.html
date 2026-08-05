@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · University Leadership · One-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-container:#DBE2F9;
+  --amber:#FFBF00;--mentor:#4F8A6B;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--tertiary-container:#233A65;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sc-low);color:var(--on-surface);font-family:var(--font-body);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+.mono{font-family:var(--font-mono)}
+.page{max-width:1180px;margin:24px auto;background:var(--surface);padding:48px;border-radius:24px;box-shadow:var(--ambient);position:relative}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:30px;margin-bottom:36px;flex-wrap:wrap}
+.head .left{flex:1;min-width:280px}
+.head .right{flex:0 0 auto;text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--on-surface-variant);text-transform:uppercase}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--primary);text-transform:uppercase;margin-bottom:10px}
+.head h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:20ch}
+.head h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;margin-bottom:32px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:240px;height:240px;background:radial-gradient(circle,rgba(197,160,89,.15),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:10px}
+.vault .big{font-family:var(--font-headline);font-size:3.6rem;font-weight:800;line-height:1;color:var(--primary-container)}
+.vault .small{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.75;margin-top:10px;line-height:1.6}
+.share{margin-top:18px;padding-top:18px;border-top:1px solid rgba(197,160,89,.2)}
+.share-stack{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.share-stack i{height:24px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;font-weight:700}
+.props{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:32px}
+@media(max-width:900px){.props{grid-template-columns:1fr}}
+.prop{background:var(--sc-lowest);border-radius:var(--r-xl);padding:20px;box-shadow:var(--editorial)}
+.prop .num{font-family:var(--font-mono);font-size:11px;color:var(--primary);font-weight:700;margin-bottom:8px;letter-spacing:.08em}
+.prop h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.prop p{font-size:13px;color:var(--on-surface-variant)}
+.math{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:26px;box-shadow:var(--editorial);margin-bottom:32px}
+.math h3{font-size:1.15rem;font-weight:700;margin-bottom:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl td{padding:10px 0;border-bottom:1px solid var(--sc-high)}
+.tbl td:last-child{text-align:right;font-family:var(--font-mono);color:var(--primary);font-weight:700}
+.tbl tr:last-child td{border-bottom:none}
+.footer{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:22px;border-top:1px solid var(--sc-high);gap:20px;flex-wrap:wrap}
+.footer .left p{font-size:13px;font-family:var(--font-headline);font-weight:600;max-width:46ch}
+.footer .right{text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.04em}
+.footer .right a{color:var(--primary);text-decoration:none;font-weight:700}
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{body{background:#FFF}.page{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:24px}.themebtn,.printbtn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="left">
+      <div class="kicker">One-Pager · University Leadership Brief</div>
+      <h1>The university as its alumni's <span class="gild">largest shareholder.</span></h1>
+    </div>
+    <div class="right">TENURED AI<br>SOVEREIGN TALENT LEDGER<br>2026 · CONFIDENTIAL</div>
+  </div>
+
+  <div class="hero">
+    <div class="vault">
+      <span class="seal">YOUR INSTITUTION'S DIVIDEND SHARE</span>
+      <div class="big">40%</div>
+      <div class="small">Of every verified hire's premium routes to your institution — perpetually, atomically, for the length of your alumna's career. Modeled: <b style="color:var(--primary-container)">$8.4M / year</b> at mature graduate-program participation. The platform turns each successful graduate into a recurring revenue line.</div>
+      <div class="share">
+        <div class="share-stack">
+          <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40% UNIVERSITY</i>
+          <i style="grid-column:span 4;background:#B8862E;color:#FFF">40% PLATFORM</i>
+          <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20% STATE</i>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center">
+      <p style="font-size:15px;line-height:1.6;color:var(--on-surface-variant)">Tenured AI is the verification infrastructure that converts every successful graduate into a perpetual revenue line. Every Hard-Gate cleared issues a Consensus Certificate — Merkle-anchored, multi-agent-verified, LLM-resistant. <b style="color:var(--on-surface)">40% of every premium routes to your institution</b>, anchored to the ledger, for as long as your graduate is employed.</p>
+    </div>
+  </div>
+
+  <div class="props">
+    <div class="prop">
+      <div class="num">01 · REVENUE</div>
+      <h3>40% perpetual dividend</h3>
+      <p>Atomic, cryptographic settlement on every transaction. Unrestricted use by your board. The largest equity stake in your graduate's career.</p>
+    </div>
+    <div class="prop">
+      <div class="num">02 · RANK</div>
+      <h3>L-200 League Table</h3>
+      <p>Rank by real dollars (GDA) and corridor dominance, not editorial prestige. The L-200 anchors the financial-era successor to U.S. News.</p>
+    </div>
+    <div class="prop">
+      <div class="num">03 · CURRICULUM</div>
+      <h3>No course changes</h3>
+      <p>Verification layer over what you teach. Forge drills, Refresh Labs, senior Hard-Gates map to existing programs. FERPA-compliant by design.</p>
+    </div>
+  </div>
+
+  <div class="math">
+    <h3>GDA Revenue Math · 40% Institutional Share</h3>
+    <table class="tbl">
+      <tr><td>Pilot · 3 cohorts onboarded</td><td>340 active alumni</td><td>$2.9M / year</td></tr>
+      <tr><td>Year 2 · 8 cohorts onboarded</td><td>~840 active</td><td>$4.1M / year</td></tr>
+      <tr><td>Year 4 · full undergraduate participation</td><td>~1,800 active</td><td>$6.2M / year</td></tr>
+      <tr><td>Mature · graduate programs added</td><td>~2,400 active</td><td>$8.4M / year</td></tr>
+    </table>
+    <p style="font-size:11px;font-family:var(--font-mono);color:var(--on-surface-variant);margin-top:10px;letter-spacing:.04em">Modeled at $11,250 average annual premium per bonded hire. Excludes reveal-credit transactions (+28%) and B-300 Recruiter Battle premiums.</p>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <p>One MOU. One Genesis cohort. 18 months to first GDA check. The decision is whether your institution sets the standard or follows it.</p>
+    </div>
+    <div class="right">
+      Begin the MOU conversation<br>
+      <a href="mailto:institutions@tenured.ai">institutions@tenured.ai</a><br>
+      <span style="font-size:10px;letter-spacing:.1em">TENURED AI · HOUSTON, TX</span>
+    </div>
+  </div>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

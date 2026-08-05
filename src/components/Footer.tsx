@@ -41,6 +41,8 @@ export default function Footer() {
               <li><Link to="/chaos-lab" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Proving Ground</Link></li>
               <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>
               <li><Link to="/recruiters" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Recruiters</Link></li>
+              <li><Link to="/universities" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Universities</Link></li>
+              <li><Link to="/enterprise" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Enterprise (EWARD)</Link></li>
             </ul>
           </div>
 
@@ -48,10 +50,10 @@ export default function Footer() {
             <h4 className="font-label text-xs font-bold tracking-[0.2em] uppercase text-primary mb-6">Foundation</h4>
             <ul className="space-y-4">
               <li><Link to="/manifesto" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Manifesto</Link></li>
-              <li><Link to="/docs" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Methodology</Link></li>
+              <li><Link to="/learning-loop" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Learning Loop</Link></li>
               <li><Link to="/method" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Method &amp; Codex</Link></li>
               <li><Link to="/responsible-ai" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Responsible AI</Link></li>
-              <li><Link to="/rules" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Rules of Engagement</Link></li>
+              <li><Link to="/about" className="text-sm text-on-surface-variant hover:text-primary transition-colors">About</Link></li>
               <li><Link to="/podcasts" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Podcasts</Link></li>
             </ul>
           </div>

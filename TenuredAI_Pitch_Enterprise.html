@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Pitch to Enterprise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:84px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;max-width:22ch;margin-bottom:24px}
+.slide-lede{font-size:1.2rem;color:var(--on-surface-variant);max-width:64ch;margin-top:24px;line-height:1.5}
+
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:28px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:22px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:28px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+.term{background:var(--term);color:var(--inverse-on-surface);border-radius:14px;padding:18px;font-family:var(--font-mono);font-size:13px;line-height:1.8}
+.term .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.term .gold{color:#C5A059}.term .err{color:#ff8a8a}.term .ok{color:#7FBF9B}
+.osd-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
+.osd-cell{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;font-weight:700;color:#FFF}
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:40px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<section class="slide" id="s1">
+  <div class="slide-num">DECK 02 / 12 · ENTERPRISE</div>
+  <div class="slide-kicker">PITCH · TENURED AI · CONFIDENTIAL</div>
+  <h1>Hire a verified human. <span class="gild">Bonded against failure.</span></h1>
+  <p class="slide-lede">A briefing for Chief Financial Officers, Chief Risk Officers, Heads of AI Operations, and General Counsel on Tenured AI — the only platform that issues Performance Bonds on AI-era hires, monitors organizational AI competency as a financial metric, and qualifies your workforce for Chubb premium credits up to 35%.</p>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · ENTERPRISE EXECUTIVE BRIEFING · 2026</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="slide-num">02</div>
+  <div class="slide-kicker">The Problem · Unpriced Hallucination Liability</div>
+  <h2>Your AI-era hires are uninsured. Your competitors will price this risk before you do.</h2>
+  <p class="slide-lede">The hiring decision your team made last quarter assumed a candidate's "AI proficiency" based on a résumé claim, a LinkedIn endorsement, and a take-home assignment any LLM could complete. Your enterprise is now carrying that risk without instrumentation.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">EXPOSURE 01</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Hallucination liability</h3>
+      <p style="font-size:14px;color:var(--on-surface-variant)">An over-confident AI-mediated decision by one of your hires — a misrouted financial workflow, a misdiagnosed clinical case, a misconfigured production deployment — can be a multi-million-dollar incident. Your D&amp;O insurer is starting to ask whether your AI-deploying staff are <i>verifiable</i>.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">EXPOSURE 02</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Regulatory exposure</h3>
+      <p style="font-size:14px;color:var(--on-surface-variant)">EU AI Act, NIST AI RMF, SEC AI disclosure rules. Each requires demonstrable competency of operator. "We hired them through LinkedIn" is not a defense. Your General Counsel needs a forensically defensible record of human-AI collaboration competence.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">EXPOSURE 03</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Talent failure cost</h3>
+      <p style="font-size:14px;color:var(--on-surface-variant)">A senior AI hire that misfires within their first 180 days costs you 1.4× their fully-loaded comp. At $200K base plus $25K premium, the average AI-era hiring failure is a <b style="color:var(--on-surface)">$315K direct loss</b> — and that excludes opportunity cost.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="slide-num">03</div>
+  <div class="slide-kicker">The Solution · Sovereign Underwriting for Human Capital</div>
+  <h2>Every hire bonded. Every workflow instrumented.</h2>
+  <p class="slide-lede">Tenured AI is the platform that converts AI-era hiring from an unbounded liability into a hedged, instrumented financial position. Every verified hire carries a Performance Bond. Every internal workflow gets an Organizational Sovereign Density score. Every Chubb-pilot enterprise earns up to 35% premium credit.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">For new hires (I-100)</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">Recruiters source from a pool of <b style="color:var(--on-surface)">forensically verified candidates</b> — engineers who have cleared Hard-Gates with multi-agent consensus, with cryptographic Proof of Friction records anchored to a public chain. Every hire issued through the platform carries a 180-day Performance Bond (V_u guarantee) underwritten by Chubb pilot infrastructure.</p>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">For existing workforce (EWARD)</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">Your Risk Officer receives the <b style="color:var(--on-surface)">Enterprise Workforce AI Readiness Dashboard</b> — a live measurement of Organizational Sovereign Density (OSD), Time-To-Recovery (TTR_org), absolute gaps in your cohort, and live bond exposure across all bonded hires. Audit-ready output for SEC AI disclosure, NIST AI RMF, EU AI Act.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="slide-num">04</div>
+  <div class="slide-kicker">The Math · Performance Bond Economics</div>
+  <h2>$11,250 premium. $150K guarantee. Atomic settlement.</h2>
+  <p class="slide-lede">For a $200K base + $25K premium AI-era hire, Tenured AI issues a Performance Bond: π premium of $11,250 per year (5% of total package), V_u guarantee of $150K covering the first 180 days. If the hire's Command Authority drifts below the strike threshold and they fail the corrective Hard-Gate, the bond pays out atomically from the Underwriting Reserve.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="vault">
+      <span class="seal">PERFORMANCE BOND · STANDARD</span>
+      <div style="font-family:var(--font-mono);font-size:12px;line-height:1.9;margin-top:14px">
+        <div><span style="color:var(--amber)">UNDERWRITING MATH</span></div>
+        <div>π = $5K × (λ=0.08 / CLI=0.92) × 1.2x vol</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:#C5A059;font-weight:700">$11,250 / yr</span></div>
+        <div style="margin-top:10px">V_u = ($200K + $25K) × 0.94 × 1.2</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:#C5A059;font-weight:700">$150,000</span></div>
+        <div style="margin-top:10px">Strike threshold = <span style="color:#C5A059;font-weight:700">AICI 80</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">What you get for $11,250 / year</h3>
+      <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">$150,000 V_u guarantee</b> — paid atomically from the Underwriting Reserve on a triggered strike event, with forensic evidence chamber playback</li>
+        <li>· <b style="color:var(--on-surface)">Continuous monitoring</b> — the hire's Command Authority is recomputed against their bond strike on every cleared Refresh Lab and Hard-Gate</li>
+        <li>· <b style="color:var(--on-surface)">D&amp;O defensibility</b> — your insurer sees a documented record of verified competence at the moment of hire and continuously thereafter</li>
+        <li>· <b style="color:var(--on-surface)">Replace at no extra cost</b> — a triggered bond payout funds the replacement search through the I-100 reveal protocol</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="slide-num">05</div>
+  <div class="slide-kicker">The Insurance Stack · Chubb Pilot Credit</div>
+  <h2>Up to 35% off your D&amp;O and E&amp;O premium.</h2>
+  <p class="slide-lede">Tenured AI's pilot partnership with Chubb tiers your premium credits against your Organizational Sovereign Density. Silver (OSD ≥ 0.40) earns 15%. Gold (OSD ≥ 0.60) earns 25%. Platinum (OSD ≥ 0.80) earns 35%. For an enterprise with $15M / year in D&amp;O and E&amp;O premium, this is a <b style="color:var(--primary)">$5.25M / year savings at Platinum</b>.</p>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Chubb tier</th><th>OSD threshold</th><th>Premium credit</th><th>Annual savings · $15M D&amp;O+E&amp;O</th></tr></thead>
+      <tbody>
+        <tr><td><b>SILVER</b></td><td>OSD ≥ 0.40</td><td>15%</td><td><span class="mono" style="color:var(--primary);font-weight:700">$2.25M / yr</span></td></tr>
+        <tr><td><b>GOLD</b></td><td>OSD ≥ 0.60</td><td>25%</td><td><span class="mono" style="color:var(--primary);font-weight:700">$3.75M / yr</span></td></tr>
+        <tr><td><b>PLATINUM</b></td><td>OSD ≥ 0.80</td><td>35%</td><td><span class="mono" style="color:var(--primary);font-weight:700">$5.25M / yr</span></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--on-surface-variant);margin-top:18px;font-style:italic">Chubb's underwriting model treats verified workforce competence as a measurable risk reduction equivalent to formal safety controls in commercial property insurance. Your OSD score is the workforce equivalent of a sprinkler system.</p>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="slide-num">06</div>
+  <div class="slide-kicker">The Risk Surface · EWARD Dashboard</div>
+  <h2>Your CFO's command surface.</h2>
+  <p class="slide-lede">The Enterprise Workforce AI Readiness Dashboard renders your AI-era workforce as a Bloomberg-style risk surface. OSD headline, TTR_org projection against likely disruption, active bond exposure, Chubb tier status, and an Absolute Gaps risk register identifying single points of failure in your cohort.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="vault">
+      <span class="seal">EWARD · ACME ENERGY · 2,400 STAFF</span>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px">
+        <div><div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">OSD</div><div style="font-family:var(--font-mono);font-size:1.8rem;color:var(--primary-container);font-weight:700">0.42</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">target 0.65</div></div>
+        <div><div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">TTR_ORG</div><div style="font-family:var(--font-mono);font-size:1.8rem;color:var(--primary-container);font-weight:700">17wk</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">vs disruption</div></div>
+        <div><div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">BONDED</div><div style="font-family:var(--font-mono);font-size:1.8rem;color:var(--primary-container);font-weight:700">$3.6M</div><div style="font-family:var(--font-mono);font-size:9px;opacity:.7">24 hires</div></div>
+      </div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(197,160,89,.2);font-family:var(--font-mono);font-size:10.5px;line-height:1.8">
+        <div><span style="color:var(--amber)">ABSOLUTE GAPS · SINGLE POINTS OF FAILURE</span></div>
+        <div><span style="color:#ff8a8a">▸ Vector DB latency · 0 verified</span></div>
+        <div><span style="color:#ff8a8a">▸ EU AI Act compliance · 1 verified · concentration risk</span></div>
+        <div><span style="color:#D88828">▸ Multi-agent consensus · 2 verified · below target</span></div>
+      </div>
+      <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;color:var(--mentor)">⚜ CHUBB PILOT · GOLD · $3.75M / yr CREDIT</div>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">What EWARD gives your office</h3>
+      <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">OSD headline</b> — the workforce equivalent of a credit score, defended against your insurer</li>
+        <li>· <b style="color:var(--on-surface)">TTR_org projection</b> — how fast your team recovers when AI infrastructure shifts (vector DB ecosystem change, regulatory ruling, framework deprecation)</li>
+        <li>· <b style="color:var(--on-surface)">Live bond exposure</b> — total V_u outstanding across all bonded hires, with strike-margin tracking per individual</li>
+        <li>· <b style="color:var(--on-surface)">Chaos Scenario Simulator</b> — run "what if EU AI Act enforcement accelerates this quarter" and see your projected $1.2M exposure</li>
+        <li>· <b style="color:var(--on-surface)">Audit-ready</b> for SEC AI disclosure, NIST AI RMF compliance, EU AI Act competency-of-operator clauses</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="slide-num">07</div>
+  <div class="slide-kicker">The Diagnostic · OSD Heatmap</div>
+  <h2>Where your workforce is bonded — and where it's exposed.</h2>
+  <p class="slide-lede">The OSD Heatmap maps your organization's AI competency density across the skill ontology, with k-anonymity-preserving cohort aggregation. Three tiers of zoom — domain → node → contributor — let your Risk Officer drill into single points of failure without breaching individual privacy.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="badge badge-blue">OSD HEATMAP · 8×8 SAMPLE</div>
+        <div class="mono" style="font-size:10px;color:var(--on-surface-variant)">cohort coverage %</div>
+      </div>
+      <div class="osd-grid" id="osd-grid"></div>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);flex-wrap:wrap">
+        <span>gap</span>
+        <span style="width:10px;height:10px;background:#BA1A1A;border-radius:2px"></span>
+        <span style="width:10px;height:10px;background:#8a3a1a;border-radius:2px"></span>
+        <span style="width:10px;height:10px;background:#775A19;border-radius:2px"></span>
+        <span style="width:10px;height:10px;background:#B8862E;border-radius:2px"></span>
+        <span style="width:10px;height:10px;background:#E8C37E;border-radius:2px"></span>
+        <span>sovereign</span>
+        <span style="margin-left:auto">numbers = % of cohort verified</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">Two things the heatmap forces</h3>
+      <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Visible single points of failure.</b> Red cells aren't theoretical — they're "we have one engineer who knows this and they're on vacation." Your CIO sees the bus-factor risk before the incident.</li>
+        <li>· <b style="color:var(--on-surface)">A staged remediation budget.</b> Each gap row shows estimated cost-to-close: hire externally via I-100 ($84K bonded hire) vs upskill internally via Forge ($4K cohort of 3). Your CFO chooses with real numbers.</li>
+        <li>· <b style="color:var(--on-surface)">K-anonymity by default.</b> Cells with fewer than 3 verified contributors gray out. The CFO sees what they're allowed to see and what they're explicitly not — which builds internal political support.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="slide-num">08</div>
+  <div class="slide-kicker">The Trust Test · When a Bond Actually Pays</div>
+  <h2>The Gavel releases $150K from the Underwriting Reserve.</h2>
+  <p class="slide-lede">A platform's underwriting credibility lives or dies on what happens at the strike event. When a bonded hire's Command Authority drifts below the strike threshold and they fail the corrective Hard-Gate, the Claim Adjudication surface fires: evidence chamber playback (full ALTFL forensic record), liquidation calculator, and the literal Gavel action that releases the $150K atomically from the Underwriting Reserve.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div>
+      <div class="term">
+        <div><span class="amber">⚠ STRIKE TRIGGERED · 2026-09-14 · day 142 / 180</span></div>
+        <div style="margin-top:8px"><span class="err">▸ AICI drift: 92 → 78 (strike 80)</span></div>
+        <div><span class="err">▸ Corrective Hard-Gate: FAIL</span></div>
+        <div><span class="err">▸ Bond status: TRIGGERED</span></div>
+        <div style="margin-top:12px"><span class="amber">EVIDENCE CHAMBER</span></div>
+        <div>▸ Telemetry replay · 47 micro-challenges</div>
+        <div>▸ Daily drift trace · 90 days</div>
+        <div>▸ Corrective Gate session · 0x4f2a…</div>
+        <div style="margin-top:12px"><span class="amber">PAYOUT</span></div>
+        <div><span class="gold">$150,000 · atomic from Underwriting Reserve</span></div>
+        <div><span class="ok">✓ Gavel released · receipt hash 0x77ab…</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">Why the Gavel is on display</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7;margin-bottom:14px">Most insurance products bury the claim process in fine print. Tenured AI puts the gavel — the literal verb and the literal action — in the user interface. When a strike fires, your enterprise sees the evidence chamber, the math, and the wire transfer hash. The credibility of the entire underwriting product hinges on this transparency.</p>
+      <div class="card" style="margin-top:14px">
+        <div class="badge badge-mentor" style="margin-bottom:10px">SUCCESS METRIC</div>
+        <p style="font-size:13.5px;color:var(--on-surface-variant)">Strike events are rare by design — bonded hires are pre-filtered to Triple-85 candidates with Command Authority above strike. The historical strike rate in the pilot corridor is <b style="color:var(--on-surface)">under 4%</b>. The payout exists not because we expect to fire it often, but because being willing to fire it is what makes the product real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="slide-num">09</div>
+  <div class="slide-kicker">Comparative · What Else You're Considering</div>
+  <h2>None of the alternatives gives you a bond.</h2>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Vendor</th><th>What they sell</th><th>What you don't get</th></tr></thead>
+      <tbody>
+        <tr><td><b>LinkedIn Recruiter</b></td><td>Search across self-reported skills and endorsements</td><td>No verification, no bond, no audit trail. The "AI-skilled" candidate is anyone who put it on their profile.</td></tr>
+        <tr><td><b>HackerRank / Codility</b></td><td>Coding tests during hiring</td><td>Tests are LLM-defeated. No continuous monitoring after hire. No insurance product, no premium credit.</td></tr>
+        <tr><td><b>Pluralsight / Coursera B2B</b></td><td>Internal upskilling content libraries</td><td>Course completion does not verify competency. Your CFO can buy thousands of seats and still not know who can actually do the work.</td></tr>
+        <tr><td><b>Internal AI training program</b></td><td>Custom curriculum, you build it</td><td>Two-year build, six-figure internal cost, no third-party verification, no insurance integration, no portable credential for your hires.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">Tenured AI</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))">Verified hires · Performance Bonds · EWARD dashboard · Chubb premium credit</td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><span style="color:var(--primary)">All four. Plus the asymmetric liability shield.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="slide-num">10</div>
+  <div class="slide-kicker">The Path · From SOW to Chubb Gold</div>
+  <h2>14 weeks from contract to first audit-defensible workforce snapshot.</h2>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEKS 1–3</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Connect</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">SOW signed. HRIS integration. Initial cohort selection (recommend: senior AI-deploying ICs and managers, 50–200 staff). No platform credentials minted yet.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEKS 4–8</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Baseline</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">Cohort takes placement Hard-Gates. Initial OSD computed. EWARD dashboard goes live for your Risk Officer. Absolute gaps surfaced.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEKS 9–12</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Bond &amp; Chubb</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">First bonded hires issued (recommend: open requisitions converted to I-100 pipeline). Chubb tier assessed against current OSD. Premium credit applied to current policy.</p>
+    </div>
+    <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="badge" style="background:var(--primary-container);color:#3D2914;margin-bottom:14px">WEEKS 13–14</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary-container)">Audit snapshot</h3>
+      <p style="font-size:13px;color:var(--inverse-on-surface);opacity:.85">First quarterly workforce snapshot delivered to General Counsel — SEC-disclosure-ready, NIST AI RMF–compatible. Your D&amp;O insurer sees the document.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <div class="slide-num">11</div>
+  <div class="slide-kicker">Anticipated Concerns</div>
+  <h2>Three questions your General Counsel will raise.</h2>
+  <table class="matrix" style="margin-top:36px">
+    <thead><tr><th>Concern</th><th>Our answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>"Are we surveilling our employees?"</b></td><td>The platform is opt-in per individual. ALTFL telemetry is captured only during the Gate; nothing during ordinary workday use. The OSD heatmap operates k-anonymity by default — cohort cells with fewer than 3 contributors gray out. EWARD shows aggregate cohort coverage, not individual scores. This is verifiable in the spec; we will provide it to your CISO and DPO.</td></tr>
+      <tr><td><b>"What's the bond payout actually backed by?"</b></td><td>The Underwriting Reserve is a segregated, third-party-administered escrow held by our pilot partner Chubb under standard surety-bond infrastructure. Payouts are atomically released against the strike event evidence chamber. The Reserve's balance is auditable monthly. We can introduce your CFO to our Chubb account team for direct verification.</td></tr>
+      <tr><td><b>"How do we know the AICI score isn't gamed?"</b></td><td>The platform's Adversary Logic Engine (PAT-001) is specifically engineered against pattern-matched gaming. Bully Logic Persistence Loops re-inject in the same domain via different symptoms — memorized solutions fail on second injection. The four-agent council (PAT-004) requires consensus to mint a credential; no single agent can authorize. Your CRO receives a copy of our IP-defensibility appendix on request.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="s12">
+  <div class="slide-num">12</div>
+  <div class="slide-kicker">The Ask</div>
+  <h1>One pilot cohort. <span class="gild">$0 in bond exposure.</span> 90 days.</h1>
+  <p class="slide-lede">We are asking your office to designate a single pilot cohort — 50 to 200 senior AI-deploying staff — and run them through the placement Hard-Gates over 90 days. No bond capital required from your enterprise during pilot; bonds activate only when your team chooses to begin Chubb-credit issuance. After Week 14, your General Counsel has a quarterly workforce snapshot. After Quarter 2, your CFO has measurable D&amp;O premium savings. <b>The decision is whether the next hallucination incident finds your enterprise instrumented or exposed.</b></p>
+  <div style="margin-top:48px">
+    <a href="#contact" class="cta">Begin the SOW conversation →</a>
+    <a href="#s4" class="cta-pill">Review the bond math</a>
+    <a href="#s6" class="cta-pill">See EWARD live</a>
+  </div>
+  <div id="contact" style="margin-top:80px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · Enterprise Underwriting<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">enterprise@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · PITCH TO ENTERPRISE · 12 SLIDES · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+<script>
+// Generate OSD heatmap deterministically (seeded-style)
+(function(){
+  const grid = document.getElementById('osd-grid');
+  if(!grid) return;
+  // Deterministic sequence (precomputed for visual consistency)
+  const cells = [
+    ['#775A19','38'],['#B8862E','64'],['#BA1A1A','00'],['#775A19','38'],['#B8862E','64'],['#E8C37E','88'],['#775A19','38'],['#8a3a1a','12'],
+    ['#B8862E','64'],['#775A19','38'],['#8a3a1a','12'],['#B8862E','64'],['#E8C37E','88'],['#775A19','38'],['#B8862E','64'],['#775A19','38'],
+    ['#BA1A1A','00'],['#B8862E','64'],['#775A19','38'],['#E8C37E','88'],['#B8862E','64'],['#775A19','38'],['#8a3a1a','12'],['#B8862E','64'],
+    ['#775A19','38'],['#E8C37E','88'],['#B8862E','64'],['#775A19','38'],['#BA1A1A','00'],['#B8862E','64'],['#775A19','38'],['#E8C37E','88'],
+    ['#B8862E','64'],['#775A19','38'],['#B8862E','64'],['#8a3a1a','12'],['#775A19','38'],['#E8C37E','88'],['#B8862E','64'],['#775A19','38'],
+    ['#E8C37E','88'],['#B8862E','64'],['#775A19','38'],['#B8862E','64'],['#775A19','38'],['#8a3a1a','12'],['#BA1A1A','00'],['#B8862E','64'],
+    ['#775A19','38'],['#B8862E','64'],['#E8C37E','88'],['#775A19','38'],['#B8862E','64'],['#775A19','38'],['#B8862E','64'],['#E8C37E','88'],
+    ['#8a3a1a','12'],['#775A19','38'],['#B8862E','64'],['#E8C37E','88'],['#775A19','38'],['#B8862E','64'],['#775A19','38'],['#B8862E','64']
+  ];
+  grid.innerHTML = cells.map(c=>`<div class="osd-cell" style="background:${c[0]};color:${c[0]==='#E8C37E'?'#3D2914':'#FFF'}">${c[1]}</div>`).join('');
+})();
+</script>
+
+</body>
+</html>

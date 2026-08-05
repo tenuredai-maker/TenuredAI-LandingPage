@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · The Sovereign Talent Ledger</title>
+<meta name="description" content="The verification infrastructure that issues bonded hires. 21 patents. Chubb-reinsured. Built for the LLM era.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#1C1C1A;--inverse-on-surface:#F3F0EC;
+  --font-display:'Fraunces',serif;
+  --font-headline:'Sora',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.08);
+  --ambient:0 32px 64px -16px rgba(28,28,26,.10);
+  --r-md:.75rem;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
+}
+[data-theme="dark"]{
+  --surface:#0F0F0E;--sc-low:#1A1A18;--sc-lowest:#161614;--sc-high:#262624;
+  --on-surface:#F3F0EC;--on-surface-variant:#C7BFB1;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--surface);color:var(--on-surface);
+  font-family:var(--font-body);font-size:15.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+  opacity:.025;pointer-events:none;z-index:1;mix-blend-mode:multiply;
+}
+[data-theme="dark"] body::before{mix-blend-mode:overlay;opacity:.04}
+main{position:relative;z-index:2}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.12}
+.gild{
+  background:var(--sovereign);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ============ NAV ============ */
+nav.top{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 40px;
+  background:rgba(252,249,245,.78);
+  backdrop-filter:blur(20px) saturate(1.2);
+  -webkit-backdrop-filter:blur(20px) saturate(1.2);
+  border-bottom:1px solid var(--sc-high);
+}
+[data-theme="dark"] nav.top{background:rgba(15,15,14,.78)}
+nav.top .lockup{font-family:var(--font-headline);font-weight:700;font-size:16px;letter-spacing:-.02em}
+nav.top .lockup .dot{color:var(--primary-container)}
+nav.top .lockup .sub{font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em;text-transform:uppercase;display:block;font-weight:400;margin-top:2px}
+nav.top .links{display:flex;gap:32px;align-items:center;font-size:13.5px}
+nav.top .links a{color:var(--on-surface);opacity:.75;text-decoration:none;transition:opacity .2s,color .2s;font-weight:500}
+nav.top .links a:hover{opacity:1;color:var(--primary)}
+nav.top .right{display:flex;gap:14px;align-items:center}
+.nav-cta{
+  padding:9px 18px;border-radius:var(--r-pill);
+  background:var(--sovereign);color:#fff;
+  font-family:var(--font-headline);font-weight:600;font-size:13px;
+  text-decoration:none;letter-spacing:.01em;
+  box-shadow:0 4px 16px rgba(197,160,89,.25);
+  transition:transform .15s,box-shadow .15s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(197,160,89,.35)}
+@media(max-width:780px){nav.top{padding:14px 20px}nav.top .links{display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  padding:140px 40px 80px;
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:end;
+}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:32px;padding:120px 24px 60px}}
+.hero .kicker{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--primary);
+  display:inline-flex;align-items:center;gap:10px;
+  padding:6px 14px;border-radius:var(--r-pill);
+  background:rgba(197,160,89,.10);
+  margin-bottom:28px;
+}
+.hero .kicker::before{content:"●";color:var(--amber);font-size:8px;animation:livepulse 2s ease-in-out infinite}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-family:var(--font-display);font-weight:300;
+  font-size:clamp(2.8rem,5.6vw,5rem);line-height:1;
+  letter-spacing:-.035em;max-width:18ch;margin-bottom:24px;
+}
+.hero h1 em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
+.hero h1 .gild{font-style:italic;font-weight:500}
+.hero p.subhead{
+  font-size:1.1rem;line-height:1.55;color:var(--on-surface-variant);
+  max-width:48ch;margin-bottom:32px;
+}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:var(--r-pill);
+  background:var(--sovereign);color:#fff;
+  font-family:var(--font-headline);font-weight:600;font-size:14px;
+  text-decoration:none;letter-spacing:.01em;
+  box-shadow:0 8px 28px rgba(197,160,89,.28);
+  transition:transform .2s,box-shadow .2s;
+}
+.cta-primary:hover{transform:translateY(-1px);box-shadow:0 12px 36px rgba(197,160,89,.38)}
+.cta-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:var(--r-pill);
+  background:var(--sc-lowest);color:var(--on-surface);
+  font-family:var(--font-headline);font-weight:500;font-size:14px;
+  text-decoration:none;letter-spacing:.01em;
+  box-shadow:var(--editorial);
+  transition:transform .2s;
+}
+.cta-ghost:hover{transform:translateY(-1px)}
+.cta-primary .arrow,.cta-ghost .arrow{font-family:var(--font-mono);font-size:14px}
+.hero .meta-strip{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--on-surface-variant);text-transform:uppercase;display:flex;gap:24px;flex-wrap:wrap}
+.hero .meta-strip strong{color:var(--on-surface);font-weight:700}
+
+/* Hero right side · key fact card */
+.hero-card{
+  background:var(--sc-lowest);
+  border-radius:var(--r-2xl);
+  padding:32px;
+  box-shadow:var(--ambient);
+  position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:"";position:absolute;
+  top:-30%;right:-15%;
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(197,160,89,.15),transparent 70%);
+  pointer-events:none;
+}
+.hero-card .stamp{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--primary);font-weight:700;
+  margin-bottom:18px;display:flex;justify-content:space-between;
+}
+.hero-card .stamp .live{color:var(--mentor)}
+.hero-card .stamp .live::before{content:"●";margin-right:6px;animation:livepulse 2s ease-in-out infinite;color:var(--mentor)}
+.hero-card h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:1.5rem;line-height:1.15;letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.hero-card .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.hero-card .stat{padding:14px;background:var(--sc-low);border-radius:var(--r-lg)}
+.hero-card .stat .v{font-family:var(--font-display);font-weight:500;font-size:1.6rem;line-height:1;color:var(--primary)}
+.hero-card .stat .l{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:5px;line-height:1.3}
+.hero-card .tail{font-size:12.5px;color:var(--on-surface-variant);line-height:1.5;padding-top:14px;border-top:1px solid var(--sc-high);font-family:var(--font-mono)}
+
+/* ============ TICKER ============ */
+.ticker-band{
+  background:var(--inverse-surface);color:var(--inverse-on-surface);
+  padding:18px 0;
+  overflow:hidden;position:relative;
+  border-top:1px solid var(--sc-high);
+  border-bottom:1px solid var(--sc-high);
+}
+.ticker-band::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:120px;
+  background:linear-gradient(90deg,var(--inverse-surface),transparent);
+  z-index:2;pointer-events:none;
+}
+.ticker-band::after{
+  content:"";position:absolute;right:0;top:0;bottom:0;width:120px;
+  background:linear-gradient(-90deg,var(--inverse-surface),transparent);
+  z-index:2;pointer-events:none;
+}
+.ticker-tag{
+  position:absolute;top:50%;left:24px;transform:translateY(-50%);
+  z-index:3;font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--amber);font-weight:700;
+  padding:5px 12px;background:rgba(255,191,0,.08);border-radius:var(--r-pill);
+}
+.ticker-tag::before{content:"● ";animation:livepulse 2s ease-in-out infinite}
+.ticker-track{
+  display:flex;gap:48px;
+  animation:scrollticker 48s linear infinite;
+  font-family:var(--font-mono);font-size:12px;
+  white-space:nowrap;padding-left:200px;
+}
+.ticker-track:hover{animation-play-state:paused}
+.tk{display:inline-flex;gap:10px;align-items:center;color:var(--inverse-on-surface)}
+.tk .id{color:var(--primary-container);font-weight:700;letter-spacing:.06em}
+.tk .ev{opacity:.85}
+.tk .ts{color:var(--on-surface-variant);font-size:10px;opacity:.6}
+.tk .v{color:var(--amber);font-weight:700}
+.tk + .tk::before{content:"·";color:var(--on-surface-variant);margin-right:8px;opacity:.4}
+@keyframes scrollticker{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ============ SECTION FRAME ============ */
+section.frame{
+  padding:100px 40px;
+  max-width:1280px;margin:0 auto;
+}
+@media(max-width:780px){section.frame{padding:64px 24px}}
+.section-eyebrow{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--primary);font-weight:700;
+  margin-bottom:14px;
+}
+.section-head{
+  font-family:var(--font-display);font-weight:300;
+  font-size:clamp(2.2rem,4.2vw,3.4rem);line-height:1.05;
+  letter-spacing:-.025em;max-width:24ch;
+  margin-bottom:18px;
+}
+.section-head em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
+.section-head .gild{font-style:italic;font-weight:500}
+.section-lede{
+  font-size:1.05rem;line-height:1.55;color:var(--on-surface-variant);
+  max-width:60ch;margin-bottom:40px;
+}
+
+/* ============ FOUR-PILLAR GRID ============ */
+.pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+@media(max-width:980px){.pillar-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.pillar-grid{grid-template-columns:1fr}}
+.pillar{
+  background:var(--sc-lowest);border-radius:var(--r-xl);
+  padding:26px;box-shadow:var(--editorial);
+  position:relative;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+}
+.pillar:hover{transform:translateY(-4px);box-shadow:var(--ambient)}
+.pillar .pn{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;
+  color:var(--primary);font-weight:700;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.pillar h4{
+  font-family:var(--font-display);font-weight:400;
+  font-size:1.35rem;line-height:1.15;letter-spacing:-.018em;
+  margin-bottom:12px;
+}
+.pillar p{font-size:13.5px;line-height:1.55;color:var(--on-surface-variant)}
+
+/* ============ FORTRESS · IP visual ============ */
+.fortress-band{
+  background:var(--sc-low);
+  padding:100px 40px;
+}
+.fortress-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:center}
+@media(max-width:980px){.fortress-inner{grid-template-columns:1fr}}
+.fortress-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.fstat{background:var(--sc-lowest);border-radius:var(--r-lg);padding:20px;box-shadow:var(--editorial)}
+.fstat .v{font-family:var(--font-display);font-weight:500;font-size:2.4rem;line-height:1;letter-spacing:-.02em;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.fstat .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:8px}
+
+/* Patent grid · 21-cell schematic */
+.patent-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:8px;
+  padding:24px;background:var(--sc-lowest);border-radius:var(--r-xl);box-shadow:var(--ambient);
+}
+.pcell{
+  aspect-ratio:1;border-radius:var(--r-md);
+  background:linear-gradient(135deg,var(--sc-low),var(--sc-high));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:10px;font-weight:700;
+  color:var(--on-surface-variant);
+  position:relative;cursor:default;
+  transition:transform .2s,box-shadow .2s;
+}
+.pcell:hover{transform:scale(1.06);box-shadow:0 8px 16px rgba(28,28,26,.12);z-index:2}
+.pcell.gold{
+  background:var(--sovereign);color:#fff;
+  box-shadow:0 4px 12px rgba(197,160,89,.3);
+}
+.pcell.blue{
+  background:var(--tertiary);color:#fff;
+}
+.pcell .n{font-size:9px;opacity:.7}
+.pcell .lbl{font-size:11px;margin-top:2px}
+.fortress-legend{margin-top:18px;display:flex;flex-wrap:wrap;gap:18px;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);letter-spacing:.08em;text-transform:uppercase}
+.legend-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.legend-dot.gold{background:var(--sovereign)}
+.legend-dot.blue{background:var(--tertiary)}
+.legend-dot.gray{background:var(--sc-high)}
+
+/* ============ PERSONA SWITCHER ============ */
+.persona-band{
+  background:var(--surface);
+  padding:100px 40px;
+}
+.persona-inner{max-width:1280px;margin:0 auto}
+.persona-tabs{
+  display:flex;gap:6px;margin:36px 0 32px;flex-wrap:wrap;
+  padding:6px;background:var(--sc-low);border-radius:var(--r-pill);
+  width:fit-content;
+}
+.ptab{
+  padding:10px 22px;border-radius:var(--r-pill);
+  background:transparent;border:none;cursor:pointer;
+  font-family:var(--font-headline);font-weight:600;font-size:13px;
+  color:var(--on-surface-variant);
+  letter-spacing:.01em;
+  transition:all .25s;
+}
+.ptab.active{
+  background:var(--sc-lowest);color:var(--on-surface);
+  box-shadow:0 2px 8px rgba(28,28,26,.06);
+}
+.ptab:hover{color:var(--on-surface)}
+.ppanel{display:none;animation:fadein .35s ease-out}
+.ppanel.active{display:grid}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ppanel{
+  grid-template-columns:1fr 1fr;gap:48px;align-items:start;
+  background:var(--sc-lowest);border-radius:var(--r-2xl);
+  padding:48px;box-shadow:var(--editorial);
+}
+@media(max-width:780px){.ppanel{grid-template-columns:1fr;padding:32px;gap:24px}}
+.ppanel h3{
+  font-family:var(--font-display);font-weight:400;
+  font-size:1.85rem;line-height:1.1;letter-spacing:-.02em;
+  margin-bottom:14px;
+}
+.ppanel h3 em{font-style:italic;color:var(--on-surface-variant)}
+.ppanel h3 .gild{font-style:italic;font-weight:500}
+.ppanel .ptag{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:12px;
+}
+.ppanel p{font-size:14.5px;line-height:1.6;color:var(--on-surface-variant);margin-bottom:14px}
+.ppanel .pact{
+  margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;
+}
+.ppanel .pcta{
+  padding:11px 22px;border-radius:var(--r-pill);
+  background:var(--sovereign);color:#fff;
+  font-family:var(--font-headline);font-weight:600;font-size:13px;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  box-shadow:0 4px 16px rgba(197,160,89,.25);
+}
+.ppanel .pcta.ghost{
+  background:transparent;color:var(--on-surface);
+  box-shadow:none;border:1px solid var(--sc-high);
+}
+.ppanel .right{padding-left:0}
+.ppanel .stat-stack{display:grid;gap:12px}
+.ppanel .ps{
+  padding:18px 20px;background:var(--sc-low);border-radius:var(--r-lg);
+  display:grid;grid-template-columns:1fr auto;align-items:center;
+}
+.ppanel .ps .pl{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant)}
+.ppanel .ps .pl strong{display:block;font-family:var(--font-headline);font-size:13px;color:var(--on-surface);text-transform:none;letter-spacing:-.01em;margin-top:3px}
+.ppanel .ps .pv{font-family:var(--font-display);font-weight:500;font-size:1.5rem;line-height:1;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ============ INSTITUTIONAL LOGO BAND ============ */
+.logos-band{
+  background:var(--sc-low);
+  padding:60px 40px;
+  border-top:1px solid var(--sc-high);
+}
+.logos-inner{max-width:1280px;margin:0 auto;text-align:center}
+.logos-lede{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--on-surface-variant);
+  margin-bottom:32px;font-weight:600;
+}
+.logo-row{display:flex;flex-wrap:wrap;justify-content:center;gap:48px;align-items:center}
+.logo-pill{
+  font-family:var(--font-display);font-weight:500;font-size:1.3rem;
+  letter-spacing:-.01em;color:var(--on-surface);opacity:.7;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-pill .lg-mark{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sc-lowest),var(--sc-high));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--primary);
+  box-shadow:inset 0 0 0 1px var(--sc-high);
+}
+.logo-pill.live .lg-mark{background:var(--sovereign);color:#fff;box-shadow:0 4px 12px rgba(197,160,89,.25)}
+.logo-pill .badge{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mentor);font-weight:700;background:rgba(79,138,107,.1);padding:3px 8px;border-radius:var(--r-pill);margin-left:8px}
+
+/* ============ HOW-IT-WORKS · 5-stage strip ============ */
+.pipeline{
+  padding:100px 40px;
+  max-width:1280px;margin:0 auto;
+}
+.pipe-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px;
+  position:relative;
+}
+@media(max-width:980px){.pipe-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.pipe-grid{grid-template-columns:1fr}}
+.pstage{
+  background:var(--sc-lowest);border-radius:var(--r-xl);
+  padding:24px;box-shadow:var(--editorial);
+  position:relative;
+}
+.pstage .pn{
+  font-family:var(--font-display);font-weight:300;font-size:2.4rem;line-height:1;
+  letter-spacing:-.03em;background:var(--sovereign);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;
+}
+.pstage h4{
+  font-family:var(--font-headline);font-weight:700;font-size:15px;
+  letter-spacing:-.01em;margin-bottom:8px;
+}
+.pstage p{font-size:12.5px;line-height:1.55;color:var(--on-surface-variant)}
+.pstage .pat{
+  font-family:var(--font-mono);font-size:9.5px;color:var(--primary);
+  letter-spacing:.08em;font-weight:700;margin-top:12px;
+  padding-top:10px;border-top:1px solid var(--sc-high);
+}
+
+/* ============ FAQ TEASER ============ */
+.faq-band{
+  background:var(--sc-low);
+  padding:100px 40px;
+}
+.faq-inner{max-width:920px;margin:0 auto}
+.faq-list{margin-top:32px}
+.faq-q{
+  background:var(--sc-lowest);border-radius:var(--r-xl);
+  padding:24px 28px;margin-bottom:10px;
+  box-shadow:var(--editorial);
+  cursor:pointer;
+  transition:transform .15s;
+}
+.faq-q:hover{transform:translateY(-1px)}
+.faq-q summary{
+  font-family:var(--font-headline);font-weight:600;font-size:15px;
+  letter-spacing:-.01em;cursor:pointer;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+.faq-q summary::-webkit-details-marker{display:none}
+.faq-q summary::after{content:"+";font-family:var(--font-mono);font-size:18px;color:var(--primary);font-weight:300;transition:transform .25s}
+.faq-q[open] summary::after{transform:rotate(45deg)}
+.faq-q .ans{font-size:14px;line-height:1.65;color:var(--on-surface-variant);margin-top:14px;padding-top:14px;border-top:1px solid var(--sc-high);max-width:60ch}
+
+/* ============ CLOSING BAND ============ */
+.closing{
+  background:var(--inverse-surface);color:var(--inverse-on-surface);
+  padding:120px 40px;
+  position:relative;overflow:hidden;
+}
+.closing::before{
+  content:"";position:absolute;top:-30%;right:-15%;
+  width:520px;height:520px;
+  background:radial-gradient(circle,rgba(197,160,89,.18),transparent 65%);
+  pointer-events:none;
+}
+.closing-inner{max-width:1280px;margin:0 auto;position:relative}
+.closing .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary-container);margin-bottom:24px;font-weight:700}
+.closing h2{
+  font-family:var(--font-display);font-weight:300;
+  font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.04;letter-spacing:-.025em;
+  max-width:22ch;margin-bottom:32px;
+}
+.closing h2 em{font-style:italic;color:var(--primary-container);opacity:.85}
+.closing h2 .gild{
+  background:var(--sovereign);-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent;
+  font-style:italic;font-weight:500;
+}
+.closing .closing-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.closing .cta-gild{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;border-radius:var(--r-pill);
+  background:var(--sovereign);color:#fff;
+  font-family:var(--font-headline);font-weight:600;font-size:14px;
+  text-decoration:none;letter-spacing:.01em;
+  box-shadow:0 8px 32px rgba(197,160,89,.32);
+  transition:transform .2s;
+}
+.closing .cta-gild:hover{transform:translateY(-2px)}
+.closing .cta-line{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;border-radius:var(--r-pill);
+  background:transparent;color:var(--inverse-on-surface);
+  font-family:var(--font-headline);font-weight:500;font-size:14px;
+  text-decoration:none;letter-spacing:.01em;
+  border:1px solid rgba(243,240,236,.2);
+  transition:background .2s;
+}
+.closing .cta-line:hover{background:rgba(243,240,236,.05)}
+.investor-gate{
+  margin-top:48px;padding-top:32px;
+  border-top:1px solid rgba(243,240,236,.12);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--inverse-on-surface);opacity:.7;
+}
+.investor-gate a{color:var(--primary-container);text-decoration:none;font-weight:700;letter-spacing:.18em}
+.investor-gate a::after{content:" →";color:var(--inverse-on-surface);opacity:.4}
+
+/* ============ FOOTER ============ */
+.site-foot{
+  padding:40px;background:var(--inverse-surface);color:var(--inverse-on-surface);
+  border-top:1px solid rgba(243,240,236,.12);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;
+}
+.site-foot a{color:var(--inverse-on-surface);opacity:.65;text-decoration:none;transition:opacity .2s}
+.site-foot a:hover{opacity:1}
+.site-foot .copy{opacity:.5}
+
+/* ============ THEME TOGGLE ============ */
+.themebtn{
+  position:fixed;bottom:24px;right:24px;z-index:55;
+  background:var(--sc-lowest);box-shadow:0 8px 32px rgba(28,28,26,.12);
+  border:none;cursor:pointer;border-radius:var(--r-pill);
+  padding:11px 18px;font-family:var(--font-mono);font-size:11px;
+  color:var(--on-surface);font-weight:700;letter-spacing:.04em;
+  transition:transform .2s;
+}
+.themebtn:hover{transform:translateY(-2px)}
+
+@media print{
+  nav.top,.themebtn,.ticker-band{display:none}
+  body::before{display:none}
+  section.frame,.fortress-band,.persona-band,.logos-band,.pipeline,.faq-band,.closing{page-break-inside:avoid;padding:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="top">
+  <a href="index.html" style="text-decoration:none;color:inherit" class="lockup">
+    Tenured AI<span class="dot">.</span>
+    <span class="sub">Sovereign Talent Ledger</span>
+  </a>
+  <div class="links">
+    <a href="#how">How it works</a>
+    <a href="#fortress">The IP</a>
+    <a href="#personas">For you</a>
+    <a href="manifesto.html">Manifesto</a>
+  </div>
+  <div class="right">
+    <a href="#closing" class="nav-cta">Request access →</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div>
+    <div class="kicker">Series A · 2026 · Houston · NYC</div>
+    <h1>The infrastructure that issues <em>verified hires.</em> Backed by a <span class="gild">$150K bond.</span></h1>
+    <p class="subhead">Tenured AI is the verification layer the labor market lost in 2022. We adversarially verify AI-era competency, anchor the credential to four blockchains, and underwrite the placement with a Chubb-reinsured Performance Bond. 21 patents. 97 trade secrets. Multi-chain ledger live.</p>
+    <div class="ctas">
+      <a href="#closing" class="cta-primary">Request a demo <span class="arrow">→</span></a>
+      <a href="manifesto.html" class="cta-ghost">Read the manifesto <span class="arrow">→</span></a>
+    </div>
+    <div class="meta-strip">
+      <span><strong>21</strong> patents filed</span>
+      <span><strong>$150K</strong> bond per hire</span>
+      <span><strong>Chubb</strong> reinsured</span>
+      <span><strong>Polygon</strong> anchored</span>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="stamp"><span>Sovereign Ledger</span><span class="live">LIVE</span></div>
+    <h3>The first credential whose <span class="gild">economic survival</span> is structurally aligned with the institutions that issued it.</h3>
+    <div class="stat-row">
+      <div class="stat"><div class="v">40/40/20</div><div class="l">Platform · University · Treasury</div></div>
+      <div class="stat"><div class="v">≥ 85</div><div class="l">Triple-85 bondable threshold</div></div>
+      <div class="stat"><div class="v">$11,250</div><div class="l">Avg annual premium</div></div>
+      <div class="stat"><div class="v">180d</div><div class="l">Bond term</div></div>
+    </div>
+    <p class="tail">Smart-contract-enforced split. No admin keys retained. Open-source verification client.</p>
+  </div>
+</section>
+
+
+<!-- ============ TICKER · live credential network ============ -->
+<div class="ticker-band">
+  <div class="ticker-tag">Sovereign Ledger · live</div>
+  <div class="ticker-track" id="ticker">
+    <span class="tk"><span class="id">PSP-04412</span> <span class="ev">Hard-Gate cleared · Houston-Energy ML/Ops</span> <span class="v">+$2,000 GDA → UH</span> <span class="ts">14s ago</span></span>
+    <span class="tk"><span class="id">BND-00187</span> <span class="ev">Performance Bond issued · NYC-Finance Risk Quant</span> <span class="v">$150K · π $10,875</span> <span class="ts">37s ago</span></span>
+    <span class="tk"><span class="id">B300-0094</span> <span class="ev">Recruiter Battle settled · Sr Forecast Eng</span> <span class="v">$324K placement</span> <span class="ts">2m ago</span></span>
+    <span class="tk"><span class="id">PSP-04408</span> <span class="ev">Triple-85 attained · DC-Defense AIOI 91</span> <span class="v">Passport minted</span> <span class="ts">4m ago</span></span>
+    <span class="tk"><span class="id">EWD-0023</span> <span class="ev">EWARD audit · Houston enterprise · OSD 0.71</span> <span class="v">Gold tier · 25% credit</span> <span class="ts">6m ago</span></span>
+    <span class="tk"><span class="id">PSP-04405</span> <span class="ev">Hard-Gate cleared · NYC-Finance Compliance</span> <span class="v">+$2,000 GDA → Columbia</span> <span class="ts">9m ago</span></span>
+    <span class="tk"><span class="id">BND-00186</span> <span class="ev">Bond settled clean · Houston-Energy · 180d</span> <span class="v">Float released</span> <span class="ts">11m ago</span></span>
+    <span class="tk"><span class="id">L200-Q2</span> <span class="ev">L-200 League update · UH +2 positions</span> <span class="v">Rank #14</span> <span class="ts">14m ago</span></span>
+    <span class="tk"><span class="id">PSP-04402</span> <span class="ev">Hard-Gate cleared · Houston-Energy ML/Ops</span> <span class="v">+$2,000 GDA → UH</span> <span class="ts">14s ago</span></span>
+    <span class="tk"><span class="id">BND-00187</span> <span class="ev">Performance Bond issued · NYC-Finance Risk Quant</span> <span class="v">$150K · π $10,875</span> <span class="ts">37s ago</span></span>
+    <span class="tk"><span class="id">B300-0094</span> <span class="ev">Recruiter Battle settled · Sr Forecast Eng</span> <span class="v">$324K placement</span> <span class="ts">2m ago</span></span>
+    <span class="tk"><span class="id">PSP-04408</span> <span class="ev">Triple-85 attained · DC-Defense AIOI 91</span> <span class="v">Passport minted</span> <span class="ts">4m ago</span></span>
+    <span class="tk"><span class="id">EWD-0023</span> <span class="ev">EWARD audit · Houston enterprise · OSD 0.71</span> <span class="v">Gold tier · 25% credit</span> <span class="ts">6m ago</span></span>
+    <span class="tk"><span class="id">PSP-04405</span> <span class="ev">Hard-Gate cleared · NYC-Finance Compliance</span> <span class="v">+$2,000 GDA → Columbia</span> <span class="ts">9m ago</span></span>
+    <span class="tk"><span class="id">BND-00186</span> <span class="ev">Bond settled clean · Houston-Energy · 180d</span> <span class="v">Float released</span> <span class="ts">11m ago</span></span>
+    <span class="tk"><span class="id">L200-Q2</span> <span class="ev">L-200 League update · UH +2 positions</span> <span class="v">Rank #14</span> <span class="ts">14m ago</span></span>
+  </div>
+</div>
+
+
+<!-- ============ FOUR-PILLAR THESIS ============ -->
+<section class="frame" id="thesis">
+  <div class="section-eyebrow">§ The Thesis</div>
+  <h2 class="section-head">Why this company. <em>Why now.</em></h2>
+  <p class="section-lede">Four structural pillars defend the investment case. Each is independent of the others. The platform's defensibility compounds because no follower can clear all four simultaneously.</p>
+  <div class="pillar-grid">
+    <div class="pillar">
+      <div class="pn">Pillar 01</div>
+      <h4>The verification gap is unfilled.</h4>
+      <p>LLMs invalidated every credential-class signal in 2022. No incumbent — LinkedIn, Workday, Coursera, HackerRank — can pivot to verification without cannibalizing core revenue.</p>
+    </div>
+    <div class="pillar">
+      <div class="pn">Pillar 02</div>
+      <h4>The category is infrastructure, not SaaS.</h4>
+      <p>Three uncorrelated revenue streams: ledger settlement (Visa-class), reserve float (Berkshire-class), index licensing (S&amp;P-class). Composite supports 25–40× multiples.</p>
+    </div>
+    <div class="pillar">
+      <div class="pn">Pillar 03</div>
+      <h4>The moat is four-layer structural.</h4>
+      <p>21-patent fortress + Polygon-anchored ledger network + 40/40/20 perpetual institutional contracts + two-sided network effects. Each layer compounds independently.</p>
+    </div>
+    <div class="pillar">
+      <div class="pn">Pillar 04</div>
+      <h4>The window is briefly open.</h4>
+      <p>~36 months until a strategic incumbent mounts defensive entry. After this window, the IP and institutional lock-ins compound into a non-replicable moat.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ FORTRESS · IP visualization ============ -->
+<section class="fortress-band" id="fortress">
+  <div class="fortress-inner">
+    <div>
+      <div class="section-eyebrow">§ The Fortress</div>
+      <h2 class="section-head">21 patents. <span class="gild">Vertically filed.</span></h2>
+      <p class="section-lede">The IP portfolio covers the full pipeline from learning surface to underwriting product. No architectural layer left uncovered. Compound coverage means an invalidation challenge against any single patent does not collapse protection.</p>
+      <div class="fortress-stats">
+        <div class="fstat"><div class="v">21</div><div class="l">Patents filed</div></div>
+        <div class="fstat"><div class="v">97</div><div class="l">Trade secrets · DTSA</div></div>
+        <div class="fstat"><div class="v">41</div><div class="l">Critical-Tier</div></div>
+        <div class="fstat"><div class="v">3</div><div class="l">Federal trademarks</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="patent-grid">
+        <div class="pcell gold" title="PAT-001 Adversary Logic Engine"><span class="n">PAT</span><span class="lbl">001</span></div>
+        <div class="pcell gold" title="PAT-002 ALTFL"><span class="n">PAT</span><span class="lbl">002</span></div>
+        <div class="pcell" title="PAT-003 Skill-Decay λ"><span class="n">PAT</span><span class="lbl">003</span></div>
+        <div class="pcell gold" title="PAT-004 Four-Agent Council"><span class="n">PAT</span><span class="lbl">004</span></div>
+        <div class="pcell" title="PAT-005 Career Memory"><span class="n">PAT</span><span class="lbl">005</span></div>
+        <div class="pcell" title="PAT-006 Blackboard"><span class="n">PAT</span><span class="lbl">006</span></div>
+        <div class="pcell" title="PAT-007 Confidence Calibration"><span class="n">PAT</span><span class="lbl">007</span></div>
+        <div class="pcell" title="PAT-008 Simulation Credentialing"><span class="n">PAT</span><span class="lbl">008</span></div>
+        <div class="pcell" title="PAT-009 Voice-Mode Multi-Agent"><span class="n">PAT</span><span class="lbl">009</span></div>
+        <div class="pcell gold" title="PAT-010 Sovereign Ledger"><span class="n">PAT</span><span class="lbl">010</span></div>
+        <div class="pcell" title="PAT-011 Tenure Points"><span class="n">PAT</span><span class="lbl">011</span></div>
+        <div class="pcell" title="PAT-012 Annotation Persistence"><span class="n">PAT</span><span class="lbl">012</span></div>
+        <div class="pcell blue" title="PAT-013 EWARD"><span class="n">PAT</span><span class="lbl">013</span></div>
+        <div class="pcell blue" title="PAT-014 B-300 Recruiter Battle"><span class="n">PAT</span><span class="lbl">014</span></div>
+        <div class="pcell blue" title="PAT-015 Asymmetric Liability Reserve"><span class="n">PAT</span><span class="lbl">015</span></div>
+        <div class="pcell blue" title="PAT-016 TTR_org Projection"><span class="n">PAT</span><span class="lbl">016</span></div>
+        <div class="pcell blue" title="PAT-017 Premium Credit Tiering"><span class="n">PAT</span><span class="lbl">017</span></div>
+        <div class="pcell" title="PAT-018 Two-Phase Flashcard"><span class="n">PAT</span><span class="lbl">018</span></div>
+        <div class="pcell gold" title="PAT-019 Asymmetric Liability OL"><span class="n">PAT</span><span class="lbl">019</span></div>
+        <div class="pcell" title="PAT-020 Node-Persistent Annotations"><span class="n">PAT</span><span class="lbl">020</span></div>
+        <div class="pcell blue" title="PAT-021 Enterprise Risk Apportionment"><span class="n">PAT</span><span class="lbl">021</span></div>
+      </div>
+      <div class="fortress-legend">
+        <span><span class="legend-dot gold"></span>Architectural · 6</span>
+        <span><span class="legend-dot blue"></span>Underwriting · 6</span>
+        <span><span class="legend-dot gray"></span>Supporting · 9</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="pipeline" id="how">
+  <div class="section-eyebrow">§ The Pipeline</div>
+  <h2 class="section-head">Five stages. <em>One bonded hire.</em></h2>
+  <p class="section-lede">A learner enters the Forge. A platform-mutated adversarial Hard-Gate determines whether they earned the credential. The Sovereign Passport is minted to Polygon. The Performance Bond is issued. The Tenured Agent carries the record forward.</p>
+  <div class="pipe-grid">
+    <div class="pstage">
+      <div class="pn">01</div>
+      <h4>The Forge</h4>
+      <p>Daily two-phase practice against decay across a curated 4,000-node ontology. Builds the candidate, doesn't certify them.</p>
+      <div class="pat">PAT-003 · 018 · 020 · 021</div>
+    </div>
+    <div class="pstage">
+      <div class="pn">02</div>
+      <h4>The Hard-Gate</h4>
+      <p>Adversarial air-gapped verification. Four-agent council. LLM-defeat-proof by architectural property, not empirical defense.</p>
+      <div class="pat">PAT-001 · 002 · 004 · 005 · 008</div>
+    </div>
+    <div class="pstage">
+      <div class="pn">03</div>
+      <h4>The Passport</h4>
+      <p>Merkle-anchored Consensus Certificate. Four-chain redundancy. Candidate-controlled DID. Open-source verification client.</p>
+      <div class="pat">PAT-010 · 011 · 020</div>
+    </div>
+    <div class="pstage">
+      <div class="pn">04</div>
+      <h4>The Bond</h4>
+      <p>$150K face value. $11,250 annual premium. 180-day term. Chubb-reinsured Reserve. Audit-ready quarterly attestation.</p>
+      <div class="pat">PAT-013 · 014 · 015 · 016 · 017 · 019</div>
+    </div>
+    <div class="pstage">
+      <div class="pn">05</div>
+      <h4>The Agent</h4>
+      <p>Stateful career assistant with persistent memory. Career Memory annotations on every ontology node. Permanent record.</p>
+      <div class="pat">PAT-002 · 006 · 009 · 011</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ PERSONA SWITCHER ============ -->
+<section class="persona-band" id="personas">
+  <div class="persona-inner">
+    <div class="section-eyebrow">§ For You</div>
+    <h2 class="section-head">Five ways the platform <em>changes your job.</em></h2>
+    <p class="section-lede">The Sovereign Talent Ledger serves five distinct stakeholders. Each engages with a different surface, a different economic mechanic, and a different commitment cycle. Find yours.</p>
+
+    <div class="persona-tabs" role="tablist">
+      <button class="ptab active" data-target="p-university">For Universities</button>
+      <button class="ptab" data-target="p-enterprise">For Enterprises</button>
+      <button class="ptab" data-target="p-recruiter">For Recruiters</button>
+      <button class="ptab" data-target="p-state">For State Leadership</button>
+      <button class="ptab" data-target="p-learner">For Learners</button>
+    </div>
+
+    <!-- Universities -->
+    <div class="ppanel active" id="p-university">
+      <div>
+        <div class="ptag">Universities · Genesis Institution</div>
+        <h3>Earn a <span class="gild">perpetual 40% dividend</span> on every transaction your graduates originate.</h3>
+        <p>Genesis Institutions receive a smart-contract-enforced 40% dividend on every transaction value originating from an alumna of the institution — for the length of the graduate's career. The contract is deployed without admin keys. The dividend cannot be paused, retiered, or withheld.</p>
+        <p>L-200 League Table quarterly publication ranks institutions by GDA dollars and corridor dominance. Curriculum integration is non-procurement: no upfront fee to the institution, no per-student access charge.</p>
+        <div class="pact">
+          <a href="#closing" class="pcta">Become a Genesis Institution <span>→</span></a>
+          <a href="l200.html" class="pcta ghost">See the L-200 League <span>→</span></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stat-stack">
+          <div class="ps"><div class="pl">Perpetual dividend<strong>Smart-contract enforced</strong></div><div class="pv">40%</div></div>
+          <div class="ps"><div class="pl">Phase 1 anchor<strong>University of Houston</strong></div><div class="pv">Live</div></div>
+          <div class="ps"><div class="pl">Pipeline<strong>Phase 1 qualified</strong></div><div class="pv">3 + 5</div></div>
+          <div class="ps"><div class="pl">Phase 3 target<strong>Global institutions</strong></div><div class="pv">4,200</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enterprises -->
+    <div class="ppanel" id="p-enterprise">
+      <div>
+        <div class="ptag">Enterprises · EWARD + Bond</div>
+        <h3>Underwrite every AI-deploying hire with a <span class="gild">$150K Chubb-reinsured bond.</span></h3>
+        <p>The Enterprise Workforce AI Readiness Dashboard (EWARD) produces an Organizational Sovereign Density score across your AI-deploying workforce. OSD ≥ 0.40 unlocks Chubb Silver tier (15% D&amp;O / E&amp;O premium credit); OSD ≥ 0.60 unlocks Gold (25%); OSD ≥ 0.80 unlocks Platinum (35%).</p>
+        <p>Every Triple-85 candidate placed through the platform comes with an optional Performance Bond — $11,250 annual premium, $150,000 face value, 180-day term. Bond strikes pay out on-chain to the hiring enterprise's wallet.</p>
+        <div class="pact">
+          <a href="#closing" class="pcta">Request enterprise pilot <span>→</span></a>
+          <a href="manifesto.html" class="pcta ghost">Read the manifesto <span>→</span></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stat-stack">
+          <div class="ps"><div class="pl">Bond face value<strong>Per verified hire</strong></div><div class="pv">$150K</div></div>
+          <div class="ps"><div class="pl">Premium credit<strong>Chubb Platinum tier</strong></div><div class="pv">35%</div></div>
+          <div class="ps"><div class="pl">Pilot deployment<strong>HRIS to live</strong></div><div class="pv">14 wk</div></div>
+          <div class="ps"><div class="pl">SEC-ready output<strong>Quarterly audit</strong></div><div class="pv">Auto</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recruiters -->
+    <div class="ppanel" id="p-recruiter">
+      <div>
+        <div class="ptag">Recruiters · I-100 Protocol</div>
+        <h3>Source from <span class="gild">Gate-verified candidates only.</span> Win the B-300 Auction.</h3>
+        <p>Verified recruiter seats ($18K/year + $120/reveal credit) gain access to the cross-surface attribution filter — the architectural feature that distinguishes Gate-verified candidates from drill-only signals. The first 100 verified recruiters get $24K-equivalent credit at no charge for 90 days.</p>
+        <p>The B-300 Auction is the snipe-protected escrowed talent auction for senior-tier engagements. Two reveal credits to enter; settled placements broadcast on the public Recruiter Battle livestream.</p>
+        <div class="pact">
+          <a href="#closing" class="pcta">Claim a seat · I-100 <span>→</span></a>
+          <a href="recruiter-battle.html" class="pcta ghost">Watch the Battle <span>→</span></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stat-stack">
+          <div class="ps"><div class="pl">Annual seat<strong>Verified recruiter access</strong></div><div class="pv">$18K</div></div>
+          <div class="ps"><div class="pl">I-100 starter<strong>Free credit pack · 90d</strong></div><div class="pv">$24K</div></div>
+          <div class="ps"><div class="pl">Reveal credit<strong>Per candidate identity</strong></div><div class="pv">$120</div></div>
+          <div class="ps"><div class="pl">Volume tier<strong>50+ seats</strong></div><div class="pv">25% off</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- State Leadership -->
+    <div class="ppanel" id="p-state">
+      <div>
+        <div class="ptag">State Leadership · Treasury</div>
+        <h3>Earn <span class="gild">20% of every transaction</span> originated by your state's verified workforce.</h3>
+        <p>State Treasury partnerships receive a smart-contract-enforced 20% dividend on every transaction value originating from a candidate of the state's jurisdiction. The mechanic is structurally non-procurement — the state receives revenue, not pays it. The dividend is unrestricted; the state can earmark via statute.</p>
+        <p>The Kill-Switch Dashboard provides state workforce commissions with real-time CA drift monitoring across partner institutions and corridor enterprises. State of Texas anchor partnership in motion; Phase 2 expansion to NY, MA, NC.</p>
+        <div class="pact">
+          <a href="#closing" class="pcta">Brief your workforce commission <span>→</span></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stat-stack">
+          <div class="ps"><div class="pl">Perpetual dividend<strong>Smart-contract enforced</strong></div><div class="pv">20%</div></div>
+          <div class="ps"><div class="pl">Phase 1 anchor<strong>State of Texas</strong></div><div class="pv">Live</div></div>
+          <div class="ps"><div class="pl">Phase 2 pipeline<strong>NY · MA · NC</strong></div><div class="pv">3 states</div></div>
+          <div class="ps"><div class="pl">Cost to state<strong>Procurement</strong></div><div class="pv">Zero</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learners -->
+    <div class="ppanel" id="p-learner">
+      <div>
+        <div class="ptag">Learners · Sovereign Passport</div>
+        <h3>Earn a credential that <span class="gild">outlives the platform that issued it.</span></h3>
+        <p>$0 at Genesis Institutions (curriculum-integrated). $19/month at self-learner tier (replaces a $5K+ certificate stack). Every cleared Hard-Gate mints a Consensus Certificate anchored to four blockchains. The verification client is open-source; the credential is portable forever.</p>
+        <p>Triple-85 status (AICI / AIOI / AIBS ≥ 85) unlocks Performance Bond eligibility at placement — meaning the recruiter and the hiring enterprise know the bond mechanism backs your placement. Career Memory carries your annotations across every ontology node for life.</p>
+        <div class="pact">
+          <a href="#closing" class="pcta">Enter the Forge <span>→</span></a>
+          <a href="manifesto.html" class="pcta ghost">Read the manifesto <span>→</span></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="stat-stack">
+          <div class="ps"><div class="pl">Genesis Institution<strong>Curriculum-integrated</strong></div><div class="pv">$0</div></div>
+          <div class="ps"><div class="pl">Self-learner tier<strong>Monthly</strong></div><div class="pv">$19</div></div>
+          <div class="ps"><div class="pl">Bondable threshold<strong>AICI · AIOI · AIBS</strong></div><div class="pv">≥ 85</div></div>
+          <div class="ps"><div class="pl">Credential anchored<strong>Multi-chain redundancy</strong></div><div class="pv">4 chains</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ INSTITUTIONAL LOGO BAND ============ -->
+<div class="logos-band">
+  <div class="logos-inner">
+    <div class="logos-lede">Phase 1 Corridor · Houston · NYC · 2026</div>
+    <div class="logo-row">
+      <div class="logo-pill live"><span class="lg-mark">UH</span>University of Houston <span class="badge">Live</span></div>
+      <div class="logo-pill"><span class="lg-mark">TX</span>State of Texas <span class="badge">Q2 close</span></div>
+      <div class="logo-pill live"><span class="lg-mark">C</span>Chubb <span class="badge">Pilot</span></div>
+      <div class="logo-pill"><span class="lg-mark">PG</span>Polygon · Mainnet <span class="badge">Live</span></div>
+      <div class="logo-pill"><span class="lg-mark">+5</span>NYC Finance Genesis pipeline</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ FAQ TEASER ============ -->
+<section class="faq-band">
+  <div class="faq-inner">
+    <div class="section-eyebrow">§ Common Questions</div>
+    <h2 class="section-head">The five questions <em>every prospect asks.</em></h2>
+    <p class="section-lede">The full FAQ runs to 56 questions across 8 sections (privacy, IP, pricing, platform risk, integration, etc.). The five most-asked are below; the rest live in the Master FAQ.</p>
+
+    <div class="faq-list">
+      <details class="faq-q" open>
+        <summary>Why can't a candidate just paste the Hard-Gate question into ChatGPT?</summary>
+        <div class="ans">The Adversary Logic Engine (PAT-001) mutates the candidate's sandbox state in ways known only to the platform's server. An LLM the candidate consults can see the symptoms of the mutation but not the underlying cause — it produces a confident answer to the wrong question. Six channels of behavioral telemetry (PAT-002) catch candidates who try anyway. This is the defining architectural property of the platform.</div>
+      </details>
+      <details class="faq-q">
+        <summary>What happens to my credential if Tenured AI goes out of business?</summary>
+        <div class="ans">Every Consensus Certificate is Merkle-anchored to four independent blockchains (Polygon, Ethereum, Arbitrum, Optimism). The verification client is open-source. A learner who cleared a Hard-Gate in 2026 can still prove they cleared it in 2046 — independent of whether Tenured AI as an operating company still exists. This is by deliberate architectural design.</div>
+      </details>
+      <details class="faq-q">
+        <summary>How is the bond's $11,250 premium derived?</summary>
+        <div class="ans">π = $5,000 × (λ / CLI) × volatility<sub>corridor</sub>. The $5K base is the actuarial floor; λ is the candidate's individual skill-decay coefficient; CLI is the Continuous Learning Index; the corridor multiplier ranges 1.10 (Houston-Energy) to 1.55 (Boston-Healthcare). The portfolio-weighted Phase 1 average is ~$11,250. Chubb's actuarial team is validating signal quality through the pilot partnership.</div>
+      </details>
+      <details class="faq-q">
+        <summary>How is this different from LinkedIn / Coursera / HackerRank?</summary>
+        <div class="ans">Those platforms produce signals — self-reported skills, course-completion certificates, point-in-time test scores — that the LLM era invalidated. The verification gap is structural; no incumbent can pivot because pivoting requires publicly admitting their existing signal is broken. Tenured AI sits in the verification layer between credentials and insurance — a category that did not exist before LLMs made it necessary.</div>
+      </details>
+      <details class="faq-q">
+        <summary>Does the platform sell candidate data?</summary>
+        <div class="ans">No. The candidate owns the Sovereign Passport. Recruiters pay for the signal the platform produces (Triple-85 status, cross-surface attribution, OL classification) — not for the candidate's personally identifiable information. The candidate controls reveal.</div>
+      </details>
+    </div>
+
+    <div style="margin-top:32px;text-align:center">
+      <a href="faq.html" class="cta-ghost">Read the full FAQ · 56 questions <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CLOSING / SIGN-OFF ============ -->
+<section class="closing" id="closing">
+  <div class="closing-inner">
+    <div class="eyebrow">§ Request access · Series A · 2026</div>
+    <h2>The architecture is built. The IP is filed.<br>The window is <em>briefly</em> <span class="gild">open.</span></h2>
+    <div class="closing-ctas">
+      <a class="cta-gild" href="mailto:hello@tenured.ai?subject=Demo%20Request">Request a demo <span class="arrow">→</span></a>
+      <a class="cta-line" href="manifesto.html">Read the manifesto <span class="arrow">→</span></a>
+      <a class="cta-line" href="recruiter-battle.html">Watch the Battle <span class="arrow">→</span></a>
+    </div>
+
+    <div class="investor-gate">
+      <div>Press · prospective hires · Genesis Institutions · <a href="mailto:hello@tenured.ai">hello@tenured.ai</a></div>
+      <div>Qualified investors · <a href="mailto:investors@tenured.ai?subject=Series%20A%20Inquiry">Series A under NDA</a></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-foot">
+  <div>Tenured AI · Sovereign Talent Ledger · Houston, TX</div>
+  <div>
+    <a href="manifesto.html">Manifesto</a> · <a href="#how">How it works</a> · <a href="#fortress">IP</a> · <a href="recruiter-battle.html">Recruiter Battle</a> · <a href="l200.html">L-200</a> · <a href="faq.html">FAQ</a>
+  </div>
+  <div class="copy">© 2026 Tenured AI, Inc. · All rights reserved · AICI™ AIOI™ AIBS™ federally registered</div>
+</footer>
+
+</main>
+
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+<script>
+  // Persona switcher
+  (function(){
+    var tabs = document.querySelectorAll('.ptab');
+    var panels = document.querySelectorAll('.ppanel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var target = tab.dataset.target;
+        tabs.forEach(function(t){t.classList.remove('active')});
+        panels.forEach(function(p){p.classList.remove('active')});
+        tab.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

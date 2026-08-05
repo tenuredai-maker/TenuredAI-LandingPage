@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Learning Loop Campaign Addendum · Education Modules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--tertiary:#8FA5D6;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4,h5{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.shell{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:32px 22px}
+[data-theme="dark"] .sidebar{background:rgba(18,18,17,.82)}
+.brand{font-family:var(--font-headline);font-weight:700;font-size:18px;letter-spacing:-.03em;margin-bottom:6px}
+.brand .dot{color:var(--primary-container)}
+.ver{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.5}
+.nav-group{margin-top:24px}
+.nav-group h4{font-family:var(--font-mono);font-weight:400;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:9px}
+.nav-group a{display:block;padding:5px 0;font-size:13px;opacity:.78;transition:opacity .2s,color .2s}
+.nav-group a:hover{opacity:1;color:var(--primary)}
+.nav-group a .sn{font-family:var(--font-mono);font-size:10px;color:var(--primary);margin-right:6px}
+
+.content{max-width:1080px;margin:0 auto;padding:0 40px}
+.hero{padding:80px 0 50px}
+.kicker{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:18ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p.lede{font-size:1.15rem;color:var(--on-surface-variant);max-width:62ch;margin-top:22px;line-height:1.6}
+
+section.bk{padding:70px 0;scroll-margin-top:24px}
+section.bk:nth-of-type(even){background:var(--sc-low);margin:0 -100vw;padding-left:100vw;padding-right:100vw}
+section.bk:nth-of-type(even) > *{max-width:1080px;margin-inline:auto;padding-inline:40px}
+h2.sec{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin-bottom:12px;max-width:26ch}
+.sec-sub{font-size:15px;color:var(--on-surface-variant);max-width:66ch;margin-bottom:36px;line-height:1.6}
+
+.asset{background:var(--sc-lowest);border-radius:var(--r-xl);padding:28px;box-shadow:var(--editorial);margin-bottom:20px}
+.asset-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.asset-head .a-id{font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.12em;font-weight:700;padding:5px 11px;border-radius:var(--r-pill);background:rgba(197,160,89,.14);flex-shrink:0}
+.asset-head .a-title{font-family:var(--font-headline);font-weight:700;font-size:1.18rem;flex:1;min-width:200px}
+.asset-head .a-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:8px;background:var(--sc-high);color:var(--on-surface-variant);font-weight:700}
+.asset-head .a-tag.tp{background:var(--sovereign);color:#FFF}
+.asset-head .a-tag.tb{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.asset-head .a-tag.tm{background:rgba(79,138,107,.16);color:var(--mentor)}
+.asset-head .a-tag.te{background:rgba(186,26,26,.12);color:var(--error)}
+
+.spec-row{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:9px 0;font-size:13.5px;border-bottom:1px dashed rgba(127,118,103,.18)}
+.spec-row:last-child{border-bottom:none}
+.spec-row .spec-key{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding-top:2px}
+.spec-row .spec-val{color:var(--on-surface);line-height:1.55}
+.spec-row .spec-val em{font-style:normal;background:rgba(197,160,89,.14);padding:1px 6px;border-radius:4px;color:var(--primary);font-family:var(--font-mono);font-size:12px}
+
+.copy-block{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-lg);padding:18px 22px;font-size:14px;line-height:1.65;margin:14px 0;position:relative}
+.copy-block::before{content:"COPY";position:absolute;top:8px;right:14px;font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em;opacity:.7}
+.copy-block .headline{font-family:var(--font-headline);font-size:1.15rem;font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;color:var(--primary-container)}
+.copy-block .body{opacity:.88}
+.copy-block .cta{display:inline-block;margin-top:14px;padding:8px 14px;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);font-size:11px;font-weight:700;font-family:var(--font-body);letter-spacing:.04em;text-decoration:none}
+
+.copy-block.variant{background:var(--sc-low);color:var(--on-surface);border:1px dashed rgba(127,118,103,.25)}
+.copy-block.variant::before{content:"A/B VARIANT";color:var(--tertiary)}
+.copy-block.variant .headline{color:var(--on-surface)}
+.copy-block.variant .cta{background:var(--sc-high);color:var(--on-surface)}
+
+.visual-block{background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.04));border-radius:var(--r-lg);padding:18px 22px;margin:14px 0}
+.visual-block::before{content:"VISUAL DIRECTION";display:block;font-family:var(--font-mono);font-size:9px;color:var(--primary);letter-spacing:.15em;font-weight:700;margin-bottom:10px}
+.visual-block p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.65}
+.visual-block strong{color:var(--on-surface)}
+
+.ab-block{background:var(--sc-low);border-radius:var(--r-lg);padding:18px 22px;margin:14px 0}
+.ab-block::before{content:"A/B TEST · WHAT TO MEASURE";display:block;font-family:var(--font-mono);font-size:9px;color:var(--tertiary);letter-spacing:.15em;font-weight:700;margin-bottom:10px}
+.ab-block p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.65}
+.ab-block strong{color:var(--on-surface)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+
+.callout{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:32px;position:relative;overflow:hidden;margin:30px 0}
+.callout::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.callout .seal{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px;position:relative;z-index:1}
+.callout h3{font-family:var(--font-headline);font-size:1.5rem;font-weight:700;line-height:1.2;margin-bottom:10px;color:var(--primary-container);position:relative;z-index:1}
+.callout p{font-size:14.5px;color:var(--inverse-on-surface);opacity:.88;line-height:1.65;position:relative;z-index:1;max-width:62ch}
+
+ul.std{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.85}
+ul.std li{padding-left:18px;position:relative;margin-bottom:6px}
+ul.std li::before{content:"·";position:absolute;left:0;color:var(--primary);font-weight:700}
+ul.std li b{color:var(--on-surface);font-weight:700}
+
+.foot{padding:60px 0 100px;color:var(--on-surface-variant);font-size:13px}
+.foot p{font-family:var(--font-headline);font-size:1.3rem;font-weight:600;color:var(--on-surface);max-width:42ch}
+.foot .mono{font-size:12px;margin-top:22px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{.themebtn,.printbtn,.sidebar{display:none !important}.shell{grid-template-columns:1fr}.asset{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">Tenured AI<span class="dot">.</span> Addendum</div>
+    <div class="ver">LEARNING LOOP · ADDENDUM<br>EDUCATION MODULES TRACK<br>v1.0 · 2026</div>
+
+    <nav class="nav-group">
+      <h4>Foundation</h4>
+      <a href="#brief"><span class="sn">00</span>Brief Delta</a>
+      <a href="#voice"><span class="sn">01</span>Voice Additions</a>
+      <a href="#visual"><span class="sn">02</span>Visual Additions</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Channel Additions</h4>
+      <a href="#paid"><span class="sn">03</span>Paid Media Additions</a>
+      <a href="#email"><span class="sn">04</span>Email Additions</a>
+      <a href="#landing"><span class="sn">05</span>Landing Page Additions</a>
+      <a href="#social"><span class="sn">06</span>Social Additions</a>
+    </nav>
+
+    <nav class="nav-group">
+      <h4>Sales &amp; Measure</h4>
+      <a href="#sales"><span class="sn">07</span>Sales Additions</a>
+      <a href="#content"><span class="sn">08</span>Content Additions</a>
+      <a href="#measure"><span class="sn">09</span>Measurement Additions</a>
+    </nav>
+  </aside>
+
+  <main>
+  <div class="content">
+
+    <header class="hero">
+      <div class="kicker"><span class="num">CAMPAIGN ADDENDUM</span><span class="lbl">Learning Loop · Education Modules track · v1.0</span></div>
+      <h1>The reading <span class="gild">earns TP too.</span></h1>
+      <p class="lede">An addendum to the Learning Loop launch campaign that integrates the Education Modules track — articles, videos, podcasts, annotated source. Where the original campaign sold the drill (Forge / Quiz / Flashcard), this addendum extends the daily-practice narrative to include the content consumption that prepares the drill. The TP economy now spans both surfaces; the campaign must reflect that. This document is additive — it does not replace any asset in the original Learning Loop campaign library; it extends the brief, voice, visual, paid, owned, sales, and measurement coverage to include the M-3xx content surfaces.</p>
+    </header>
+
+
+    <!-- ============ §00 · BRIEF DELTA ============ -->
+    <section class="bk" id="brief">
+      <div class="kicker"><span class="num">§00</span><span class="lbl">Brief Delta</span></div>
+      <h2 class="sec">What changes in the strategic objective.</h2>
+      <p class="sec-sub">The original Learning Loop brief targeted 40,000 Forge sessions and 12,000 active 14-day streaks. This addendum extends the targets to include the content-consumption surfaces while preserving the original drill-focused metrics.</p>
+
+      <div class="grid2">
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">BRIEF · 01</span>
+            <span class="a-title">Additive Strategic Targets</span>
+          </div>
+          <ul class="std">
+            <li><b>New primary.</b> 80,000 module sessions completed in 90 days (article + video + podcast + source combined). Module sessions count alongside Forge sessions for streak credit.</li>
+            <li><b>New secondary.</b> 24,000 comprehension checks passed at ≥ ×1.5 multiplier (Moderate or above confidence with all 3 correct). This is the engagement-quality signal.</li>
+            <li><b>New tertiary.</b> 18,000 substantive annotations authored across module sessions. Per PAT-020, this is the most durable cross-surface practice signal.</li>
+            <li><b>Adjacent.</b> 4,200 modules surfaced by the Tenured Agent's decay-driven recommendations and then completed within 7 days. This is the Loop-to-Modules-back-to-Loop pathway in action.</li>
+          </ul>
+        </div>
+
+        <div class="asset">
+          <div class="asset-head">
+            <span class="a-id">BRIEF · 02</span>
+            <span class="a-title">Why the addendum matters strategically</span>
+          </div>
+          <ul class="std">
+            <li><b>Closing the TP-incentive gap.</b> Before this track, engineers who spent time reading and watching earned no TP for it — only the drill earned. That created a perverse incentive that ran counter to the platform's pedagogy.</li>
+            <li><b>The MOOC-fatigue audience reaches us through content.</b> Engineers exhausted by Coursera and Udemy will come to the platform through a recommended article or video before they ever attempt a drill. The content surfaces are the on-ramp.</li>
+            <li><b>The streak counter becomes durable.</b> Engineers who travel, who have varying-intensity weeks, who can't commit fifteen minutes of drill every day can still maintain their streak with a content module. The streak no longer requires drill-only commitment, which materially increases retention.</li>
+            <li><b>The Performance Bond data shape improves.</b> Per PAT-002, telemetry from content engagement contributes to the platform's overall ML model of the user's competency. More signal → better model → more accurate bond pricing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">STRATEGIC RESOLUTION</span>
+        <h3>"The drill is the verification. The reading is the foundation. The TP economy now honors both."</h3>
+        <p>The original Learning Loop campaign was right about the drill's primacy. This addendum corrects an asymmetry: the platform's core thesis — that practice compounds toward verified competency — was visible in the drill surfaces but invisible in the content surfaces. The TP economy this addendum implements makes the platform's pedagogy legible on every surface a candidate touches.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ §01 · VOICE ADDITIONS ============ -->
+    <section class="bk" id="voice">
+      <div class="kicker"><span class="num">§01</span><span class="lbl">Voice Additions</span></div>
+      <h2 class="sec">Scholarly-practice register, extended to content.</h2>
+      <p class="sec-sub">The Learning Loop's voice rules (compounding, specificity of duration, practice not content, decay is honest, the streak as calendar mark) apply unchanged to the modules track. The addendum below adds three sub-register adjustments specific to content surfaces.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 01</span>
+          <span class="a-title">Three voice adjustments for content</span>
+        </div>
+        <ul class="std">
+          <li><b>The reading is the soil.</b> When describing the relationship between content and drill, the agricultural metaphor is approved: <i>"The reading is the soil; the drill is the seed; the credential is the harvest."</i> This metaphor appears in the Day-12 welcome email and several content pieces.</li>
+          <li><b>Active presence, not "attention."</b> The platform measures active presence via PAT-002. It does not measure "attention" in the consumer-AI sense (eye tracking, sentiment analysis). Marketing copy must use "active presence" not "attention" — the term respects what the system actually does.</li>
+          <li><b>The multiplier is honest.</b> When describing the comprehension check, copy must convey that the check is a verification gate, not a "quiz to test you" — it's the moment when time-attested viewing converts to credentialed competency through the same PAT-019 mechanic the drill surfaces use.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 02</span>
+          <span class="a-title">Additional Approved Vocabulary</span>
+          <span class="a-tag tp">ON-BRAND</span>
+        </div>
+        <ul class="std">
+          <li><b>Module.</b> The category word for any content unit (article / video / podcast / source). Capitalized when modifier ("a Module session").</li>
+          <li><b>Active presence.</b> Two words. Refers to PAT-002 telemetry detection of user engagement during content viewing.</li>
+          <li><b>Time-attested.</b> Hyphenated. The term for time that has been verified as active by PAT-002 telemetry.</li>
+          <li><b>Comprehension check.</b> The 3-question verification gate at module end. Lowercase. Specific to modules; the Forge has "Quiz Gauntlet."</li>
+          <li><b>Substantive annotation.</b> An annotation that meets PAT-020 substantive-detector thresholds — ≥ 80 chars, anchored to a specific position, contains connective phrasing.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 03</span>
+          <span class="a-title">Additional Forbidden Vocabulary</span>
+          <span class="a-tag" style="background:rgba(186,26,26,.12);color:var(--error)">OFF-BRAND</span>
+        </div>
+        <ul class="std">
+          <li><b>"Bingeable." "Watch a series." "Binge-worthy."</b> Entertainment-consumption framing. The Modules are study material, not content to binge.</li>
+          <li><b>"Course." "Class." "Curriculum."</b> Same constraint as the original Learning Loop voice — the platform does not sell curriculum.</li>
+          <li><b>"Watch and learn." "Listen and learn."</b> Passive-consumption framing the patent-aligned TP economy explicitly rejects.</li>
+          <li><b>"Eye-tracked." "Attention-measured." "Engagement-scored."</b> Consumer-AI surveillance framing. The platform measures active presence, not attention.</li>
+          <li><b>"Speed up the video." "2× playback." "Fast track."</b> Speed-as-virtue framing. The TP economy rewards active engagement, not consumption speed.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VOICE · 04</span>
+          <span class="a-title">Additional Canonical Phrases</span>
+          <span class="a-tag tp">CORE</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The reading is the soil.</div>
+          <div class="body">Used in content that introduces the modules track. The agricultural metaphor frames the platform's pedagogy in non-edtech language — the modules feed the drill, the drill produces the credential.</div>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Active presence, not attention.</div>
+          <div class="body">Used in privacy / surveillance-adjacent contexts. Distinguishes the platform's telemetry from consumer-AI engagement measurement.</div>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The comprehension is the multiplier.</div>
+          <div class="body">Used to surface the TP-multiplier mechanic. Frames the comprehension check as the conversion moment from time to credit.</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §02 · VISUAL ADDITIONS ============ -->
+    <section class="bk" id="visual">
+      <div class="kicker"><span class="num">§02</span><span class="lbl">Visual Additions</span></div>
+      <h2 class="sec">Three new treatments. Same Digital Curator discipline.</h2>
+      <p class="sec-sub">The Learning Loop campaign's three anchors (Worn Notebook, Decay Map, Two-Phase Card) remain primary. This addendum adds three module-specific visual treatments that integrate with the existing system.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">VISUAL · 01</span>
+          <span class="a-title">Three new visual anchors</span>
+          <span class="a-tag tp">DIRECT TO PHOTO / ILLUSTRATION</span>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor M · The Open Book + Drill Card (composed still life).</b> A composition that pairs an open book on warm paper with a single flashcard placed beside it. The book is open to a hand-annotated page (visible marginalia in fountain pen). The flashcard mirrors the L-120 Two-Phase aesthetic. The composition argues that content and drill share a desk, share a practice, share a daily rhythm. <b>Use for:</b> the modules track hero placements, the Day-12 welcome email banner, the landing-page Section 7 (the new section that introduces the modules track).</p>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor N · The Calendar Treatment, two-color.</b> An evolution of the original Learning Loop campaign's signature Calendar Treatment. Same handwritten-style 90-day grid, but each day's mark is now color-coded: warm ochre for drill-only days, intellectual blue for module-only days, mentor green for days containing both. The visualization makes the daily-practice variety legible — the practice doesn't require drill every day, it requires <i>some</i> form of engagement, and the color variety is the visual signal of a healthy practice. <b>Use for:</b> all email headers for the modules track, the landing-page numbers band, the organic carousels.</p>
+        </div>
+
+        <div class="visual-block">
+          <p><b>Anchor O · The Hatched Bar (anti-scrub illustration).</b> An editorial illustration of the M-320 video-progress-bar in its post-completion state: most of the bar in mentor green (creditable, watched), a small hatched section in muted gray (uncredited, scrubbed). The illustration is sized large for content-piece headers; the hatching pattern is the same SVG tile used in the production UI. The composition makes the anti-scrub mechanic visible as a concept, not just a UI detail. <b>Use for:</b> the long-form content piece on PAT-002 telemetry, the LinkedIn second-touch ad, the TikTok demo's static frame.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §03 · PAID MEDIA ADDITIONS ============ -->
+    <section class="bk" id="paid">
+      <div class="kicker"><span class="num">§03</span><span class="lbl">Paid Media Additions</span></div>
+      <h2 class="sec">Two new ad units. Search expansion. One demo video.</h2>
+      <p class="sec-sub">The original campaign's paid units remain primary. The additions below extend coverage to the modules-track audience — engineers who arrive at the platform through content rather than through drill intent.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">GADS · 01 ADD</span>
+          <span class="a-title">Search · Content-Consumption Intent Cluster</span>
+          <span class="a-tag tb">SEARCH</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Keywords</div><div class="spec-val">"AI engineering articles," "AI engineering video lectures," "AI engineering podcast," "alternative to MIT OpenCourseWare," "free AI engineering content"</div></div>
+        <div class="spec-row"><div class="spec-key">Negative match</div><div class="spec-val">"bootcamp," "introductory," "no-code," "for marketers"</div></div>
+        <div class="spec-row"><div class="spec-key">Bid strategy</div><div class="spec-val">Target CPA · $35 ceiling (lower than drill keyword because content is a softer entry point)</div></div>
+
+        <div class="copy-block">
+          <div class="headline">The reading earns TP. The TP earns the credential.</div>
+          <div class="body"><b>Headline 1 (30):</b> AI engineering content<br><b>Headline 2 (30):</b> The reading earns TP<br><b>Headline 3 (30):</b> Patent-backed practice<br><br><b>Description 1 (90):</b> Articles, videos, podcasts, annotated source. Each module earns Tenure Points. Free for 30 days.<br><b>Description 2 (90):</b> The Forge plus Education Modules. Daily practice that compounds to a verifiable credential.</div>
+          <a class="cta">Open the Modules Hub →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">META · ADD</span>
+          <span class="a-title">Meta · Static · The "Reading Earns" Hero</span>
+          <span class="a-tag tb">FB + IG · STATIC</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Placement</div><div class="spec-val">Facebook + Instagram feed · 1080×1350 (4:5)</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Anchor M (Open Book + Drill Card composition) full bleed · headline in upper-third margin</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Primary text (125 chars):</div>
+          <div class="body">"Every minute you read, watch, or listen earns Tenure Points. Every comprehension check multiplies them. The patent's claim is the architecture."<br><br>
+            <b>Headline (40):</b> The reading earns TP.<br>
+            <b>Description (30):</b> The Forge™ · Education Modules.</div>
+          <a class="cta">Open the Modules →</a>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">Primary text (125 chars):</div>
+          <div class="body">"PAT-002 verifies your active presence. PAT-019 multiplies your comprehension. PAT-020 credits your annotations. Three patents in fifteen minutes of reading."<br><br>
+            <b>Headline (40):</b> The reading is the soil.<br>
+            <b>Description (30):</b> Patent-backed module track.</div>
+          <a class="cta">Open the Modules →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">TIKTOK · ADD</span>
+          <span class="a-title">TikTok · The "Anti-Scrub" Demonstration</span>
+          <span class="a-tag tm">TIKTOK</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Format</div><div class="spec-val">22-second native vertical · founder face-cam + screen recording</div></div>
+        <div class="spec-row"><div class="spec-key">Hook</div><div class="spec-val">"Watch what happens when I try to scrub to the end of a video module to farm TP." — direct demonstration of the anti-scrub mechanism.</div></div>
+
+        <div class="copy-block">
+          <div class="headline">TikTok Script · Founder VoiceOver</div>
+          <div class="body">
+            <b>0:00 (founder face-cam, phone showing M-320):</b><br>
+            "Watch what happens when I try to scrub to the end of a video module to farm TP."<br><br>
+            <b>0:03–0:09 (screen recording):</b><br>
+            Founder drags the playhead from 2:00 to 28:00 (the end). The progress bar shows: 2 minutes of mentor-green creditable, then 26 minutes of hatched-uncredited. The comprehension check button becomes available but the running-total TP says "+0 TP banked."<br><br>
+            <b>0:09–0:15 (founder reaction):</b><br>
+            "Every other learning platform treats time-on-page as completion. This one only credits the time you actually watched. The platform calls it 'active presence' — PAT-002 telemetry. It's the same mechanism that flags AI-assisted answers in the Proving Ground. The platform doesn't lie about what it measured."<br><br>
+            <b>0:15–0:22 (close):</b><br>
+            "If you actually want to earn the TP, you have to watch the module. The architecture makes the rule. Tenured AI. Link in bio."<br>
+            END CARD: tenured.ai/learning-loop
+          </div>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Anti-scrub demonstration (this) vs. comprehension-check demonstration (an alternate showing the ×3.0 multiplier moment). <b>Hypothesis:</b> Anti-scrub wins for cold cohorts (genuinely unexpected mechanism); comprehension wins for retargeting (audience already understands the platform). <b>Decision:</b> 14 days anti-scrub, then switch retargeting to comprehension demo.</p>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LI · ADD</span>
+          <span class="a-title">LinkedIn · Sponsored · The L&amp;D Pitch (modules expansion)</span>
+          <span class="a-tag tp">LINKEDIN</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Audience</div><div class="spec-val">Head of L&amp;D+, VP People+, Chief Learning Officer · 6+ yrs seniority · companies 200+</div></div>
+        <div class="spec-row"><div class="spec-key">Visual</div><div class="spec-val">Anchor M (Open Book + Drill Card) at 1200×627 · scholarly aesthetic</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Your team is consuming content. None of it earns credentialed value.</div>
+          <div class="body">
+            <b>Primary text:</b><br>
+            "Every L&amp;D budget I review allocates 60-80% to content — articles, video courses, podcast subscriptions, technical bookshelves. Almost none of that consumption produces a credential the market accepts.<br><br>
+            Pluralsight tracks completion. Coursera issues certificates with no portability. O'Reilly counts pages turned. None of these produce a credentialed signal that survives the platform's shutdown.<br><br>
+            We extended the Learning Loop to integrate the content consumption directly into the platform's credentialing economy. Every article read, video watched, podcast listened to, and source annotated earns Tenure Points — credentialed currency that converts at Triple-85 status. Active-presence telemetry per PAT-002 ensures the credit is real. Comprehension checks per PAT-019 multiply it. Annotations per PAT-020 persist beyond the session.<br><br>
+            What this enables for your L&amp;D infrastructure: the content your team already consumes can produce verifiable competency credentials. The 60-80% of your budget that previously produced completion-rate vanity metrics now produces Performance-Bond-eligible signals.<br><br>
+            21 patents. The drill, the agent, the Passport, and now the content track. Free for 30 days. Volume licensing for teams 50+."<br><br>
+            <b>Headline:</b> The reading earns TP.<br>
+            <b>Description:</b> Patent-backed content credentialing.
+          </div>
+          <a class="cta">Begin the team pilot →</a>
+        </div>
+
+        <div class="ab-block">
+          <p><b>What we're testing.</b> Budget-reallocation lead ("60-80% to content with no credentialed value") vs. mechanism lead ("PAT-002 active presence, PAT-019 comprehension, PAT-020 annotation"). <b>Hypothesis:</b> Budget lead wins for L&amp;D Heads (financial framing); mechanism lead wins for Chief Learning Officers (defensibility framing). <b>Decision:</b> Split by job title.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §04 · EMAIL ADDITIONS ============ -->
+    <section class="bk" id="email">
+      <div class="kicker"><span class="num">§04</span><span class="lbl">Email Additions</span></div>
+      <h2 class="sec">Two new email surfaces. Integrated into existing sequences.</h2>
+      <p class="sec-sub">The original Learning Loop welcome sequence has 5 messages (Day 0 / 5 / 10 / 14 / 30). This addendum adds one new message between Day 10 and Day 14 (Day 12 · The Modules Open) and one new sequence for content-stalled users.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · WELCOME ADD</span>
+          <span class="a-title">Day 12 insertion · "The Modules open."</span>
+          <span class="a-tag tm">WELCOME · INSERTED</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">Day 12 from first Forge session (between existing Day 10 and Day 14 emails)</div></div>
+        <div class="spec-row"><div class="spec-key">From</div><div class="spec-val"><em>practice@tenured.ai</em> · sender "The Forge · Tenured AI"</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Day 12 · "The Modules open."</div>
+          <div class="body">
+            <b>Subject:</b> Twelve days. The Modules track opens.<br>
+            <b>Preview:</b> The reading earns TP now too.<br><br>
+            "Twelve days. You've established a Forge cadence. The platform now opens the second half of the daily practice — the Education Modules track.<br><br>
+            What this is: articles, videos, podcasts, and annotated source on the same ontology nodes you've been drilling. The reading is the soil; the drill is the seed. The two together compound faster than either alone.<br><br>
+            What changes structurally: every minute you spend in active presence on a module earns Tenure Points at the time-attested rate (1 TP per 5 minutes for articles, 1 TP per 3 minutes for video, 1 TP per 4 minutes for podcast and source). Each module ends with a brief comprehension check using the same PAT-019 mechanic as the Quiz Gauntlet. The check multiplies your base TP from ×0.5 (failed) to ×3.0 (perfect at Underwritten confidence). Substantive annotations earn an additional 2 TP each, up to 5 per module.<br><br>
+            What stays the same: the daily streak. A completed module counts the same as a Forge drill for streak credit. The same ×1.25 / ×1.50 / ×2.00 multiplier tiers apply to module TP. The TP itself is identical — there's no separate 'content TP' versus 'drill TP' in the Ledger.<br><br>
+            What this enables: days when you don't have the focus for a Two-Phase Flashcard session, the reading-and-comprehension path keeps your streak alive. The practice gets durable. The compounding doesn't break.<br><br>
+            Three modules are queued in your M-301 Hub. The Tenured Agent picked them based on your current decay state."<br><br>
+            <b>— The Forge · Tenured AI</b>
+          </div>
+          <a class="cta">Open the Modules Hub →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">EMAIL · STALL</span>
+          <span class="a-title">New sequence: "Module Stalled" — 2 messages</span>
+          <span class="a-tag te">NEW SEQUENCE</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Trigger</div><div class="spec-val">A user opened a module ≥ 5 days ago and has not completed the comprehension check · TP was banked but never converted to multiplier</div></div>
+
+        <div class="copy-block">
+          <div class="headline">Day +5 · "Eight TP banked. The check would convert them."</div>
+          <div class="body">
+            <b>Subject:</b> Eight TP banked. The comprehension check would convert them.<br><br>
+            "Five days ago, you opened the 'Vector DB Latency Tuning' module. You watched 18 minutes of active-presence time. You banked 6 TP. You haven't completed the comprehension check.<br><br>
+            The banked TP is in your Ledger. The check, if you pass at Moderate confidence, multiplies it ×1.5 to 9 TP. If you pass at Confident, ×2.0 to 12 TP. The check is 3 questions, typically 4 minutes.<br><br>
+            The platform isn't asking you to do anything you haven't already done. The work is done. The conversion is the multiplier.<br><br>
+            We don't surface incomplete modules in your Hub unless you ask — the platform doesn't pressure you with red-dot notifications. We surface this one in email because the conversion is small and worth doing."<br><br>
+            <b>— The Forge · Tenured AI</b>
+          </div>
+          <a class="cta">Take the check →</a>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Day +14 · "Final touch."</div>
+          <div class="body">
+            <b>Subject:</b> Final touch on the unconverted module.<br><br>
+            "Fourteen days since you opened the module. Nine days since we wrote about the banked TP.<br><br>
+            If you're not converting it, the platform will not write again about this specific module. The 6 banked TP remains in your Ledger as time-attested credit. It does not expire. It does not convert without the check.<br><br>
+            New modules surfacing in your Hub today: three, driven by your current decay state. They are independent of this unconverted one.<br><br>
+            The compounding continues whether you complete this specific check or not. We mention this so you don't read the absence of follow-up as the platform's disengagement."<br><br>
+            <b>— The Forge · Tenured AI</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §05 · LANDING PAGE ADDITIONS ============ -->
+    <section class="bk" id="landing">
+      <div class="kicker"><span class="num">§05</span><span class="lbl">Landing Page Additions</span></div>
+      <h2 class="sec">One new section. Updated numbers band.</h2>
+      <p class="sec-sub">The original Learning Loop landing page has 6 sections. This addendum inserts a new Section 7 introducing the Modules track and updates the Section 5 numbers band to reflect the expanded scope.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 07 NEW</span>
+          <span class="a-title">Section 7 — The Modules Track (NEW)</span>
+        </div>
+        <div class="visual-block">
+          <p><b>Layout.</b> Full-width section, inverse-surface dark band as visual break from the prior section. Anchor M (Open Book + Drill Card) hand-placed on the left. The right column carries the headline + body + four module-type pillars (article / video / podcast / source). Below: the worked TP example from the Figma spec (the 20-minute video case showing 0 TP → 31 TP spread).</p>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The reading earns TP now too.</div>
+          <div class="body">
+            "Daily practice isn't only drill. The Education Modules track integrates the reading, watching, listening, and annotating that prepares the drill — and credits each one against the same Tenure Points economy.<br><br>
+            <b>Articles.</b> 1 TP per 5 minutes of active-presence reading. Inline annotations earn 2 TP each (max 5 per module). The comprehension check at the end multiplies your base TP up to ×3.0.<br><br>
+            <b>Videos.</b> 1 TP per 3 minutes of actively-watched content. Scrubbing past content does not credit. The anti-scrub bar visualizes what credited and what didn't, in real time.<br><br>
+            <b>Podcasts.</b> 1 TP per 4 minutes of synchronized-listening time. Background listening allowed at 50% rate with explicit opt-in.<br><br>
+            <b>Annotated source.</b> 1 TP per 4 minutes of active-presence review. Substantive annotations earn 2 TP each, persist against the ontology node per PAT-020, and surface in future Refresh Labs.<br><br>
+            What this enables: days when drill isn't the right cadence, the reading is. The streak counter accepts both. The compounding doesn't care which surface produced the TP — only that the practice continued.<br><br>
+            The drill is the verification. The reading is the foundation. The TP economy honors both."
+          </div>
+          <a class="cta">Open the Modules Hub →</a>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">LP · 05 UPDATE</span>
+          <span class="a-title">Section 5 — Numbers Band (UPDATED)</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The Learning Loop · By the numbers (updated)</div>
+          <div class="body">
+            <b>10</b> · Surfaces in the Loop (was 4 · now includes M-301 / M-310 / M-320 / M-330 / M-340 / M-350)<br>
+            <b>5</b> · Patents in the practice surface (was 4 · adds PAT-002 ALTFL for the active-presence telemetry)<br>
+            <b>4,000</b> · Master Ontology nodes the Atlas can map<br>
+            <b>3</b> · Patented layout modes (Editorial Split / Focus Immersion / Audit View)<br>
+            <b>5</b> · Confidence levels in the asymmetric scoring scale (PAT-019)<br>
+            <b>4</b> · Module types (article / video / podcast / annotated source)<br>
+            <b>3</b> · TP sources per module (time-attested / comprehension multiplier / annotation credit)<br>
+            <b>15</b> · Minutes per session · the only honest number<br>
+            <b>30 days</b> · Free trial · no credit card · locked at $19/mo through end-of-2027
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §06 · ORGANIC SOCIAL ADDITIONS ============ -->
+    <section class="bk" id="social">
+      <div class="kicker"><span class="num">§06</span><span class="lbl">Organic Social Additions</span></div>
+      <h2 class="sec">Two new founder posts. Two new IG carousels. Three new X posts.</h2>
+      <p class="sec-sub">The original Learning Loop social cadence runs three founder LinkedIn posts per two-week cycle. The addendum below adds two posts to that cadence — one technical (the TP economy), one strategic (the soil/seed metaphor expanded).</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 01 ADD</span>
+          <span class="a-title">LinkedIn · Founder · "How we credit content viewing without breaking the patent."</span>
+          <span class="a-tag tp">LINKEDIN</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">How we credit content viewing without breaking the patent.</div>
+          <div class="body">
+            "PAT-019 says: high-confidence wrong answers are penalized 2× harder than low-confidence ones. That asymmetry is the platform's anti-passive-engagement claim. It means we cannot credit passive engagement as competency without contradicting the patent.<br><br>
+            But we also can't ignore the engineering value of reading and watching. Engineers who never engage with source material don't drill productively. The platform's pedagogy depends on both.<br><br>
+            We resolved this with a hybrid model. Time-attested viewing earns base TP — verified by PAT-002 active-presence telemetry, the same telemetry that catches AI assistance in the Proving Ground. Comprehension checks at the end of each module use PAT-019's confidence-weighted mechanic to multiply the base TP from ×0.5 to ×3.0. Wrong answers at Underwritten confidence still trigger the Overconfident Liability flag — same architecture as the Quiz Gauntlet.<br><br>
+            The result: a 20-minute video module earns 0 TP if scrubbed, 7 TP if passively watched without the check, and up to 31 TP if actively engaged with comprehension passed at Underwritten confidence and 5 substantive annotations. The spread is wide because the architecture honestly differentiates between sitting through content and engaging with it.<br><br>
+            The patents constrain the design. The constraint is the integrity.<br><br>
+            — Dameon, Founder @ Tenured AI"
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 02 ADD</span>
+          <span class="a-title">LinkedIn · Founder · "The reading is the soil. The drill is the seed."</span>
+          <span class="a-tag tp">LINKEDIN</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">The reading is the soil. The drill is the seed.</div>
+          <div class="body">
+            "Most learning platforms sell content. They want you to consume more content because consumption is what their business model rewards.<br><br>
+            Most credentialing platforms sell assessment. They want you to test more frequently because tests produce the credential their business model rewards.<br><br>
+            We rejected both framings. The platform is structured around the actual pedagogy: reading prepares the conceptual frame; drill verifies the conceptual frame; credential anchors the verified frame. The reading is the soil. The drill is the seed. The credential is the harvest. Skip the soil and the seed fails. Skip the seed and the soil never proves itself. Skip the harvest and the practice has no compounding output.<br><br>
+            Until last week, our platform credited only the seed and the harvest. The soil was implicit. Engineers who read deeply earned no Tenure Points until they drilled. That created the wrong incentive — engineers were skipping straight to the drill, drilling poorly because the conceptual foundation was thin, and triggering Overconfident Liability flags as a result.<br><br>
+            We extended the TP economy to credit the soil. Active-presence reading earns base TP. Comprehension verifies it. Annotations persist it. The same patents that govern the drill (PAT-019 confidence-weighted, PAT-020 node-persistent annotations) govern the modules too.<br><br>
+            The fix took eight months of patent and product work. The fix was worth it. The compounding works now because the practice it credits is the practice that produces credentials.<br><br>
+            — Dameon, Founder @ Tenured AI"
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 03 ADD</span>
+          <span class="a-title">X / Twitter · Three new posts for daily declarative cadence</span>
+          <span class="a-tag tb">X</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Three new daily posts</div>
+          <div class="body">
+            <b>Post A (declarative):</b> "The reading earns TP now too. Patents PAT-002, PAT-019, PAT-020. The architecture is the integrity."<br><br>
+            <b>Post B (provocation):</b> "Pluralsight tracks completion. Coursera issues certificates. O'Reilly counts pages. None of them credit reading toward credentialing. We do."<br><br>
+            <b>Post C (mechanism):</b> "The anti-scrub bar in our video player visualizes what credited and what didn't. Scrub past 5 minutes? Those 5 minutes are hatched-uncredited. The architecture is honest. PAT-002."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SOC · 04 ADD</span>
+          <span class="a-title">Instagram · Two new carousels</span>
+          <span class="a-tag tm">INSTAGRAM</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">Carousel 3 (NEW) · "How a Module Earns TP" · 6 panels</div>
+          <div class="body">
+            <b>Panel 1 (hero):</b> Anchor M (Open Book + Drill Card). Sora display "How a Module Earns TP."<br>
+            <b>Panel 2:</b> "Base · time-attested viewing · 1 TP per 5 min reading, 3 min video, 4 min podcast or source."<br>
+            <b>Panel 3:</b> "Active presence · PAT-002 telemetry · scrubbing doesn't credit. The bar is honest."<br>
+            <b>Panel 4:</b> "Comprehension multiplier · ×0.5 to ×3.0 · 3-question check at module end. Same PAT-019 mechanic as the Quiz Gauntlet."<br>
+            <b>Panel 5:</b> "Substantive annotation · 2 TP each, max 5 per module · persists per PAT-020."<br>
+            <b>Panel 6 (CTA):</b> "The reading earns TP. tenured.ai/learning-loop"
+          </div>
+        </div>
+
+        <div class="copy-block variant">
+          <div class="headline">Carousel 4 (NEW) · "What a 20-Minute Video Earns" · 6 panels</div>
+          <div class="body">
+            <b>Panel 1 (hero):</b> Anchor O (Hatched Bar illustration). "What a 20-minute video earns."<br>
+            <b>Panel 2:</b> "Scrubbed to the end · 0 TP. The bar is hatched. The architecture is honest."<br>
+            <b>Panel 3:</b> "Actively watched · 6 TP base. The bar is mentor-green."<br>
+            <b>Panel 4:</b> "Comprehension passed at Moderate · ×1.5 · 11 TP total."<br>
+            <b>Panel 5:</b> "Comprehension passed at Underwritten + 5 annotations · ×3.0 · 31 TP total."<br>
+            <b>Panel 6 (CTA):</b> "The architecture rewards what was actually done. tenured.ai/learning-loop"
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §07 · SALES ENABLEMENT ADDITIONS ============ -->
+    <section class="bk" id="sales">
+      <div class="kicker"><span class="num">§07</span><span class="lbl">Sales Enablement Additions</span></div>
+      <h2 class="sec">L&amp;D-specific pitch additions. Two new objection briefs.</h2>
+      <p class="sec-sub">The original Learning Loop sales enablement included objection briefs for the drill surfaces. The Modules track introduces new L&amp;D-buyer surfaces — content-budget reallocation, completion-vs-comprehension distinction. Below are the additions.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SALES · ADD</span>
+          <span class="a-title">Two new objection-handling briefs</span>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 5 · "We already pay for Pluralsight / Coursera Plus / O'Reilly. Why add another content tool?"</div>
+          <div class="body">
+            "We're not a content tool. We don't license technical content libraries; we don't compete with Pluralsight, Coursera, or O'Reilly on catalog. What we built is a credentialing architecture that <i>integrates with</i> your existing content investment by anchoring the engagement to a credential. Your engineers can continue using Pluralsight; the Modules track captures their parallel platform-native reading, watching, and listening — and credits it toward a portable, anchored credential. The right way to think about us: your existing content licenses become more valuable when the engagement they produce can be credentialed. We turn 60-80% of your L&amp;D content budget from a vanity-metric line item into a Performance-Bond-eligible signal."
+          </div>
+        </div>
+
+        <div class="copy-block">
+          <div class="headline">Objection 6 · "Won't engineers game the active-presence detection?"</div>
+          <div class="body">
+            "Gaming attempts are documented in the spec — they exist, they're catalogued, the platform handles them. Scrubbing forfeits credit. Tab-focus loss pauses accrual after a 30-second grace. Mouse-wiggle scripts can be detected through the platform's pattern analysis (per PAT-002, the same telemetry that catches AI-assistance in the Proving Ground). Background listening requires explicit opt-in with a TP-rate penalty so users can't claim it after the fact. The comprehension check is the final integrity gate — passive presence cannot earn the multiplier, only active comprehension can. The system is designed against gaming, but the honest answer is: a determined adversary can attempt to game any system. What matters is that genuine engagement produces meaningfully more credit than gamed engagement. The 31 TP / 7 TP / 0 TP spread on the worked example makes this concrete."
+          </div>
+        </div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">SALES · LD-PITCH</span>
+          <span class="a-title">New three-sentence pitch — L&amp;D buyer-specific</span>
+          <span class="a-tag tp">L&amp;D-SPECIFIC</span>
+        </div>
+        <div class="copy-block">
+          <div class="headline">30-second elevator · L&amp;D variant</div>
+          <div class="body">"The Learning Loop's Education Modules track integrates content engagement (articles, videos, podcasts, annotated source) directly into the platform's credentialing economy through three patents — PAT-002 (active-presence telemetry), PAT-019 (confidence-weighted comprehension), and PAT-020 (node-persistent annotations). The 60-80% of your L&amp;D budget currently producing completion-rate vanity metrics now produces verifiable competency credentials that survive your content vendors' shutdown. Volume licensing for teams 50+ available with EWARD dashboard integration."</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ §08 · CONTENT MARKETING ADDITIONS ============ -->
+    <section class="bk" id="content">
+      <div class="kicker"><span class="num">§08</span><span class="lbl">Content Marketing Additions</span></div>
+      <h2 class="sec">Three new long-form pieces. Module-track-specific.</h2>
+      <p class="sec-sub">The original Learning Loop content pillar had six pieces. The addendum adds three module-track-specific pieces oriented to the audience moments unique to content engagement.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 07 NEW</span>
+          <span class="a-title">"Why We Built an Anti-Scrub Mechanism Into a Learning Platform" · 2,400 words</span>
+        </div>
+        <ul class="std">
+          <li><b>Hook.</b> "Every video learning platform in the last fifteen years has rewarded the user for being on the page. The Forge's video player rewards the user for being actively present. Here's why the difference matters and how the architecture enforces it."</li>
+          <li><b>Sections.</b> The economics of completion-metric gaming in edtech; how PAT-002 active-presence telemetry differs from attention measurement; the hatched-uncredited visualization as the honesty signal; the philosophical argument that the platform's job is to tell the user the truth about what was credited.</li>
+          <li><b>Visual anchor.</b> Anchor O (Hatched Bar illustration).</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 08 NEW</span>
+          <span class="c-title">"The Comprehension Multiplier: Why the Check Matters" · 2,000 words</span>
+        </div>
+        <ul class="std">
+          <li><b>Hook.</b> "A 20-minute video module produces somewhere between 0 and 31 Tenure Points depending on what the engineer actually did. The comprehension check is the architectural reason the spread is that wide."</li>
+          <li><b>Sections.</b> The PAT-019 confidence-weighted mechanic, applied to comprehension; why the ×0.5 to ×3.0 range matches the platform's broader scoring asymmetry; the Underwritten-confidence-wrong-answer trigger and its connection to Overconfident Liability; the cross-surface consistency (same mechanic in L-110 Quiz and M-350 Comprehension Check).</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">CONTENT · 09 NEW</span>
+          <span class="a-title">"The Annotation That Travels Six Months Forward" · 1,800 words</span>
+        </div>
+        <ul class="std">
+          <li><b>Hook.</b> "A note an engineer wrote on a video transcript at month 1 surfaces in their Refresh Lab at month 7. The same note appears in their Tenured Agent's response at month 9. The annotation followed the ontology node, not the page or session. PAT-020 makes the travel possible. The TP economy makes it worth doing."</li>
+          <li><b>Sections.</b> The technical architecture of node-persistent annotations; the substantive-detector's role in filtering trivial annotations from TP credit; case study (a six-month annotation arc from initial module to Hard-Gate clearance); why most platforms can't do this (annotations are page-scoped, not concept-scoped).</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ============ §09 · MEASUREMENT ADDITIONS ============ -->
+    <section class="bk" id="measure">
+      <div class="kicker"><span class="num">§09</span><span class="lbl">Measurement Additions</span></div>
+      <h2 class="sec">New KPIs. New pivot triggers. New A/B cadence.</h2>
+      <p class="sec-sub">The original Learning Loop measurement plan tracked the drill funnel. The addendum extends the metric tree to cover the module funnel and introduces two new pivot triggers specific to module engagement quality.</p>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · ADD-01</span>
+          <span class="a-title">New Top-Line Metrics</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Module sessions</div><div class="spec-val">Module sessions completed in 90 days · <em>Target: 80,000</em></div></div>
+        <div class="spec-row"><div class="spec-key">CAC · Module-first</div><div class="spec-val">Content-keyword CAC per first-Module-session · <em>Target: $35 (Google) · $50 (Meta) · $45 (LinkedIn)</em></div></div>
+        <div class="spec-row"><div class="spec-key">Comprehension pass</div><div class="spec-val">% of completed modules with comprehension check passed at ≥ ×1.5 multiplier · <em>Target: 60%</em></div></div>
+        <div class="spec-row"><div class="spec-key">Substantive annotations</div><div class="spec-val">Substantive annotations authored across modules · <em>Target: 18,000</em></div></div>
+        <div class="spec-row"><div class="spec-key">Agent-driven module completion</div><div class="spec-val">Modules surfaced by Tenured Agent decay-recommendation and completed within 7 days · <em>Target: 4,200</em></div></div>
+        <div class="spec-row"><div class="spec-key">Cross-surface streak preservation</div><div class="spec-val">% of streak days preserved by a Module rather than a Forge session · <em>Target: 22% (the platform's data suggests this is the threshold above which the modules track meaningfully extends retention)</em></div></div>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · ADD-02</span>
+          <span class="a-title">New Pivot / Kill Triggers</span>
+        </div>
+        <ul class="std">
+          <li><b>Module Pivot 1.</b> Comprehension pass rate falls below 45% in any week → audit the comprehension check question generation quality. The Anthropic-generated questions may be drifting in difficulty.</li>
+          <li><b>Module Pivot 2.</b> Anti-scrub detection rate (% of video sessions with &gt; 20% scrubbed content) exceeds 35% → audit the value perception of full viewing. Either the modules are too long, or the perceived value of the comprehension multiplier isn't being communicated.</li>
+          <li><b>Module Kill.</b> If the active-presence telemetry produces &gt; 2% false-positive rate (legitimate active users flagged as lost) → the PAT-002 telemetry threshold is too tight. Stop module-track acquisition spending until thresholds recalibrated.</li>
+        </ul>
+      </div>
+
+      <div class="asset">
+        <div class="asset-head">
+          <span class="a-id">MEASURE · ADD-03</span>
+          <span class="a-title">New A/B Cadence</span>
+        </div>
+        <div class="spec-row"><div class="spec-key">Module-type performance</div><div class="spec-val">Quarterly review of TP-per-minute earned across the four module types · informs PAT-006 path orchestration weighting</div></div>
+        <div class="spec-row"><div class="spec-key">Anti-scrub visualization</div><div class="spec-val">Bi-weekly A/B of the hatched-uncredited visualization · variant tests: full hatching vs. just-the-numbers vs. dimmed-uncredited · measure: completion rate to comprehension check</div></div>
+        <div class="spec-row"><div class="spec-key">Background-listening opt-in</div><div class="spec-val">Monthly A/B of the background-listening toggle's default-state messaging · variant tests: TP-penalty-foregrounded vs. flexibility-foregrounded · measure: opt-in rate without subsequent comprehension-check failure</div></div>
+      </div>
+
+      <div class="callout">
+        <span class="seal">CLOSING PRINCIPLE</span>
+        <h3>"The campaign now sells the practice as it actually is."</h3>
+        <p>The original Learning Loop campaign sold a partial picture — the drill surfaces. This addendum closes the picture. The platform's pedagogy is reading → drill → credential, and the TP economy now spans all three. The campaign assets, voice rules, paid units, emails, landing page, social posts, and content marketing now reflect the full practice. The compounding is the product. The campaign is the door. Both halves of the door are now open.</p>
+      </div>
+    </section>
+
+
+    <footer class="foot">
+      <p>The reading earns TP. The drill multiplies. The credential carries it forward.</p>
+      <p class="mono">CAMPAIGN ADDENDUM · LEARNING LOOP · EDUCATION MODULES TRACK · v1.0 · 9 SECTIONS · 2026</p>
+      <p class="mono">Hand-off-ready. Production-grade. Pairs with the Education Modules Figma Design Ops spec. Additive to the original Learning Loop campaign asset library.</p>
+    </footer>
+
+  </div>
+  </main>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

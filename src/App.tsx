@@ -25,6 +25,10 @@ import TalentUnderwriting from './pages/TalentUnderwriting';
 import ComingSoon from './pages/ComingSoon';
 import K12Page from './pages/K12Page';
 import Recruiters from './pages/Recruiters';
+import Universities from './pages/Universities';
+import About from './pages/About';
+import LearningLoop from './pages/LearningLoop';
+import Enterprise from './pages/Enterprise';
 
 import Podcasts from './pages/Podcasts';
 import PodcastDetail from './pages/PodcastDetail';
@@ -36,7 +40,7 @@ import Verification from './pages/Verification';
 
 function AppRoutes() {
   const location = useLocation();
-  const longFormRoutes = ['/manifesto', '/docs', '/method', '/rules', '/responsible-ai', '/learners', '/institutional'];
+  const longFormRoutes = ['/manifesto', '/docs', '/method', '/rules', '/responsible-ai', '/learners', '/institutional', '/learning-loop', '/enterprise'];
 
   return (
     <>
@@ -53,6 +57,10 @@ function AppRoutes() {
           <Route path="/docs" element={<PageTransition><Methodology /></PageTransition>} />
           <Route path="/method" element={<PageTransition><MethodPage /></PageTransition>} />
           <Route path="/recruiters" element={<PageTransition><Recruiters /></PageTransition>} />
+          <Route path="/universities" element={<PageTransition><Universities /></PageTransition>} />
+          <Route path="/enterprise" element={<PageTransition><Enterprise /></PageTransition>} />
+          <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+          <Route path="/learning-loop" element={<PageTransition><LearningLoop /></PageTransition>} />
           <Route path="/institutional" element={<PageTransition><Institutional /></PageTransition>} />
           <Route path="/chaos-lab" element={<PageTransition><ChaosLab /></PageTransition>} />
           <Route path="/request-access" element={<PageTransition><RequestAccess /></PageTransition>} />

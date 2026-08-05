@@ -58,6 +58,9 @@ export default function Home() {
   // FAQ state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
+  // Persona tab state for Section 5
+  const [activePersonaTab, setActivePersonaTab] = useState<'university' | 'enterprise' | 'recruiter' | 'state' | 'learner'>('university');
+
   // Proving Ground states
   const [pgActiveLevel, setPgActiveLevel] = useState<'idle' | 'L1' | 'L2' | 'L3'>('idle');
   const [pgLogs, setPgLogs] = useState<Array<{ text: string, type: 'info' | 'ok' | 'err' | 'chaos' | 'invigilator' | 'input' }>>([
@@ -562,85 +565,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Trusted By Carousel */}
-      <section className="bg-surface-container-lowest border-y border-outline-variant/10 py-12 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 mb-8 text-center">
-          <span className="text-[10px] font-bold text-outline uppercase tracking-[0.3em]">Institutional Partners & Nodes</span>
-        </div>
-        <div className="relative flex">
-          <motion.div 
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="flex gap-12 md:gap-24 items-center whitespace-nowrap"
-          >
-            {[...companies, ...companies].map((company, i) => (
-              <div key={i} className="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
-                <company.icon className="w-6 h-6 text-primary" />
-                <span className="text-sm font-headline font-black tracking-widest text-on-surface">{company.name}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-background overflow-hidden border-b border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {isTestimonialsLoading ? (
-              Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10 animate-pulse">
-                  <div className="flex gap-1 mb-6">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <div key={j} className="w-3 h-3 bg-primary/20 rounded-full" />
-                    ))}
-                  </div>
-                  <div className="h-4 bg-on-surface-variant/10 rounded w-full mb-3" />
-                  <div className="h-4 bg-on-surface-variant/10 rounded w-5/6 mb-3" />
-                  <div className="h-4 bg-on-surface-variant/10 rounded w-4/6 mb-8" />
-                  <div className="flex justify-between items-end border-t border-outline-variant/10 pt-6">
-                    <div className="space-y-2">
-                      <div className="h-3 bg-on-surface/10 rounded w-24" />
-                      <div className="h-2 bg-outline/10 rounded w-16" />
-                    </div>
-                    <div className="h-4 bg-primary/10 rounded w-12" />
-                  </div>
-                </div>
-              ))
-            ) : (
-              testimonials.map((t, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10 relative group"
-                >
-                  <Quote className="absolute top-6 right-8 w-10 h-10 text-primary/10 group-hover:text-primary/20 transition-colors" />
-                  <div className="flex gap-1 mb-6">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} className="w-3 h-3 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-on-surface-variant italic leading-relaxed mb-8">
-                    "{t.text}"
-                  </p>
-                  <div className="flex justify-between items-end border-t border-outline-variant/10 pt-6">
-                    <div>
-                      <h4 className="text-sm font-bold text-on-surface">{t.author}</h4>
-                      <p className="text-[10px] font-mono text-outline uppercase tracking-widest">{t.role}</p>
-                    </div>
-                    <div className="text-[10px] font-bold text-primary bg-primary/5 px-2 py-1 rounded border border-primary/10">
-                      {t.score}
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Section 2: Triple-Threat Scoring Section */}
       <section className="py-24 bg-surface px-8">
@@ -2661,74 +2586,377 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dividend Engine Section */}
-      <section className="py-20 md:py-32 px-6 md:px-8 bg-surface-container-lowest overflow-hidden">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 md:gap-20 items-center">
-          <div className="space-y-8 md:space-y-12">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-headline font-bold">The 40/40/20 <br/> Dividend Engine</h2>
-              <p className="text-on-surface-variant leading-relaxed text-lg">Our connectionist model ensures that intelligence output is equitably distributed across the three pillars of institutional power.</p>
-            </div>
-            <div className="space-y-8">
-              {[
-                { pct: "40%", title: "Institution", desc: "Capital reserves and operational reinvestment for platform longevity." },
-                { pct: "40%", title: "User", desc: "Direct profit-sharing and governance weight for platform participants." },
-                { pct: "20%", title: "State", desc: "Social dividend for public infrastructure and community resilience." }
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-6 group">
-                  <div className="text-4xl font-headline text-primary opacity-30 group-hover:opacity-100 transition-opacity">{item.pct}</div>
-                  <div>
-                    <h4 className="font-bold text-xl mb-1">{item.title}</h4>
-                    <p className="text-on-surface-variant text-sm">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* Section 4: The Pipeline */}
+      <section className="py-20 md:py-32 px-6 md:px-8 bg-surface-container-low border-t border-outline-variant/10">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <span className="font-mono text-[10px] tracking-[.22em] uppercase text-primary font-bold bg-primary/10 px-4 py-1.5 rounded-full inline-block">
+              § The Pipeline
+            </span>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold">
+              Five stages. <span className="italic text-primary">One bonded hire.</span>
+            </h2>
+            <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-base">
+              A learner enters the Forge. A platform-mutated adversarial Hard-Gate determines whether they earned the credential. The Sovereign Passport is minted to Polygon. The Performance Bond is issued. The Tenured Agent carries the record forward.
+            </p>
           </div>
-          
-          <div className="relative flex justify-center items-center">
-            <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-[500px] md:h-[500px] relative">
-              <div className="absolute inset-0 border-[20px] sm:border-[30px] md:border-[40px] border-surface-container-high rounded-full"></div>
-              <div className="absolute inset-0 border-[20px] sm:border-[30px] md:border-[40px] border-primary rounded-full" style={{ clipPath: 'polygon(50% 50%, 50% 0%, 100% 0%, 100% 90%, 50% 50%)' }}></div>
-              <div className="absolute inset-0 border-[20px] sm:border-[30px] md:border-[40px] border-primary-container rounded-full" style={{ clipPath: 'polygon(50% 50%, 50% 100%, 0% 100%, 0% 50%, 50% 50%)' }}></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-surface-container-lowest rounded-full editorial-shadow flex items-center justify-center">
-                  <Landmark className="text-primary w-8 h-8 md:w-10 md:h-10" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Sovereign Proof / Stats Section */}
-      <section className="py-20 md:py-32 px-6 md:px-8 bg-background relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
-              { value: "98.4%", label: "Verification Accuracy", desc: "Across 1.2M adversarial stress tests." },
-              { value: "400k+", label: "Sovereign Identities", desc: "Verified professional nodes on the ledger." },
-              { value: "$2.4B", label: "Dividend Settlement", desc: "Automated fiscal distribution via 40/40/20." }
-            ].map((stat, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+              { num: '01', title: 'The Forge', desc: 'Daily two-phase practice against decay across a curated 4,000-node ontology. Builds the candidate, doesn\'t certify them.', pat: 'PAT-003 · 018 · 020 · 021' },
+              { num: '02', title: 'The Hard-Gate', desc: 'Adversarial air-gapped verification. Four-agent council. LLM-defeat-proof by architectural property, not empirical defense.', pat: 'PAT-001 · 002 · 004 · 005 · 008' },
+              { num: '03', title: 'The Passport', desc: 'Merkle-anchored Consensus Certificate. Four-chain redundancy. Candidate-controlled DID. Open-source verification client.', pat: 'PAT-010 · 011 · 020' },
+              { num: '04', title: 'The Bond', desc: '$150K face value. $11,250 annual premium. 180-day term. Chubb-reinsured Reserve. Audit-ready quarterly attestation.', pat: 'PAT-013 · 014 · 015 · 016 · 017 · 019' },
+              { num: '05', title: 'The Agent', desc: 'Stateful career assistant with persistent memory. Career Memory annotations on every ontology node. Permanent record.', pat: 'PAT-002 · 006 · 009 · 011' },
+            ].map((stage, idx) => (
+              <motion.div
+                key={stage.num}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="space-y-4"
+                transition={{ delay: idx * 0.1 }}
+                className="bg-surface-container-lowest rounded-2xl p-6 shadow-md border border-outline-variant/15 flex flex-col justify-between hover:shadow-xl hover:border-primary/30 transition-all group"
               >
-                <div className="text-5xl md:text-6xl font-headline font-bold text-primary tracking-tighter">{stat.value}</div>
-                <div className="space-y-2">
-                  <h4 className="font-label text-xs uppercase tracking-[0.2em] font-bold text-on-surface">{stat.label}</h4>
-                  <p className="text-sm text-on-surface-variant max-w-[200px] mx-auto">{stat.desc}</p>
+                <div>
+                  <span className="font-display font-light text-4xl bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent block mb-3 leading-none">{stage.num}</span>
+                  <h4 className="font-headline font-bold text-lg mb-2 group-hover:text-primary transition-colors">{stage.title}</h4>
+                  <p className="text-xs text-on-surface-variant leading-relaxed mb-4">{stage.desc}</p>
+                </div>
+                <div className="font-mono text-[9.5px] font-bold text-primary tracking-wider pt-3 border-t border-outline-variant/10">
+                  {stage.pat}
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-        {/* Decorative background element */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-tertiary/10 rounded-full blur-[120px] pointer-events-none"></div>
+      </section>
+
+      {/* Section 5: For You (Persona Switcher) */}
+      <section className="py-20 md:py-32 px-6 md:px-8 bg-surface-container-lowest border-t border-outline-variant/10" id="personas">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <span className="font-mono text-[10px] tracking-[.22em] uppercase text-primary font-bold bg-primary/10 px-4 py-1.5 rounded-full inline-block">
+              § For You
+            </span>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold">
+              Five ways the platform <span className="italic text-primary">changes your job.</span>
+            </h2>
+            <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-base">
+              The Sovereign Talent Ledger serves five distinct stakeholders. Each engages with a different surface, a different economic mechanic, and a different commitment cycle. Find yours.
+            </p>
+
+            {/* Persona Tabs */}
+            <div className="flex justify-center flex-wrap gap-2 pt-4">
+              {[
+                { id: 'university', label: 'For Universities' },
+                { id: 'enterprise', label: 'For Enterprises' },
+                { id: 'recruiter', label: 'For Recruiters' },
+                { id: 'state', label: 'For State Leadership' },
+                { id: 'learner', label: 'For Learners' },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActivePersonaTab(tab.id as any)}
+                  className={cn(
+                    'px-6 py-2.5 rounded-full font-headline font-semibold text-xs tracking-wide transition-all cursor-pointer border',
+                    activePersonaTab === tab.id
+                      ? 'bg-gradient-to-br from-primary to-primary-container text-white border-transparent shadow-lg'
+                      : 'bg-surface-container-low text-on-surface-variant border-outline-variant/15 hover:bg-surface-container hover:text-on-surface'
+                  )}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tab Content Panels */}
+          <div className="bg-surface-container-low rounded-3xl p-8 md:p-12 shadow-xl border border-outline-variant/15">
+            {activePersonaTab === 'university' && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+                <div className="space-y-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Universities · Genesis Institution</span>
+                  <h3 className="font-display text-3xl font-light leading-snug">
+                    Earn a <span className="italic text-primary font-medium">perpetual 40% dividend</span> on every transaction your graduates originate.
+                  </h3>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Genesis Institutions receive a smart-contract-enforced 40% dividend on every transaction value originating from an alumna of the institution — for the length of the graduate's career. Deployed without admin keys.
+                  </p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    L-200 League Table quarterly publication ranks institutions by GDA dollars and corridor dominance. Zero upfront procurement cost.
+                  </p>
+                  <div className="flex gap-4 pt-4">
+                    <Link to="/universities" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
+                      Become a Genesis Institution →
+                    </Link>
+                    <Link to="/universities" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
+                      See the L-200 League →
+                    </Link>
+                  </div>
+                </div>
+                <div className="space-y-3 font-mono">
+                  {[
+                    { label: 'Perpetual dividend', detail: 'Smart-contract enforced', val: '40%' },
+                    { label: 'Phase 1 anchor', detail: 'University of Houston', val: 'Live' },
+                    { label: 'Pipeline', detail: 'Phase 1 qualified', val: '3 + 5' },
+                    { label: 'Phase 3 target', detail: 'Global institutions', val: '4,200' },
+                  ].map((s, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10">
+                      <div>
+                        <span className="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">{s.label}</span>
+                        <p className="text-xs text-on-surface font-bold font-sans mt-0.5">{s.detail}</p>
+                      </div>
+                      <span className="font-display font-medium text-2xl text-primary">{s.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {activePersonaTab === 'enterprise' && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+                <div className="space-y-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Enterprises · EWARD + Bond</span>
+                  <h3 className="font-display text-3xl font-light leading-snug">
+                    Underwrite every AI-deploying hire with a <span className="italic text-primary font-medium">$150K Chubb-reinsured bond.</span>
+                  </h3>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    The Enterprise Workforce AI Readiness Dashboard (EWARD) produces an Organizational Sovereign Density score across your AI-deploying workforce. OSD ≥ 0.40 unlocks Chubb Silver (15% D&O credit); Gold (25%); Platinum (35%).
+                  </p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Every Triple-85 candidate placed comes with an optional Performance Bond — $11,250 annual premium, $150,000 face value, 180-day term.
+                  </p>
+                  <div className="flex gap-4 pt-4">
+                    <Link to="/request-access" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
+                      Request Enterprise Pilot →
+                    </Link>
+                    <Link to="/underwriting" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
+                      View Underwriting Math →
+                    </Link>
+                  </div>
+                </div>
+                <div className="space-y-3 font-mono">
+                  {[
+                    { label: 'Bond face value', detail: 'Per verified hire', val: '$150K' },
+                    { label: 'Premium credit', detail: 'Chubb Platinum tier', val: '35%' },
+                    { label: 'Pilot deployment', detail: 'HRIS to live', val: '14 wk' },
+                    { label: 'SEC-ready output', detail: 'Quarterly audit', val: 'Auto' },
+                  ].map((s, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10">
+                      <div>
+                        <span className="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">{s.label}</span>
+                        <p className="text-xs text-on-surface font-bold font-sans mt-0.5">{s.detail}</p>
+                      </div>
+                      <span className="font-display font-medium text-2xl text-primary">{s.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {activePersonaTab === 'recruiter' && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+                <div className="space-y-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Recruiters · I-100 Protocol</span>
+                  <h3 className="font-display text-3xl font-light leading-snug">
+                    Source from <span className="italic text-primary font-medium">Gate-verified candidates only.</span> Win the B-300 Auction.
+                  </h3>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Verified recruiter seats ($18K/year + $120/reveal credit) gain access to the cross-surface attribution filter distinguishing Gate-verified candidates. First 100 seats get $24K credit pack free for 90 days.
+                  </p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    The B-300 Auction is the snipe-protected escrowed talent auction for senior-tier engagements with public livestream broadcasting.
+                  </p>
+                  <div className="flex gap-4 pt-4">
+                    <Link to="/recruiters" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
+                      Claim a Seat · I-100 →
+                    </Link>
+                    <Link to="/recruiters" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
+                      Watch the B-300 Battle →
+                    </Link>
+                  </div>
+                </div>
+                <div className="space-y-3 font-mono">
+                  {[
+                    { label: 'Annual seat', detail: 'Verified recruiter access', val: '$18K' },
+                    { label: 'I-100 starter', detail: 'Free credit pack · 90d', val: '$24K' },
+                    { label: 'Reveal credit', detail: 'Per candidate identity', val: '$120' },
+                    { label: 'Volume tier', detail: '50+ seats', val: '25% off' },
+                  ].map((s, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10">
+                      <div>
+                        <span className="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">{s.label}</span>
+                        <p className="text-xs text-on-surface font-bold font-sans mt-0.5">{s.detail}</p>
+                      </div>
+                      <span className="font-display font-medium text-2xl text-primary">{s.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {activePersonaTab === 'state' && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+                <div className="space-y-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">State Leadership · Treasury</span>
+                  <h3 className="font-display text-3xl font-light leading-snug">
+                    Earn <span className="italic text-primary font-medium">20% of every transaction</span> originated by your state's verified workforce.
+                  </h3>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    State Treasury partnerships receive a smart-contract-enforced 20% dividend on every transaction value originating from a candidate in the state's jurisdiction. Non-procurement — zero cost to the state.
+                  </p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Kill-Switch Dashboard provides state workforce commissions with real-time CA drift monitoring across partner institutions and corridor enterprises. State of Texas anchor live.
+                  </p>
+                  <div className="flex gap-4 pt-4">
+                    <Link to="/request-access" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
+                      Brief Your Workforce Commission →
+                    </Link>
+                  </div>
+                </div>
+                <div className="space-y-3 font-mono">
+                  {[
+                    { label: 'Perpetual dividend', detail: 'Smart-contract enforced', val: '20%' },
+                    { label: 'Phase 1 anchor', detail: 'State of Texas', val: 'Live' },
+                    { label: 'Phase 2 pipeline', detail: 'NY · MA · NC', val: '3 states' },
+                    { label: 'Cost to state', detail: 'Procurement', val: 'Zero' },
+                  ].map((s, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10">
+                      <div>
+                        <span className="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">{s.label}</span>
+                        <p className="text-xs text-on-surface font-bold font-sans mt-0.5">{s.detail}</p>
+                      </div>
+                      <span className="font-display font-medium text-2xl text-primary">{s.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {activePersonaTab === 'learner' && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+                <div className="space-y-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Learners · Sovereign Passport</span>
+                  <h3 className="font-display text-3xl font-light leading-snug">
+                    Earn a credential that <span className="italic text-primary font-medium">outlives the platform that issued it.</span>
+                  </h3>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    $0 at Genesis Institutions. $19/month at self-learner tier. Every cleared Hard-Gate mints a Consensus Certificate anchored to four blockchains. The verification client is open-source.
+                  </p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Triple-85 status unlocks $150K Performance Bond eligibility at placement. Career Memory carries your annotations across every ontology node for life.
+                  </p>
+                  <div className="flex gap-4 pt-4">
+                    <Link to="/learners" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
+                      Enter the Forge →
+                    </Link>
+                    <Link to="/manifesto" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
+                      Read the Manifesto →
+                    </Link>
+                  </div>
+                </div>
+                <div className="space-y-3 font-mono">
+                  {[
+                    { label: 'Genesis Institution', detail: 'Curriculum-integrated', val: '$0' },
+                    { label: 'Self-learner tier', detail: 'Monthly', val: '$19' },
+                    { label: 'Performance Bond', detail: 'Triple-85 status', val: '$150K' },
+                    { label: 'Verification DID', detail: 'Polygon mainnet', val: 'Active' },
+                  ].map((s, idx) => (
+                    <div key={idx} className="flex justify-between items-center bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/10">
+                      <div>
+                        <span className="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">{s.label}</span>
+                        <p className="text-xs text-on-surface font-bold font-sans mt-0.5">{s.detail}</p>
+                      </div>
+                      <span className="font-display font-medium text-2xl text-primary">{s.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Trusted By Carousel */}
+      <section className="bg-surface-container-lowest border-y border-outline-variant/10 py-12 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 mb-8 text-center">
+          <span className="text-[10px] font-bold text-outline uppercase tracking-[0.3em]">Institutional Partners & Nodes</span>
+        </div>
+        <div className="relative flex">
+          <motion.div 
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="flex gap-12 md:gap-24 items-center whitespace-nowrap"
+          >
+            {[...companies, ...companies].map((company, i) => (
+              <div key={i} className="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
+                <company.icon className="w-6 h-6 text-primary" />
+                <span className="text-sm font-headline font-black tracking-widest text-on-surface">{company.name}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-background overflow-hidden border-b border-outline-variant/10">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {isTestimonialsLoading ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10 animate-pulse">
+                  <div className="flex gap-1 mb-6">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <div key={j} className="w-3 h-3 bg-primary/20 rounded-full" />
+                    ))}
+                  </div>
+                  <div className="h-4 bg-on-surface-variant/10 rounded w-full mb-3" />
+                  <div className="h-4 bg-on-surface-variant/10 rounded w-5/6 mb-3" />
+                  <div className="h-4 bg-on-surface-variant/10 rounded w-4/6 mb-8" />
+                  <div className="flex justify-between items-end border-t border-outline-variant/10 pt-6">
+                    <div className="space-y-2">
+                      <div className="h-3 bg-on-surface/10 rounded w-24" />
+                      <div className="h-2 bg-outline/10 rounded w-16" />
+                    </div>
+                    <div className="h-4 bg-primary/10 rounded w-12" />
+                  </div>
+                </div>
+              ))
+            ) : (
+              testimonials.map((t, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-surface-container-low p-8 rounded-[2rem] border border-outline-variant/10 relative group"
+                >
+                  <Quote className="absolute top-6 right-8 w-10 h-10 text-primary/10 group-hover:text-primary/20 transition-colors" />
+                  <div className="flex gap-1 mb-6">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star key={j} className="w-3 h-3 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-on-surface-variant italic leading-relaxed mb-8">
+                    "{t.text}"
+                  </p>
+                  <div className="flex justify-between items-end border-t border-outline-variant/10 pt-6">
+                    <div>
+                      <h4 className="text-sm font-bold text-on-surface">{t.author}</h4>
+                      <p className="text-[10px] font-mono text-outline uppercase tracking-widest">{t.role}</p>
+                    </div>
+                    <div className="text-[10px] font-bold text-primary bg-primary/5 px-2 py-1 rounded border border-primary/10">
+                      {t.score}
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Pricing Section from Pricing.tsx */}
