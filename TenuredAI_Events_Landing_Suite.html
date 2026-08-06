@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Tenured — Events Landing Suite · /events · Pricing · FAQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GET TENURED — EVENTS LANDING SUITE
+   Contains production copy + layout for:
+   PAGE_A  /events           — The Events Page
+   PAGE_B  /events/pricing   — Event Pricing
+   PAGE_C  /events/faq       — Event FAQ
+   + The homepage teaser block (PHASE_02)
+   ============================================================ */
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4D4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;
+  --amber:#FFBF00;--cyan:#22D3EE;
+  --font-headline:'Sora',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --maxw:1160px;--r-xl:1.25rem;--r-2xl:1.5rem;--term:#16140F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(197,160,89,.3)}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.12}
+.mono{font-family:var(--font-mono)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+@media(max-width:720px){.wrap{padding:0 22px}}
+section.bk{padding:88px 0}
+section.bk.alt{background:var(--sc-low)}
+.kicker{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{text-transform:uppercase;letter-spacing:.22em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+h2.sec{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;max-width:24ch;margin-bottom:20px}
+.lede{font-size:1.07rem;color:var(--on-surface-variant);max-width:66ch;margin-bottom:44px}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:24px}
+section.bk.alt .tile{background:var(--sc-lowest);box-shadow:var(--editorial)}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+/* Page divider bar for the suite */
+.pagebar{background:var(--term);color:#D8D2C4;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;padding:14px 0}
+.pagebar .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.pagebar b{color:var(--amber);text-shadow:var(--crt-glow);font-weight:400}
+
+/* Suite nav */
+.suitenav{position:sticky;top:0;z-index:50;background:rgba(252,249,245,.82);backdrop-filter:blur(20px);padding:16px 0}
+.suitenav .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.brand{font-family:var(--font-headline);font-weight:700;font-size:17px;letter-spacing:-.03em}
+.brand .dot{color:var(--primary-container)}
+.suitenav nav{display:flex;gap:22px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em}
+.suitenav nav a{color:var(--on-surface-variant);text-decoration:none;transition:color .2s}
+.suitenav nav a:hover{color:var(--primary)}
+
+/* Hero */
+.hero{padding:110px 0 92px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-24%;right:-10%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.14) 0%,transparent 68%);pointer-events:none}
+.hero .stamp{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--primary);background:var(--sc-low);padding:8px 16px;border-radius:9999px;margin-bottom:30px}
+.hero .stamp::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:var(--crt-glow)}
+.hero h1{font-size:clamp(2.6rem,6.6vw,4.8rem);font-weight:800;line-height:1.03;letter-spacing:-.03em;max-width:15ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p{font-size:1.15rem;color:var(--on-surface-variant);max-width:60ch;margin-top:26px}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;padding:15px 28px;border-radius:9999px;transition:transform .18s,box-shadow .18s;cursor:pointer;text-decoration:none}
+.btn-sov{background:var(--sovereign);color:#fff;box-shadow:0 12px 28px -8px rgba(119,90,25,.35)}
+.btn-sov:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(119,90,25,.45)}
+.btn-ghost{background:var(--sc-low);color:var(--on-surface)}
+.btn-ghost:hover{background:var(--sc-high)}
+section.bk.alt .btn-ghost{background:var(--sc-lowest);box-shadow:var(--editorial)}
+
+/* Node listing */
+.node{display:grid;grid-template-columns:190px 1fr auto;gap:30px;align-items:start;padding:34px 36px;background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--editorial)}
+.node + .node{margin-top:18px}
+@media(max-width:860px){.node{grid-template-columns:1fr;gap:16px}}
+.node .id{font-family:var(--font-mono)}
+.node .id .code{font-size:19px;font-weight:700;letter-spacing:.02em}
+.node .id .status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);background:var(--sc-low);padding:5px 12px;border-radius:9999px}
+.node .id .status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:var(--crt-glow)}
+.node .id .status.wait{color:var(--on-surface-variant)}
+.node .id .status.wait::before{background:var(--on-surface-variant);box-shadow:none}
+.node h3{font-size:20px;margin-bottom:10px}
+.node p{font-size:13.5px;color:var(--on-surface-variant);max-width:58ch}
+.node .date{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--on-surface-variant);margin-top:14px}
+.node .date b{color:var(--on-surface);font-weight:400}
+
+/* Drill grid */
+.drill .n{font-family:var(--font-mono);font-size:24px;color:var(--primary);margin-bottom:14px}
+.drill h4{font-size:16px;margin-bottom:10px}
+.drill p{font-size:13.5px;color:var(--on-surface-variant)}
+
+/* Dual track */
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:860px){.dual{grid-template-columns:1fr}}
+.track{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:38px;box-shadow:var(--editorial);display:flex;flex-direction:column;gap:0}
+.track .th{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;color:var(--primary);margin-bottom:18px}
+.track.inst .th{color:var(--tertiary)}
+.track h3{font-size:22px;margin-bottom:12px}
+.track > p{font-size:13.5px;color:var(--on-surface-variant);margin-bottom:22px}
+.track .specrows{font-family:var(--font-mono);font-size:12px;line-height:2.1;color:var(--on-surface-variant);background:var(--sc-low);border-radius:var(--r-xl);padding:20px 24px;margin-bottom:26px}
+.track .specrows b{color:var(--on-surface);font-weight:400}
+.track .specrows em{font-style:normal;color:var(--primary);font-weight:700}
+.track.inst .specrows em{color:var(--tertiary)}
+.track .actions{margin-top:auto;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+
+/* Pricing spec table */
+.spec{background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--editorial);overflow:hidden;font-family:var(--font-mono)}
+.spec .row{display:grid;grid-template-columns:280px 1fr;gap:24px;padding:20px 30px}
+.spec .row:nth-child(even){background:var(--sc-low)}
+@media(max-width:720px){.spec .row{grid-template-columns:1fr;gap:6px}}
+.spec .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);padding-top:3px}
+.spec .v{font-size:14px}
+.spec .v em{font-style:normal;color:var(--primary);font-weight:700}
+
+/* Teaser block mock */
+.teaser{background:var(--term);border-radius:var(--r-2xl);padding:46px;color:#EDE8DC;box-shadow:var(--ambient);position:relative;overflow:hidden}
+.teaser::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
+.teaser .ph{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;color:var(--amber);text-shadow:var(--crt-glow);margin-bottom:18px}
+.teaser h3{font-family:var(--font-headline);font-size:clamp(1.4rem,2.6vw,2rem);max-width:30ch;margin-bottom:16px}
+.teaser p{font-size:14px;color:#B9B2A2;max-width:64ch;margin-bottom:30px}
+.teaser .matrix{font-family:var(--font-mono);font-size:12.5px;line-height:2.2;color:#D8D2C4;margin-bottom:32px}
+.teaser .matrix .st{color:var(--cyan)}
+.teaser .matrix .st.wl{color:#8A8474}
+.teaser .btn-sov{position:relative;z-index:1}
+
+/* FAQ */
+.faq details{background:var(--sc-lowest);border-radius:var(--r-xl);box-shadow:var(--editorial);margin-bottom:14px;overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 30px;font-family:var(--font-headline);font-weight:600;font-size:15.5px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .qn{font-family:var(--font-mono);font-weight:400;font-size:11px;color:var(--primary);letter-spacing:.1em;flex-shrink:0}
+.faq summary .qtext{flex:1}
+.faq summary .ind{font-family:var(--font-mono);font-size:16px;color:var(--on-surface-variant);transition:transform .25s}
+.faq details[open] summary .ind{transform:rotate(45deg)}
+.faq .ans{padding:0 30px 28px;font-size:14px;color:var(--on-surface-variant);max-width:74ch}
+.faq .ans p + p{margin-top:12px}
+.faq .ans .mono-note{font-family:var(--font-mono);font-size:12px;background:var(--sc-low);border-radius:12px;padding:14px 18px;margin-top:14px;color:var(--on-surface)}
+
+.foot-cta{padding:96px 0 110px}
+.foot-cta .card{padding:52px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:30px}
+.foot-cta h2{font-size:clamp(1.7rem,3vw,2.4rem);max-width:20ch}
+.colophon{padding:34px 0 44px;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);letter-spacing:.08em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<div class="suitenav">
+  <div class="wrap">
+    <div class="brand">Tenured<span class="dot">.</span>AI</div>
+    <nav>
+      <a href="#page-events">/EVENTS</a>
+      <a href="#page-pricing">/PRICING</a>
+      <a href="#page-faq">/FAQ</a>
+      <a href="#teaser-block">HOMEPAGE_TEASER</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE_A — /events
+══════════════════════════════════════════════════════════ -->
+<div class="pagebar"><div class="wrap"><span>PAGE_A // <b>/events</b></span><span>THE DEDICATED EVENTS PAGE</span></div></div>
+
+<!-- SECTION I: MANIFESTO HEADER -->
+<section class="hero wrap" id="page-events">
+  <div class="hero-glow"></div>
+  <span class="stamp">GET TENURED // LIVE DEPLOYMENT SERIES</span>
+  <h1>Get Tenured. <span class="gild">In person.</span></h1>
+  <p>True human-AI synergy cannot be verified through a screen alone. The Get Tenured series is a circuit of high-velocity, cohort-based physical deployments — where you stress-test your capabilities against live adversarial friction, lock in your immutable telemetry, and claim your place on the ledger.</p>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:44px">
+    <a class="btn btn-sov" href="#nodes">Locate Nearest Deployment →</a>
+    <a class="btn btn-ghost" href="#blueprints">Read the Deployment Blueprints</a>
+  </div>
+</section>
+
+<!-- SECTION II: REGIONAL DEPLOYMENT SELECTOR -->
+<section class="bk alt" id="nodes">
+  <div class="wrap">
+    <div class="kicker"><span class="num">SEC_II</span><span class="lbl">Regional Deployment Selector</span></div>
+    <h2 class="sec">Active nodes on the circuit.</h2>
+    <p class="lede">Each city stop hosts distinct, back-to-back tracks — an Enterprise day and an Institutional day — formatted as localized server nodes rather than generic tour dates.</p>
+
+    <div class="node">
+      <div class="id">
+        <div class="code">NODE_HOU</div>
+        <span class="status">Active Registration</span>
+      </div>
+      <div>
+        <h3>The Space City Cohort — Houston · Cohort // 01</h3>
+        <p><strong>Day 1 — Enterprise Deployment Lab:</strong> corporate engineering teams bring their current stacks into the Proving Ground and stress-test agentic systems under simulated adversarial drift. <strong>Day 2 — The Institutional Sovereignty Summit:</strong> closed-door roundtable for regents, superintendents, and district administrators on the K-12 competency framework and the 4,000-node hashed ontology.</p>
+        <div class="date">NEXT WINDOW: <b>Q4 2026 — DATES POSTING SOON</b></div>
+      </div>
+      <a class="btn btn-sov" href="#page-pricing">Secure Seat // Node_HOU</a>
+    </div>
+
+    <div class="node">
+      <div class="id">
+        <div class="code">NODE_NYC</div>
+        <span class="status wait">Waitlist Only</span>
+      </div>
+      <div>
+        <h3>The Capital Vault Cohort — New York · Cohort // 02</h3>
+        <p><strong>Day 1 — High-Frequency Enterprise Analytics Track:</strong> architectural briefing for enterprise strategists, consulting firms, and technical founders on predictive analytics alignment and high-velocity agentic workflows. <strong>Day 2 — The Regent &amp; Governance Forum:</strong> policy-level briefing on Sovereign Passport integration, curriculum modernization, and the 40/40/20 Dividend Engine.</p>
+        <div class="date">NEXT WINDOW: <b>CALENDAR PENDING — JOIN WAITLIST</b></div>
+      </div>
+      <a class="btn btn-ghost" href="#page-pricing">Apply for Admission // Node_NYC</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION III: WHAT HAPPENS INSIDE -->
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">SEC_III</span><span class="lbl">Inside a Deployment</span></div>
+    <h2 class="sec">What happens inside a Get Tenured event.</h2>
+    <p class="lede">Three phases. No keynote theater. Every phase writes data.</p>
+    <div class="grid g3">
+      <div class="tile drill">
+        <div class="n">01</div>
+        <h4>Hard-Gate Calibration</h4>
+        <p>Live onboarding into the platform's connectionist architecture to establish your baseline entry node — the hard floor from which every movement is measured.</p>
+      </div>
+      <div class="tile drill">
+        <div class="n">02</div>
+        <h4>Proving Ground Drills</h4>
+        <p>Collaborative, high-pressure sandbox drills where teams build, deploy, and debug live agentic workflows under simulated adversarial stress.</p>
+      </div>
+      <div class="tile drill">
+        <div class="n">03</div>
+        <h4>Passport Minting &amp; Ledger Sync</h4>
+        <p>Final evaluation. Verified data updates on the global ledger, adjusting your standing on the Grit Leaderboard and minting your Sovereign Passport tier.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION IV: THE BLUEPRINTS (DUAL-TRACK) -->
+<section class="bk alt" id="blueprints">
+  <div class="wrap">
+    <div class="kicker"><span class="num">SEC_IV</span><span class="lbl">Choose Your Operational Interface</span></div>
+    <h2 class="sec">Two tracks. Zero dilution.</h2>
+    <p class="lede">A corporate VP hunting elite developer telemetry and a university regent modernizing a curriculum do not belong in the same room. The circuit is strictly decoupled — read the blueprint written for your side of the table.</p>
+    <div class="dual">
+      <div class="track">
+        <div class="th">[ TRACK_01: ENTERPRISE ]</div>
+        <h3>I am an operator or an enterprise leader.</h3>
+        <p>For corporate teams, tech founders, VPs of engineering, and individual developers proving cognitive autonomy in the agentic era.</p>
+        <div class="specrows">
+          INTERFACE: <b>PAID ADMISSION</b><br>
+          UPCOMING: <b>HOUSTON // ENTERPRISE LAB</b><br>
+          UPCOMING: <b>NEW YORK // HIGH-VELOCITY TRACK</b><br>
+          PAYLOAD: <em>PROVING GROUND CREDITS</em>
+        </div>
+        <div class="actions">
+          <a class="btn btn-sov" href="#">Secure Enterprise Seats →</a>
+          <a class="btn btn-ghost" href="#">Download Protocol_01 // Access Technical Specs</a>
+        </div>
+      </div>
+      <div class="track inst">
+        <div class="th">[ TRACK_02: INSTITUTIONAL ]</div>
+        <h3>I am an institutional leader.</h3>
+        <p>For regents, K-12 leadership, university presidents, and academic administration stewarding public trust and student outcomes.</p>
+        <div class="specrows">
+          INTERFACE: <b>BY APPLICATION ONLY</b><br>
+          UPCOMING: <b>HOUSTON // INSTITUTIONAL SUMMIT</b><br>
+          UPCOMING: <b>NEW YORK // GOVERNANCE FORUM</b><br>
+          PAYLOAD: <em>PILOT FRAMEWORK BLUEPRINT</em>
+        </div>
+        <div class="actions">
+          <a class="btn btn-sov" href="#">Submit Nomination Protocol →</a>
+          <a class="btn btn-ghost" href="#">Download Mandate_03 // Access Executive Briefing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE_B — /events/pricing
+══════════════════════════════════════════════════════════ -->
+<div class="pagebar" id="page-pricing"><div class="wrap"><span>PAGE_B // <b>/events/pricing</b></span><span>EVENT PRICING — HYBRID VALUE-CAPTURE MODEL</span></div></div>
+
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">PRC_01</span><span class="lbl">Admission Structure</span></div>
+    <h2 class="sec">The price is a filter, not a fee.</h2>
+    <p class="lede">Get Tenured events are never free — free registration dilutes the signal and fills the room with observers. Pricing itself is an instrument: it filters for high-intent participants on the Enterprise side, and it disappears entirely behind grant underwriting on the Institutional side, where public procurement loops would otherwise stall admission.</p>
+
+    <div class="dual">
+      <div class="track">
+        <div class="th">[ TRACK_01: ENTERPRISE ]</div>
+        <h3>Paid admission. Fully creditable.</h3>
+        <p>Premium, high-contrast pricing per seat — tied directly to a tangible, on-ledger value payload. For corporate budgets, a team intensive inside the Proving Ground is an easy sign-off; for you, it guarantees every person in the room is motivated.</p>
+        <div class="specrows">
+          INDIVIDUAL OPERATOR SEAT: <em>$499</em> / NODE<br>
+          ENTERPRISE TEAM PASS: <em>$1,999</em> / UP TO 5 SEATS<br>
+          PAYLOAD: <b>PROVING GROUND CREDITS</b><br>
+          CREDIT RULE: <b>100% TOWARD TIER 1/2 SUBSCRIPTION</b>
+        </div>
+        <p style="margin-bottom:26px">The ticket is not a cost. Sign an institutional agreement within 30 days of the event and the full ticket price credits toward your Tier 1 or Tier 2 platform subscription — the event becomes a paid down-payment on your onboarding.</p>
+        <div class="actions">
+          <a class="btn btn-sov" href="#">Secure Corporate Seats →</a>
+        </div>
+      </div>
+      <div class="track inst">
+        <div class="th">[ TRACK_02: INSTITUTIONAL ]</div>
+        <h3>By institutional invitation only.</h3>
+        <p>Not listed as free — gated. Every seat carries a stated value of $1,250 and is covered entirely under regional educational grants and foundation underwriting. To the regent or superintendent, this is an elite closed-door appointment, not a webinar.</p>
+        <div class="specrows">
+          COST TO INSTITUTION: <em>$0</em> — COMPLIMENTARY VIA INVITE<br>
+          STATED SEAT VALUE: <b>$1,250 / SEAT</b><br>
+          UNDERWRITING: <b>REGIONAL GRANTS + FOUNDATIONS</b><br>
+          PAYLOAD: <b>PILOT FRAMEWORK BLUEPRINT</b>
+        </div>
+        <p style="margin-bottom:26px">Admission runs through the Institutional Nomination Protocol: a short application detailing your student footprint, current LMS stack, and pilot timelines. This removes the procurement bottleneck while preserving the standing of the room.</p>
+        <div class="actions">
+          <a class="btn btn-sov" href="#">Submit Nomination Protocol →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bk alt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">PRC_02</span><span class="lbl">System Specification</span></div>
+    <h2 class="sec">Pricing as hard-coded system spec.</h2>
+    <div class="spec">
+      <div class="row"><div class="k">TRACK_01 · Interface</div><div class="v">PAID ADMISSION + APPLICATION GATE</div></div>
+      <div class="row"><div class="k">TRACK_01 · Individual Seat</div><div class="v"><em>$499</em> / NODE SEAT — secure access to the next live adversarial debugging session</div></div>
+      <div class="row"><div class="k">TRACK_01 · Team Pass</div><div class="v"><em>$1,999</em> / UP TO 5 SEATS — deploy a full leadership or engineering cohort</div></div>
+      <div class="row"><div class="k">TRACK_01 · Value Loop</div><div class="v">TICKET 100% CREDITABLE toward Tier 1 or Tier 2 platform subscription within 30 days</div></div>
+      <div class="row"><div class="k">TRACK_02 · Interface</div><div class="v">BY APPLICATION ONLY — SOVEREIGN NOMINATION</div></div>
+      <div class="row"><div class="k">TRACK_02 · Cost</div><div class="v">COMPLIMENTARY VIA INVITE (SEAT VALUE: <em>$1,250</em>) — submit institutional parameters for regional board, district, and regent roundtables</div></div>
+      <div class="row"><div class="k">TRACK_02 · Underwriting</div><div class="v">COVERED BY REGIONAL EDUCATIONAL GRANTS &amp; FOUNDATION FUNDING</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE_C — /events/faq
+══════════════════════════════════════════════════════════ -->
+<div class="pagebar" id="page-faq"><div class="wrap"><span>PAGE_C // <b>/events/faq</b></span><span>EVENT FAQ — OPERATIONAL PARAMETERS</span></div></div>
+
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">FAQ</span><span class="lbl">Operational Parameters</span></div>
+    <h2 class="sec">Questions, answered in system terms.</h2>
+    <p class="lede">Everything you need to know before securing a seat or submitting a nomination.</p>
+
+    <div class="faq">
+      <details open>
+        <summary><span class="qn">Q_01</span><span class="qtext">What exactly is a "Get Tenured" event?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>A high-velocity, cohort-based physical deployment — not a casual tech meetup, not a conference. Participants enter the Proving Ground live, face real-time system friction, model drift, and security constraints, and leave with verified performance data written to the Sovereign Ledger. It is where professionals and enterprise teams prove they have the sovereign skills to remain un-replaceable.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_02</span><span class="qtext">Which track am I? Enterprise or Institutional?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p><strong>Track_01 (Enterprise)</strong> is for corporate teams, consultancies, tech founders, CTOs, VPs of engineering, HR operations, and individual developers or operators. It is driven by commercial velocity, billable efficiency, and risk underwriting.</p>
+          <p><strong>Track_02 (Institutional)</strong> is for university presidents, boards of regents, K-12 superintendents, deans, and academic administrators. It is driven by academic integrity, student outcome metrics, governance, and public trust.</p>
+          <p>The tracks are strictly decoupled — separate days, separate rooms, separate briefing documents — so neither message is diluted.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_03</span><span class="qtext">How much does admission cost?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>Enterprise admission is paid: $499 per individual node seat, or $1,999 for an Enterprise Team Pass covering up to five seats. Institutional admission carries no charge to your institution — seats hold a stated value of $1,250 and are covered under regional educational grants and foundation underwriting, accessed via the Institutional Nomination Protocol.</p>
+          <div class="mono-note">TRACK_01: $499 / SEAT · $1,999 / 5-SEAT PASS &nbsp;&nbsp;|&nbsp;&nbsp; TRACK_02: $0 VIA NOMINATION (VALUE $1,250)</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_04</span><span class="qtext">Is the ticket price really 100% creditable?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>Yes. If your organization signs an institutional agreement within 30 days of the event, the full ticket spend credits toward a Tier 1 or Tier 2 platform subscription. The event functions as a paid down-payment on your platform onboarding rather than a sunk cost.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_05</span><span class="qtext">What is the Institutional Nomination Protocol?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>Institutional seats cannot simply be purchased. A superintendent, regent, or academic administrator submits a short application detailing their existing student footprint, current LMS stack, and pilot timelines. This preserves the closed-door, peer-level standing of the room and removes the public procurement bottleneck entirely — no budget approval loop required.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_06</span><span class="qtext">What do I actually walk away with?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p><strong>Individuals and operators:</strong> ledger-synced score movement across AICI™, AIOI™, AI-ED™, and AIBS™; upward mobility on the public Grit Leaderboard; and an advanced verified tier minted to your Sovereign Passport.</p>
+          <p><strong>Enterprise leaders:</strong> a live workforce baseline mapped against the 4,000-node competency ontology, updated AIBS™ scores for your engineers, and a definitive roadmap to calculate your organization's systemic AICI™ and deploy a pilot node.</p>
+          <p><strong>Institutional leaders:</strong> a pilot framework blueprint, governance models for AIOI-ED™ deployment, and deployment planning for authenticated, verifiable student exit portfolios.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_07</span><span class="qtext">What are the drills like? Do I need to prepare?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>Operator days are grueling by design: multi-hour intensives inside the Challenge Chamber and Proving Ground, with live adversarial stress injected by the Chaos Engine — model drift, friction injection, and security constraints. Enterprise teams should bring their current tech stacks; drills run against real conditions, not toy problems. Executive and institutional sessions are strategic roundtables — no code required, full participation expected.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_08</span><span class="qtext">Where and when is the next deployment?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>The circuit currently rotates through two core hubs. NODE_HOUSTON (The Space City Cohort) is in active registration; NODE_NYC (The Capital Vault Cohort) is waitlist-only. Each stop runs distinct back-to-back days: Day 1 for the Enterprise track, Day 2 for the Institutional track. Additional regional nodes are announced on the deployment calendar as they are provisioned.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_09</span><span class="qtext">Can attending replace buying a full platform license?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>It's designed as the step before it. If your organization is hesitant to commit to a multi-seat license, send a five-person leadership team to a local node as a low-friction, high-impact trial. Once your leadership experiences the calibration telemetry in person, the transition to a full enterprise contract is the natural next step — and your ticket spend rolls into it.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="qn">Q_10</span><span class="qtext">Why aren't these events free?</span><span class="ind">+</span></summary>
+        <div class="ans">
+          <p>Because free registration attracts observers, and the Proving Ground is built for participants. The enterprise-grade math underwriting the Triple-Threat Engine deserves an admission structure that matches it. Where price would create a genuine barrier — public institutions bound by tight budget approval loops — we remove it entirely through grant underwriting and nomination-based admission, without ever diluting the standing of the room.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     BONUS — HOMEPAGE TEASER BLOCK (PHASE_02)
+══════════════════════════════════════════════════════════ -->
+<div class="pagebar" id="teaser-block"><div class="wrap"><span>COMPONENT // <b>HOMEPAGE TEASER</b></span><span>PLACED BELOW SYSTEM ARCHITECTURE ON MAIN LANDING PAGE</span></div></div>
+
+<section class="bk alt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">CMP_01</span><span class="lbl">Landing Page Anchor Block</span></div>
+    <h2 class="sec">The PHASE_02 teaser.</h2>
+    <p class="lede">Rendered as a brutalist visual block on the primary landing page, directly below the System Architecture section, anchoring the events funnel.</p>
+    <div class="teaser">
+      <div class="ph">PHASE_02 // GET TENURED COHORTS</div>
+      <h3>Sovereign competency cannot be verified through a screen alone.</h3>
+      <p>Join our high-velocity physical deployments to stress-test your capabilities, lock in your immutable telemetry, and claim your place on the ledger.</p>
+      <div class="matrix">
+        HOUSTON COHORT // 01 ............ [ <span class="st">STATUS: ACTIVE REGISTRATION</span> ]<br>
+        NEW YORK COHORT // 02 ........... [ <span class="st wl">STATUS: WAITLIST ONLY</span> ]
+      </div>
+      <a class="btn btn-sov" href="#page-events">Locate Nearest Deployment →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOT ================= -->
+<section class="foot-cta wrap">
+  <div class="card">
+    <h2>The ledger is waiting. Choose your interface.</h2>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <a class="btn btn-sov" href="#blueprints">Choose Your Operational Interface →</a>
+      <a class="btn btn-ghost" href="#page-faq">Read the FAQ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon wrap">
+  <span>TENURED.AI // GET TENURED EVENT SERIES — LANDING SUITE</span>
+  <span>/EVENTS · /PRICING · /FAQ · REV 1.0</span>
+</footer>
+
+</body>
+</html>

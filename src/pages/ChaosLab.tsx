@@ -12,7 +12,7 @@ interface LogLine {
   timestamp: string;
 }
 
-// ─── Static data (sourced from V100 Figma Spec + Campaign Launch) ───────────
+// ─── Static data ───────────────────────────────────────────────────────────
 const TELEMETRY_CHANNELS = [
   { id: 'keystroke-velocity', label: 'Keystroke Velocity', unit: 'kpm', value: '1,247', healthy: '800–1400', trend: '▲', state: 'normal' },
   { id: 'inference-latency',  label: 'Inference Latency',  unit: 'ms',  value: '2,840', healthy: '800–4500', trend: '▼', state: 'normal' },
@@ -61,23 +61,7 @@ const HARD_GATE_PILLARS = [
   },
 ];
 
-const FRAME_ARCHITECTURE = [
-  { id: 'window-chrome', height: '56px', desc: 'macOS-style traffic-light dots (error/amber/mentor at 40% opacity) · scenarioId text · session timer in amber CRT glow.' },
-  { id: 'chaos-banner', height: '48px (when active)', desc: 'Conditional — appears when ALE fires. Red-amber gradient pulse. Tier L1/L2/L3 indicator + countdown clock.' },
-  { id: 'terminal-area', height: 'Fill remaining', desc: 'Live Xterm.js surface on bg/base (#0E0D0B). 3% noise texture overlay. The actual work surface.' },
-  { id: 'council-strip', height: '88px', desc: 'Four-Agent Council cards in horizontal row + consensus-pill showing real-time signature count (0/4 → 4/4).' },
-  { id: 'command-drawer', height: '56px collapsed / 280px open', desc: 'Input line + action chips collapsed. Opens to full command history + voice toggle + Sovereign Override CTA.' },
-  { id: 'telemetry-rail', height: 'Fixed 320px wide', desc: 'Triple-Threat Engine + six ALTFL channels + Bond Status at rail bottom. Right column, always visible.' },
-];
 
-const SPEC_METRICS = [
-  { label: 'Terminal frame', value: '1440 × 900px', note: 'Desktop-first · min 1280px · desktop-only by architecture' },
-  { label: 'Terminal bg', value: '#0E0D0B', note: 'bg/base — deepest layer, deeper than panel' },
-  { label: 'Score display', value: 'JetBrains Mono 700 · 32px', note: 'Inktrap-style mechanical character' },
-  { label: 'CRT glow', value: '0 0 8px 2px rgba(255,191,0,.2)', note: 'Telemetry readouts + score tiles at peak' },
-  { label: 'Radar chart', value: 'Three-vertex polygon · 160 × 160px', note: 'AICI / AIOI / AIBS vertices · ochre 40% fill' },
-  { label: 'Chaos banner pulse', value: 'L1: 2.4s · L2: 1.2s · L3: 0.6s', note: 'Escalating cadence mirrors ALE severity' },
-];
 
 const CAMPAIGN_COPY = [
   { tagline: 'Verify human worth.', context: 'Platform-level positioning. Three words. The thesis unmoved.' },
@@ -734,139 +718,35 @@ export default function ChaosLab() {
         </div>
       </section>
 
-      {/* ── V-100 FRAME ARCHITECTURE DEEP DIVE ───────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · Frame Architecture · §03</p>
-        <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
-          The whole screen, in eleven frames.<br />
-          <em className="text-on-surface-variant italic font-normal">1440 × 900 · desktop-only by architecture.</em>
-        </h2>
-        <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-          The Proving Ground Terminal is one master frame containing eleven child frames in two columns. The No-Line Rule applies even in dark mode — boundaries come from tonal shifts and elevation, not 1px strokes. The design ethos: would a Bloomberg terminal designer or a NASA mission-control engineer recognize this as a serious instrument?
-        </p>
 
-        {/* ASCII frame diagram */}
-        <div
-          className="rounded-2xl p-5 mb-8 font-mono text-[11px] leading-relaxed overflow-x-auto"
-          style={{ background: '#0E0D0B', color: '#F3F0EC' }}
-        >
-          <div
-            className="text-[9px] font-bold tracking-[.15em] uppercase mb-3"
-            style={{ color: '#FFBF00', opacity: .7 }}
-          >
-            WIREFRAME · ASCII
-          </div>
-          <pre style={{ whiteSpace: 'pre', color: 'rgba(243,240,236,.85)' }}>{`┌──────────────────────────────────────────────────────────────────────────────┐
-│  V-100 / Proving Ground / Default · 1440 × 900 · auto-layout horizontal     │
-│  ┌────────────────────────────────────────────────────────┐  ┌────────────┐  │
-│  │                                                        │  │            │  │
-│  │   TERMINAL-MAIN (Fill · vertical auto-layout)          │  │  TELEMETRY │  │
-│  │                                                        │  │    RAIL    │  │
-│  │   ├─ window-chrome     (fixed 56px)                    │  │  (Fixed    │  │
-│  │   ├─ chaos-banner      (conditional 48px when active)  │  │   320px)   │  │
-│  │   ├─ terminal-area     (Fill · Xterm.js surface)       │  │            │  │
-│  │   ├─ council-strip     (fixed 88px)                    │  │  ─ triple- │  │
-│  │   └─ command-drawer    (56px collapsed / 280px open)   │  │    threat  │  │
-│  │                                                        │  │  ─ 6x ALTFL│  │
-│  │                                                        │  │  ─ bond-   │  │
-│  └────────────────────────────────────────────────────────┘  │    status  │  │
-│           gap: 32px (space/8)                                  └────────────┘  │
-└──────────────────────────────────────────────────────────────────────────────┘`}
-          </pre>
-        </div>
 
-        {/* Frame breakdown */}
-        <div className="space-y-3">
-          {FRAME_ARCHITECTURE.map(frame => (
-            <div
-              key={frame.id}
-              className="grid grid-cols-[200px_auto_1fr] gap-5 bg-surface-container-lowest rounded-xl px-5 py-4 shadow-sm border border-outline-variant/10"
-            >
-              <code className="font-mono text-[11px] font-bold text-primary self-center">{frame.id}</code>
-              <span className="font-mono text-[10px] text-on-surface-variant/60 self-center whitespace-nowrap">{frame.height}</span>
-              <p className="text-sm text-on-surface-variant leading-relaxed">{frame.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── ALTFL CHANNELS + SPEC METRICS ────────────────────────────── */}
+      {/* ── ALTFL CHANNELS ────────────────────────────────────────────── */}
       <section className="bg-surface-container-low py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-            {/* ALTFL channels */}
-            <div>
-              <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-002 · ALTFL Telemetry · Six Concurrent Channels</p>
-              <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
-              <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
-                Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Invigilator as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
-              </p>
-              <div className="space-y-2">
-                {TELEMETRY_CHANNELS.map(ch => (
-                  <div key={ch.id} className="bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
-                    <div className="flex justify-between items-start gap-4">
-                      <div>
-                        <p className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">{ch.label}</p>
-                        <p className="text-xs text-on-surface-variant mt-0.5">Healthy range: <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{ch.healthy}</span></p>
-                      </div>
-                      <span className="font-mono text-xs font-bold text-on-surface-variant/60 shrink-0">{ch.unit}</span>
-                    </div>
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-002 · ALTFL Telemetry · Six Concurrent Channels</p>
+          <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
+          <p className="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl">
+            Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Invigilator as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {TELEMETRY_CHANNELS.map(ch => (
+              <div key={ch.id} className="bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
+                <div className="flex justify-between items-start gap-4">
+                  <div>
+                    <p className="font-mono text-[10px] tracking-widest uppercase text-primary font-bold">{ch.label}</p>
+                    <p className="text-xs text-on-surface-variant mt-0.5">Healthy range: <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{ch.healthy}</span></p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Terminal design spec metrics */}
-            <div>
-              <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · Design Token Reference</p>
-              <h3 className="font-headline text-2xl font-bold mb-4">Editorial restraint, even in the dark.</h3>
-              <p className="text-on-surface-variant text-sm leading-relaxed mb-6">
-                Every token in the Dark-Terminal mode is engineered to feel like the interior of a sovereign data center, c. 1969, retrofitted with modern instrumentation. Amber CRT glow on telemetry. Warm teak undertones on chrome. Brass service accents only where they earn the visual weight. Never cyberpunk. Never crypto-loud.
-              </p>
-              <div className="space-y-2">
-                {SPEC_METRICS.map(m => (
-                  <div key={m.label} className="grid grid-cols-[140px_1fr] gap-4 bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant/60 self-center">{m.label}</span>
-                    <div>
-                      <p className="font-mono text-[11px] font-bold text-on-surface">{m.value}</p>
-                      <p className="text-[11px] text-on-surface-variant/60 mt-0.5">{m.note}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Color token swatches */}
-              <div className="mt-6 bg-surface-container-lowest rounded-2xl p-5 shadow-sm">
-                <p className="font-mono text-[10px] tracking-widest uppercase text-on-surface-variant/60 font-bold mb-4">Dark-Terminal Color Tokens</p>
-                <div className="space-y-2.5">
-                  {[
-                    { name: 'terminal/bg/base', hex: '#0E0D0B', use: 'Outer body — deepest layer' },
-                    { name: 'terminal/bg/panel', hex: '#16140F', use: 'Inner panel, lifted tonally' },
-                    { name: 'terminal/bg/elevated', hex: '#1F1C16', use: 'Score tiles, command drawer' },
-                    { name: 'terminal/accent/amber', hex: '#FFBF00', use: 'CRT glow — live telemetry' },
-                    { name: 'terminal/accent/ochre', hex: '#C5A059', use: 'Verified data, score peaks' },
-                    { name: 'terminal/accent/mentor', hex: '#7FBF9B', use: 'Mentor voice, healthy state' },
-                    { name: 'terminal/accent/error', hex: '#FF8B7A', use: 'ALE firing, chaos injection' },
-                    { name: 'terminal/accent/blue', hex: '#8FA5D6', use: 'Invigilator, audit signatures' },
-                  ].map(tok => (
-                    <div key={tok.name} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded" style={{ background: tok.hex, flexShrink: 0 }} />
-                      <code className="font-mono text-[10px] text-primary w-[170px] shrink-0">{tok.name}</code>
-                      <code className="font-mono text-[10px] text-on-surface-variant/60 w-16 shrink-0">{tok.hex}</code>
-                      <span className="text-[11px] text-on-surface-variant/60">{tok.use}</span>
-                    </div>
-                  ))}
+                  <span className="font-mono text-xs font-bold text-on-surface-variant/60 shrink-0">{ch.unit}</span>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── TERMINAL STREAM LINE VARIANTS ────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">V100 Figma Spec · §07 · Terminal Stream Line Variants</p>
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Terminal · Seven Voice Types</p>
         <h2 className="font-headline text-3xl font-bold mb-4">Seven voice types. One terminal stream.</h2>
         <p className="text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
           Every line in the terminal carries a semantic type. Each type renders with a distinct color, container treatment, and prefix. The visual grammar of the terminal is as deliberate as the scoring.

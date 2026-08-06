@@ -29,6 +29,8 @@ import Universities from './pages/Universities';
 import About from './pages/About';
 import LearningLoop from './pages/LearningLoop';
 import Enterprise from './pages/Enterprise';
+import Events from './pages/Events';
+import TenuredAgent from './pages/TenuredAgent';
 
 import Podcasts from './pages/Podcasts';
 import PodcastDetail from './pages/PodcastDetail';
@@ -59,6 +61,8 @@ function AppRoutes() {
           <Route path="/recruiters" element={<PageTransition><Recruiters /></PageTransition>} />
           <Route path="/universities" element={<PageTransition><Universities /></PageTransition>} />
           <Route path="/enterprise" element={<PageTransition><Enterprise /></PageTransition>} />
+          <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
+          <Route path="/tenured-agent" element={<PageTransition><TenuredAgent /></PageTransition>} />
           <Route path="/about" element={<PageTransition><About /></PageTransition>} />
           <Route path="/learning-loop" element={<PageTransition><LearningLoop /></PageTransition>} />
           <Route path="/institutional" element={<PageTransition><Institutional /></PageTransition>} />

@@ -28,7 +28,13 @@ import {
   Sliders,
   Send,
   Share,
-  Heart
+  Heart,
+  Lock,
+  Shield,
+  ShieldAlert,
+  FileText,
+  BookOpen,
+  Copy
 } from "lucide-react";
 import { EPISODES_DATA, Episode } from "../data/podcastEpisodes";
 import { fetchPodcasts, likePodcast } from "../lib/podcastService";
@@ -36,12 +42,22 @@ import ShareModal from "../components/ShareModal";
 import EmptyState from "../components/EmptyState";
 import MyPlaylists from "../components/MyPlaylists";
 import { WaveformVisualizer } from "../components/WaveformVisualizer";
+import { PODCAST_BRIEFS_DATA, PodcastBrief } from "../data/podcastBriefs";
 
 export default function Podcasts() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchTarget, setSearchTarget] = useState<"all" | "title" | "host" | "topic">("all");
   const [sortBy, setSortBy] = useState<"number-desc" | "number-asc" | "date-desc" | "date-asc">("number-desc");
+  const [activeTab, setActiveTab] = useState<"episodes" | "briefs">("episodes");
+  const [selectedBriefId, setSelectedBriefId] = useState<string>("master");
+  const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [selectedOpenerLength, setSelectedOpenerLength] = useState<"standard" | "compressed" | "expanded">("standard");
+
+  const activeBrief = useMemo(() => {
+    return PODCAST_BRIEFS_DATA.find(b => b.id === selectedBriefId) || PODCAST_BRIEFS_DATA[0];
+  }, [selectedBriefId]);
+
   const [expandedEpisode, setExpandedEpisode] = useState<string | null>(null);
   const [shareEpisode, setShareEpisode] = useState<Episode | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -419,6 +435,568 @@ export default function Podcasts() {
 
   const featuredEpisode = episodes.length > 0 ? episodes[0] : null;
 
+  const handleCopyText = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedText(label);
+    setTimeout(() => setCopiedText(null), 2000);
+  };
+
+  const renderBriefingsDashboard = () => {
+    return (
+      <div className="space-y-8 relative z-10">
+        {/* Classified Banner */}
+        <div className="relative overflow-hidden bg-inverse-surface border border-primary/20 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 text-inverse-on-surface shadow-md">
+          {/* Scanning Line Animation */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="w-full h-[2px] bg-primary-container/45 absolute left-0 top-0 animate-[scan_6s_linear_infinite]" style={{ animationName: 'scan' }} />
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary-container/30 flex items-center justify-center text-primary-container">
+              <Lock className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="block font-mono text-[10px] tracking-widest text-primary-container font-extrabold uppercase">
+                SECURITY PARADIGM OVERLAY
+              </span>
+              <span className="block text-xs font-mono tracking-wide text-inverse-on-surface/90 uppercase font-bold">
+                CONFIDENTIAL // INTERNAL BRIEFING LIBRARY
+              </span>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4 text-xs font-mono text-inverse-on-surface/60">
+            <span>FILE: PBL-2026-06-v1.0</span>
+            <span className="hidden sm:inline-block">•</span>
+            <span className="hidden sm:inline-block bg-primary/20 text-primary-container border border-primary-container/20 px-2 py-0.5 rounded font-extrabold tracking-widest text-[9px] uppercase">
+              Classified
+            </span>
+          </div>
+        </div>
+
+        {/* Dashboard Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Sidebar Navigation */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="bg-surface-container-low border border-outline-variant/15 rounded-3xl p-5 shadow-sm">
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-outline-variant/10">
+                <FileText className="w-4 h-4 text-primary" />
+                <span className="font-mono text-[10px] tracking-widest uppercase font-extrabold text-on-surface-variant">
+                  DOCUMENT DIRECTORY
+                </span>
+              </div>
+              
+              <div className="space-y-2.5">
+                {PODCAST_BRIEFS_DATA.map((brief) => {
+                  const isSelected = selectedBriefId === brief.id;
+                  return (
+                    <button
+                      key={brief.id}
+                      onClick={() => {
+                        setSelectedBriefId(brief.id);
+                        setSelectedOpenerLength("standard");
+                      }}
+                      className={`w-full flex items-start gap-3.5 p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-surface-container-lowest border-primary shadow-md"
+                          : "bg-surface-container-low/50 border-outline-variant/10 hover:border-outline-variant/40 hover:bg-surface-container-low"
+                      }`}
+                    >
+                      <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-mono font-bold ${
+                        isSelected 
+                          ? "bg-primary text-on-primary"
+                          : "bg-surface-container-high text-on-surface-variant"
+                      }`}>
+                        {brief.id === "appendix" ? "A" : brief.documentNumber.replace("Document ", "")}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1">
+                          <span className={`block font-mono text-[9px] uppercase tracking-wider ${
+                            isSelected ? "text-primary font-bold" : "text-on-surface-variant"
+                          }`}>
+                            {brief.category}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-headline font-extrabold text-on-surface tracking-tight mt-0.5 leading-snug">
+                          {brief.title === "Appendix" ? "Appendix: 5 Targets" : brief.title}
+                        </h4>
+                        <span className="block text-[11px] text-on-surface-variant mt-1 line-clamp-1 leading-normal">
+                          {brief.subtitle}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            
+            {/* Quick Stats Panel (Only when master is active) */}
+            {selectedBriefId === "master" && (
+              <div className="bg-surface-container-low border border-outline-variant/15 rounded-3xl p-5 shadow-sm">
+                <span className="block font-mono text-[9px] tracking-widest text-primary uppercase font-bold mb-3">
+                   cleared statistics index
+                </span>
+                <div className="grid grid-cols-2 gap-3.5">
+                  {PODCAST_BRIEFS_DATA[0].sections.find(s => s.type === "stats")?.stats?.slice(0, 4).map(stat => (
+                    <div key={stat.label} className="bg-surface-container-lowest border border-outline-variant/10 rounded-xl p-3 shadow-sm">
+                      <div className="text-xl font-headline font-extrabold text-primary">{stat.number}</div>
+                      <div className="text-[9px] font-mono text-on-surface-variant uppercase tracking-wider mt-0.5">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Active Brief View Panel */}
+          <div className="lg:col-span-8 space-y-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeBrief.id}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25 }}
+                className="bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-6 md:p-8 shadow-sm"
+              >
+                {/* Header */}
+                <div className="border-b border-outline-variant/10 pb-6 mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="font-mono text-[10px] text-primary font-bold bg-primary/10 px-2 py-0.5 rounded uppercase">
+                      {activeBrief.documentNumber}
+                    </span>
+                    <span className="text-[10px] text-on-surface-variant font-mono uppercase font-bold">
+                      {activeBrief.category}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl font-display font-extrabold text-on-surface tracking-tight mb-3">
+                    {activeBrief.title === "Appendix" ? "Remaining Target Roster" : activeBrief.title}
+                  </h2>
+                  <p className="text-sm text-on-surface-variant leading-relaxed font-body">
+                    {activeBrief.tagline}
+                  </p>
+                </div>
+
+                {/* Introduction */}
+                <div className="mb-8 p-4 bg-surface-container-low rounded-2xl border border-outline-variant/10 text-xs md:text-sm text-on-surface-variant leading-relaxed italic">
+                  {activeBrief.introduction}
+                </div>
+
+                {/* Metadata Grid (if any) */}
+                {activeBrief.metadata.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 bg-surface-container-low/40 border border-outline-variant/10 rounded-2xl p-4">
+                    {activeBrief.metadata.map((meta, i) => (
+                      <div key={i} className={`flex flex-col ${meta.isBig ? "md:col-span-2 border-b border-outline-variant/10 pb-3" : ""}`}>
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-primary font-bold">
+                          {meta.label}
+                        </span>
+                        <span className={`font-headline mt-1 leading-snug text-on-surface ${meta.isBig ? "text-lg font-extrabold italic" : "text-xs md:text-sm font-semibold"}`}>
+                          {meta.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Sections Rendering */}
+                <div className="space-y-8">
+                  {activeBrief.sections.map((section, idx) => (
+                    <div key={idx} className="border-t border-outline-variant/10 pt-6">
+                      {section.number && (
+                        <span className="font-mono text-[9px] text-primary font-bold tracking-widest uppercase flex items-center gap-1.5 mb-1">
+                          <span className="w-1.5 h-px bg-primary" />
+                          {section.number} · {section.subtitle || ""}
+                        </span>
+                      )}
+                      <h3 className="text-xl font-headline font-extrabold text-on-surface tracking-tight mb-4 flex items-center gap-2">
+                        {section.title}
+                      </h3>
+                      
+                      {section.intro && (
+                        <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed mb-4">
+                          {section.intro}
+                        </p>
+                      )}
+
+                      {/* Render based on Section Type */}
+                      {section.type === "redirect" && (
+                        <div className="bg-surface-container-low/80 border border-outline-variant/15 rounded-2xl p-5 relative overflow-hidden group">
+                          {/* Top row with length controller */}
+                          <div className="flex items-center justify-between mb-4 border-b border-outline-variant/10 pb-2">
+                            <span className="font-mono text-[10px] text-primary font-extrabold uppercase flex items-center gap-1.5">
+                              <Mic className="w-3.5 h-3.5" />
+                              Canonical Opener
+                            </span>
+                            
+                            {/* Controller tabs */}
+                            {activeBrief.id === "master" && (
+                              <div className="flex items-center bg-surface-container-high rounded-full p-0.5 text-[9px] font-mono font-bold uppercase shadow-inner">
+                                <button
+                                  onClick={() => setSelectedOpenerLength("standard")}
+                                  className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                                    selectedOpenerLength === "standard" ? "bg-primary text-on-primary shadow-sm" : "text-on-surface-variant hover:text-on-surface"
+                                  }`}
+                                >
+                                  Standard
+                                </button>
+                                <button
+                                  onClick={() => setSelectedOpenerLength("compressed")}
+                                  className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                                    selectedOpenerLength === "compressed" ? "bg-primary text-on-primary shadow-sm" : "text-on-surface-variant hover:text-on-surface"
+                                  }`}
+                                >
+                                  60-Word
+                                </button>
+                                <button
+                                  onClick={() => setSelectedOpenerLength("expanded")}
+                                  className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                                    selectedOpenerLength === "expanded" ? "bg-primary text-on-primary shadow-sm" : "text-on-surface-variant hover:text-on-surface"
+                                  }`}
+                                >
+                                  140-Word
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <p className="text-sm font-display italic font-medium leading-relaxed text-on-surface pr-8">
+                            &ldquo;{
+                              activeBrief.id === "master"
+                                ? selectedOpenerLength === "compressed"
+                                  ? PODCAST_BRIEFS_DATA.find(b => b.id === "bigtech")?.sections.find(s => s.type === "redirect")?.quote
+                                  : selectedOpenerLength === "expanded"
+                                  ? PODCAST_BRIEFS_DATA.find(b => b.id === "acquired")?.sections.find(s => s.type === "redirect")?.quote
+                                  : section.quote
+                                : section.quote
+                            }&rdquo;
+                          </p>
+                          
+                          <button
+                            onClick={() => handleCopyText(
+                              (activeBrief.id === "master"
+                                ? selectedOpenerLength === "compressed"
+                                  ? PODCAST_BRIEFS_DATA.find(b => b.id === "bigtech")?.sections.find(s => s.type === "redirect")?.quote
+                                  : selectedOpenerLength === "expanded"
+                                  ? PODCAST_BRIEFS_DATA.find(b => b.id === "acquired")?.sections.find(s => s.type === "redirect")?.quote
+                                  : section.quote
+                                : section.quote) || "",
+                              "opener"
+                            )}
+                            className="absolute right-3.5 bottom-3.5 p-2 rounded-full bg-surface-container-high border border-outline-variant/10 text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-all shadow-sm cursor-pointer"
+                            title="Copy Opener Statement"
+                          >
+                            {copiedText === "opener" ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                          </button>
+                        </div>
+                      )}
+
+                      {section.type === "anecdotes" && section.anecdotes && (
+                        <div className="space-y-4">
+                          {section.anecdotes.map((anec, index) => (
+                            <div key={index} className="bg-inverse-surface text-inverse-on-surface border border-outline-variant/10 rounded-2xl p-5 shadow-sm">
+                              <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                                <span className="font-mono text-[9px] uppercase tracking-wider text-primary-container font-extrabold">
+                                  {anec.number} · {anec.title}
+                                </span>
+                                <span className="font-mono text-[9px] text-white/55 font-bold uppercase tracking-widest flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {anec.runtime}
+                                </span>
+                              </div>
+                              
+                              <div className="space-y-3 mb-4">
+                                {anec.text.map((t, ti) => (
+                                  <p key={ti} className="text-xs md:text-sm text-white/80 leading-relaxed font-body">
+                                    {t}
+                                  </p>
+                                ))}
+                              </div>
+                              
+                              <div className="border-t border-white/10 pt-3 flex items-start gap-2">
+                                <span className="text-[10px] font-mono uppercase tracking-widest text-primary-container font-black mt-0.5">
+                                  PAYLOAD //
+                                </span>
+                                <p className="text-xs italic text-white/95 font-headline font-bold">
+                                  {anec.punchline}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "stats" && section.stats && (
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-surface-container-low/30 border border-outline-variant/10 rounded-2xl p-4">
+                          {section.stats.map((stat, index) => (
+                            <div key={index} className="bg-surface-container-lowest border border-outline-variant/15 rounded-xl p-4 flex flex-col justify-between shadow-sm relative group hover:border-primary/30 transition-all">
+                              <div className="text-2xl md:text-3xl font-headline font-extrabold text-primary italic tracking-tight">
+                                {stat.number}
+                              </div>
+                              <div className="text-[9px] font-mono uppercase font-bold tracking-wider text-on-surface-variant mt-2 leading-tight">
+                                {stat.label}
+                              </div>
+                              
+                              <button
+                                onClick={() => handleCopyText(`${stat.number} - ${stat.label}`, `stat-${index}`)}
+                                className="absolute right-2 top-2 p-1 rounded-md opacity-0 group-hover:opacity-100 bg-surface-container-low border border-outline-variant/5 text-on-surface-variant hover:text-primary transition-all cursor-pointer"
+                                title="Copy Stat"
+                              >
+                                {copiedText === `stat-${index}` ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "qa" && section.qa && (
+                        <div className="space-y-4">
+                          {section.qa.map((item, index) => {
+                            const qaKey = `qa-${idx}-${index}`;
+                            const isExpanded = expandedEpisode === qaKey;
+                            return (
+                              <div 
+                                key={index} 
+                                className={`border rounded-2xl p-4 md:p-5 shadow-sm transition-all duration-300 ${
+                                  item.isHard
+                                    ? "bg-gradient-to-br from-red-500/5 to-surface-container-lowest border-red-500/20"
+                                    : "bg-surface-container-lowest border-outline-variant/15"
+                                }`}
+                              >
+                                <button
+                                  onClick={() => setExpandedEpisode(isExpanded ? null : qaKey)}
+                                  className="w-full flex items-start justify-between text-left gap-4 cursor-pointer"
+                                >
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                      <span className="font-mono text-[9px] uppercase tracking-wider text-primary font-bold">
+                                        REHEARSAL QUESTION {index + 1}
+                                      </span>
+                                      {item.isHard && (
+                                        <span className="inline-flex items-center gap-1 font-mono text-[8px] bg-red-500/10 text-red-600 px-2 py-0.5 rounded font-black tracking-widest uppercase border border-red-500/15">
+                                          <ShieldAlert className="w-2.5 h-2.5" />
+                                          HARD QUESTION
+                                        </span>
+                                      )}
+                                    </div>
+                                    <h4 className="text-sm md:text-base font-headline font-extrabold text-on-surface leading-snug tracking-tight">
+                                      Q • {item.question}
+                                    </h4>
+                                  </div>
+                                  <div className="w-6 h-6 rounded-full bg-surface-container-low border border-outline-variant/10 flex items-center justify-center text-on-surface-variant flex-shrink-0">
+                                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                  </div>
+                                </button>
+                                
+                                <AnimatePresence>
+                                  {isExpanded && (
+                                    <motion.div
+                                      initial={{ opacity: 0, height: 0 }}
+                                      animate={{ opacity: 1, height: "auto" }}
+                                      exit={{ opacity: 0, height: 0 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="overflow-hidden"
+                                    >
+                                      <div className="border-t border-outline-variant/10 mt-3 pt-3 flex items-start gap-2 relative">
+                                        <span className="text-xs font-mono text-primary font-extrabold mt-0.5">A •</span>
+                                        <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed font-body pr-8">
+                                          {item.answer}
+                                        </p>
+                                        
+                                        <button
+                                          onClick={() => handleCopyText(item.answer, qaKey)}
+                                          className="absolute right-0 bottom-0 p-1.5 rounded-full bg-surface-container-low border border-outline-variant/10 text-on-surface-variant hover:text-primary transition-all shadow-sm cursor-pointer"
+                                          title="Copy Response Statement"
+                                        >
+                                          {copiedText === qaKey ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                                        </button>
+                                      </div>
+                                    </motion.div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {section.type === "reach-throughs" && section.reachThroughs && (
+                        <div className="space-y-4">
+                          {section.reachThroughs.map((rt, index) => (
+                            <div key={index} className="bg-surface-container-low/50 border border-outline-variant/10 rounded-2xl p-5 shadow-sm">
+                              <h4 className="font-headline font-extrabold text-on-surface text-sm md:text-base mb-2">
+                                {rt.title}
+                              </h4>
+                              <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed mb-3">
+                                {rt.description}
+                              </p>
+                              {rt.quote && (
+                                <div className="border-l-2 border-primary pl-3 py-1 bg-primary/5 rounded-r-xl relative group">
+                                  <span className="block text-[8px] font-mono uppercase tracking-widest text-primary font-bold mb-1">CANONICAL PHRASE</span>
+                                  <p className="text-xs font-headline italic font-bold text-on-surface pr-8 leading-relaxed">
+                                    &ldquo;{rt.quote}&rdquo;
+                                  </p>
+                                  <button
+                                    onClick={() => handleCopyText(rt.quote || "", `rt-${index}`)}
+                                    className="absolute right-2 bottom-1 p-1 opacity-0 group-hover:opacity-100 rounded bg-surface-container-high text-on-surface-variant hover:text-primary transition-all cursor-pointer"
+                                    title="Copy Phrase"
+                                  >
+                                    {copiedText === `rt-${index}` ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "clippables" && section.clippables && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {section.clippables.map((clip, index) => (
+                            <div key={index} className="bg-surface-container-low border border-outline-variant/10 rounded-2xl p-4 flex flex-col justify-between shadow-sm relative group hover:border-primary/20 transition-all">
+                              <div>
+                                <span className="block font-mono text-[9px] text-primary uppercase font-bold tracking-widest mb-1.5">
+                                  {clip.title}
+                                </span>
+                                <p className="text-xs font-headline italic font-bold text-on-surface pr-6 leading-relaxed">
+                                  &ldquo;{clip.quote}&rdquo;
+                                </p>
+                              </div>
+                              <button
+                                onClick={() => handleCopyText(clip.quote, `clip-${index}`)}
+                                className="absolute right-3.5 bottom-3.5 p-1.5 opacity-0 group-hover:opacity-100 rounded-full bg-surface-container-lowest border border-outline-variant/10 text-on-surface-variant hover:text-primary transition-all shadow-sm cursor-pointer"
+                                title="Copy Clip Quote"
+                              >
+                                {copiedText === `clip-${index}` ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "references" && section.references && (
+                        <div className="space-y-4">
+                          {section.references.map((ref, index) => (
+                            <div key={index} className="bg-surface-container-low/40 border border-outline-variant/10 rounded-2xl p-5 shadow-sm">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-headline font-extrabold text-on-surface text-sm md:text-base">
+                                  Reference • {ref.episode}
+                                </h4>
+                              </div>
+                              <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed mb-3">
+                                {ref.description}
+                              </p>
+                              <div className="border-l-2 border-primary pl-3 py-1 bg-primary/5 rounded-r-xl relative group">
+                                <span className="block text-[8px] font-mono uppercase tracking-widest text-primary font-bold mb-1">ANALOGOUS RESPONSE</span>
+                                <p className="text-xs font-headline italic font-bold text-on-surface pr-8 leading-relaxed">
+                                  &ldquo;{ref.quote}&rdquo;
+                                </p>
+                                <button
+                                  onClick={() => handleCopyText(ref.quote, `ref-${index}`)}
+                                  className="absolute right-2 bottom-1 p-1 opacity-0 group-hover:opacity-100 rounded bg-surface-container-high text-on-surface-variant hover:text-primary transition-all cursor-pointer"
+                                  title="Copy Response Quote"
+                                >
+                                  {copiedText === `ref-${index}` ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "arguments" && section.arguments && (
+                        <div className="space-y-4">
+                          {section.arguments.map((arg, index) => (
+                            <div key={index} className="bg-surface-container-low border border-outline-variant/10 rounded-2xl p-5 shadow-sm hover:border-primary/20 transition-all">
+                              <h4 className="font-headline font-extrabold text-on-surface text-sm md:text-base mb-1.5 flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                {arg.title}
+                              </h4>
+                              <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed">
+                                {arg.description}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "rules" && section.rules && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {section.rules.map((rule, index) => (
+                            <div key={index} className="bg-surface-container-lowest border border-outline-variant/15 rounded-2xl p-4 flex flex-col justify-between shadow-sm relative group hover:border-red-500/20 transition-all">
+                              <div>
+                                <div className="flex items-center gap-1.5 mb-2.5">
+                                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                  <span className="font-mono text-[9px] text-red-600 uppercase font-black tracking-widest">
+                                    {rule.title.split(' · ')[0]}
+                                  </span>
+                                </div>
+                                <h4 className="text-sm font-headline font-extrabold text-on-surface leading-tight mb-2">
+                                  {rule.title.split(' · ')[1]}
+                                </h4>
+                                <p className="text-xs text-on-surface-variant leading-relaxed mb-1 font-body">
+                                  {rule.description}
+                                </p>
+                              </div>
+                              <div className="border-t border-outline-variant/10 pt-2.5 mt-3.5 flex items-start gap-1">
+                                <span className="text-[9px] font-mono uppercase tracking-widest text-red-500 font-extrabold">RULE:</span>
+                                <span className="text-[11px] font-headline font-bold italic text-red-600 leading-tight">
+                                  {rule.guideline}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {section.type === "appendix" && section.appendixItems && (
+                        <div className="border border-outline-variant/15 rounded-2xl overflow-hidden shadow-sm bg-surface-container-low/10">
+                          {/* Table Header */}
+                          <div className="hidden md:grid grid-cols-12 gap-4 bg-inverse-surface text-inverse-on-surface font-mono text-[9px] tracking-widest uppercase font-extrabold py-3.5 px-5 border-b border-outline-variant/10">
+                            <div className="col-span-3">Pod • Host</div>
+                            <div className="col-span-7">Strategic Positioning • Opener Frame</div>
+                            <div className="col-span-2 text-right">Priority Tier</div>
+                          </div>
+                          
+                          {/* Table Rows */}
+                          <div className="divide-y divide-outline-variant/10">
+                            {section.appendixItems.map((item, index) => (
+                              <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-5 hover:bg-surface-container-low/40 transition-colors items-start">
+                                <div className="col-span-1 md:col-span-3">
+                                  <h4 className="font-headline font-extrabold text-on-surface text-sm leading-snug">
+                                    {item.name}
+                                  </h4>
+                                  <span className="block font-mono text-[9.5px] uppercase tracking-wider text-on-surface-variant/80 mt-1 font-bold">
+                                    {item.host}
+                                  </span>
+                                </div>
+                                <div className="col-span-1 md:col-span-7 text-xs md:text-sm text-on-surface-variant leading-relaxed">
+                                  {item.strategy}
+                                </div>
+                                <div className="col-span-1 md:col-span-2 flex md:justify-end">
+                                  <span className={`inline-flex items-center px-3 py-1 rounded-full font-mono text-[9px] font-extrabold tracking-wider uppercase ${
+                                    item.tier.includes("Tier A")
+                                      ? "bg-primary/10 text-primary border border-primary/20"
+                                      : "bg-surface-container-high text-on-surface-variant border border-outline-variant/20"
+                                  }`}>
+                                    {item.tier}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="pt-32 pb-36 px-4 md:px-12 max-w-7xl mx-auto min-h-screen text-on-surface">
       {/* Decorative Blur Backdrops */}
@@ -455,7 +1033,40 @@ export default function Podcasts() {
         </Link>
       </header>
 
-      {loadingEpisodes ? (
+      {/* View Toggle tabs */}
+      <div className="flex justify-center md:justify-start mb-12 relative z-10 border-b border-outline-variant/10 pb-4">
+        <div className="flex items-center gap-2 bg-surface-container-low border border-outline-variant/20 rounded-full p-1 shadow-sm font-headline">
+          <button
+            onClick={() => setActiveTab("episodes")}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              activeTab === "episodes"
+                ? "bg-primary text-on-primary shadow-md"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+          >
+            <Radio className="w-4 h-4" />
+            Broadcasting Archives
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("briefs");
+              setExpandedEpisode(null);
+            }}
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              activeTab === "briefs"
+                ? "bg-primary text-on-primary shadow-md"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+          >
+            <Lock className="w-3.5 h-3.5" />
+            Confidential Briefings
+          </button>
+        </div>
+      </div>
+
+      {activeTab === "briefs" ? (
+        renderBriefingsDashboard()
+      ) : loadingEpisodes ? (
         <div className="flex items-center justify-center py-32">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
@@ -1013,12 +1624,15 @@ export default function Podcasts() {
           </div>
         )}
       </section>
+      </>
+      )}
 
       <ShareModal 
         episode={shareEpisode}
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
       />
+
 
       {/* Let's Talk Secure Communications Portal */}
       <section id="podcasts-contact-section" className="bg-surface-container-low border border-outline-variant/20 rounded-3xl p-8 md:p-12 mb-12 relative z-10 shadow-lg">
@@ -1307,8 +1921,8 @@ export default function Podcasts() {
           </motion.div>
         )}
       </AnimatePresence>
-      </>
-      )}
     </div>
   );
 }
+
+// Force HMR reload and clear Vite terminal cache

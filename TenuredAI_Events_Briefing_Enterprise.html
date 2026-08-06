@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCH_02 // Commercial Velocity — Get Tenured Enterprise Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GET TENURED — EVENT BRIEFING SERIES
+   ARCH_02 // COMMERCIAL VELOCITY
+   Audience: CTOs · VPs Engineering · HR Ops · Strategy Partners
+   ============================================================ */
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4D4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;
+  --amber:#FFBF00;--cyan:#22D3EE;
+  --font-headline:'Sora',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --maxw:1120px;--r-xl:1.25rem;--r-2xl:1.5rem;--term:#16140F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(197,160,89,.3)}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.12}
+.mono{font-family:var(--font-mono)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+@media(max-width:720px){.wrap{padding:0 22px}}
+section.bk{padding:88px 0}
+section.bk.alt{background:var(--sc-low)}
+.kicker{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.kicker .num{font-family:var(--font-mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.kicker .lbl{text-transform:uppercase;letter-spacing:.22em;font-size:10px;font-weight:700;color:var(--on-surface-variant)}
+h2.sec{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;max-width:22ch;margin-bottom:20px}
+.lede{font-size:1.07rem;color:var(--on-surface-variant);max-width:66ch;margin-bottom:44px}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:24px}
+section.bk.alt .tile{background:var(--sc-lowest);box-shadow:var(--editorial)}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.g2,.g3{grid-template-columns:1fr}}
+
+.masthead{padding:36px 0 0}
+.masthead .row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px}
+.brand{font-family:var(--font-headline);font-weight:700;font-size:17px;letter-spacing:-.03em}
+.brand .dot{color:var(--primary-container)}
+.doccode{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em}
+.doccode b{color:var(--primary);font-weight:700}
+
+.hero{padding:96px 0 88px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-24%;right:-10%;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(44,71,113,.12) 0%,transparent 68%);pointer-events:none}
+.hero .stamp{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--tertiary);background:var(--sc-low);padding:8px 16px;border-radius:9999px;margin-bottom:30px}
+.hero .stamp::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+.hero h1{font-size:clamp(2.4rem,6vw,4.3rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;max-width:18ch}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.hero p{font-size:1.14rem;color:var(--on-surface-variant);max-width:62ch;margin-top:26px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em}
+.hero .meta b{display:block;font-size:21px;color:var(--on-surface);font-weight:400;letter-spacing:0;margin-top:4px}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;padding:15px 28px;border-radius:9999px;transition:transform .18s,box-shadow .18s;cursor:pointer;text-decoration:none}
+.btn-sov{background:var(--sovereign);color:#fff;box-shadow:0 12px 28px -8px rgba(119,90,25,.35)}
+.btn-sov:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(119,90,25,.45)}
+.btn-ghost{background:var(--sc-low);color:var(--on-surface)}
+.btn-ghost:hover{background:var(--sc-high)}
+
+.term{background:var(--term);border-radius:var(--r-2xl);padding:28px 30px;color:#D8D2C4;font-family:var(--font-mono);font-size:12.5px;line-height:1.9;box-shadow:var(--ambient);position:relative;overflow:hidden}
+.term::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none}
+.term .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.term .cyan{color:var(--cyan)}
+.term .dim{color:#8A8474}
+
+.score-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.score-head .code{font-family:var(--font-mono);font-size:18px;font-weight:700;letter-spacing:.02em}
+.score-head .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tertiary);background:var(--surface);padding:5px 12px;border-radius:9999px}
+.tile h4{font-size:14.5px;margin-bottom:8px}
+.tile p{font-size:13.5px;color:var(--on-surface-variant)}
+
+.phase{display:grid;grid-template-columns:120px 1fr;gap:28px;padding:30px 0}
+@media(max-width:720px){.phase{grid-template-columns:1fr;gap:10px}}
+.phase .pn{font-family:var(--font-mono);font-size:26px;color:var(--primary)}
+.phase .pn small{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:6px}
+.phase h3{font-size:19px;margin-bottom:10px}
+.phase p{font-size:14px;color:var(--on-surface-variant);max-width:64ch}
+
+.ledger{display:flex;flex-wrap:wrap;gap:2px;border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--editorial)}
+.ledger .cell{flex:1 1 220px;background:var(--sc-lowest);padding:26px}
+.ledger .cell .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:10px}
+.ledger .cell .v{font-family:var(--font-mono);font-size:20px}
+.ledger .cell .v em{font-style:normal;color:var(--primary)}
+.ledger .cell p{font-size:12.5px;color:var(--on-surface-variant);margin-top:10px}
+
+/* Pricing spec table */
+.spec{background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--editorial);overflow:hidden;font-family:var(--font-mono)}
+.spec .row{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:20px 30px}
+.spec .row:nth-child(even){background:var(--sc-low)}
+@media(max-width:720px){.spec .row{grid-template-columns:1fr;gap:6px}}
+.spec .k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);padding-top:3px}
+.spec .v{font-size:14px}
+.spec .v em{font-style:normal;color:var(--primary);font-weight:700}
+
+.foot-cta{padding:96px 0 110px}
+.foot-cta .card{padding:52px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:30px}
+.foot-cta h2{font-size:clamp(1.7rem,3vw,2.4rem);max-width:20ch}
+.colophon{padding:34px 0 44px;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);letter-spacing:.08em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<header class="masthead wrap">
+  <div class="row">
+    <div class="brand">Tenured<span class="dot">.</span>AI</div>
+    <div class="doccode">DEPLOYMENT BLUEPRINT · <b>ARCH_02</b> · CLASSIFICATION: ENTERPRISE NODE</div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero wrap">
+  <div class="hero-glow"></div>
+  <span class="stamp">GET TENURED // ENTERPRISE TRACK</span>
+  <h1>Commercial velocity begins where <span class="gild">guesswork ends.</span></h1>
+  <p>Your company does not have an AI adoption problem. It has an AI utilization and trust problem. Throwing software at untrained teams creates systemic liabilities. The Get Tenured Enterprise Track is a low-friction, high-velocity operational pilot: your engineering and leadership teams enter the Proving Ground and leave with underwritten, ledger-verified competency telemetry.</p>
+  <div class="meta">
+    <div>FORMAT<b>Deployment Lab</b></div>
+    <div>ARCHETYPES<b>CTO · VP Eng · HR Ops</b></div>
+    <div>TEAM PASS<b>$1,999 / 5 Seats</b></div>
+    <div>FEE STATUS<b>100% Creditable</b></div>
+  </div>
+</section>
+
+<!-- ================= 01 THE HOOK ================= -->
+<section class="bk alt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">01</span><span class="lbl">The Premise</span></div>
+    <h2 class="sec">Stop guessing who on your team can actually orchestrate agentic workflows.</h2>
+    <p class="lede">Underwrite their actual competency. Mitigate model liabilities. Scale organizational capacity through rigorous telemetry. Instead of theoretical lectures, your leadership and management teams will see exactly how Tenured AI maps a workforce against a 4,000-node competency ontology — live, in the room, on their own work.</p>
+    <div class="term">
+      <span class="dim">$</span> tenured --audit workforce --org acme_corp<br>
+      <span class="dim">>> mapping 42 operators against ontology [4,000 nodes]</span><br>
+      <span class="dim">>> self-reported "AI proficient" .........</span> <span class="cyan">38 / 42</span><br>
+      <span class="dim">>> stress-validated under drift ..........</span> <span class="amber">7 / 42</span><br>
+      <span class="dim">>> exposure:</span> the delta between those two numbers is your liability surface.
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 MECHANICS ================= -->
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">02</span><span class="lbl">Event Mechanics</span></div>
+    <h2 class="sec">The Enterprise Deployment Lab.</h2>
+    <p class="lede">Your teams bring their current tech stacks. They enter the Proving Ground. They build, deploy, and stress-test agentic systems under simulated adversarial drift — and every movement is measured.</p>
+    <div class="card" style="padding:12px 34px">
+      <div class="phase">
+        <div class="pn">01<small>Baseline</small></div>
+        <div><h3>Organizational Calibration</h3><p>Each operator is onboarded into the connectionist architecture and mapped against the competency ontology. Leadership receives a live baseline readout: who can build, who can orchestrate, and where the gaps sit.</p></div>
+      </div>
+      <div class="phase">
+        <div class="pn">02<small>Stress</small></div>
+        <div><h3>Adversarial Deployment Drills</h3><p>Engineering teams deploy agentic workflows against your real stack conditions while the Chaos Injection Engine introduces model drift, friction injection, and security constraints. Mid-tier and senior engineers exit with updated AIBS™ scores synced to the ledger.</p></div>
+      </div>
+      <div class="phase">
+        <div class="pn">03<small>Underwrite</small></div>
+        <div><h3>The Executive Briefing</h3><p>Closed-door strategic session for leadership: workforce underwriting, responsible AI guardrails, and implementing the 40/40/20 Dividend Engine across the organization. You leave with a definitive roadmap to calculate your systemic AICI™ and deploy a pilot node.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 THE PAYLOAD ================= -->
+<section class="bk alt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">03</span><span class="lbl">The Payload</span></div>
+    <h2 class="sec">The instrumentation your org walks out with.</h2>
+    <div class="grid g2">
+      <div class="tile">
+        <div class="score-head"><span class="code">AICI™</span><span class="tag">Baseline</span></div>
+        <h4>AI Competency Index</h4>
+        <p>Establishes a workforce-wide baseline for personal AI productivity and safe, ethical tool use — the floor every hire and every team is measured against.</p>
+      </div>
+      <div class="tile">
+        <div class="score-head"><span class="code">AIOI™</span><span class="tag">Strategic Layer</span></div>
+        <h4>AI Orchestrator Score</h4>
+        <p>A strategic measure of system management, workflow architecture, and Human-in-the-Loop deployment. Identifies which managers can actually run agentic operations.</p>
+      </div>
+      <div class="tile">
+        <div class="score-head"><span class="code">AIBS™</span><span class="tag">Engineering Depth</span></div>
+        <h4>AI Builder Score</h4>
+        <p>High-fidelity technical verification for engineering proprietary AI infrastructure — RAG architecture, API engineering, fine-tuning, and agentic programming.</p>
+      </div>
+      <div class="tile">
+        <div class="score-head"><span class="code">40/40/20</span><span class="tag">Fiscal Structure</span></div>
+        <h4>The Dividend Engine</h4>
+        <p>The structural and fiscal framework aligning capital, user governance, and infrastructure resilience — briefed in full during the executive session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 COMMERCIAL TERMS ================= -->
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">04</span><span class="lbl">Commercial Interface</span></div>
+    <h2 class="sec">Priced to filter for intent. Structured to convert to infrastructure.</h2>
+    <p class="lede">Enterprise admission is a paid, application-gated track. The price filters out casual observers — everyone in the room is highly motivated — and the fee itself converts into platform onboarding.</p>
+    <div class="spec">
+      <div class="row"><div class="k">Interface</div><div class="v">PAID ADMISSION + APPLICATION GATE</div></div>
+      <div class="row"><div class="k">Individual Operator Seat</div><div class="v"><em>$499</em> / NODE SEAT</div></div>
+      <div class="row"><div class="k">Enterprise Team Pass</div><div class="v"><em>$1,999</em> / UP TO 5 SEATS</div></div>
+      <div class="row"><div class="k">Value Loop</div><div class="v">TICKET PRICE 100% CREDITABLE toward a Tier 1 or Tier 2 platform subscription — institutional agreement signed within 30 days of the event</div></div>
+      <div class="row"><div class="k">Payload</div><div class="v">PROVING GROUND CREDITS · LEDGER-SYNCED AIBS™ · SYSTEMIC AICI™ ROADMAP</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 NODES ================= -->
+<section class="bk alt">
+  <div class="wrap">
+    <div class="kicker"><span class="num">05</span><span class="lbl">Regional Deployments</span></div>
+    <h2 class="sec">The Enterprise Circuit.</h2>
+    <div class="grid g2">
+      <div class="tile">
+        <div class="score-head"><span class="code">NODE_HOU</span><span class="tag">Day 1 · Enterprise</span></div>
+        <h4>Enterprise Deployment Lab — Houston</h4>
+        <p>Intensive technical onboarding. Corporate engineering teams bring their current stacks into the Proving Ground and stress-test agentic systems under simulated adversarial drift.</p>
+      </div>
+      <div class="tile">
+        <div class="score-head"><span class="code">NODE_NYC</span><span class="tag">Day 1 · Enterprise</span></div>
+        <h4>High-Frequency Analytics Track — New York</h4>
+        <p>High-stakes architectural briefing for enterprise strategists, consulting firms, and technical founders. Predictive analytics alignment, high-velocity agentic workflows, and formalized IP logic. Exit with execution-ready blueprints for enterprise competency indexing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 STRATEGIC LOOP ================= -->
+<section class="bk">
+  <div class="wrap">
+    <div class="kicker"><span class="num">06</span><span class="lbl">The Strategic Loop</span></div>
+    <h2 class="sec">A low-friction trial for a high-conviction contract.</h2>
+    <p class="lede">Hesitant to commit to a multi-seat license? Send a five-person leadership team to a regional node instead. Once your leadership experiences the calibration telemetry in person, transitioning into a full enterprise deployment becomes the natural next step — and your ticket spend rolls directly into that contract.</p>
+    <div class="ledger">
+      <div class="cell"><div class="k">Step 01</div><div class="v">Deploy <em>5 Seats</em></div><p>One team pass. One day. Your leadership sees the full underwriting apparatus operate on their own workflows.</p></div>
+      <div class="cell"><div class="k">Step 02</div><div class="v">Read the <em>Telemetry</em></div><p>Baseline readouts, ledger-synced scores, and a systemic AICI™ roadmap specific to your organization.</p></div>
+      <div class="cell"><div class="k">Step 03</div><div class="v">Convert to <em>Node</em></div><p>Sign within 30 days and the full ticket spend credits against your Tier 1 or Tier 2 platform onboarding.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOT CTA ================= -->
+<section class="foot-cta wrap">
+  <div class="card">
+    <h2>Underwrite the workforce you actually have.</h2>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <a class="btn btn-sov" href="#">Initialize Enterprise Node // Deploy Leadership Cohort →</a>
+      <a class="btn btn-ghost" href="#">Secure Corporate Seats</a>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon wrap">
+  <span>TENURED.AI // GET TENURED EVENT SERIES</span>
+  <span>ARCH_02 · REV 1.0 · TRACK_01: ENTERPRISE</span>
+</footer>
+
+</body>
+</html>

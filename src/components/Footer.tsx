@@ -43,6 +43,8 @@ export default function Footer() {
               <li><Link to="/recruiters" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Recruiters</Link></li>
               <li><Link to="/universities" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Universities</Link></li>
               <li><Link to="/enterprise" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Enterprise (EWARD)</Link></li>
+              <li><Link to="/events" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Events &amp; Briefings</Link></li>
+              <li><Link to="/tenured-agent" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Tenured Agent</Link></li>
             </ul>
           </div>
 
@@ -55,6 +57,8 @@ export default function Footer() {
               <li><Link to="/responsible-ai" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Responsible AI</Link></li>
               <li><Link to="/about" className="text-sm text-on-surface-variant hover:text-primary transition-colors">About</Link></li>
               <li><Link to="/podcasts" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Podcasts</Link></li>
+              <li><Link to="/underwriting" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Verification</Link></li>
+              <li><Link to="/leaderboard" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Leaderboard</Link></li>
             </ul>
           </div>
 

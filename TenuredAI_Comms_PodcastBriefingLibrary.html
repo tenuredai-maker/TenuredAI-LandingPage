@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podcast Brief Library · Master Template + 4 Custom Briefs · Tenured AI</title>
+<meta name="description" content="Master podcast briefing template plus four fully customized example briefs for Acquired, Big Technology, Future of Insurance, and 20VC. Used to brief Dameon Brown and onboard future Tenured AI senior spokespeople for podcast appearances during and after the Series A and Grand Opening cycle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+ * TENURED AI · PODCAST BRIEFING LIBRARY
+ * Master template + 4 fully customized briefs + 5-pod appendix.
+ * Sovereign brand chrome. Densely packed for internal coaching use.
+ * ===================================================================== */
+
+:root{--surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;--on-surface:#1C1C1A;--on-surface-variant:#4E4639;--on-surface-mute:#6F6759;--primary:#775A19;--primary-container:#C5A059;--sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);--tertiary:#2C4771;--tertiary-soft:#8FA5D6;--outline-variant:#D1C5B4;--amber:#FFBF00;--error:#BA1A1A;--inverse-surface:#1C1C1A;--inverse-on-surface:#F3F0EC;--font-display:'Fraunces',serif;--font-headline:'Sora',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--editorial:0 24px 40px -12px rgba(28,28,26,.08);--r-md:.75rem;--r-lg:1rem;--r-xl:1.25rem;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;position:relative;}
+body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");opacity:.025;pointer-events:none;z-index:1;mix-blend-mode:multiply;}
+main{position:relative;z-index:2}
+
+.masthead{max-width:1280px;margin:0 auto;padding:32px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--sc-high);}
+@media(max-width:780px){.masthead{padding:24px}}
+.masthead .brand{font-family:var(--font-display);font-weight:400;font-style:italic;font-size:1.35rem;letter-spacing:-.015em;color:var(--on-surface);}
+.masthead .brand .mark{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:500;}
+.masthead .meta{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;}
+
+.classified{background:var(--inverse-surface);color:var(--inverse-on-surface);padding:14px 48px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:1280px;margin:0 auto;}
+@media(max-width:780px){.classified{padding:12px 24px}}
+.classified .pill{background:var(--primary);color:var(--inverse-on-surface);padding:5px 12px;border-radius:999px;font-size:10px;letter-spacing:.22em;}
+.classified .desc{color:var(--primary-container);font-weight:600;}
+
+/* ====================== HERO ====================== */
+.hero{max-width:1100px;margin:0 auto;padding:72px 48px 48px;}
+@media(max-width:780px){.hero{padding:48px 24px 32px}}
+.hero .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:24px;display:flex;align-items:center;gap:14px;}
+.hero .eyebrow::before{content:"";width:28px;height:1px;background:var(--primary);display:inline-block;}
+.hero h1{font-family:var(--font-display);font-weight:300;font-size:clamp(2.4rem,5.2vw,4.2rem);line-height:1.02;letter-spacing:-.032em;margin-bottom:28px;max-width:22ch;}
+.hero h1 em{font-style:italic;color:var(--on-surface-variant);font-weight:300;}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500;}
+.hero .dek{font-family:var(--font-display);font-weight:300;font-style:italic;font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.45;letter-spacing:-.012em;color:var(--on-surface-variant);max-width:64ch;margin-bottom:36px;}
+.hero .meta-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--sc-high);font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-mute);}
+.hero .meta-row strong{color:var(--on-surface);font-weight:700}
+.hero .meta-row .dot{color:var(--primary);font-weight:700}
+
+/* ====================== TABLE OF CONTENTS ====================== */
+.toc{max-width:1100px;margin:0 auto;padding:0 48px 48px;}
+@media(max-width:780px){.toc{padding:0 24px 32px}}
+.toc .lbl{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:18px;}
+.toc h2{font-family:var(--font-display);font-weight:400;font-size:1.6rem;color:var(--on-surface);margin-bottom:24px;letter-spacing:-.014em;}
+.toc h2 em{font-style:italic;color:var(--on-surface-variant)}
+.toc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:780px){.toc-grid{grid-template-columns:1fr}}
+.toc-row{background:var(--sc-lowest);padding:18px 22px;border-radius:var(--r-lg);box-shadow:var(--editorial);text-decoration:none;color:inherit;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;transition:transform .15s ease;}
+.toc-row:hover{transform:translateY(-1px);}
+.toc-row .l-meta{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:5px;}
+.toc-row .l-title{font-family:var(--font-headline);font-weight:700;font-size:1.02rem;color:var(--on-surface);line-height:1.25;letter-spacing:-.005em;}
+.toc-row .l-sub{font-size:.85rem;color:var(--on-surface-mute);margin-top:4px;}
+.toc-row .arrow{font-family:var(--font-mono);color:var(--primary);font-weight:700;flex-shrink:0;}
+.toc-row.featured{background:linear-gradient(135deg,rgba(197,160,89,.05),var(--sc-lowest));border-left:3px solid var(--primary);}
+
+/* ====================== BRIEF SECTION (a podcast brief) ====================== */
+.brief{max-width:1100px;margin:0 auto;padding:64px 48px;border-top:1px solid var(--sc-high);}
+@media(max-width:780px){.brief{padding:48px 24px}}
+
+.brief .brief-head{margin-bottom:48px;}
+.brief .brief-head .arc{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.brief .brief-head .arc::before{content:"";width:24px;height:1px;background:var(--primary);}
+.brief .brief-head h2{font-family:var(--font-display);font-weight:300;font-size:clamp(2rem,4.4vw,3.4rem);line-height:1.02;letter-spacing:-.028em;margin-bottom:18px;max-width:22ch;}
+.brief .brief-head h2 em{font-style:italic;color:var(--on-surface-variant);font-weight:300;}
+.brief .brief-head h2 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500;}
+.brief .brief-head .dek{font-family:var(--font-display);font-weight:300;font-style:italic;font-size:1.25rem;line-height:1.45;color:var(--on-surface-variant);max-width:60ch;margin-bottom:24px;letter-spacing:-.01em;}
+
+.brief .pod-card{background:var(--sc-lowest);padding:28px 32px;border-radius:var(--r-lg);box-shadow:var(--editorial);display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:32px;}
+@media(max-width:780px){.brief .pod-card{grid-template-columns:1fr;gap:18px;padding:24px}}
+.pod-card .field{}
+.pod-card .field .k{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:6px;}
+.pod-card .field .v{font-family:var(--font-headline);font-weight:600;font-size:.96rem;color:var(--on-surface);line-height:1.5;}
+.pod-card .field .v.big{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.4rem;line-height:1.1;color:var(--on-surface);}
+
+/* ====================== BRIEF CONTENT BLOCKS ====================== */
+.brief h3{font-family:var(--font-display);font-weight:400;font-size:clamp(1.5rem,2.6vw,1.95rem);line-height:1.12;letter-spacing:-.018em;color:var(--on-surface);margin:48px 0 18px;max-width:30ch;}
+.brief h3 em{font-style:italic;color:var(--on-surface-variant)}
+.brief h3 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500;}
+
+.brief .sec-num{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin:48px 0 -12px;display:flex;align-items:center;gap:12px;}
+.brief .sec-num::before{content:"";width:24px;height:1px;background:var(--primary);}
+.brief .sec-num + h3{margin-top:16px;}
+
+.brief p{font-size:1rem;line-height:1.65;color:var(--on-surface);margin-bottom:1.2em;}
+.brief p strong{font-weight:700;color:var(--on-surface)}
+.brief p em{font-style:italic;color:var(--on-surface-variant)}
+
+.brief .lede{font-family:var(--font-display);font-weight:400;font-style:italic;font-size:1.2rem;line-height:1.5;color:var(--on-surface);margin-bottom:1.6em;letter-spacing:-.008em;}
+
+/* Talking-points list */
+.tp-list{margin:1em 0 1.6em;padding:0;list-style:none;}
+.tp-list li{position:relative;padding:14px 0 14px 36px;border-top:1px solid var(--sc-high);font-size:.98rem;line-height:1.6;color:var(--on-surface);}
+.tp-list li:last-child{border-bottom:1px solid var(--sc-high)}
+.tp-list li::before{content:counter(li,decimal-leading-zero);counter-increment:li;position:absolute;left:0;top:14px;font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--primary);letter-spacing:.04em;}
+.tp-list{counter-reset:li;}
+.tp-list li strong{display:block;font-family:var(--font-headline);font-weight:700;color:var(--on-surface);margin-bottom:5px;font-size:1rem;letter-spacing:-.005em;}
+.tp-list li .quote{font-style:italic;color:var(--on-surface-variant);padding-left:12px;border-left:2px solid var(--primary-container);margin-top:8px;font-size:.93rem;}
+
+/* QA pair list */
+.qa{margin:1.4em 0;}
+.qa .pair{margin-bottom:18px;padding:18px 22px;background:var(--sc-lowest);border-radius:var(--r-md);box-shadow:var(--editorial);}
+.qa .pair.hard{background:linear-gradient(135deg,rgba(186,26,26,.04),var(--sc-lowest));border-left:3px solid var(--error,#BA1A1A);}
+.qa .q{font-family:var(--font-headline);font-weight:700;font-size:1rem;color:var(--on-surface);margin-bottom:10px;line-height:1.35;}
+.qa .q::before{content:"Q · ";font-family:var(--font-mono);color:var(--primary);font-size:.85em;font-weight:700;letter-spacing:.1em;}
+.qa .a{font-size:.95rem;line-height:1.6;color:var(--on-surface-variant);}
+.qa .a::before{content:"A · ";font-family:var(--font-mono);color:var(--primary);font-size:.85em;font-weight:700;letter-spacing:.1em;}
+.qa .a strong{color:var(--on-surface)}
+.qa .a em{font-style:italic;color:var(--on-surface)}
+
+/* Anecdote / story panel */
+.anecdote{margin:24px 0;padding:24px 28px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-lg);}
+.anecdote .ahead{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;padding-bottom:12px;border-bottom:1px solid rgba(243,240,236,.15);margin-bottom:14px;}
+.anecdote .anum{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary-container);font-weight:700;}
+.anecdote .atitle{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.1rem;color:var(--inverse-on-surface);}
+.anecdote .runtime{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:rgba(243,240,236,.55);font-weight:600;}
+.anecdote p{font-size:.94rem;line-height:1.6;color:rgba(243,240,236,.85);margin-bottom:.8em;}
+.anecdote p:last-child{margin-bottom:0}
+.anecdote em{font-style:italic;color:var(--primary-container);font-weight:500}
+.anecdote .punch{font-family:var(--font-display);font-style:italic;font-size:1.05rem;color:var(--inverse-on-surface);padding:10px 0 0;border-top:1px solid rgba(243,240,236,.15);margin-top:10px;}
+
+/* Stat strip */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sc-high);border-radius:var(--r-md);overflow:hidden;margin:24px 0;box-shadow:var(--editorial);}
+@media(max-width:780px){.stat-strip{grid-template-columns:repeat(2,1fr)}}
+.stat-strip .si{background:var(--sc-lowest);padding:18px 16px;}
+.stat-strip .si .n{font-family:var(--font-display);font-weight:300;font-size:1.6rem;line-height:1;color:var(--primary);font-style:italic;margin-bottom:5px;letter-spacing:-.01em;}
+.stat-strip .si .l{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:700;}
+
+/* Callout */
+.cl{margin:24px 0;padding:20px 24px;background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(119,90,25,.03));border-left:3px solid var(--primary);border-radius:0 var(--r-md) var(--r-md) 0;}
+.cl .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:8px;}
+.cl .h{font-family:var(--font-headline);font-weight:700;font-size:1rem;color:var(--on-surface);margin-bottom:8px;}
+.cl p{font-size:.92rem;line-height:1.6;color:var(--on-surface-variant);margin:0;}
+.cl p + p{margin-top:8px}
+
+/* Two-col grid */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;}
+@media(max-width:780px){.twocol{grid-template-columns:1fr}}
+.twocol .card{background:var(--sc-lowest);padding:18px 22px;border-radius:var(--r-md);box-shadow:var(--editorial);}
+.twocol .card .lbl{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:8px;}
+.twocol .card .h{font-family:var(--font-headline);font-weight:700;font-size:.96rem;color:var(--on-surface);margin-bottom:6px;line-height:1.3;}
+.twocol .card p{font-size:.88rem;line-height:1.55;color:var(--on-surface-variant);margin:0;}
+
+/* Appendix table */
+.appendix-tbl{margin:24px 0;background:var(--sc-lowest);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--editorial);}
+.appendix-tbl .row{display:grid;grid-template-columns:200px 1fr 130px;gap:24px;padding:16px 24px;border-bottom:1px solid var(--sc-high);font-size:.93rem;line-height:1.55;align-items:flex-start;}
+.appendix-tbl .row:last-child{border-bottom:none}
+.appendix-tbl .row.h{background:var(--inverse-surface);color:var(--inverse-on-surface);font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:11px 24px;}
+.appendix-tbl .pod-name{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.15rem;color:var(--on-surface);letter-spacing:-.005em;line-height:1.15;}
+.appendix-tbl .pod-name .host{display:block;font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:.14em;color:var(--on-surface-mute);text-transform:uppercase;font-weight:700;margin-top:4px;letter-spacing:.16em;}
+.appendix-tbl .pitch{color:var(--on-surface);font-size:.93rem;line-height:1.55;}
+.appendix-tbl .pitch strong{display:block;font-family:var(--font-headline);font-weight:700;color:var(--on-surface);margin-bottom:4px;font-size:.96rem;}
+.appendix-tbl .pri{font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--tertiary);}
+.appendix-tbl .pri .tier{display:inline-block;padding:3px 9px;background:rgba(45,71,113,.1);border-radius:999px;}
+.appendix-tbl .pri .tier.a{background:rgba(197,160,89,.18);color:var(--primary);}
+@media(max-width:780px){.appendix-tbl .row{grid-template-columns:1fr;gap:6px}.appendix-tbl .row.h{display:none}}
+
+/* Endcap */
+.endmark{font-family:var(--font-display);font-style:italic;color:var(--primary);font-size:1.5rem;text-align:center;letter-spacing:.4em;margin:48px 0;}
+
+.colophon{max-width:1280px;margin:0 auto;padding:32px 48px;border-top:1px solid var(--sc-high);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--on-surface-mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+@media(max-width:780px){.colophon{padding:24px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="brand">Tenured <span class="mark"><em>AI</em></span></div>
+  <div class="meta">Comms · Podcast Briefing Library</div>
+</header>
+
+<div class="classified">
+  <span class="pill">Confidential</span>
+  <span>Internal briefing only · Not for distribution outside the Tenured AI senior team and approved spokespeople</span>
+  <span class="desc">PBL-2026-06-v1.0</span>
+</div>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">Podcast Briefing Library · Master + 4 Custom Briefs</div>
+  <h1>What we <em>say</em>, when the <span class="gild">microphone</span> is on.</h1>
+  <p class="dek">A master briefing template and four fully customized example briefs to equip Dameon Brown and approved spokespeople for podcast appearances across the Series A and Grand Opening communications cycle. Built to be lived with on the flight to the studio, not skimmed on the way in.</p>
+  <div class="meta-row">
+    <span><strong>5 documents</strong></span>
+    <span class="dot">·</span>
+    <span>~24,500 words</span>
+    <span class="dot">·</span>
+    <span><strong>Confidential · Internal use only</strong></span>
+    <span class="dot">·</span>
+    <span>Owned by · Tenured AI Comms</span>
+  </div>
+</section>
+
+<!-- ====================== TABLE OF CONTENTS ====================== -->
+<section class="toc">
+  <div class="lbl">Library contents</div>
+  <h2>What's <em>in</em> the kit.</h2>
+  <div class="toc-grid">
+
+    <a class="toc-row" href="#master">
+      <div>
+        <div class="l-meta">Document 1 · Master Template</div>
+        <div class="l-title">The Universal Brief</div>
+        <div class="l-sub">The reusable structure. Adapt per-pod by replacing the five customization fields.</div>
+      </div>
+      <span class="arrow">↓</span>
+    </a>
+
+    <a class="toc-row featured" href="#acquired">
+      <div>
+        <div class="l-meta">Document 2 · Custom Brief · Tier A</div>
+        <div class="l-title">Acquired</div>
+        <div class="l-sub">Ben Gilbert + David Rosenthal. The strategic VC narrative deep-dive. ~6 pages.</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="toc-row" href="#bigtech">
+      <div>
+        <div class="l-meta">Document 3 · Custom Brief · Tier A</div>
+        <div class="l-title">Big Technology</div>
+        <div class="l-sub">Alex Kantrowitz. Workforce + future-of-work flagship. ~5 pages.</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="toc-row" href="#foi">
+      <div>
+        <div class="l-meta">Document 4 · Custom Brief · Tier A</div>
+        <div class="l-title">Future of Insurance</div>
+        <div class="l-sub">Bryan Falchuk. The Chubb-pilot conversion engine. ~5 pages.</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="toc-row" href="#twentyvc">
+      <div>
+        <div class="l-meta">Document 5 · Custom Brief · Tier A</div>
+        <div class="l-title">20VC</div>
+        <div class="l-sub">Harry Stebbings. Rapid-fire founder philosophy + downstream founder deal flow. ~5 pages.</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="toc-row" href="#appendix">
+      <div>
+        <div class="l-meta">Appendix · 5 Additional Targets</div>
+        <div class="l-title">Target Roster</div>
+        <div class="l-sub">Invest Like the Best · All-In · InsurTech NY · Hard Fork · Pivot.</div>
+      </div>
+      <span class="arrow">↓</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- =================================================================
+     DOCUMENT 1 · MASTER TEMPLATE
+     ================================================================= -->
+<section class="brief" id="master">
+
+  <div class="brief-head">
+    <div class="arc">Document 1 · The Universal Brief</div>
+    <h2>The <em>master</em> <span class="gild">template</span>.</h2>
+    <p class="dek">The reusable briefing structure. Every Tenured AI podcast appearance uses this skeleton; per-pod customization happens by replacing the five customization fields and re-anchoring the talking points against the audience.</p>
+  </div>
+
+  <div class="pod-card">
+    <div class="field"><div class="k">Field A</div><div class="v">Pod name + host</div></div>
+    <div class="field"><div class="k">Field B</div><div class="v">Audience profile</div></div>
+    <div class="field"><div class="k">Field C</div><div class="v">Format + runtime</div></div>
+    <div class="field"><div class="k">Field D</div><div class="v">Prior-episode references</div></div>
+    <div class="field"><div class="k">Field E</div><div class="v">Episode-specific objective</div></div>
+    <div class="field"><div class="k">Field F</div><div class="v">Pre-cleared CTAs</div></div>
+  </div>
+
+  <p class="lede">Every brief in this library follows the same six-section structure. The structure has been refined across more than forty internal mock interviews and three external coaching engagements. Departure from the structure is permitted only when a specific pod's format makes a section irrelevant — in which case the section is marked Not Applicable rather than dropped.</p>
+
+  <div class="sec-num">§ 01 · The opener</div>
+  <h3>The first <em>thirty seconds</em>.</h3>
+
+  <p>Every podcast opens with some version of the question "tell me about Tenured AI in your own words." The answer is the most important thirty seconds of the entire interview, because it determines whether the host will conduct the rest of the conversation in our vocabulary or in theirs. The opener has to do three things in a single beat: name the company, name the problem, and name the wedge.</p>
+
+  <div class="cl">
+    <div class="lbl">Canonical opener · Tier A</div>
+    <div class="h">The default Tenured AI 30-second statement.</div>
+    <p><em>"Tenured AI is the verification infrastructure company building the Sovereign Talent Ledger for the AI era. The problem we solve is the proficiency paradox — credentials have become uninformative because the underlying competencies they certify now change on a sub-annual cycle. Our wedge is the Performance Bond: every verified hire on our platform carries a real, financially-accountable bond. We don't tell employers a candidate is competent. We back our claim with our own capital. That's what makes the signal worth something — and that's what just got us into production underwriting with Chubb."</em></p>
+  </div>
+
+  <p>The canonical opener is 99 words and runs about 35 seconds at a normal speaking pace. It can be compressed to 60 words for fast-format pods (Hard Fork, Pivot) and expanded to 140 words for narrative pods (Acquired). The compression and expansion drafts live in the per-pod briefs below.</p>
+
+  <div class="sec-num">§ 02 · The three load-bearing anecdotes</div>
+  <h3>What we want listeners to <span class="gild">remember</span>.</h3>
+
+  <p>Listeners remember stories. They forget statistics. The brief equips the spokesperson with three pre-rehearsed anecdotes that each carry one piece of load-bearing argument. The anecdotes are designed to be deployable in 90–180 seconds and to land independently of one another, so the spokesperson can lead with whichever one the conversation organically opens to.</p>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Anecdote 1 of 3 · The University of Houston cup of coffee</div>
+      <div class="runtime">~2 min</div>
+    </div>
+    <p>The first conversation with the University of Houston happened in a coffee shop on Calhoun Boulevard. Dameon opened with a question: <em>"If a graduate of this university takes a job at a Fortune 500 firm at two hundred thousand dollars of compensation, what does this university get?"</em> The administrator answered honestly: <em>"Nothing. Maybe a future donation if she remembers us. Probably not even that."</em></p>
+    <p>Dameon showed her the math on the back of the menu. Under our 40/40/20 architecture, the university would receive $80,000 of perpetual Innovation Fund yield from that single hire — paid in cash, recorded on a settlement ledger, recurring across the graduate's career.</p>
+    <p>The administrator asked the question the rest of the conversation hinged on: <em>"What do you need from us?"</em> Dameon's answer: <em>"Almost nothing."</em></p>
+    <div class="punch">Lands the institutional partnership thesis. Best opening anecdote for narrative-format pods.</div>
+  </div>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Anecdote 2 of 3 · The $340,000 in four minutes</div>
+      <div class="runtime">~90 sec</div>
+    </div>
+    <p>Day three of the Grand Opening, June 21, 2026. First live B-300 auction in front of 300 people. Triple-89 verified quant engineer, NYC role, posted reserve of $275,000. Six firms bid. The auction closed at <em>$340,000</em> in four minutes and thirteen seconds, with two snipe extensions in the final 90 seconds.</p>
+    <p>The auction settled on the spot. The winning firm paid the $17,000 bond premium at settlement. The candidate's Personal Reserve received $68,000 within ninety seconds of close. The candidate's Alma Mater received $136,000 in Innovation Fund yield. The Texas Workforce Treasury received $68,000. End-to-end in under five minutes.</p>
+    <div class="punch">Lands the operational reality. Best anecdote for skeptical-investor pods where listeners need to see the platform actually clear.</div>
+  </div>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Anecdote 3 of 3 · The CISO who asked the right question</div>
+      <div class="runtime">~2 min</div>
+    </div>
+    <p>During the day-one CISO panel at the Grand Opening, the Meridian Atlantic CISO was asked what had been hardest about onboarding to the Chubb pilot. The expected answer was a polite description of integration work.</p>
+    <p>The actual answer was: <em>"The hardest part wasn't the integration — it was the internal conversation about which employees counted as 'AI-touchpoint.' You forced us to produce our first complete inventory of AI-augmented roles. The integration didn't ask anything new of us. It just asked us to be honest with ourselves about what we already knew."</em></p>
+    <p>That sentence is the entire enterprise pilot thesis in one quote, delivered by a buyer, on stage, in front of three hundred people.</p>
+    <div class="punch">Lands the enterprise procurement thesis. Best anecdote when host asks about customer experience or pilot mechanics.</div>
+  </div>
+
+  <div class="sec-num">§ 03 · The pre-cleared statistics</div>
+  <h3>The numbers we are <em>cleared</em> to cite live.</h3>
+
+  <p>Every statistic below has been verified against the company's commercial records, cross-referenced against the Series A diligence package, and pre-cleared by General Counsel for unrestricted use in live media. Statistics outside this list <strong>require pre-clearance</strong> through the press desk before live citation.</p>
+
+  <div class="stat-strip">
+    <div class="si"><div class="n">21</div><div class="l">Patents filed</div></div>
+    <div class="si"><div class="n">$45M</div><div class="l">Series A raised</div></div>
+    <div class="si"><div class="n">$285M</div><div class="l">Post-money valuation</div></div>
+    <div class="si"><div class="n">$150K</div><div class="l">Default bond face</div></div>
+    <div class="si"><div class="n">5.0%</div><div class="l">Bond premium</div></div>
+    <div class="si"><div class="n">7%</div><div class="l">Aggregate claim rate</div></div>
+    <div class="si"><div class="n">15:1</div><div class="l">Bond leverage</div></div>
+    <div class="si"><div class="n">$340K</div><div class="l">First live auction close</div></div>
+    <div class="si"><div class="n">35%+</div><div class="l">Platinum tier credit</div></div>
+    <div class="si"><div class="n">$5.25M</div><div class="l">Fortune-500 example savings</div></div>
+    <div class="si"><div class="n">3.5×</div><div class="l">Pipeline vs forecast</div></div>
+    <div class="si"><div class="n">12</div><div class="l">Genesis Institution target</div></div>
+  </div>
+
+  <div class="sec-num">§ 04 · The hard questions</div>
+  <h3>What the host <em>might</em> press on.</h3>
+
+  <p>Every brief contains a hard-question rehearsal section, in which the comms team anticipates the toughest questions the host might raise and pre-arms the spokesperson with the company's prepared answer. The universal hard-question bank below applies to nearly every pod and should be mastered before any appearance. Per-pod hard questions are layered in the customized briefs below.</p>
+
+  <div class="qa">
+    <div class="pair hard">
+      <div class="q">Isn't this just a credentialing platform with extra steps?</div>
+      <div class="a">No, and the difference is structural. A credentialing platform sells a one-time certification and disengages. We sell a continuous underwriting relationship — the score is recomputed monthly, the bond is contractually live for twelve months, and the platform takes a financial loss when the signal fails. <em>Credentialing platforms have no economic exposure to whether their certifications turn out to be accurate. We have $150,000 of capital exposure on every hire we facilitate.</em> That is a category difference, not a feature difference.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What stops a competitor from copying this?</div>
+      <div class="a">Three things, in order of difficulty. First, the actuarial reserve — we have spent eighteen months building the bond reserve to a target ratio of fifteen percent of aggregate face value outstanding, which is roughly double what conventional surety carriers maintain. Second, the regulator-grade integration with Chubb's Cyber Central platform — that integration took six months of joint engineering work and is now contractually exclusive at the data-stream level for the duration of the pilot. Third, the institutional partnerships under the 40/40/20 architecture — those relationships are governed by six-month committee processes that competitors will have to run for themselves. <em>None of these moats is technological. All of them are operational. That's the moat we wanted.</em></div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What happens when the AI scoring rubric becomes outdated?</div>
+      <div class="a">It already is. The Triple-Threat rubric is recomputed quarterly by our Methodology Advisory Council, which includes an experimental psychologist appointed by the University of Houston Faculty Senate during the Genesis Institution committee process. <em>The rubric being outdated is not a bug we are trying to prevent — it is the operating reality we are trying to manage.</em> A rubric that does not refresh is the proficiency paradox we are trying to solve. The Council's authority is structurally independent from the commercial side of the business for exactly this reason.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">How do you avoid creating a two-tier labor market — the verified and the unverified?</div>
+      <div class="a">This is the question I take most seriously, and the answer has to be honest. A two-tier market is, in some sense, what we are building — but it is the same two-tier market that has existed since credentials were invented. Our argument is that the existing two-tier system, based on lagging credentials, is already producing worse outcomes than a continuous-verification system would. <em>The question isn't whether we have two tiers. The question is whether the tier you're in correctly reflects your current capability.</em> We think continuous verification produces a fairer tier assignment than a four-year-old degree does.</div>
+    </div>
+  </div>
+
+  <div class="sec-num">§ 05 · The reach-throughs</div>
+  <h3>Where every conversation should <em>land</em>.</h3>
+
+  <p>Every podcast appearance has three reach-throughs — pre-agreed places the conversation should land before the runtime expires. The reach-throughs are tracked across appearances by the comms team to ensure consistent narrative coverage. Listeners who hear three different Tenured AI appearances should hear three different stories but the same three reach-throughs.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>Reach-through 1 · The Chubb pilot is in production, not in pilot-marketing.</strong>
+      Every appearance should arrive at the framing that the Chubb integration is live, integrated into Chubb's Cyber Central platform, and producing measurable combined-ratio improvement. This is the structural credibility anchor for everything else.
+      <div class="quote">"The Chubb pilot isn't a press release. It's a four-stream production integration with their Cyber Central underwriting platform, with backstop binder language signed by their general counsel, and combined-ratio improvement modeled across the first six months."</div>
+    </li>
+    <li>
+      <strong>Reach-through 2 · The bond is what makes the business worth something.</strong>
+      Listeners must come away understanding that we put real money behind every claim. The financial accountability is what makes the score a price rather than a marketing artifact.
+      <div class="quote">"The bond is not the business. The bond is the thing that makes the business worth something. Anyone can publish a score. Almost nobody can back their published claim with capital."</div>
+    </li>
+    <li>
+      <strong>Reach-through 3 · This is institutional infrastructure, not a recruiting platform.</strong>
+      Every appearance should land the framing that we are building underneath recruiting, underneath credentialing, underneath insurance. The category we are creating is not a product line. It is the layer under all of them.
+      <div class="quote">"We are not building a recruiting platform. We are building the underlying competence-pricing layer that the labor market builds on top of. Recruiting is a downstream surface of the system."</div>
+    </li>
+  </ul>
+
+  <div class="sec-num">§ 06 · The operational rules</div>
+  <h3>What we <span class="gild">do not</span> say.</h3>
+
+  <p>Equally important to what the brief equips the spokesperson to say is what the brief instructs the spokesperson to <em>not</em> say. The following are operational rules of the Tenured AI press posture, applicable to every appearance regardless of audience.</p>
+
+  <div class="twocol">
+    <div class="card">
+      <div class="lbl">Rule 1 · Pre-revenue projections</div>
+      <div class="h">Never cite forward revenue numbers live.</div>
+      <p>We talk about contracted, pre-priced commercial agreements (the Chubb pilot, the named beta partners, the Genesis Institution settlement). We never publicly project forward ARR, GMV, or platform-mediated transaction volume. Forward-looking commentary is reserved for the investor and analyst call.</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Rule 2 · Other insurers' names</div>
+      <div class="h">Never name a non-Chubb insurer publicly without clearance.</div>
+      <p>We may say "two other insurers have begun internal modeling against our published rate curve" — which is true and pre-cleared. We do not, under any circumstances, name specific second-tier insurers publicly. Naming a non-Chubb carrier without explicit written clearance from that carrier's communications team would violate the joint communications discipline of the entire pilot category.</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Rule 3 · Genesis Institution candidates</div>
+      <div class="h">Do not name candidate universities still in committee.</div>
+      <p>The University of Houston is named publicly as the first Genesis Institution. The other 11 founding-cohort candidates are in various stages of committee review. We say "we have signed Letters of Intent with two additional research universities in the corridor and are in committee review at four more across the country." We do not say which ones until each individual MOU is executed and the institution's communications office has cleared joint announcement language.</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Rule 4 · Patent specifics</div>
+      <div class="h">Refer to the portfolio in aggregate, not individual filings.</div>
+      <p>"Twenty-one filed and provisional patents covering the platform's core architecture" — fine. PAT-013, PAT-017, PAT-019 as architecture references — fine. Detailed claim-by-claim discussion of any single filing — never live, and under NDA only.</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Rule 5 · Cap table specifics</div>
+      <div class="h">Decline questions about founder ownership percentages.</div>
+      <p>"Founder and employee equity retains majority voting and economic control through Series B" is the public framing. Specific founder ownership percentages, employee option pool size, and lead-investor pro-rata terms are confidential and decline-and-redirect material in live interviews.</p>
+    </div>
+    <div class="card">
+      <div class="lbl">Rule 6 · Personal Dameon biography</div>
+      <div class="h">Stay on the company. Bring the founder narrative back to the architecture.</div>
+      <p>"I founded Tenured AI in Houston in 2024 after sixteen years across enterprise AI deployment and workforce-development consulting." That is the canonical Dameon bio statement, and it is the version cleared for use across the entire library. Pre-2024 employer names are not for public attribution. Personal-life questions get redirected to the architecture within one sentence.</p>
+    </div>
+  </div>
+
+  <div class="cl">
+    <div class="lbl">Brief discipline</div>
+    <div class="h">If a question is outside the brief, the answer is "I would want to come back to you with a more thoughtful answer than I can give live."</div>
+    <p>That sentence is not a deflection — it is the canonical Tenured AI response to any live question the spokesperson is not pre-armed to answer. The press desk handles the follow-up within 48 hours. The brief is the contract between the comms team and the spokesperson; outside the brief, we do not improvise.</p>
+  </div>
+
+</section>
+
+<!-- =================================================================
+     DOCUMENT 2 · ACQUIRED
+     ================================================================= -->
+<section class="brief" id="acquired">
+
+  <div class="brief-head">
+    <div class="arc">Document 2 · Tier A · Strategic VC narrative</div>
+    <h2>Brief · <em>Acquired</em> with <span class="gild">Ben &amp; David</span>.</h2>
+    <p class="dek">Three hours, two hosts, one company. The strategic narrative pod where infrastructure-layer businesses earn their canonical telling. Treat this as origin-myth surgery, not promotion.</p>
+  </div>
+
+  <div class="pod-card">
+    <div class="field"><div class="k">Pod · Hosts</div><div class="v">Acquired · Ben Gilbert &amp; David Rosenthal</div></div>
+    <div class="field"><div class="k">Audience profile</div><div class="v">Senior operators, partners at Tier 1 VC firms, public-market investors, sophisticated founders</div></div>
+    <div class="field"><div class="k">Format · Runtime</div><div class="v big">~3 hours, deep-history narrative arc</div></div>
+    <div class="field"><div class="k">Estimated reach</div><div class="v">~800K episode downloads in first 30 days, ~3M trailing twelve-month</div></div>
+    <div class="field"><div class="k">Episode objective</div><div class="v">Establish Tenured AI as the canonical reference for the AI-era workforce-verification category</div></div>
+    <div class="field"><div class="k">Pre-cleared CTAs</div><div class="v">Manifesto essay link, Chubb pilot page, Genesis Institution program page</div></div>
+  </div>
+
+  <p class="lede">Ben and David's craft is the historical narrative. They will spend the first forty-five minutes on origin story, the next ninety minutes on technical architecture and strategic decisions, and the final thirty minutes on category and competitive landscape. The brief is structured to give each of those segments its own dedicated narrative engine.</p>
+
+  <div class="sec-num">§ 01 · Pod-specific opener · expanded version</div>
+  <h3>The <em>140-word</em> Acquired opener.</h3>
+
+  <div class="cl">
+    <div class="lbl">Acquired-format opener</div>
+    <div class="h">Expanded for narrative format.</div>
+    <p><em>"The way I'd tell this story, Ben, is that for most of the past century, employers have hired workers using credentials as a risk-transfer instrument. A degree wasn't really proof of what you knew. It was a probabilistic filter on the variance of your future performance. That filter worked because the underlying competencies were durable across decades. Then generative AI shipped, and within eighteen months a four-year degree lost forty percent of its operational utility. The filter broke. What we built at Tenured AI is the replacement filter — except we didn't build a better credential, because better credentials were never the answer. We built a continuous-underwriting instrument that prices human capability the way a CDS prices corporate credit. We back our claims with our own capital. That's what makes our scores worth something, and that's what just got us into Chubb's production underwriting."</em></p>
+  </div>
+
+  <p>The Acquired opener is 161 words and runs approximately 55 seconds. The framing through Ben specifically ("the way I'd tell this story, Ben") is intentional — Ben is the more historically-minded of the two hosts and tends to anchor on the macroeconomic framing. David will follow with the financial-mechanics question, which is when the bond mechanics come out.</p>
+
+  <div class="sec-num">§ 02 · Prior-episode references</div>
+  <h3>What Ben and David have <span class="gild">previously published</span>.</h3>
+
+  <p>Listeners will be primed by Ben and David's prior episodes on adjacent categories. Anchoring Tenured AI's narrative to these prior episodes is a high-leverage move; it puts our story in a conversation they have already had with their audience, which makes the new story load faster in the listener's mind.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>Acquired · Berkshire Hathaway, Parts I &amp; II.</strong>
+      Ben and David spent eight hours on the architecture of Berkshire's float — the structural advantage of holding insurance premiums between collection and claim. Our bond reserve is a different but parallel architecture. When Ben presses on the bond economics, the analogy to Berkshire's float is the right one — and they will recognize it. <em>"The closest historical analog is what Buffett built with the insurance float at Berkshire."</em>
+    </li>
+    <li>
+      <strong>Acquired · Visa.</strong>
+      They've covered the architecture of a network business in which the value comes from being the rails everyone else operates on. The Tenured AI thesis is the same architecture applied to human capability verification — we are not the buyer or the seller, we are the rails. <em>"We are not the buyer or the seller in the talent market. We are the credit bureau, the reference rate, and the underwriting binder, all in one."</em>
+    </li>
+    <li>
+      <strong>Acquired · Costco.</strong>
+      Their Costco episode highlighted the way a membership business achieves moat through institutional trust rather than feature differentiation. The Genesis Institution architecture is the analogous move in our category. <em>"The Genesis Institution cohort is the institutional spine of the platform. It's what makes us trustworthy to the buyers, not what makes us featureful."</em>
+    </li>
+    <li>
+      <strong>Acquired · Sequoia Capital.</strong>
+      Their Sequoia episode dealt directly with the question of how a firm sustains category authority across decades. Our intended posture in the workforce-verification category is structurally analogous. <em>"We're trying to be the Sequoia of competence pricing. Not the biggest, not the loudest. The one whose endorsement is load-bearing."</em>
+    </li>
+  </ul>
+
+  <div class="sec-num">§ 03 · The deep-history segment</div>
+  <h3>Forty-five minutes of <em>origin myth</em>.</h3>
+
+  <p>Ben and David will spend the first forty-five minutes of the episode on origin story. The history they want is not the company's marketing history. It is the founder's intellectual history — the formative experiences, the prior attempts, the moments of recognition. The brief equips Dameon to navigate this segment with the following pre-rehearsed arc.</p>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Origin beat 1 · The first failure</div>
+      <div class="runtime">~5 min</div>
+    </div>
+    <p>The first attempt at building this product was in 2021, three years before the company's formal founding. Dameon was consulting for a Fortune 500 industrial firm that wanted to deploy GPT-3 across its operations team. The firm asked him to design a competency assessment that would identify which operators were ready to work with the AI tools.</p>
+    <p>He delivered a multiple-choice assessment. <em>It was, in retrospect, the wrong product.</em> Within six months of deployment, three of the operators who scored highest on the assessment caused material incidents in production. Three of the operators who scored lowest had been quietly handling the AI tools without incident.</p>
+    <p>The assessment had been measuring the wrong thing entirely. The operators who scored well were the ones who could pass a test. The operators who handled the tools well were the ones who could recover from a hallucination at three in the morning. <em>This was the moment the proficiency paradox became visible to him.</em></p>
+    <div class="punch">Lands the intellectual origin of the Proving Ground. Use when Ben asks about the moment he knew the standard answer was wrong.</div>
+  </div>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Origin beat 2 · The pilot's-license framing</div>
+      <div class="runtime">~3 min</div>
+    </div>
+    <p>The unlock came from an unexpected source: a conversation with his brother-in-law, a commercial pilot, at a family wedding in late 2022. Dameon described the competency assessment problem. His brother-in-law said something close to: <em>"You're measuring people the wrong way. Pilots aren't certified on whether they can fly under perfect conditions. We're certified on whether we can fly under chaos. Engine failure. Instrument failure. Weather collapse. The certification means something because it was earned under adversity."</em></p>
+    <p>That single sentence is the entire intellectual genesis of the Proving Ground. The adversarial-simulation architecture, the Chaos Injection Engine, the AIBS™ score under adversarial conditions — all of it traces back to that observation at a family wedding.</p>
+    <div class="punch">Lands the founder's intellectual humility — the idea came from somewhere else. Acquired audiences love this. Use early.</div>
+  </div>
+
+  <div class="anecdote">
+    <div class="ahead">
+      <div class="anum">Origin beat 3 · The bond insight</div>
+      <div class="runtime">~4 min</div>
+    </div>
+    <p>The bond insight came in late 2023, from reading nineteenth-century commercial law. Specifically, the surety-bond practice in U.S. railroad construction. The general contractors who built the transcontinental railroad were paid in advance against the completion of bonded segments — and the bond was issued by a surety company that took a direct financial loss if the segment was not completed to spec.</p>
+    <p>The structural insight was that the surety bond converted what would otherwise have been an unenforceable claim ("we will build this on schedule") into a financial covenant ("we will pay you $X if we don't"). The conversion is what made the entire transcontinental railroad financeable — without it, the bond market would not have absorbed the construction debt.</p>
+    <p>The application to credentialing was immediate: a score without a bond is the railroad contractor without surety. A score with a bond is the railroad contractor with surety. <em>The bond is what makes the claim financeable.</em></p>
+    <div class="punch">Lands the bond architecture. David will press on the historical analog — be ready to discuss the surety-bond mechanic in detail.</div>
+  </div>
+
+  <div class="sec-num">§ 04 · Acquired-specific hard questions</div>
+  <h3>What Ben and David will <em>press</em> on.</h3>
+
+  <p>Beyond the universal hard-question bank, Acquired's format produces a specific category of hard question: the historical-analog stress test. Ben in particular will press for whether the company's architecture has a clean historical analog and what failure modes that analog suggests.</p>
+
+  <div class="qa">
+    <div class="pair hard">
+      <div class="q">If the closest historical analog is the surety bond, why didn't a surety company build this product?</div>
+      <div class="a">The right answer is honest: a surety company would not have built this product because surety companies underwrite against contracts, not against people. Their actuarial models do not have the data infrastructure to price a person's continuing performance. <em>We built our company at the intersection of three skill sets that have not historically lived inside any one institution — workforce assessment, adversarial AI evaluation, and underwriting actuarial modeling.</em> A surety company would have needed to acquire two of three, and the labor-market and AI components don't exist as acquirable companies at sufficient maturity.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What's the historical failure mode of this category? If something like this was tried before and failed, what was the failure mode?</div>
+      <div class="a">The honest historical analog is the early-2000s "skills passport" movement — a category of products that proposed continuous skills credentials anchored in employer-issued micro-certifications. The category failed because the credentialing institutions and the labor-market institutions could not align their economic incentives. <em>The skills passports paid the credential issuers but had no economic relationship with the workers being credentialed.</em> Our 40/40/20 architecture is specifically designed to avoid that failure mode by aligning the worker, the alma mater, the state, and the platform on a single settlement.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What's the Berkshire-float analog? Are you really running an insurance company in disguise?</div>
+      <div class="a">It's the right question and the right analog. We are, structurally, running an insurance company. The Performance Bond is a financial guarantee. The bond reserve operates as float between premium collection and claim settlement. The bond loss reserve is audited quarterly against expected claim experience. <em>The difference between us and a conventional surety carrier is the operating leverage of the platform share — the 40/40/20 dividend creates a perpetual revenue stream that subsidizes the small underwriting loss on each bond.</em> The platform makes the insurance product viable; the insurance product makes the platform credible. They are inseparable.</div>
+    </div>
+  </div>
+
+  <div class="sec-num">§ 05 · Acquired reach-throughs and CTAs</div>
+  <h3>Where the three-hour conversation should <span class="gild">land</span>.</h3>
+
+  <p>Beyond the universal reach-throughs, the Acquired-specific reach-throughs are about establishing the long-tail narrative ownership of the category. The episode is a discovery asset for the next decade of operators and investors interested in this space. The CTAs are scaled accordingly: long-form essay, depth content, not short-form lead capture.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>Acquired-specific reach-through · The category-defining episode.</strong>
+      Ben and David's archives are durable in a way that other podcast archives are not. The episode is intended to be the canonical reference Operators forward to one another for the next five years. Optimize the conversation for that durability.
+    </li>
+    <li>
+      <strong>Acquired-specific CTA · The Manifesto essay.</strong>
+      End-of-episode CTA should direct listeners to the long-form Sovereign Manifesto essay, not to a product landing page. The Manifesto is the long-form artifact that completes the Acquired listening experience for the most engaged segment of the audience.
+    </li>
+    <li>
+      <strong>Acquired-specific CTA · The Chubb pilot architecture.</strong>
+      Secondary CTA for the insurance-curious segment of the audience: the Chubb pilot announcement essay, which contains the four-stream data exchange architecture and the actuarial economics in publication-ready detail.
+    </li>
+  </ul>
+
+</section>
+
+<!-- =================================================================
+     DOCUMENT 3 · BIG TECHNOLOGY
+     ================================================================= -->
+<section class="brief" id="bigtech">
+
+  <div class="brief-head">
+    <div class="arc">Document 3 · Tier A · Workforce + future-of-work</div>
+    <h2>Brief · <em>Big Technology</em> with <span class="gild">Alex Kantrowitz</span>.</h2>
+    <p class="dek">A former Forbes reporter who presses on numbers and asks the skeptical-investor question on the spot. Brief assumes Alex will run with the workforce-displacement frame and works to redirect to the platform-architecture frame.</p>
+  </div>
+
+  <div class="pod-card">
+    <div class="field"><div class="k">Pod · Host</div><div class="v">Big Technology Podcast · Alex Kantrowitz</div></div>
+    <div class="field"><div class="k">Audience profile</div><div class="v">Tech press, senior product leaders, CIOs, public-market and crossover investors, knowledge workers concerned about displacement</div></div>
+    <div class="field"><div class="k">Format · Runtime</div><div class="v big">~60 min, journalist-led interview, hard-question forward</div></div>
+    <div class="field"><div class="k">Estimated reach</div><div class="v">~250K episode downloads in first 30 days, syndicated through Big Technology newsletter (~100K subscribers)</div></div>
+    <div class="field"><div class="k">Episode objective</div><div class="v">Convert the displacement frame into the verification frame — pivot from "AI is replacing workers" to "AI made credentials uninformative"</div></div>
+    <div class="field"><div class="k">Pre-cleared CTAs</div><div class="v">Manifesto essay, Genesis Institution page, Personal Reserve explainer</div></div>
+  </div>
+
+  <p class="lede">Alex's editorial DNA is journalism, not commentary. He will press on numbers, he will ask the skeptical-investor question, and he will not let a non-answer pass. The brief assumes a tighter, more rapid back-and-forth than the Acquired format, with the spokesperson expected to land each point in 60–90 seconds rather than 180–300.</p>
+
+  <div class="sec-num">§ 01 · Pod-specific opener · compressed</div>
+  <h3>The <em>60-word</em> Big Technology opener.</h3>
+
+  <div class="cl">
+    <div class="lbl">Big Technology-format opener</div>
+    <div class="h">Compressed for journalist-led format.</div>
+    <p><em>"Tenured AI is the verification infrastructure for the AI era. The problem we solve is that credentials have become uninformative — generative AI changed the knowledge half-life of corporate skills from fifteen years to under eighteen months. The replacement isn't a better credential. It's a continuous-underwriting product. Every hire on our platform carries a real bond. We back our claims with capital. Chubb just took us into production underwriting."</em></p>
+  </div>
+
+  <div class="sec-num">§ 02 · The frame redirect</div>
+  <h3>Workforce displacement → <span class="gild">workforce verification</span>.</h3>
+
+  <p>Alex will likely open with some version of "AI is displacing knowledge workers — what's Tenured AI doing about it?" The brief equips Dameon to redirect this frame within the first ninety seconds. The redirect is the single highest-leverage move of the entire appearance.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>The redirect, executed in three sentences.</strong>
+      The first sentence acknowledges the framing without endorsing it. The second sentence introduces the actual problem. The third sentence shifts the conversation to the architecture.
+      <div class="quote">"Alex, the displacement framing is the conversation most people are having, and I understand why. But the displacement is the symptom — it isn't the disease. The disease is that we no longer have a way to tell whether someone can actually do AI-augmented knowledge work. The credential broke before the labor market did. What we're building is the replacement instrument that lets the labor market function again — not as a barrier against AI, but as a verification layer that operates with AI."</div>
+    </li>
+    <li>
+      <strong>The redirect's purpose.</strong>
+      The redirect is not a deflection — Alex will detect a deflection and press harder. The redirect is an honest reframe. It accepts the listener's concern, names a deeper problem that incorporates the listener's concern, and offers an architectural answer. Listeners walk away with a more sophisticated frame than the one they brought to the conversation.
+    </li>
+    <li>
+      <strong>The reach-back.</strong>
+      Late in the conversation, the spokesperson should reach back to the displacement frame and acknowledge what is true about it — knowledge workers genuinely need a way to demonstrate their continued value in an AI-augmented economy. The Personal Reserve mechanic is the platform's direct answer to that need.
+      <div class="quote">"For the worker who is asking — appropriately — 'how do I demonstrate my continued value in an AI-augmented economy,' the answer the platform gives is the Personal Reserve. Verified work creates a continuing financial relationship between the worker and the platform that scales with their measurable competence. The worker is not replaced — the worker is repriced."</div>
+    </li>
+  </ul>
+
+  <div class="sec-num">§ 03 · Big Technology-specific hard questions</div>
+  <h3>What Alex will <em>press</em> on.</h3>
+
+  <p>Alex's hard-question repertoire is the journalist's: he wants the number, he wants the skeptic's counter-narrative addressed, and he wants the founder to acknowledge the limit of their own claim. The brief pre-arms for the three most likely lines.</p>
+
+  <div class="qa">
+    <div class="pair hard">
+      <div class="q">You're describing a system that puts more pressure on workers, not less. Why is that a good thing?</div>
+      <div class="a">It's the right question and the answer is that the pressure already exists — what the system does is make it legible and pay the worker for it. Workers are <em>already</em> being measured continuously by every employer, every recruiter, every internal performance review. The measurement is just being conducted invisibly, with credentials that don't actually predict performance, and the workers don't get paid for it. <em>What we do is make the measurement explicit, give the worker portable ownership of the results, and pay them a Personal Reserve when their measured performance produces commercial value.</em> The pressure isn't new. The compensation is.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">Your bond mechanic sounds like it externalizes the risk of bad hires onto workers. Isn't this just making the labor market more brutal?</div>
+      <div class="a">No, and the structure is the opposite. The bond pays out <em>from us to the employer</em>, not from the worker to the employer. The worker is never financially liable for bond payouts. The platform absorbs the loss. <em>What the bond does is make the employer indifferent to whether they hire a verified worker or an unverified one — because the verified worker comes with a financial backstop that the unverified one doesn't.</em> That converts the verified worker's score into a price premium they can capture on the market. The bond protects the worker's wage premium, not the employer's downside.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What's the failure mode? What happens when this doesn't work?</div>
+      <div class="a">There are two failure modes I take seriously. The first is adverse selection — if the platform attracts a disproportionately weak worker pool, the bond claim rate exceeds our actuarial assumption, the reserve is depleted, and the platform's underwriting credibility collapses. We protect against this with conservative reserve ratios (fifteen percent of aggregate face value, double what conventional surety carriers maintain) and with the Chubb backstop on Platinum tier claims. <em>The second failure mode is methodological obsolescence — if the scoring rubric stops predicting real-world performance, the entire signal collapses.</em> We protect against this with the Methodology Advisory Council's quarterly review and its structural independence from commercial pricing. Both failure modes are real. Both are managed. Neither is theoretical comfort — they are operational realities I think about on a daily basis.</div>
+    </div>
+  </div>
+
+  <div class="sec-num">§ 04 · Big Technology reach-throughs and CTAs</div>
+  <h3>Where the hour should <span class="gild">land</span>.</h3>
+
+  <ul class="tp-list">
+    <li>
+      <strong>BT-specific reach-through · The worker's perspective.</strong>
+      Alex's audience includes a significant population of knowledge workers concerned about their own displacement. The episode should land an argument the listener can take back to their own career situation. The Personal Reserve is the most concrete worker-facing argument; the portable Sovereign Passport is the second.
+    </li>
+    <li>
+      <strong>BT-specific reach-through · The newsletter cross-post.</strong>
+      Alex frequently publishes a written companion piece to top-tier episodes. The brief anticipates this and equips Dameon to suggest the Manifesto essay as a natural companion piece for Big Technology readers. Subtle CTA, but high-conversion: Big Technology newsletter subscribers are the highest-quality early-product audience in the workforce-tech category.
+    </li>
+    <li>
+      <strong>BT-specific CTA · Long-form Manifesto.</strong>
+      Primary CTA for this audience. The Manifesto essay is structured to convert the same skeptical-curious posture that listeners arrive at the podcast with.
+    </li>
+  </ul>
+
+</section>
+
+<!-- =================================================================
+     DOCUMENT 4 · FUTURE OF INSURANCE
+     ================================================================= -->
+<section class="brief" id="foi">
+
+  <div class="brief-head">
+    <div class="arc">Document 4 · Tier A · Insurance + regulated industries</div>
+    <h2>Brief · <em>Future of Insurance</em> with <span class="gild">Bryan Falchuk</span>.</h2>
+    <p class="dek">The insurance-executive listening hour. Bryan's audience is the buyer panel for the Chubb-pilot-lookalike conversation. The brief leans hard on actuarial detail and tier-architecture mechanics.</p>
+  </div>
+
+  <div class="pod-card">
+    <div class="field"><div class="k">Pod · Host</div><div class="v">Future of Insurance Podcast · Bryan Falchuk</div></div>
+    <div class="field"><div class="k">Audience profile</div><div class="v">Chief Underwriting Officers, Chief Actuaries, Chief Risk Officers, head-of-product at Tier 1–3 P&amp;C and specialty insurers; senior reinsurance executives; insurance regulators</div></div>
+    <div class="field"><div class="k">Format · Runtime</div><div class="v big">~45 min, technical-conversation format, audience expects underwriting fluency</div></div>
+    <div class="field"><div class="k">Estimated reach</div><div class="v">~80K downloads per episode; audience is small but is the actual decision-making roster for Chubb-lookalike pilots</div></div>
+    <div class="field"><div class="k">Episode objective</div><div class="v">Generate inbound from Chief Underwriting Officers at non-Chubb carriers — the highest-leverage commercial outcome of any podcast appearance in this cycle</div></div>
+    <div class="field"><div class="k">Pre-cleared CTAs</div><div class="v">Chubb pilot announcement essay, the bond actuarial detail essay, enterprise@tenured.ai for direct pilot inquiries</div></div>
+  </div>
+
+  <p class="lede">This is the highest-leverage commercial appearance in the entire podcast cycle. Bryan's audience is not the general public; it is the operating roster of senior underwriting executives who will, within twelve months, either build their own Tenured AI Assurance-equivalent pilots or quietly cede the category to Chubb. The brief assumes underwriting fluency and lands hard on the actuarial substance.</p>
+
+  <div class="sec-num">§ 01 · Pod-specific opener · actuarial-fluent</div>
+  <h3>The <em>technical</em> opener.</h3>
+
+  <div class="cl">
+    <div class="lbl">FOI-format opener</div>
+    <div class="h">Actuarial vocabulary, no audience-translation overhead.</div>
+    <p><em>"Tenured AI is the verification infrastructure for AI-augmented workforces, and we are operating a continuous-underwriting product line in production at Chubb. The product is structured as a tiered actuarial-backstop pilot — Silver fifteen percent, Gold twenty-five percent, Platinum thirty-five percent plus, with the Platinum tier carrying a Tenured AI bond backstop up to five million per claim and twenty million per insured per policy year. We built this category because the 2026 generative-AI exclusion created an uncovered exposure that traditional surety couldn't price. The continuous data feed gives the underwriting team an actuarial signal that updates daily rather than annually. Bryan, this audience knows why that matters."</em></p>
+  </div>
+
+  <div class="sec-num">§ 02 · The underwriting-substance segment</div>
+  <h3>What a CUO listening on a Tuesday morning needs to <span class="gild">hear</span>.</h3>
+
+  <p>Bryan's audience is making procurement-adjacent listening decisions during their morning commute. The substance needs to be deployable into a Monday-morning meeting with their reinsurance treaty broker. The brief equips Dameon to land the four substantive arguments any senior underwriter will run against the pilot.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>The combined-ratio argument.</strong>
+      Chubb's actuarial team projects approximately four percentage points of combined-ratio improvement across the pilot book versus the non-pilot Cyber/E&amp;O book, net of premium credits returned to insureds. This is the metric every CUO needs to hear. The improvement reflects three mechanisms: PAT-017 proof availability in claim adjudication, suppression of nuisance claims under documentation pressure, and reduction in adverse selection from the pre-filtered insured pool.
+    </li>
+    <li>
+      <strong>The reserve-composition argument.</strong>
+      The Tenured AI bond reserve is composed of three sources: accumulated unclaimed bond premiums, an explicit reserve allocation from the platform's 40/40/20 share, and the Chubb reinsurance capacity arrangement against the actuarial book. The reserve ratio target is fifteen percent of aggregate face value outstanding, which is roughly double what conventional surety carriers maintain on similar risk profiles. Conservative by design, in service of confidence-building during the first three years.
+    </li>
+    <li>
+      <strong>The data-cadence argument.</strong>
+      The behavior being underwritten — AI competency in production environments — changes daily, not annually. A one-time audit at policy binding tells the underwriter nothing about the firm's posture six months later. The four continuous data streams (daily AICI roster, real-time AIOI-ED webhook, continuous PAT-017 Kafka topic at 12–40M proofs/day per Platinum firm, monthly TS-005 disparity report) are the only configuration that produces actuarially defensible pricing for a risk category that moves on a sub-annual cycle.
+    </li>
+    <li>
+      <strong>The defensive-litigation argument.</strong>
+      PAT-017 proof retention is policy term plus seven years. The proofs are litigation-ready documentation that compresses median forensic-reconstruction litigation cost by ten to twenty million dollars over a three-year period at a representative Fortune 500 insured. The defensive-litigation savings are typically the line item that gets the CFO over the line on procurement.
+    </li>
+  </ul>
+
+  <div class="sec-num">§ 03 · FOI-specific hard questions</div>
+  <h3>The underwriter's <em>cross-examination</em>.</h3>
+
+  <p>Bryan's audience is sophisticated enough to ask hard underwriting questions on the spot. The brief pre-arms for the three most likely lines, which are diagnostic of whether the appearance will convert to inbound from non-Chubb carriers.</p>
+
+  <div class="qa">
+    <div class="pair hard">
+      <div class="q">Your bond claim rate at seven percent seems aggressive for an unproven actuarial category. What's the loss-development pattern look like at twelve months?</div>
+      <div class="a">The seven-percent figure is from the first two thousand bonds issued in the corridor pilot — about thirteen months of data, with the latest cohort still inside the bond term. The claim development is front-loaded, as expected: roughly sixty percent of claims occur in the first six months of the bond term, with the score-drift trigger producing the majority of claim events. <em>Twelve-month loss development trails the IBNR projection by about two percentage points, which is conservative against our actuarial reserve assumption.</em> We are tracking this monthly with Chubb's reinsurance treaty group. Happy to share the development triangle under NDA with serious underwriting inquiries.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">How does this differ from a professional liability product? You're underwriting a person's continuing competence — why isn't this just E&amp;O on the individual?</div>
+      <div class="a">It's a fair structural question and the answer is that the Performance Bond is a different financial instrument than E&amp;O. E&amp;O indemnifies <em>against</em> a claim brought by a third party. The Performance Bond indemnifies the employer <em>against</em> the failure of the worker's continued performance, regardless of whether a third-party claim is brought. <em>The trigger conditions are mechanical events on the platform — score drift, verified incident, misrepresentation, ninety-day departure — not third-party legal claims.</em> The product sits structurally closer to a surety bond than to professional liability. The naming is deliberate.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">If this works, every carrier in the Cyber/E&amp;O space will want this data. How does the exclusive arrangement with Chubb hold up at scale?</div>
+      <div class="a">Two answers. First, the exclusivity is contractual at the production data-stream level for the duration of the Phase 3 validation period — through approximately Q3 2027. <em>The exclusivity covers the Cyber Central integration specifically, not the existence of the dataset.</em> Second, the platform's strategic posture is that the long-term success of the category depends on a competitive ecosystem of underwriters, not on permanent exclusivity with one carrier. We expect to license the data feed to additional Tier 1 carriers post-Phase 3, on commercial terms that preserve Chubb's first-mover position while opening the category to broader competition. The exclusivity protects the pilot. The post-pilot architecture opens the market.</div>
+    </div>
+  </div>
+
+  <div class="sec-num">§ 04 · FOI reach-throughs and CTAs</div>
+  <h3>The <em>inbound</em> objective.</h3>
+
+  <ul class="tp-list">
+    <li>
+      <strong>FOI-specific reach-through · "We are taking inbound from non-Chubb carriers."</strong>
+      This is the single most important sentence of the entire appearance. The CUO listening on Tuesday morning needs to hear, explicitly, that the platform is currently engaged with multiple Tier 1 carriers in early-stage commercial conversations. The framing acknowledges Chubb's first-mover position while opening the door to the listener's own firm.
+      <div class="quote">"Bryan, the strategic posture we have is that the category will be a healthier category if there are three or four major underwriters operating against the same data infrastructure rather than one. We are taking inbound from non-Chubb carriers actively. We are not under exclusivity beyond the production integration with Chubb. Any CUO listening to this on a Tuesday morning who wants the underwriter-level conversation should reach the enterprise pilot team directly."</div>
+    </li>
+    <li>
+      <strong>FOI-specific CTA · enterprise@tenured.ai (direct underwriter line).</strong>
+      Primary CTA for this appearance, named explicitly in audio. Bryan's audience will not click a website link from a podcast — they will email directly. Make it easy.
+    </li>
+    <li>
+      <strong>FOI-specific CTA · The Chubb pilot architecture essay.</strong>
+      Secondary CTA for the technical-detail audience. The essay contains the four-stream data architecture, the tier mechanics, and the actuarial economics at the depth a CUO will want to review before the underwriter-level conversation.
+    </li>
+  </ul>
+
+</section>
+
+<!-- =================================================================
+     DOCUMENT 5 · 20VC
+     ================================================================= -->
+<section class="brief" id="twentyvc">
+
+  <div class="brief-head">
+    <div class="arc">Document 5 · Tier A · Investor / founder philosophy</div>
+    <h2>Brief · <em>20VC</em> with <span class="gild">Harry Stebbings</span>.</h2>
+    <p class="dek">Rapid-fire format, founder-philosophy questions, large founder audience. Highest downstream founder-deal-flow leverage of any pod in the lineup. The brief optimizes for short, quotable answers Harry will clip for social.</p>
+  </div>
+
+  <div class="pod-card">
+    <div class="field"><div class="k">Pod · Host</div><div class="v">20VC Podcast · Harry Stebbings</div></div>
+    <div class="field"><div class="k">Audience profile</div><div class="v">Tier 1–3 VC partners and principals, growth-stage founders, ambitious early-stage founders, sophisticated angels</div></div>
+    <div class="field"><div class="k">Format · Runtime</div><div class="v big">~75 min, rapid-fire, clip-friendly, philosophy + tactics blend</div></div>
+    <div class="field"><div class="k">Estimated reach</div><div class="v">~600K downloads in first 30 days; high downstream LinkedIn/X clip-out velocity</div></div>
+    <div class="field"><div class="k">Episode objective</div><div class="v">Establish Dameon as a "must-meet" founder for future fundraising and seed Series B-stage syndicate conversations</div></div>
+    <div class="field"><div class="k">Pre-cleared CTAs</div><div class="v">Manifesto essay, Series A release page, the Grand Opening recap essay</div></div>
+  </div>
+
+  <p class="lede">Harry's format is famously fast — he asks rapid-fire founder-philosophy questions in tight 60-to-90-second cycles. The brief is structured for short, quotable answers rather than for narrative deep-dives. Every answer should be clippable on its own. Harry's clip-out machine is the highest-leverage social distribution channel of any pod in this lineup.</p>
+
+  <div class="sec-num">§ 01 · The clippable bank</div>
+  <h3>Quotes Harry's <em>team</em> will pull.</h3>
+
+  <p>Harry's production team clips approximately fifteen to twenty discrete moments from every episode for downstream distribution on X, LinkedIn, and TikTok. The brief seeds the spokesperson with twelve pre-engineered clippable answers, designed to land in 25–45 seconds each. The clippable bank is the most heavily-prepared section of any 20VC brief.</p>
+
+  <ul class="tp-list">
+    <li>
+      <strong>On the bond.</strong>
+      <div class="quote">"The bond is not the business. The bond is the thing that makes the business worth something. Anyone can publish a score. Almost nobody is willing to back their published claim with capital."</div>
+    </li>
+    <li>
+      <strong>On the moat.</strong>
+      <div class="quote">"Our moat is not technological. It is operational. We have a fifteen-percent reserve ratio, a regulator-grade insurance integration, and committee processes at twelve research universities. None of that is build-from-scratch in less than three years."</div>
+    </li>
+    <li>
+      <strong>On the proficiency paradox.</strong>
+      <div class="quote">"The more aggressively we credential workers, the less informative each credential becomes. The world keeps changing faster than the credential can refresh. That's the proficiency paradox, and it's the only problem we are trying to solve."</div>
+    </li>
+    <li>
+      <strong>On the Series A.</strong>
+      <div class="quote">"This is the rare Series A where every line in the use-of-proceeds memo connects to a contract we can hold in our hands. We didn't ask our investors to underwrite a thesis. We asked them to underwrite a balance sheet of pre-priced commercial relationships."</div>
+    </li>
+    <li>
+      <strong>On founders facing AI displacement.</strong>
+      <div class="quote">"The right question for any founder today is not 'is AI going to replace me.' The right question is 'what does the infrastructure look like for a labor market where AI and humans are co-employed.' Build the infrastructure. Don't fight the substitution."</div>
+    </li>
+    <li>
+      <strong>On the Houston-NYC corridor.</strong>
+      <div class="quote">"We launched in Houston-NYC because that's where the consequences of unverified AI competence are concentrated. A bad decision in energy or finance compounds through automated systems into catastrophic downstream effects. The actuarial case is easiest where the stakes are highest."</div>
+    </li>
+    <li>
+      <strong>On the institutional partnership.</strong>
+      <div class="quote">"What I said to the University of Houston in a coffee shop on Calhoun Boulevard was: under our settlement architecture, you become a perpetual financial stakeholder in your alumni's lifetime success. Not at graduation. Not in the alumni magazine. Forever."</div>
+    </li>
+    <li>
+      <strong>On building under stress.</strong>
+      <div class="quote">"The thing nobody tells you about building infrastructure for a regulated category is that you spend the first eighteen months convincing your investors you're not building a product, you're building a moat. Then you spend the next eighteen months proving the moat is load-bearing."</div>
+    </li>
+    <li>
+      <strong>On the team.</strong>
+      <div class="quote">"The single hire that made the architecture work was the actuarial lead from a Tier 1 commercial reinsurer. Twenty-seven years of property-and-casualty underwriting. The day she joined, our bond reserve modeling stopped looking like a startup spreadsheet and started looking like a balance sheet."</div>
+    </li>
+    <li>
+      <strong>On the future.</strong>
+      <div class="quote">"Five years from now, the question 'what's your bond?' will be as routine in a hiring conversation as 'what's your salary?' has been for the past hundred years. That's not a prediction. That's the operating endgame of the architecture."</div>
+    </li>
+    <li>
+      <strong>On the Chubb pilot.</strong>
+      <div class="quote">"The Chubb pilot is the moment our claim about the bond became a claim Chubb's underwriting team was willing to back with their own reinsurance treaty. That conversion — from our claim to a counterparty's underwriting — is the structural credibility event of the entire company history."</div>
+    </li>
+    <li>
+      <strong>On the founders he learned from.</strong>
+      <div class="quote">"The founder I learned the most from was a surety executive who has been underwriting construction bonds for thirty-eight years. He told me on a long flight: 'Don't build a startup. Build a balance sheet. The startup is the marketing of the balance sheet.' I have thought about that sentence every day since."</div>
+    </li>
+  </ul>
+
+  <div class="sec-num">§ 02 · The Harry-specific hard questions</div>
+  <h3>What rapid-fire <em>looks</em> like.</h3>
+
+  <p>Harry's hard-question format is short and demands a short answer. Long answers will get cut short by the host. The brief equips Dameon to deliver one-sentence answers to the three most likely Harry questions, each landing in under fifteen seconds.</p>
+
+  <div class="qa">
+    <div class="pair hard">
+      <div class="q">Lead investor walks tomorrow. What do you do?</div>
+      <div class="a">We have $45M of cash in the bank from the close and three of four syndicate members already pre-committed to a Series B pro-rata. The lead walking is bad signaling and it would be a serious event — but it would not be a survival event. We are funded through 2027 against current burn.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">Biggest mistake of the company so far?</div>
+      <div class="a">Under-investing in enterprise onboarding capacity ahead of the Grand Opening. We are now operating at 3.5× the pipeline volume we forecast — the constraint isn't demand, it's our ability to onboard well. That's a high-class problem, but it's a problem I should have seen coming.</div>
+    </div>
+    <div class="pair hard">
+      <div class="q">What's the single biggest risk to the business?</div>
+      <div class="a">Methodological obsolescence in the Triple-Threat scoring rubric. If the rubric stops predicting real-world performance, the entire signal collapses. The Methodology Council's quarterly review is the architectural defense — but the risk is real and I think about it every day.</div>
+    </div>
+  </div>
+
+  <div class="sec-num">§ 03 · 20VC reach-throughs and CTAs</div>
+  <h3>The <em>founder</em> downstream.</h3>
+
+  <ul class="tp-list">
+    <li>
+      <strong>20VC-specific reach-through · Future fundraising signal.</strong>
+      The episode is, in part, a forward-looking signal to Series B-stage syndicate members. The brief equips Dameon to mention the Series B is anticipated for late 2027 / early 2028 — without committing to terms or naming target investors. The mention is the highest-leverage forward signaling move available in this format.
+    </li>
+    <li>
+      <strong>20VC-specific reach-through · Founder community engagement.</strong>
+      Harry's audience includes the next cohort of founders who will eventually become Tenured AI customers and partners. The episode should land a generous founder-to-founder posture — Dameon is available to brief other founders in regulated-category build-outs on the lessons of the bond architecture.
+    </li>
+    <li>
+      <strong>20VC-specific CTA · The Manifesto essay.</strong>
+      Primary CTA for this audience. Founders who clip the conversation will need the long-form artifact to share with their own teams.
+    </li>
+  </ul>
+
+</section>
+
+<!-- =================================================================
+     APPENDIX · 5 ADDITIONAL TARGETS
+     ================================================================= -->
+<section class="brief" id="appendix">
+
+  <div class="brief-head">
+    <div class="arc">Appendix · 5 additional target pods</div>
+    <h2>The remaining <em>target</em> <span class="gild">roster</span>.</h2>
+    <p class="dek">Five additional podcast targets briefed at one-row depth. Each is intended to be expanded into a full custom brief using the master template as the structural skeleton.</p>
+  </div>
+
+  <div class="appendix-tbl">
+    <div class="row h"><span>Pod · Host</span><span>Strategic positioning · canonical opener</span><span>Tier</span></div>
+
+    <div class="row">
+      <div class="pod-name">Invest Like the Best<span class="host">Patrick O'Shaughnessy</span></div>
+      <div class="pitch">
+        <strong>Strategic VC / asset-management audience adjacent to Acquired's.</strong>
+        Patrick's editorial DNA is the long-form investor interview. Brief should center on the Performance Bond as a financial instrument and on the actuarial architecture as a competitive moat. The opener should emphasize Tenured AI as an "infrastructure-layer investment in a category that did not previously exist" — Patrick's repeated framing.
+      </div>
+      <div class="pri"><span class="tier a">Tier A</span></div>
+    </div>
+
+    <div class="row">
+      <div class="pod-name">All-In<span class="host">Chamath, Sacks, Calacanis, Friedberg</span></div>
+      <div class="pitch">
+        <strong>Highest-reach mixed-investor panel; tonally aggressive.</strong>
+        Panel-format pods do not run conventional briefs — the spokesperson is one of four voices in a moderated debate. Brief should prepare Dameon to defend the bond architecture against the most likely Chamath-style attack (regulatory naivety) and the most likely Sacks-style attack (founder-narrative skepticism). The Friedberg axis is friendly territory and should be used to anchor the architecture conversation.
+      </div>
+      <div class="pri"><span class="tier">Tier B</span></div>
+    </div>
+
+    <div class="row">
+      <div class="pod-name">InsurTech NY<span class="host">David Gritz &amp; Tony Lew</span></div>
+      <div class="pitch">
+        <strong>Insurance-industry trade audience; Future of Insurance lookalike.</strong>
+        Higher technical fluency than Bryan's audience; lower direct-CUO concentration. Brief should treat as a more compressed version of the Future of Insurance brief, with the Phase 3 actuarial-validation timeline as the load-bearing forward signal. CTA is direct to enterprise@tenured.ai for underwriter inquiries; same as Future of Insurance.
+      </div>
+      <div class="pri"><span class="tier a">Tier A</span></div>
+    </div>
+
+    <div class="row">
+      <div class="pod-name">Hard Fork<span class="host">Kevin Roose &amp; Casey Newton</span></div>
+      <div class="pitch">
+        <strong>Mainstream tech-press flagship; New York Times audience reach.</strong>
+        Kevin and Casey will press on the worker-displacement framing harder than Alex Kantrowitz will, with less actuarial fluency to redirect through. Brief should compress the Big Technology frame-redirect to under sixty seconds and lead with the Personal Reserve mechanic as the worker-facing argument. Avoid technical depth on bond mechanics in this format — the audience will not retain it.
+      </div>
+      <div class="pri"><span class="tier a">Tier A</span></div>
+    </div>
+
+    <div class="row">
+      <div class="pod-name">Pivot<span class="host">Kara Swisher &amp; Scott Galloway</span></div>
+      <div class="pitch">
+        <strong>Op-ed-format pod with very high cultural reach; political-economic frame heavy.</strong>
+        Kara will press hard on whether the platform is reinforcing existing labor-market inequality. The brief's two-tier-labor-market answer is the load-bearing response. Scott will probe the Series A valuation versus operating revenue — the canonical answer is "priced against signed commercial agreements, not against forward forecast." Brief should treat as the highest-risk-of-misframe appearance in the lineup; pre-coaching session recommended before booking.
+      </div>
+      <div class="pri"><span class="tier">Tier B</span></div>
+    </div>
+
+  </div>
+
+  <div class="cl">
+    <div class="lbl">Operating note on the appendix</div>
+    <div class="h">Each appendix entry should be expanded into a full brief at least 14 days before the recording date.</div>
+    <p>The one-row entries are not stand-ins for full briefs — they are starting points. The comms team's standing rule is that no Tier A appearance is recorded without a full six-section brief reviewed against the master template structure. Tier B appearances may proceed with a compressed brief if scheduling pressure requires it, but the spokesperson should never enter a Tier A pod with only an appendix-row level of preparation. The damage of an underbriefed Tier A appearance is greater than the gain of an additional one.</p>
+  </div>
+
+</section>
+
+<div class="endmark">§</div>
+
+</main>
+
+<div class="colophon">
+  <div><strong>Tenured AI</strong> · Podcast Briefing Library · PBL-2026-06-v1.0 · Master + 4 Custom + 5-pod Appendix</div>
+  <div>Confidential · Internal use only</div>
+</div>
+
+</body>
+</html>
