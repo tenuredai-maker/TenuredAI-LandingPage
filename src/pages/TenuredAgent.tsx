@@ -161,7 +161,7 @@ export default function TenuredAgent() {
             className="font-headline text-5xl md:text-7xl lg:text-8xl leading-[1.05] font-bold text-on-surface tracking-tighter"
           >
             One Agent.{' '}
-            <span className="italic text-primary gold-gradient bg-clip-text text-transparent">
+            <span className="italic text-white gold-gradient bg-clip-text text-transparent">
               Four-agent council.
             </span>
           </motion.h1>

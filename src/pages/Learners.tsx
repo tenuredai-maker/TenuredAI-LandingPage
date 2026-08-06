@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Terminal, Shield, BarChart3, Link as LinkIcon, Mic, 
-  History, Cpu, Globe, Play, Pause, Eye, EyeOff, 
-  Lock, Unlock, AlertTriangle, CheckCircle, ChevronDown, 
+import {
+  Terminal, Shield, BarChart3, Link as LinkIcon, Mic,
+  History, Cpu, Globe, Play, Pause, Eye, EyeOff,
+  Lock, Unlock, AlertTriangle, CheckCircle, ChevronDown,
   ChevronUp, FileText, Database, GitMerge, Info, RefreshCw,
   Copy, Check
 } from 'lucide-react';
@@ -22,22 +22,22 @@ export default function Learners() {
   const [activeTab, setActiveTab] = useState<'owner' | 'recruiter' | 'public'>('owner');
   const [activeCert, setActiveCert] = useState<string>('G-014');
   const [selectedCell, setSelectedCell] = useState<number | null>(null);
-  
+
   // Replay states
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [timelineProgress, setTimelineProgress] = useState<number>(35); // percentage
-  
+
   // Redaction settings
   const [redactIdentity, setRedactIdentity] = useState<boolean>(true);
   const [redactOLFlags, setRedactOLFlags] = useState<boolean>(false);
   const [redactBonds, setRedactBonds] = useState<boolean>(false);
-  
+
   // Interactive Merkle leaf selection
   const [selectedLeaf, setSelectedLeaf] = useState<string | null>(null);
-  
+
   // Accordion state for Foundations
   const [expandedFoundation, setExpandedFoundation] = useState<string | null>(null);
-  
+
   // Copy to clipboard notification
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
@@ -69,7 +69,7 @@ export default function Learners() {
     const intensity = parseFloat((0.4 + (Math.sin(i * 0.45) + 1) * 0.3).toFixed(2));
     const decay = parseFloat((0.05 + (i % 5) * 0.04).toFixed(2));
     const value = parseFloat((intensity * Math.exp(-decay * (i % 6))).toFixed(2));
-    
+
     let status: 'active' | 'warning' | 'reverify' = 'active';
     if (value < 0.35) status = 'reverify';
     else if (value < 0.65) status = 'warning';
@@ -90,11 +90,11 @@ export default function Learners() {
   });
 
   return (
-    <div className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-32">
+    <div className="pt-10 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-32">
       {/* Hero Section */}
       <header className="grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-8 space-y-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-wrap items-center gap-3"
@@ -109,20 +109,20 @@ export default function Learners() {
               PAT-001 · 002 · 003 · 004 · 005 · 010 · 011 · 013/014 · 019
             </span>
           </motion.div>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="font-headline text-5xl md:text-7xl lg:text-8xl leading-[1.05] font-bold text-on-surface tracking-tighter"
           >
             The portable, verifiable, <br />
-            <span className="italic text-primary gold-gradient bg-clip-text text-transparent">sovereign record</span> of a career.
+            <span className="italic text-white gold-gradient bg-clip-text text-transparent">sovereign record</span> of a career.
           </motion.h1>
           {/* Reduced Verifiable bar */}
           <div className="verifiable-bar mt-2 w-32 bg-primary/20 h-1" />
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -130,21 +130,21 @@ export default function Learners() {
           >
             The complete implementation of the Sovereign Passport—the single user-facing credential that displays everything the platform produces. Cryptographically anchored, redaction-controlled, and instantly auditable by recruiters or insurers.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-wrap gap-4 items-center"
           >
-            <a 
-              href="#simulator" 
+            <a
+              href="#simulator"
               className="gold-gradient text-on-primary px-8 py-4 rounded-xl font-bold shadow-xl hover:scale-[1.02] transition-transform text-center inline-block"
             >
               Launch Passport Simulator
             </a>
-            <a 
-              href="#foundations" 
+            <a
+              href="#foundations"
               className="text-on-surface font-headline font-bold flex items-center gap-2 group"
             >
               <span className="border-b-2 border-primary/30 group-hover:border-primary transition-colors py-1">View Patent Foundations</span>
@@ -152,7 +152,7 @@ export default function Learners() {
           </motion.div>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
@@ -162,15 +162,15 @@ export default function Learners() {
             <div className="absolute top-0 right-0 p-4 font-mono text-[9px] text-[#FFBF00] opacity-85 tracking-wider">
               PASSPORT // SA_7
             </div>
-            
+
             <div className="space-y-6">
               <div>
                 <span className="text-[10px] text-[#FFBF00] font-mono tracking-widest block uppercase">Command Authority</span>
                 <span className="text-6xl font-bold font-headline text-[#C5A059]">87</span>
               </div>
-              
+
               <div className="h-px bg-white/10" />
-              
+
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between">
                   <span className="opacity-60">DID ADDRESS:</span>
@@ -217,10 +217,10 @@ export default function Learners() {
                 https://tenured.ai/passport/did:tenured:sovereign_alpha_7
               </span>
             </div>
-            
+
             {/* View Selector Tabs */}
             <div className="flex bg-[#121211] p-1 rounded-xl border border-white/10">
-              <button 
+              <button
                 onClick={() => setActiveTab('owner')}
                 className={cn(
                   "px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5",
@@ -229,7 +229,7 @@ export default function Learners() {
               >
                 <Lock className="w-3.5 h-3.5" /> Owner (Full Forensic)
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setActiveTab('recruiter');
                   setRedactIdentity(true);
@@ -242,7 +242,7 @@ export default function Learners() {
               >
                 <Eye className="w-3.5 h-3.5" /> Recruiter (Revealed)
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setActiveTab('public');
                   setRedactIdentity(true);
@@ -262,7 +262,7 @@ export default function Learners() {
             <AnimatePresence mode="wait">
               {/* OWNER VIEW */}
               {activeTab === 'owner' && (
-                <motion.div 
+                <motion.div
                   key="owner"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -288,31 +288,31 @@ export default function Learners() {
                       <div className="text-[10px] font-mono font-bold tracking-wider text-primary uppercase flex items-center gap-1.5">
                         <Lock className="w-3 h-3" /> Redaction Controls (PAT-019)
                       </div>
-                      
+
                       <div className="space-y-2">
                         <label className="flex items-center justify-between text-xs cursor-pointer hover:bg-black/5 p-1 rounded transition-colors">
                           <span className="text-on-surface-variant">Redact Identity on share</span>
-                          <input 
-                            type="checkbox" 
-                            checked={redactIdentity} 
+                          <input
+                            type="checkbox"
+                            checked={redactIdentity}
                             onChange={(e) => setRedactIdentity(e.target.checked)}
                             className="accent-primary w-4 h-4 cursor-pointer"
                           />
                         </label>
                         <label className="flex items-center justify-between text-xs cursor-pointer hover:bg-black/5 p-1 rounded transition-colors">
                           <span className="text-on-surface-variant">Hide OL Flags on reveal</span>
-                          <input 
-                            type="checkbox" 
-                            checked={redactOLFlags} 
+                          <input
+                            type="checkbox"
+                            checked={redactOLFlags}
                             onChange={(e) => setRedactOLFlags(e.target.checked)}
                             className="accent-primary w-4 h-4 cursor-pointer"
                           />
                         </label>
                         <label className="flex items-center justify-between text-xs cursor-pointer hover:bg-black/5 p-1 rounded transition-colors">
                           <span className="text-on-surface-variant">Mask Underwriting status</span>
-                          <input 
-                            type="checkbox" 
-                            checked={redactBonds} 
+                          <input
+                            type="checkbox"
+                            checked={redactBonds}
                             onChange={(e) => setRedactBonds(e.target.checked)}
                             className="accent-primary w-4 h-4 cursor-pointer"
                           />
@@ -338,7 +338,7 @@ export default function Learners() {
                             <span className="text-7xl font-bold font-headline text-[#C5A059]">87</span>
                             <span className="text-xs text-white/50 block font-mono mt-1">+6 this quarter · 24 Hard-Gates cleared · Tier 2 Orchestrator</span>
                           </div>
-                          
+
                           <div className="grid grid-cols-3 gap-6 flex-1 min-w-[200px] border-l border-white/10 pl-6">
                             <div>
                               <span className="text-[9px] text-[#FFBF00] font-mono block">AICI</span>
@@ -383,14 +383,14 @@ export default function Learners() {
                         {/* Interactive Grid cells */}
                         <div className="grid grid-cols-12 gap-1.5">
                           {decayNodes.map((node, i) => (
-                            <div 
+                            <div
                               key={i}
                               onMouseEnter={() => setSelectedCell(i)}
                               onMouseLeave={() => setSelectedCell(null)}
                               className={cn(
                                 "aspect-square rounded cursor-help transition-all relative border border-black/5 hover:scale-110",
                                 node.status === 'active' ? "bg-[#4F8A6B]" :
-                                node.status === 'warning' ? "bg-[#FFBF00]" : "bg-[#BA1A1A]"
+                                  node.status === 'warning' ? "bg-[#FFBF00]" : "bg-[#BA1A1A]"
                               )}
                             >
                               {/* Simple mini popup */}
@@ -403,7 +403,7 @@ export default function Learners() {
                                     <span className={cn(
                                       "w-1.5 h-1.5 rounded-full inline-block",
                                       node.status === 'active' ? "bg-[#4F8A6B]" :
-                                      node.status === 'warning' ? "bg-[#FFBF00]" : "bg-[#BA1A1A]"
+                                        node.status === 'warning' ? "bg-[#FFBF00]" : "bg-[#BA1A1A]"
                                     )}></span>
                                     Status: {node.status}
                                   </div>
@@ -437,14 +437,13 @@ export default function Learners() {
                         </div>
                         {/* 10-Tier dot visualization — spec F7 */}
                         <div className="grid grid-cols-10 gap-1.5 mt-3">
-                          {[10,9,8,7,6,5,4,3,2,1].map((tier) => (
+                          {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((tier) => (
                             <div key={tier} className="flex flex-col items-center gap-1">
-                              <span className={`w-2.5 h-2.5 rounded-full inline-block ${
-                                tier > 2 ? 'bg-[#4F8A6B]' :
+                              <span className={`w-2.5 h-2.5 rounded-full inline-block ${tier > 2 ? 'bg-[#4F8A6B]' :
                                 tier === 2 ? 'bg-primary w-3.5 h-3.5 ring-2 ring-primary/30' :
-                                'bg-outline-variant/40'
-                              }`} />
-                              <span className={`font-mono text-[8px] ${ tier === 2 ? 'text-primary font-bold' : 'text-on-surface-variant' }`}>
+                                  'bg-outline-variant/40'
+                                }`} />
+                              <span className={`font-mono text-[8px] ${tier === 2 ? 'text-primary font-bold' : 'text-on-surface-variant'}`}>
                                 {tier === 10 ? '10 App' : tier === 1 ? '1 Arch' : tier}
                               </span>
                             </div>
@@ -459,7 +458,7 @@ export default function Learners() {
                           <h4 className="font-headline font-bold">Active Bond Status · PAT-013/014</h4>
                           <span className="ml-auto text-[9px] font-mono bg-[#4F8A6B]/10 border border-[#4F8A6B]/30 text-[#4F8A6B] px-2 py-0.5 rounded font-bold">⚜ ACTIVE BOND</span>
                         </div>
-                        
+
                         {redactBonds ? (
                           <div className="p-4 bg-surface-container-low rounded-xl border border-outline-variant/20 text-center font-mono text-xs text-on-surface-variant flex items-center justify-center gap-2">
                             <Lock className="w-4 h-4" /> Underwriting Details Redacted
@@ -515,13 +514,13 @@ export default function Learners() {
                         </div>
                         <div className="h-px bg-outline-variant/20" />
                         <div className="flex gap-2">
-                          <input 
-                            type="text" 
-                            readOnly 
-                            value="https://tenured.ai/p/did:tenured:sovereign_alpha_7" 
+                          <input
+                            type="text"
+                            readOnly
+                            value="https://tenured.ai/p/did:tenured:sovereign_alpha_7"
                             className="bg-surface-container-low border border-outline-variant/20 text-xs px-3 py-2.5 rounded-lg flex-1 font-mono text-on-surface-variant outline-none"
                           />
-                          <button 
+                          <button
                             onClick={copyDidLink}
                             className="bg-primary text-white p-2.5 rounded-lg hover:bg-primary/90 active:scale-95 transition-all"
                             title="Copy share link"
@@ -540,7 +539,7 @@ export default function Learners() {
 
               {/* RECRUITER VIEW */}
               {activeTab === 'recruiter' && (
-                <motion.div 
+                <motion.div
                   key="recruiter"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -596,10 +595,10 @@ export default function Learners() {
                           <div className="absolute top-2 left-2 text-[8px] font-mono text-white/30 uppercase tracking-widest">
                             Merkle Path Verification Trace (PAT-010)
                           </div>
-                          
+
                           <div className="flex flex-col items-center justify-center space-y-6 mt-4">
                             {/* Root Node */}
-                            <motion.button 
+                            <motion.button
                               onClick={() => setSelectedLeaf('root')}
                               whileHover={{ scale: 1.05 }}
                               className={cn(
@@ -609,13 +608,13 @@ export default function Learners() {
                             >
                               ROOT: 0x77ab1f2c...
                             </motion.button>
-                            
+
                             <div className="h-4 w-px bg-white/20"></div>
 
                             {/* Middle layer */}
                             <div className="flex gap-12 relative">
                               <div className="absolute inset-x-0 top-0 h-px bg-white/20 -translate-y-1/2"></div>
-                              <motion.button 
+                              <motion.button
                                 onClick={() => setSelectedLeaf('h12')}
                                 whileHover={{ scale: 1.05 }}
                                 className={cn(
@@ -625,7 +624,7 @@ export default function Learners() {
                               >
                                 H(L1·L2)
                               </motion.button>
-                              <motion.button 
+                              <motion.button
                                 onClick={() => setSelectedLeaf('h34')}
                                 whileHover={{ scale: 1.05 }}
                                 className={cn(
@@ -731,7 +730,7 @@ export default function Learners() {
                             Session G-014
                           </span>
                         </div>
-                        
+
                         {/* 6-Channel Telemetry Bars */}
                         <div className="bg-neutral-950 p-4 rounded-xl border border-white/5 space-y-3 font-mono text-[10px]">
                           <div className="flex justify-between">
@@ -750,11 +749,11 @@ export default function Learners() {
                               <div key={ch.label} className="flex items-center gap-2">
                                 <span className="w-8 font-bold text-white/60 text-[9px]">{ch.label}</span>
                                 <div className="h-1.5 bg-white/10 rounded-full flex-1 overflow-hidden">
-                                  <div 
-                                    className="h-full rounded-full transition-all" 
-                                    style={{ 
-                                      width: `${Math.min(ch.value, timelineProgress)}%`, 
-                                      backgroundColor: ch.color 
+                                  <div
+                                    className="h-full rounded-full transition-all"
+                                    style={{
+                                      width: `${Math.min(ch.value, timelineProgress)}%`,
+                                      backgroundColor: ch.color
                                     }}
                                   ></div>
                                 </div>
@@ -762,10 +761,10 @@ export default function Learners() {
                               </div>
                             ))}
                           </div>
-                          
+
                           {/* Playback Controls */}
                           <div className="flex items-center justify-between pt-3 border-t border-white/10 mt-3">
-                            <button 
+                            <button
                               onClick={() => setIsPlaying(!isPlaying)}
                               className="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded flex items-center gap-1.5 text-white active:scale-95 transition-all"
                             >
@@ -805,7 +804,7 @@ export default function Learners() {
                               </span>
                               <span className="text-[10px] font-mono text-on-surface-variant font-bold">Node: N-038</span>
                             </div>
-                            
+
                             <div className="font-mono text-[10.5px] text-on-surface-variant space-y-1">
                               <div>Competency: <span className="text-on-surface font-bold">Vector DB Latency</span></div>
                               <div>Declared confidence: <span className="text-[#BA1A1A] font-bold">L5 (Certain)</span></div>
@@ -825,7 +824,7 @@ export default function Learners() {
 
               {/* PUBLIC VIEW */}
               {activeTab === 'public' && (
-                <motion.div 
+                <motion.div
                   key="public"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -872,7 +871,7 @@ export default function Learners() {
                           <span>ON-CHAIN VERIFICATION RECORD</span>
                           <span>POLYGON_RPC_81402</span>
                         </div>
-                        
+
                         <div className="space-y-1.5">
                           <p className="text-white/60 flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#4F8A6B]" /> Resolved DID: did:tenured:sa_7</p>
                           <p className="text-white/60 flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#4F8A6B]" /> Master Root: 0x77ab1f2cc0591e13a40879f82...</p>
@@ -983,7 +982,7 @@ export default function Learners() {
               detail: "Dynamic rendering formats details specifically for Owner views (complete data), Recruiters (verdict-focused reveal mechanics), and Public systems (anonymized hash proofs) managed by toggle settings."
             }
           ].map((item) => (
-            <div 
+            <div
               key={item.id}
               className="bg-surface-container-low border border-outline-variant/30 rounded-2xl overflow-hidden transition-all"
             >

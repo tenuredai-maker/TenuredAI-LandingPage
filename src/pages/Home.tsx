@@ -1,13 +1,13 @@
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ArrowUpRight, ShieldCheck, Terminal, Network, Brain, Database, Lock, 
+import {
+  ArrowUpRight, ShieldCheck, Terminal, Network, Brain, Database, Lock,
   RefreshCw, Landmark, Loader2, Check, BarChart3, Badge, Link as LinkIcon,
   Mail, MessageSquare, Phone, Globe, Cpu, Zap, Award, Shield, Quote, Star,
-  ChevronDown, ChevronUp, ShieldAlert, Clock, Activity, ArrowRight, BookOpen, 
+  ChevronDown, ChevronUp, ShieldAlert, Clock, Activity, ArrowRight, BookOpen,
   Play, Volume2, Code2, HelpCircle, Sparkles, School, Bolt, Search, Settings, GitBranch
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useMemo, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, Radar as RadarArea, ResponsiveContainer } from 'recharts';
 import { cn } from '../lib/utils';
 import TenuredLeaderboard from '../components/TenuredLeaderboard';
@@ -17,7 +17,7 @@ const Tooltip: React.FC<{ children: React.ReactNode; content: React.ReactNode; e
   const show = externalVisible || isVisible;
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
@@ -50,7 +50,7 @@ export default function Home() {
   const [isProtocolLoading, setIsProtocolLoading] = useState(false);
   const [isHeatmapLoading, setIsHeatmapLoading] = useState(true);
   const [isTestimonialsLoading, setIsTestimonialsLoading] = useState(true);
-  
+
   // Pricing state
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
 
@@ -196,15 +196,15 @@ export default function Home() {
   const executeOverride = () => {
     setIsOverrideExecuting(true);
     setOverrideStep(1);
-    
+
     setTimeout(() => {
       setOverrideStep(2);
     }, 800);
-    
+
     setTimeout(() => {
       setOverrideStep(3);
     }, 1600);
-    
+
     setTimeout(() => {
       setPgActiveLevel('idle');
       setPgCaScore(98);
@@ -315,7 +315,7 @@ export default function Home() {
   const [aibsLog, setAibsLog] = useState<string[]>(['System initialized...', 'Baseline architecture verified.']);
   const [hoveredAiciKey, setHoveredAiciKey] = useState<string | null>(null);
 
-  const getRadarData = (scores: Record<string, number>) => 
+  const getRadarData = (scores: Record<string, number>) =>
     Object.entries(scores).map(([subject, value]) => ({
       subject,
       A: value,
@@ -490,7 +490,7 @@ export default function Home() {
     <div className="pt-24 pb-20 overflow-x-hidden">
       {/* Hero Section */}
       <section className="px-6 md:px-8 py-16 md:py-40 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-16">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -499,14 +499,14 @@ export default function Home() {
           <div className="space-y-4">
             <span className="font-label uppercase tracking-[0.2em] text-[10px] text-primary font-bold">Platform Intelligence</span>
             <h1 className="text-5xl md:text-7xl font-headline font-bold leading-tight text-on-surface">
-              Sovereign Intelligence. <br/> <span className="italic text-primary">Verified Worth.</span>
+              Sovereign Intelligence. <br /> <span className="italic text-primary">Verified Worth.</span>
             </h1>
           </div>
           <p className="text-lg text-on-surface-variant max-w-xl leading-relaxed">
-            Tenured AI is the connectionist operating system for liquid professional identities. We bridge the trust gap through high-stakes adversarial testing and immutable telemetry.
+            Tenured AI is the operating system for liquid professional identities. We bridge the trust gap through high-stakes adversarial testing and immutable telemetry. Your true capabilities are proven in real-world scenarios. Own your verified reputation, carrying it seamlessly across every project, platform, and career milestone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <button 
+            <button
               onClick={handleRequestAccessClick}
               disabled={isRequestAccessLoading}
               className="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold editorial-shadow hover:opacity-90 transition-all flex items-center justify-center gap-2 disabled:opacity-80 disabled:cursor-wait min-w-[220px]"
@@ -520,7 +520,7 @@ export default function Home() {
                 'Request Access'
               )}
             </button>
-            <button 
+            <button
               onClick={handleReportClick}
               disabled={isReportLoading}
               className="text-on-surface-variant px-8 py-4 font-headline italic hover:text-tertiary transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
@@ -538,16 +538,16 @@ export default function Home() {
             </button>
           </div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="flex-1 relative w-full aspect-square md:aspect-auto md:h-[600px] bg-surface-container-high rounded-xl overflow-hidden editorial-shadow"
         >
-          <img 
-            alt="abstract digital geometry" 
-            className="w-full h-full object-cover opacity-100" 
+          <img
+            alt="abstract digital geometry"
+            className="w-full h-full object-cover opacity-100"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdR35ylxhUa__i0NMh_tBelTtqSpLK53kj6KOmiTZGiOUAV2gV-L7MPiV059GOKLRDJBj5dqRx5-fubgKkXzwwnxl3IT2-x_BtMlTUUTlpS7mtGmwS8ZF10JIfkXU4y-mAeZxhvrJjobvWdKGxAw05-Eym9PGtWwKbInWbYnZjKwPJiuHhfAu8Go7Yl8BnVw9_DdYixI064lmroW8bA6PAli8hvqsY6JYU6h6KMHt9CVEJAU4KFenm6zcykkyr2u7OU23KRt0"
             referrerPolicy="no-referrer"
           />
@@ -568,7 +568,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-headline font-bold">Four systems. <span className="italic text-primary">One clear path forward.</span></h2>
             <p className="text-on-surface-variant max-w-2xl mx-auto">You don't need to understand the tech to benefit from it. Behind the scenes, four interconnected systems work together so you can focus on what matters — building real skills and earning credentials that hold up.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Brain, title: "Your Personal Coach", desc: "Think of this as your guide. It connects the right lessons, practice sessions, and feedback — automatically adjusting to where you are so you're always learning at the right pace." },
@@ -888,10 +888,10 @@ export default function Home() {
             <h2 className="font-headline text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core Trinity Metrics</h2>
             <p className="text-on-surface-variant max-w-3xl">A multidimensional approach to AI proficiency. We don't just measure output; we measure the architecture of intelligence and the efficacy of the operator.</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             {/* AICI™ Card */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
@@ -902,7 +902,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-3xl font-headline font-bold text-on-surface">AICI™: Competency</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Focus on foundational literacy, prompting logic, and ethical framework alignment. Verifying the bridge between human intent and synthetic reasoning.</p>
-                
+
                 <div className="pt-4">
                   <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">Foundational Knowledge Heatmap</div>
                   <div className="grid grid-cols-8 gap-1">
@@ -926,7 +926,7 @@ export default function Home() {
                       <span className="text-sm font-bold text-primary">{item.val}/100</span>
                     </div>
                     <div className="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${item.val}%` }}
                         viewport={{ once: true }}
@@ -940,7 +940,7 @@ export default function Home() {
 
             {/* AIOI™ Card */}
             <div className="space-y-8 flex flex-col">
-              <motion.div 
+              <motion.div
                 whileHover={{ y: -5 }}
                 className="bg-primary text-on-primary p-10 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col h-full group"
               >
@@ -960,10 +960,10 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="relative z-10 pt-8 flex items-center gap-4">
+                <div className="relative z-10 pt-0 flex items-center gap-4">
                   <GitBranch className="text-primary-fixed w-8 h-8" />
                   <div className="h-1 flex-grow bg-primary-fixed/20 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: '96%' }}
                       viewport={{ once: true }}
@@ -997,7 +997,7 @@ export default function Home() {
             </div>
 
             {/* AIBS™ Card */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
@@ -1008,7 +1008,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-3xl font-headline font-bold text-on-surface">AIBS™: Builder Score</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Quantifying technical architect skills: RAG, vector databases, model optimization, and complex agentic workflows.</p>
-                
+
                 <div className="pt-4">
                   <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">System Integrity Stress-Test</div>
                   <div className="w-full h-24 bg-surface-container flex items-center justify-center rounded-xl border border-outline-variant/20 relative overflow-hidden">
@@ -1037,10 +1037,10 @@ export default function Home() {
       </section>
 
       {/* Section: AICI™ Deep Dive Interactive Radar */}
-      <section id="aici-section" className="py-16 bg-surface-container-low border-y border-outline-variant/10 px-8">
+      <section id="aici-section" className="py-16 bg-surface-container-low border-y border-outline-variant/10 px-18">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1056,8 +1056,8 @@ export default function Home() {
 
               <div className="space-y-4">
                 {Object.entries(aiciScores).map(([key, value]) => (
-                  <Tooltip 
-                    key={key} 
+                  <Tooltip
+                    key={key}
                     externalVisible={hoveredAiciKey === key}
                     content={
                       <div className="space-y-2 text-left">
@@ -1077,13 +1077,13 @@ export default function Home() {
                       </div>
                     }
                   >
-                    <motion.div 
+                    <motion.div
                       layout
-                      animate={hoveredAiciKey === key ? { 
+                      animate={hoveredAiciKey === key ? {
                         scale: 1.02,
                         x: 5,
                         backgroundColor: "rgba(119, 90, 25, 0.08)"
-                      } : { 
+                      } : {
                         scale: 1,
                         x: 0,
                         backgroundColor: "rgba(255, 255, 255, 0)"
@@ -1095,12 +1095,12 @@ export default function Home() {
                     >
                       <div className="flex justify-between items-center">
                         <label className={cn(
-                           "text-xs font-bold uppercase tracking-widest transition-colors",
-                           hoveredAiciKey === key ? "text-primary" : "text-secondary group-hover:text-primary"
+                          "text-xs font-bold uppercase tracking-widest transition-colors",
+                          hoveredAiciKey === key ? "text-primary" : "text-secondary group-hover:text-primary"
                         )}>{key}</label>
                         <div className="flex items-center gap-2">
                           {hoveredAiciKey === key && (
-                            <motion.span 
+                            <motion.span
                               initial={{ opacity: 0, x: -5 }}
                               animate={{ opacity: 1, x: 0 }}
                               className="text-[8px] font-black text-primary uppercase tracking-tighter"
@@ -1115,16 +1115,16 @@ export default function Home() {
                         {aiciDescriptions[key]}
                       </p>
                       <div className="relative">
-                        <input 
-                          type="range" 
-                          min="0" 
-                          max="100" 
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
                           value={value}
                           onChange={(e) => setAiciScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                           className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary relative z-10"
                         />
                         {hoveredAiciKey === key && (
-                          <motion.div 
+                          <motion.div
                             layoutId="active-glow"
                             className="absolute -inset-1 bg-primary/10 blur-sm rounded-full z-0"
                           />
@@ -1152,7 +1152,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -1161,10 +1161,10 @@ export default function Home() {
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full max-w-sm md:max-w-md mx-auto relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart 
-                    cx="50%" 
-                    cy="50%" 
-                    outerRadius="80%" 
+                  <RadarChart
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="80%"
                     data={aiciRadarData}
                     onMouseMove={(data) => {
                       if (data && data.activeLabel) {
@@ -1174,22 +1174,22 @@ export default function Home() {
                     onMouseLeave={() => setHoveredAiciKey(null)}
                   >
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#775a19" 
-                      fill="#775a19" 
-                      fillOpacity={0.5} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#775a19"
+                      fill="#775a19"
+                      fillOpacity={0.5}
                       animationDuration={300}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              
+
               <AnimatePresence>
                 {hoveredAiciKey && (
                   <motion.div
@@ -1227,10 +1227,10 @@ export default function Home() {
       </section>
 
       {/* Section: AIOI™ Deep Dive Interactive Radar */}
-      <section id="aioi-section" className="py-16 bg-surface px-8">
+      <section id="aioi-section" className="py-16 bg-surface px-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -1241,16 +1241,16 @@ export default function Home() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aioiRadarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#ffffff" 
-                      fill="#ffffff" 
-                      fillOpacity={0.3} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#ffffff"
+                      fill="#ffffff"
+                      fillOpacity={0.3}
                       animationDuration={300}
                     />
                   </RadarChart>
@@ -1258,7 +1258,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1282,10 +1282,10 @@ export default function Home() {
                     <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
                       {aioiDescriptions[key]}
                     </p>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="100" 
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
                       value={value}
                       onChange={(e) => setAioiScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                       className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
@@ -1315,10 +1315,10 @@ export default function Home() {
       </section>
 
       {/* Section: AIBS™ Deep Dive Interactive Radar */}
-      <section id="aibs-section" className="py-16 bg-surface-container-low border-y border-outline-variant/10 px-8">
+      <section id="aibs-section" className="py-16 bg-surface-container-low border-y border-outline-variant/10 px-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1330,7 +1330,7 @@ export default function Home() {
                     <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Technical Soundness</span>
                     <h2 className="text-3xl md:text-4xl font-headline font-bold text-on-surface">AIBS™ Deep Dive</h2>
                   </div>
-                  <button 
+                  <button
                     onClick={() => {
                       setAibsScores({
                         'Vector RAG': 98,
@@ -1361,10 +1361,10 @@ export default function Home() {
                     <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
                       {aibsDescriptions[key]}
                     </p>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="100" 
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
                       value={value}
                       onChange={(e) => updateAibsScore(key, parseInt(e.target.value))}
                       className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
@@ -1385,14 +1385,14 @@ export default function Home() {
                       <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2 text-on-surface-variant">Architect Status</div>
                       <div className={cn(
                         "text-lg font-bold px-3 py-1 rounded-lg inline-block",
-                        getAverage(aibsScores) >= 90 ? "bg-green-500/10 text-green-700" : 
-                        getAverage(aibsScores) >= 75 ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"
+                        getAverage(aibsScores) >= 90 ? "bg-green-500/10 text-green-700" :
+                          getAverage(aibsScores) >= 75 ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"
                       )}>
                         {getAverage(aibsScores) >= 90 ? 'Master Builder' : getAverage(aibsScores) >= 75 ? 'Senior Engineer' : 'Apprentice'}
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-surface p-4 rounded-xl border border-outline-variant/10 font-mono text-[10px] space-y-1 overflow-hidden">
                     <div className="flex items-center gap-2 text-primary font-bold mb-2 uppercase tracking-widest">
                       <Activity className="w-3 h-3" /> System Log
@@ -1407,7 +1407,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -1418,16 +1418,16 @@ export default function Home() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aibsRadarData}>
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#775a19" 
-                      fill="#775a19" 
-                      fillOpacity={0.5} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#775a19"
+                      fill="#775a19"
+                      fillOpacity={0.5}
                       animationDuration={300}
                     />
                   </RadarChart>
@@ -1450,7 +1450,7 @@ export default function Home() {
           </div>
 
           {/* AIBS CTA */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1481,7 +1481,7 @@ export default function Home() {
             <div className="absolute top-0 right-0 p-8 opacity-10">
               <School className="w-32 h-32 text-primary" />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -1502,10 +1502,10 @@ export default function Home() {
                       <p className="text-[9px] text-on-surface-variant/80 leading-tight mb-1">
                         {aioiedDescriptions[key]}
                       </p>
-                      <input 
-                        type="range" 
-                        min="0" 
-                        max="100" 
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
                         value={value}
                         onChange={(e) => setAioiedScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                         className="w-full h-1 bg-surface-container-low rounded-full appearance-none cursor-pointer accent-primary"
@@ -1532,7 +1532,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-surface-container-high/20 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">PATENT-BACKED SIMULATION · PG v2.0</span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">REAL ADVERSARIAL INGENUITY · SIMULATION</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
               The air-gapped <span className="italic text-primary">Proving Ground</span>
             </h2>
@@ -1546,7 +1546,7 @@ export default function Home() {
             <div className="lg:col-span-8 bg-[#16140F] border border-[#2d281e] rounded-[2rem] p-6 shadow-2xl relative overflow-hidden flex flex-col h-[520px]">
               {/* Scanlines and Glow Effects */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[linear-gradient(rgba(18,16,12,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
-              
+
               {/* Terminal Title Bar */}
               <div className="flex items-center justify-between pb-4 border-b border-[#2d281e] mb-4 text-[#8a8270] font-mono text-xs select-none">
                 <div className="flex items-center gap-2">
@@ -1582,7 +1582,7 @@ export default function Home() {
                     {log.text}
                   </motion.div>
                 ))}
-                
+
                 {/* Simulated Blinking Cursor */}
                 <span className="inline-block w-2 h-4 bg-[#E8DFC9] animate-[ping_1.2s_infinite] align-middle ml-1" />
               </div>
@@ -1613,7 +1613,7 @@ export default function Home() {
                 </div>
                 {/* Health/Resilience progress bar */}
                 <div className="h-2 w-full bg-outline/10 rounded-full overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: '81%' }}
                     animate={{ width: `${pgCaScore}%` }}
                     transition={{ type: 'spring', stiffness: 80 }}
@@ -1635,7 +1635,7 @@ export default function Home() {
                   </div>
                   <span className="patent-tag">PAT-002</span>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { key: 'KV', label: 'Keystroke Velocity', val: pgTelemetry.KV, desc: 'MS inter-key typing speed' },
@@ -1753,8 +1753,8 @@ export default function Home() {
                 onClick={triggerL1}
                 className={cn(
                   "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md cursor-pointer",
-                  pgActiveLevel === 'L1' 
-                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                  pgActiveLevel === 'L1'
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5"
                     : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
                 )}
               >
@@ -1777,8 +1777,8 @@ export default function Home() {
                 disabled={pgActiveLevel === 'idle'}
                 className={cn(
                   "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
-                  pgActiveLevel === 'L2' 
-                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                  pgActiveLevel === 'L2'
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5"
                     : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
                 )}
               >
@@ -1801,8 +1801,8 @@ export default function Home() {
                 disabled={pgActiveLevel !== 'L2' && pgActiveLevel !== 'L3'}
                 className={cn(
                   "p-5 rounded-2xl border text-left transition-all h-full flex flex-col justify-between hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
-                  pgActiveLevel === 'L3' 
-                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5" 
+                  pgActiveLevel === 'L3'
+                    ? "border-primary bg-primary/5 shadow-md shadow-primary/5"
                     : "border-outline-variant/10 bg-surface hover:border-outline-variant/30"
                 )}
               >
@@ -1860,7 +1860,7 @@ export default function Home() {
               >
                 {/* CRT Scanline Effect inside modal */}
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,12,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
-                
+
                 {/* Modal Header */}
                 <div className="p-6 border-b border-[#2d281e] flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20">
@@ -1938,7 +1938,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-background relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">PATENT-BACKED SIMULATION · TA v2.0</span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">AGENTIC MENTOR/PROCTOR · CHAOS INJECTION</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
               The dual-nature <span className="italic text-primary">Tenured Agent</span>
             </h2>
@@ -1956,7 +1956,7 @@ export default function Home() {
                     <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-005 State Machine</span>
                     <h3 className="text-base font-bold text-on-surface">Dual-Nature Agent Simulator</h3>
                   </div>
-                  
+
                   {/* Mode Selector Switch */}
                   <div className="flex bg-surface p-1 rounded-xl border border-outline-variant/10">
                     <button
@@ -1987,8 +1987,8 @@ export default function Home() {
                 {/* Animated Showcase Panel */}
                 <div className={cn(
                   "p-6 rounded-2xl border transition-all duration-500 relative min-h-[280px] flex flex-col justify-between",
-                  taMode === 'mentor' 
-                    ? "border-emerald-500/20 bg-emerald-500/[0.02]" 
+                  taMode === 'mentor'
+                    ? "border-emerald-500/20 bg-emerald-500/[0.02]"
                     : "border-red-950 bg-red-950/[0.02]"
                 )}>
                   <div className="space-y-4">
@@ -2003,15 +2003,15 @@ export default function Home() {
                           {taMode === 'mentor' ? "MENTOR · ACTIVE" : "INVIGILATOR · LIVE"}
                         </span>
                       </div>
-                      
+
                       {/* Voice Reasoning Waveform (PAT-009) */}
                       <div className="flex items-end gap-[3px] h-5 px-2">
                         {Array.from({ length: 12 }).map((_, i) => (
                           <motion.span
                             key={i}
                             animate={{
-                              height: taMode === 'mentor' 
-                                ? [10, Math.random() * 20 + 8, 10] 
+                              height: taMode === 'mentor'
+                                ? [10, Math.random() * 20 + 8, 10]
                                 : [12, Math.random() * 6 + 10, 12]
                             }}
                             transition={{
@@ -2036,7 +2036,7 @@ export default function Home() {
                             <span className="text-[10px] font-bold block text-emerald-800 uppercase tracking-widest mb-1 font-mono">Mentor Guidance (Socratic)</span>
                             "Dr. Lena, look closely at the concurrency lock on line 87. You bypassed it using a static sleep interval—but is that thread-safe under parallel workload? What happens to the database connection pool if the gateway remains unresponsive for more than 500ms?"
                           </div>
-                          
+
                           {/* Career Memory Recall vector-graph visual */}
                           <div className="text-primary/80 bg-primary/5 p-3.5 rounded-xl border border-primary/10 leading-relaxed font-body relative overflow-hidden">
                             <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:20px_20px]"></div>
@@ -2051,9 +2051,9 @@ export default function Home() {
                         <>
                           <div className="text-[#E8DFC9] bg-[#16140F] p-3.5 rounded-xl border border-red-950/40 leading-relaxed font-mono">
                             <span className="text-[10px] font-bold block text-red-500 uppercase tracking-widest mb-1">Invigilator Feed</span>
-                            [MONITOR] Telemetry stream online.<br/>
-                            ▸ KV burst signature detected at 16:42:01. Copy-paste probability: 91%<br/>
-                            ▸ Diagnostic latency: 180s timeout active.<br/>
+                            [MONITOR] Telemetry stream online.<br />
+                            ▸ KV burst signature detected at 16:42:01. Copy-paste probability: 91%<br />
+                            ▸ Diagnostic latency: 180s timeout active.<br />
                             ▸ Direct hint request: DISABLED (Friction checklist active).
                           </div>
                         </>
@@ -2161,7 +2161,7 @@ export default function Home() {
                   <div className="bg-surface-container-high text-center py-2.5 rounded-lg border border-outline-variant/20 font-bold text-primary tracking-widest shadow-inner">
                     ◇ THE BLACKBOARD
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { id: 'mentor', name: 'Mentor (TA)', color: 'border-emerald-500/30 text-emerald-600 bg-emerald-500/[0.02]', desc: 'Socratic helper. Cannot see pending Chaos Injections.' },
@@ -2220,7 +2220,7 @@ export default function Home() {
           {/* Section Header */}
           <div className="text-center mb-16 space-y-4">
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">
-              FOUNDATIONS · THE MATH OF OBSOLESCENCE (λ)
+              FOUNDATIONS · THE LEARNING LOOP
             </span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
               Static credentials decay. <span className="italic text-primary">So we built a loop.</span>
@@ -2236,10 +2236,10 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex justify-between items-center border-b border-outline-variant/10 pb-4">
                   <div>
-                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-003 DECAY</span>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">THE MATH OF OBSOLESCENCE (λ)</span>
                     <h3 className="text-base font-bold text-on-surface">Obsolescence Math & Half-Life</h3>
                   </div>
-                  <span className="patent-tag">PAT-003</span>
+                  <span className="patent-tag"></span>
                 </div>
 
                 {/* Mathematical Formula Screen */}
@@ -2418,7 +2418,7 @@ export default function Home() {
                   <div>
                     <h3 className="text-base font-bold text-on-surface">Telemetry Module Player</h3>
                   </div>
-                  
+
                   {/* Presence Telemetry Pill (PAT-002) */}
                   <div className="flex items-center gap-2">
                     <span className="text-[9px] font-mono text-outline uppercase">Presence:</span>
@@ -2532,8 +2532,8 @@ export default function Home() {
                     )}
                     {activeModule === 'code' && (
                       <p className="bg-surface/80 p-3 rounded-lg border border-outline-variant/10 leading-relaxed font-mono text-[9px] overflow-x-auto whitespace-pre">
-                        const semaphore = new Semaphore(poolSize);<br/>
-                        // tele_check: lock released after annotation<br/>
+                        const semaphore = new Semaphore(poolSize);<br />
+                        // tele_check: lock released after annotation<br />
                         await semaphore.acquire();
                       </p>
                     )}
@@ -2635,14 +2635,14 @@ export default function Home() {
                     <span>Accrual Source Attribution:</span>
                     <span>100% Attributed</span>
                   </div>
-                  
+
                   {/* Segmented bar */}
                   <div className="w-full bg-outline/10 h-2.5 rounded-full overflow-hidden flex">
                     <div className="bg-[#4F8A6B] h-full" style={{ width: '40%' }} title="Time Attested portion" />
                     <div className="bg-[#C5A059] h-full" style={{ width: '40%' }} title="Comprehension streak portion" />
                     <div className="bg-[#2C4771] h-full" style={{ width: '20%' }} title="Annotation credit portion" />
                   </div>
-                  
+
                   <div className="flex justify-between items-center flex-wrap gap-2 text-[8px] text-outline">
                     <span className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#4F8A6B]" /> Time Attested ({Math.floor(accruedTp * 0.4)} TP)
@@ -2668,7 +2668,7 @@ export default function Home() {
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Personal Agency</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold">The Sovereign <span className="italic text-primary">Identity</span></h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
             {isHeatmapLoading ? (
               <>
@@ -2723,7 +2723,7 @@ export default function Home() {
               </>
             ) : (
               <>
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8, scale: 1.01 }}
@@ -2744,25 +2744,25 @@ export default function Home() {
                       <h3 className="font-headline text-3xl font-bold text-on-surface mb-2 tracking-tight">Cognitive Consistency</h3>
                       <p className="text-on-surface-variant font-light text-base">Mathematical mapping of performance resilience over 72-hour adversarial cycles.</p>
                     </div>
-                    
+
                     <div className="grid grid-cols-12 gap-2 pt-6">
                       {Array.from({ length: 72 }).map((_, i) => {
                         const intensity = (0.2 + (Math.sin(i * 0.5) + 1) * 0.4).toFixed(2);
                         return (
-                          <div 
-                            key={i} 
+                          <div
+                            key={i}
                             className={cn(
                               "aspect-square rounded-sm transition-all duration-300",
-                              parseFloat(intensity) > 0.8 ? "bg-primary" : 
-                              parseFloat(intensity) > 0.5 ? "bg-[#485e8b] opacity-90" : 
-                              parseFloat(intensity) > 0.3 ? "bg-primary/40" : "bg-primary/10"
+                              parseFloat(intensity) > 0.8 ? "bg-primary" :
+                                parseFloat(intensity) > 0.5 ? "bg-[#485e8b] opacity-90" :
+                                  parseFloat(intensity) > 0.3 ? "bg-primary/40" : "bg-primary/10"
                             )}
                           />
                         );
                       })}
                     </div>
                   </div>
-                  
+
                   <div className="pt-10 flex flex-wrap justify-between items-end gap-6 text-[10px] font-mono uppercase font-bold tracking-widest text-secondary">
                     <div className="space-y-1">
                       <div className="text-primary mb-1">Retention Integrity</div>
@@ -2774,7 +2774,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ y: -8, scale: 1.01 }}
@@ -2783,7 +2783,7 @@ export default function Home() {
                   className="md:col-span-5 bg-[#485e8b] p-8 md:p-10 rounded-[2.5rem] flex flex-col justify-between border border-white/10 relative overflow-hidden group text-white shadow-2xl transition-all duration-500"
                 >
                   <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')] mix-blend-overlay"></div>
-                  
+
                   <div className="space-y-8 relative z-10">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -2791,7 +2791,7 @@ export default function Home() {
                       </div>
                       <h3 className="font-headline text-3xl font-bold tracking-tight">Sovereign Passport</h3>
                     </div>
-                    
+
                     <div className="space-y-3">
                       {[
                         { label: "Trust Score", value: "0.98 ALPHA", status: "VERIFIED" },
@@ -2805,7 +2805,7 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="pt-10 space-y-6 relative z-10">
                     <p className="text-sm italic text-white font-medium leading-relaxed opacity-80">
                       Forensic proof of performance, cryptographically bound and redacted by default for radical privacy.
@@ -2829,7 +2829,7 @@ export default function Home() {
           <span className="text-[10px] font-bold text-outline uppercase tracking-[0.3em]">Institutional Partners & Nodes</span>
         </div>
         <div className="relative flex">
-          <motion.div 
+          <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             className="flex gap-12 md:gap-24 items-center whitespace-nowrap"
@@ -2870,7 +2870,7 @@ export default function Home() {
               ))
             ) : (
               testimonials.map((t, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -2907,14 +2907,14 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 bg-surface-container-lowest">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Pricing Strategy</span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Sovereign Pricing</span>
             <h2 className="text-4xl md:text-6xl font-headline font-bold tracking-tight">
               Pay for <span className="italic text-primary">Proven Capability.</span>
             </h2>
-            
+
             <div className="flex justify-center items-center gap-4 pt-8">
               <span className={cn("text-[10px] font-bold uppercase tracking-widest transition-colors", billingCycle === 'monthly' ? "text-on-surface" : "text-outline")}>Monthly</span>
-              <button 
+              <button
                 onClick={() => setBillingCycle(prev => prev === 'monthly' ? 'annual' : 'monthly')}
                 className="w-10 h-5 bg-surface-container-highest rounded-full relative p-1 transition-colors"
               >
@@ -2928,13 +2928,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {individualPlans.map((plan, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 className={cn(
                   "p-8 md:p-10 rounded-3xl flex flex-col border transition-all duration-500 relative",
-                  plan.highlight 
-                    ? "bg-primary text-on-primary border-primary shadow-2xl scale-105 z-10 hover:shadow-primary/40" 
+                  plan.highlight
+                    ? "bg-primary text-on-primary border-primary shadow-2xl scale-105 z-10 hover:shadow-primary/40"
                     : "bg-surface-container-low border-outline-variant/15 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
                 )}
               >
@@ -2965,12 +2965,12 @@ export default function Home() {
                   ))}
                 </ul>
 
-                <Link 
+                <Link
                   to="/request-access"
                   className={cn(
                     "w-full py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all active:scale-95 text-center shadow-lg",
-                    plan.highlight 
-                      ? "bg-surface-container-lowest text-primary hover:bg-white" 
+                    plan.highlight
+                      ? "bg-surface-container-lowest text-primary hover:bg-white"
                       : "bg-primary text-on-primary hover:opacity-90"
                   )}
                 >
@@ -2993,16 +2993,16 @@ export default function Home() {
 
           <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className={cn(
                   "rounded-2xl border transition-all duration-300 overflow-hidden",
-                  openFaqIndex === i 
-                    ? "bg-surface border-primary/30 shadow-lg" 
+                  openFaqIndex === i
+                    ? "bg-surface border-primary/30 shadow-lg"
                     : "bg-surface-container-highest border-outline-variant/10 hover:border-primary/20"
                 )}
               >
-                <button 
+                <button
                   onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
                   className="w-full px-8 py-6 flex items-center justify-between text-left group"
                 >
@@ -3021,7 +3021,7 @@ export default function Home() {
                 </button>
                 <AnimatePresence>
                   {openFaqIndex === i && (
-                    <motion.div 
+                    <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -3072,9 +3072,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="pt-12">
-            <Link 
+            <Link
               to="/request-access"
               className="inline-flex items-center gap-3 px-12 py-5 bg-inverse-surface text-inverse-on-surface rounded-2xl font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-2xl"
             >

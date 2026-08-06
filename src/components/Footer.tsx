@@ -7,7 +7,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <img src="/tenured-1024.png" alt="Tenured AI" className="h-16" />
+            <Link to="/" className="shrink-0 flex items-center pr-[60px]">
+              <img src="/tenured-1024.png" alt="Tenured AI" className="h-16" />
+              <span className="hidden md:block text-xl font-headline font-black text-on-surface tracking-tight ml-3">Tenured AI</span>
+            </Link>
             <p className="text-sm text-on-surface-variant leading-relaxed max-w-xs">
               Mathematical underwriting of human competence for the autonomous era. Precise benchmarks for cognitive sovereignty.
             </p>
@@ -32,11 +35,10 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h4 className="font-label text-xs font-bold tracking-[0.2em] uppercase text-primary mb-6">Protocol</h4>
             <ul className="space-y-4">
-              <li><Link to="/underwriting" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Scores</Link></li>
               <li><Link to="/learners" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Passport</Link></li>
               <li><Link to="/chaos-lab" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Proving Ground</Link></li>
               <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>

@@ -5,7 +5,7 @@ import { Shield, Info } from 'lucide-react';
 
 export default function LeaderboardPage() {
   return (
-    <div className="pt-32 pb-20 px-6 md:px-8 max-w-7xl mx-auto">
+    <div className="pt-20 pb-20 px-6 md:px-8 max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-12 gap-12">
         {/* Left Column: Context & Stats */}
         <div className="lg:col-span-4 space-y-8">
@@ -19,7 +19,7 @@ export default function LeaderboardPage() {
               <span className="text-[10px] font-mono font-bold text-primary uppercase tracking-[0.3em]">Reputation Kernel</span>
             </div>
             <h1 className="text-5xl font-headline font-black text-on-surface leading-tight tracking-tighter">
-              The Sovereign <br/> <span className="italic text-primary">Ledger.</span>
+              The Sovereign <br /> <span className="italic text-primary">Ledger.</span>
             </h1>
             <p className="text-on-surface-variant leading-relaxed">
               Real-time synchronization of verified professional nodes. Rank is determined by the cumulative weight of peer-signed validations and adversarial performance metrics.

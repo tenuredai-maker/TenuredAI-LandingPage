@@ -6,7 +6,7 @@ export default function Manifesto() {
     <div className="pt-32 pb-24 px-8 md:px-12 max-w-7xl mx-auto">
       <header className="mb-16 text-center">
         <span className="font-label text-xs tracking-[0.3em] text-primary uppercase mb-4 block">Institutional Document 001</span>
-        <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8">The Sovereign Manifesto</h1>
+        <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8">This Sovereign Manifesto</h1>
         <p className="font-headline italic text-xl md:text-2xl text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
           Defining the future of intellectual capital in the age of generative displacement.
         </p>
@@ -20,17 +20,17 @@ export default function Manifesto() {
         transition={{ duration: 0.8 }}
         className="w-full h-80 md:h-[500px] rounded-3xl overflow-hidden relative mb-24 shadow-2xl group border border-outline-variant/20"
       >
-        <img 
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" 
-          alt="Editorial Architecture" 
+        <img
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80"
+          alt="Editorial Architecture"
           className="w-full h-full object-cover grayscale opacity-80 transition-transform duration-[2s] group-hover:scale-105"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-tertiary/10 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-30"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-2xl text-left z-10 p-6 md:p-8 bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl border border-outline-variant/30">
-           <h2 className="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 tracking-tight">The Ledger of Human Agency</h2>
-           <p className="text-on-surface-variant text-base md:text-lg">Defending the qualitative delta between sterile machine output and human-authored brilliance. The algorithm generates; the human curates, audits, and commands.</p>
+          <h2 className="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 tracking-tight">The Ledger of Human Agency</h2>
+          <p className="text-on-surface-variant text-base md:text-lg">Defending the qualitative delta between sterile machine output and human-authored brilliance. The algorithm generates; the human curates, audits, and commands.</p>
         </div>
       </motion.div>
 
@@ -54,8 +54,8 @@ export default function Manifesto() {
             </div>
           </div>
           <div className="absolute right-[-10%] bottom-[-10%] w-2/3 h-2/3 opacity-10">
-            <img 
-              className="w-full h-full object-cover" 
+            <img
+              className="w-full h-full object-cover"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIp9hVYroYVn9sUt45TpZDmtmvrJlokxMaPieM5Dcdi2C5Kz0Ftue448RYUtjtsHyzWH5-4-7vmahjwlvdDO4iSfaHy6x7Cg6in9bvrkT5n3V_TC5a5wB5PZOJSltKw3DkTXpHr1hiYNmVUoYTsmkVEBeb3ANcNJPkD6PtkMXAnZkPWOzMFvTB0CQ6XREvyTY-eb3cdHV7_N_OX21bImMfx7-ZFkTBEdJsHEZ65tAl-LjWrxPpA8Ztdi8fWu1lrTJ04ihDSt0"
               referrerPolicy="no-referrer"
             />
@@ -83,7 +83,7 @@ export default function Manifesto() {
               "Verification of manual audit trails in AI workstreams."
             ].map((text, i) => (
               <div key={i} className="flex items-start gap-4">
-                <span className="font-headline italic text-primary text-xl">0{i+1}</span>
+                <span className="font-headline italic text-primary text-xl">0{i + 1}</span>
                 <p className="text-sm text-on-surface-variant">{text}</p>
               </div>
             ))}
@@ -116,28 +116,28 @@ export default function Manifesto() {
 
       <div className="my-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <motion.div
-           initial={{ opacity: 0, x: -30 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
           <div className="w-full aspect-[4/5] rounded-[2rem] overflow-hidden relative shadow-2xl border border-outline-variant/20 group">
-            <img 
-              src="https://images.unsplash.com/photo-1554232456-8727aae0cfa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-              alt="The Sovereign Contract" 
+            <img
+              src="https://images.unsplash.com/photo-1554232456-8727aae0cfa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+              alt="The Sovereign Contract"
               className="w-full h-full object-cover grayscale opacity-90 transition-transform duration-[2s] group-hover:scale-105"
               referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-[#3b4c73]/20 mix-blend-color transition-opacity duration-700 group-hover:opacity-40"></div>
           </div>
         </motion.div>
-        
+
         <motion.div
-           initial={{ opacity: 0, x: 30 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.8, delay: 0.2 }}
-           className="space-y-8"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="space-y-8"
         >
           <span className="font-label text-sm uppercase tracking-widest text-primary font-bold">The Tenured Protocol</span>
           <h2 className="font-headline text-4xl md:text-5xl font-bold leading-tight">The Sovereign Contract</h2>
