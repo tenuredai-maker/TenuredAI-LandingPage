@@ -38,7 +38,7 @@ export default function TenuredAgent() {
     {
       key: 'mentor' as const,
       name: 'Mentor',
-      patent: 'PAT-005',
+      patent: 'AGENT-1',
       role: 'Tenured Agent · Mentor mode',
       speaks: true,
       objective: 'Scaffolded guidance · expose logical gaps via Socratic questioning',
@@ -48,7 +48,7 @@ export default function TenuredAgent() {
     {
       key: 'proctor' as const,
       name: 'Proctor',
-      patent: 'PAT-004',
+      patent: 'AGENT-2',
       role: 'Tenured Agent · Proctor mode + Council Proctor',
       speaks: true,
       objective: 'Monitor telemetry for AI-typical signatures · trigger Hard-Gate preemption',
@@ -58,7 +58,7 @@ export default function TenuredAgent() {
     {
       key: 'auditor' as const,
       name: 'Auditor',
-      patent: 'PAT-004',
+      patent: 'AGENT-3',
       role: 'Specialist · artifact evaluator',
       speaks: false,
       objective: 'Evaluate technical validity + industry-standard compliance',
@@ -68,7 +68,7 @@ export default function TenuredAgent() {
     {
       key: 'chaos' as const,
       name: 'Chaos Agent',
-      patent: 'PAT-001',
+      patent: 'AGENT-4',
       role: 'Specialist · friction injector',
       speaks: false,
       objective: 'Execute environment mutation via the ALE (Adaptive Learning Environment)',
@@ -93,7 +93,7 @@ export default function TenuredAgent() {
       icon: <Eye className="w-5 h-5" />,
       label: 'ALWAYS KNOWABLE',
       color: 'text-emerald-400',
-      description: "Current mode (Mentor vs Proctor) is always shown via pulse + label. The council's active phase is announced at transition. No ambiguity about who's evaluating you.",
+      description: "You'll always know what mode your Agent is in — Mentor or Proctor — with a clear pulse and label. Whenever the council shifts phases, it announces the change. You'll never have to guess who's evaluating you.",
     },
     {
       icon: <CheckCircle className="w-5 h-5" />,
@@ -144,14 +144,10 @@ export default function TenuredAgent() {
             className="flex flex-wrap items-center gap-3"
           >
             <span className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border border-primary/20">
-              AGENT v2.0
+              THE TENURED AGENT
             </span>
-            <span className="bg-tertiary/10 text-tertiary px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border border-tertiary/20">
-              PATENT-COMPLETE
-            </span>
-            <span className="text-on-surface-variant text-[10px] tracking-[0.2em] uppercase font-mono">
-              PAT-002 · 004 · 005 · 006 · 009 · 011 · 019
-            </span>
+
+
           </motion.div>
 
           <motion.h1
@@ -172,7 +168,8 @@ export default function TenuredAgent() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed font-light"
           >
-            The Tenured Agent is the platform's connective intelligence. The user feels one Agent. The platform runs a council of four — governed by an Orchestrator Node, a shared Blackboard, and a Weighted Consensus Protocol that mints every credential.
+            The Tenured Agent is the intelligent guide at the heart of Tenured AI. It brings together everything you need in one experience—helping you learn, track your progress, identify skill gaps, and build your AI competency. Behind the scenes, multiple AI capabilities work together to make your experience more personalized, reliable, and focused on helping you achieve your goals.
+
           </motion.p>
 
           <motion.div
@@ -184,8 +181,7 @@ export default function TenuredAgent() {
             {[
               { label: 'Contexts', value: '8' },
               { label: 'Screens', value: '24' },
-              { label: 'Council Agents', value: '4' },
-              { label: 'Patents Covered', value: '7' },
+              { label: 'Council Agents', value: '4' }
             ].map((stat) => (
               <div key={stat.label} className="bg-surface-container-low border border-outline-variant/20 rounded-2xl p-4 text-center">
                 <div className="font-headline text-3xl font-bold text-primary">{stat.value}</div>
@@ -204,7 +200,7 @@ export default function TenuredAgent() {
         >
           <div className="bg-[#16140F] text-[#F3F0EC] p-6 rounded-3xl border border-outline-variant/30 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 p-4 font-mono text-[9px] text-[#FFBF00] opacity-85 tracking-wider">
-              AGENT v2 // COUNCIL
+              AGENT // COUNCIL
             </div>
 
             {/* Mode toggle */}
@@ -279,13 +275,12 @@ export default function TenuredAgent() {
       {/* The Four-Agent Council */}
       <section className="space-y-12">
         <div className="space-y-4">
-          <SectionBadge label="PAT-004 · Four-Agent Council" />
+          <SectionBadge label="Four-Agent Council" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">
             Four agents with intentionally conflicting objectives.
           </h2>
           <p className="text-on-surface-variant font-light max-w-3xl text-lg leading-relaxed">
-            No single agent can authorize a credential. Only the consensus of independently-derived evaluations — each agent operating with structurally incompatible success criteria — can mint your Passport entry.
-          </p>
+            No single Agent can approve a credential by itself. Your Passport entry is only created when all Agents independently evaluate and agree — each one looking at it from a completely different angle to ensure it's accurate.          </p>
         </div>
 
         {/* Council Tab Selector */}
@@ -376,10 +371,9 @@ export default function TenuredAgent() {
       {/* Weighted Consensus */}
       <section className="space-y-8">
         <div className="space-y-4">
-          <SectionBadge label="PAT-004 · Weighted Consensus" />
+          <SectionBadge label="Weighted Consensus" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            No single agent mints a credential. Ever.
-          </h2>
+            Agents work in unison, so a credential is never created by a single Agent alone. Ever.          </h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-[#16140F] rounded-3xl p-8 border border-outline-variant/20">
@@ -417,12 +411,12 @@ export default function TenuredAgent() {
       {/* Dual-Nature State Machine */}
       <section className="space-y-8">
         <div className="space-y-4">
-          <SectionBadge label="PAT-005 · Dual-Nature State Machine" />
+          <SectionBadge label="Dual-Nature State Machine" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            One Agent. Two souls. Route-driven.
+            One Agent. Two souls.
           </h2>
           <p className="text-on-surface-variant font-light max-w-3xl text-lg leading-relaxed">
-            On the dashboard, docs, and learning surfaces it is the <strong className="text-emerald-400">Mentor</strong>. The instant the user crosses into the Proving Ground, the state machine flips to the <strong className="text-red-400">Proctor</strong>. Same Agent, same memory, opposite demeanor. The pivot is announced, never implied.
+            On your dashboard, in the docs, and while you're learning, it's your <strong className="text-emerald-400">Mentor</strong> — there to guide and support you. The moment you enter the Proving Ground, it switches to <strong className="text-red-400">Proctor</strong> mode — same Agent, same memory of you, but now focused on fair and unbiased evaluation. The switch is always clear and announced, so you always know which mode you're in.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -474,13 +468,12 @@ export default function TenuredAgent() {
       {/* Growth Loop and Career Memory */}
       <section className="space-y-8">
         <div className="space-y-4">
-          <SectionBadge label="PAT-005 · Growth Loop + Career Memory" />
+          <SectionBadge label="Growth Loop + Career Memory" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
             Every successor session is built from your previous answer.
           </h2>
           <p className="text-on-surface-variant font-light max-w-3xl text-lg leading-relaxed">
-            There is no fixed curriculum. The next session is synthesized at runtime from the user's specific artifacts. The Growth Coefficient calibrates the complexity increment. The Vector-Graph makes the Agent remember your career across years.
-          </p>
+            There's no one-size-fits-all curriculum. Your next session is built in real-time around your actual work. The system adjusts how challenging it gets based on your progress, and it remembers your career journey for years so every session builds on the last. The Growth Coefficient calibrates the complexity increment. The Vector-Graph makes the Agent remember your career across years          </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-surface-container-low border border-outline-variant/20 rounded-3xl p-6">
@@ -536,9 +529,11 @@ export default function TenuredAgent() {
       {/* CMD+K */}
       <section className="space-y-8">
         <div className="space-y-4">
-          <SectionBadge label="Context B · CMD+K Omni-Box" />
+          <SectionBadge label="CMD+K Omni-Box" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            Command the council like a terminal.
+            Control your council like you would a command line.
+
+            Use slash commands when you want to take direct action, or just talk naturally and your Mentor will handle it for you.
           </h2>
           <p className="text-on-surface-variant font-light max-w-3xl text-lg leading-relaxed">
             Slash commands trigger real council actions. Natural language falls through to the Mentor.
@@ -594,8 +589,7 @@ export default function TenuredAgent() {
         <div className="space-y-4">
           <SectionBadge label="The Pulse System" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            The Agent breathes in the chrome — in four colors.
-          </h2>
+            Your Agent lives right in your browser — brought to life in four colors that represent the council working for you.          </h2>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
           {[
@@ -624,8 +618,7 @@ export default function TenuredAgent() {
         <div className="space-y-4">
           <SectionBadge label="Trust and Boundaries" />
           <h2 className="font-headline text-4xl md:text-5xl font-bold tracking-tight">
-            The Agent's integrity is the platform's integrity.
-          </h2>
+            f you can trust your Agent, you can trust the platform.          </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {trustPrinciples.map((principle) => (

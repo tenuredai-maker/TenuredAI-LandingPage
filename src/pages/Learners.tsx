@@ -895,7 +895,7 @@ export default function Learners() {
       </section>
 
       {/* Patent Foundations Accordions */}
-      <section id="foundations" className="space-y-10 scroll-margin-top-28">
+      {/* <section id="foundations" className="space-y-10 scroll-margin-top-28">
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary">
             <Cpu className="w-3.5 h-3.5" />
@@ -1020,7 +1020,7 @@ export default function Learners() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
 
       {/* Patent Mappings section — hidden
