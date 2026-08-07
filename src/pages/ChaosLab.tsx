@@ -15,18 +15,18 @@ interface LogLine {
 // ─── Static data ───────────────────────────────────────────────────────────
 const TELEMETRY_CHANNELS = [
   { id: 'keystroke-velocity', label: 'Keystroke Velocity', unit: 'kpm', value: '1,247', healthy: '800–1400', trend: '▲', state: 'normal' },
-  { id: 'inference-latency',  label: 'Inference Latency',  unit: 'ms',  value: '2,840', healthy: '800–4500', trend: '▼', state: 'normal' },
-  { id: 'command-precision',  label: 'Command Precision',  unit: '%',   value: '88',    healthy: '≥ 82%',    trend: '▲', state: 'normal' },
-  { id: 'error-trajectory',   label: 'Error Trajectory',   unit: 'slope', value: '−0.12', healthy: 'Negative (improving)', trend: '▼', state: 'normal' },
-  { id: 'verification-outcome', label: 'Verification Outcome', unit: '%', value: '87',  healthy: '≥ 85%',   trend: '▲', state: 'normal' },
+  { id: 'inference-latency', label: 'Inference Latency', unit: 'ms', value: '2,840', healthy: '800–4500', trend: '▼', state: 'normal' },
+  { id: 'command-precision', label: 'Command Precision', unit: '%', value: '88', healthy: '≥ 82%', trend: '▲', state: 'normal' },
+  { id: 'error-trajectory', label: 'Error Trajectory', unit: 'slope', value: '−0.12', healthy: 'Negative (improving)', trend: '▼', state: 'normal' },
+  { id: 'verification-outcome', label: 'Verification Outcome', unit: '%', value: '87', healthy: '≥ 85%', trend: '▲', state: 'normal' },
   { id: 'confidence-calibration', label: 'Confidence Calibration', unit: 'Δ', value: '+0.09', healthy: '± 0.15', trend: '→', state: 'normal' },
 ];
 
 const COUNCIL = [
-  { id: 'mentor',      label: 'Mentor',      color: '#7FBF9B', status: 'observing', role: 'Coach voice — scaffolds learning, not rescue.' },
+  { id: 'mentor', label: 'Mentor', color: '#7FBF9B', status: 'observing', role: 'Coach voice — scaffolds learning, not rescue.' },
   { id: 'proctor', label: 'Proctor', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — owns the session lock.' },
-  { id: 'auditor',     label: 'Auditor',     color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — signs the Ledger.' },
-  { id: 'chaos',       label: 'Chaos',       color: '#FF8B7A', status: 'dormant',   role: 'ALE operator — injects when Bully Logic fires.' },
+  { id: 'auditor', label: 'Auditor', color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — signs the Ledger.' },
+  { id: 'chaos', label: 'Chaos', color: '#FF8B7A', status: 'dormant', role: 'ALE operator — injects when Bully Logic fires.' },
 ];
 
 const CHAOS_TIERS = [
@@ -89,7 +89,7 @@ export default function ChaosLab() {
 
   const addLog = (text: string, type: LogLine['type'] = 'system') => {
     const t = new Date();
-    const timestamp = `${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}:${String(t.getSeconds()).padStart(2,'0')}`;
+    const timestamp = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}`;
     setLogs(prev => [...prev, { text, type, timestamp }]);
   };
 
@@ -138,7 +138,7 @@ export default function ChaosLab() {
     const h = Math.floor(s / 3600);
     const m = Math.floor((s % 3600) / 60);
     const sec = s % 60;
-    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   };
 
   const handleInject = async () => {
@@ -148,7 +148,7 @@ export default function ChaosLab() {
     }
     if (analytics) logEvent(analytics, 'chaos_lab_inject_poison', { denial_level: denialLevel });
     setIsGlitching(true);
-    const level = denialLevel < 3 ? (['L1','L2','L3'][denialLevel] as 'L1'|'L2'|'L3') : 'L3';
+    const level = denialLevel < 3 ? (['L1', 'L2', 'L3'][denialLevel] as 'L1' | 'L2' | 'L3') : 'L3';
     setChaosLevel(level);
 
     addLog('SECURITY_BREACH: Threshold drift detected in Terminal Files.', 'error');
@@ -320,7 +320,7 @@ export default function ChaosLab() {
   const scoreColor = (v: number) => v >= 85 ? '#C5A059' : v >= 60 ? '#FFBF00' : '#FF8B7A';
 
   return (
-    <div className="pt-20 min-h-screen bg-background text-on-surface">
+    <div className="pt-0 min-h-screen bg-background text-on-surface">
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-10">
@@ -328,10 +328,10 @@ export default function ChaosLab() {
           <div>
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-full">
-                V-100 · Proving Ground Terminal
+                Proving Ground Terminal  ·
               </span>
               <span className="font-mono text-[10px] tracking-[.18em] uppercase text-on-surface-variant/50 font-bold">
-                Adversary Interface V-200 · PAT-001
+                Adversary Interface
               </span>
             </div>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.02] mb-5">
@@ -471,16 +471,16 @@ export default function ChaosLab() {
                     <span className="text-[10px] opacity-30 mt-0.5 shrink-0 text-[#827A6C]">{log.timestamp}</span>
                     <p className={cn(
                       'leading-relaxed',
-                      log.type === 'system'      && 'text-[#827A6C] italic',
-                      log.type === 'error'       && 'text-[#FF8B7A] font-bold',
-                      log.type === 'user'        && 'text-[#F3F0EC]',
-                      log.type === 'adversary'   && 'text-[#FF8B7A]',
-                      log.type === 'mentor'      && 'text-[#7FBF9B]',
+                      log.type === 'system' && 'text-[#827A6C] italic',
+                      log.type === 'error' && 'text-[#FF8B7A] font-bold',
+                      log.type === 'user' && 'text-[#F3F0EC]',
+                      log.type === 'adversary' && 'text-[#FF8B7A]',
+                      log.type === 'mentor' && 'text-[#7FBF9B]',
                       log.type === 'proctor' && 'text-[#8FA5D6]',
-                      log.type === 'auditor'     && 'text-[#C5A059]',
+                      log.type === 'auditor' && 'text-[#C5A059]',
                     )}>
-                      {log.type === 'user'        && <span className="text-[#FFBF00] mr-2">$</span>}
-                      {log.type === 'adversary'   && <span className="text-[#FF8B7A] mr-2 uppercase font-black text-[10px]">[ADVERSARY]</span>}
+                      {log.type === 'user' && <span className="text-[#FFBF00] mr-2">$</span>}
+                      {log.type === 'adversary' && <span className="text-[#FF8B7A] mr-2 uppercase font-black text-[10px]">[ADVERSARY]</span>}
                       {log.text}
                     </p>
                   </motion.div>
@@ -608,7 +608,7 @@ export default function ChaosLab() {
                 </div>
 
                 {/* Radar placeholder — 3 score bars */}
-                {(['AICI','AIOI','AIBS'] as const).map(score => {
+                {(['AICI', 'AIOI', 'AIBS'] as const).map(score => {
                   const v = scores[score];
                   const col = scoreColor(v);
                   return (

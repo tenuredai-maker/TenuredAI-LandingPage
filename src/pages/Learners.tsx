@@ -99,11 +99,11 @@ export default function Learners() {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <span className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border border-primary/20">
-              UX SPEC v2.0
-            </span>
+            {/* <span className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border border-primary/20">
+
+            </span> */}
             <span className="bg-tertiary/10 text-tertiary px-3 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border border-tertiary/20">
-              PATENT-COMPLETE
+              THE SOVEREIGN PASSPORT
             </span>
             <span className="text-on-surface-variant text-[10px] tracking-[0.2em] uppercase font-mono">
               Core Verification · Decay · Consensus · Career Memory

@@ -250,8 +250,8 @@ export default function Pricing() {
       {/* College/University Mandated Fee */}
       <section className="mb-32">
         <div className="mb-12">
-          <h2 className="text-3xl font-headline font-bold mb-4">College/University Mandated Fee</h2>
-          <p className="text-on-surface-variant">Mandatory per-semester fee integrated directly into institutional billing.</p>
+          <h2 className="text-3xl font-headline font-bold mb-4">College/University Institutional & Campus Infrastructure Fee</h2>
+          <p className="text-on-surface-variant">Mandatory per-semester fee integrated directly into institutional billing. This mandatory fee covers essential platform integration, secure campus single sign-on (SSO), data privacy compliance, and dedicated learning infrastructure required by participating colleges and universities.</p>
         </div>
         <div className="bg-surface-container-low rounded-2xl overflow-x-auto border border-outline-variant/15">
           <table className="w-full text-left border-collapse min-w-[600px]">
