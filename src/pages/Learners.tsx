@@ -106,7 +106,7 @@ export default function Learners() {
               PATENT-COMPLETE
             </span>
             <span className="text-on-surface-variant text-[10px] tracking-[0.2em] uppercase font-mono">
-              PAT-001 · 002 · 003 · 004 · 005 · 010 · 011 · 013/014 · 019
+              Core Verification · Decay · Consensus · Career Memory
             </span>
           </motion.div>
 
@@ -700,7 +700,7 @@ export default function Learners() {
                               <div>
                                 <span className="text-[#FFBF00] block mb-1">▸ L3 // LEAF: COUNCIL CONSENSUS SIGNATURES</span>
                                 Hash: <span className="text-white">0x750cde1a0293ee0a1f2b...</span><br />
-                                Contains: Cryptographic signatures from Auditor (40% wt), Invigilator (30% wt), Mentor (20% wt), and Chaos (10% wt).
+                                Contains: Cryptographic signatures from Auditor (40% wt), Proctor (30% wt), Mentor (20% wt), and Chaos (10% wt).
                               </div>
                             )}
                             {selectedLeaf === 'meta' && (
@@ -914,70 +914,70 @@ export default function Learners() {
             {
               id: "F1",
               title: "The Sovereign Artifact",
-              patent: "PAT-001 · 002 · 003 · 004 · 005 · 010 · 011",
+              patent: "Verification · Decay · Consensus · Ledger · Memory",
               summary: "A unified, ledger-bound credential.",
               detail: "The Sovereign Passport collects every dynamic output of the Proving Ground and Learning Loop into a single cryptographic artifact. Every claim is verifiable against the public chain without relying on central verification services."
             },
             {
               id: "F2",
               title: "Command Authority (CA)",
-              patent: "PAT-001",
+              patent: "Command Logic Engine",
               summary: "The primary composite calibration metric.",
               detail: "Surfaced as the hero metric. Command Authority (CA) combines Time-To-Remediation (TTR), ALTFL command trajectory precision, and Bully Loop feedback survival. Supporting indices (AICI/AIOI/AIBS) feed into CA as components."
             },
             {
               id: "F3",
               title: "Consensus Certificate Anatomy",
-              patent: "PAT-004 + PAT-010",
+              patent: "Four-Agent Council · Sovereign Ledger",
               summary: "Cryptographic consensus bundles.",
-              detail: "Each certificate encapsulates the code artifact hash, raw PoF telemetry channels, and the weighted signatures of the 4-agent verification council (Auditor 40%, Invigilator 30%, Mentor 20%, Chaos 10%), nested inside a Polygon-anchored Merkle proof."
+              detail: "Each certificate encapsulates the code artifact hash, raw PoF telemetry channels, and the weighted signatures of the 4-agent verification council (Auditor 40%, Proctor 30%, Mentor 20%, Chaos 10%), nested inside a Polygon-anchored Merkle proof."
             },
             {
               id: "F4",
               title: "The Evidence Locker (PoF)",
-              patent: "PAT-002",
+              patent: "ALTFL Telemetry Stack",
               summary: "6-channel millisecond-resolution telemetry.",
               detail: "Stores forensic session files tracking: Keystroke Velocity (KV), Inference Latency (IL), Command Precision (CP), Error Trajectory (ET), Verification Outcomes (VO), and Confidence Calibration (CCT). Enables full replay during recruiter audit."
             },
             {
               id: "F5",
               title: "The Decay Layer (λ)",
-              patent: "PAT-003",
+              patent: "Skill-Decay Lambda (λ)",
               summary: "Real-time competency half-life calculations.",
               detail: "Competency nodes carry individual skill decay lambda coefficients. St state (Active, Warning, Re-verify) decays exponentially over time from initial verification, requiring Refresh Labs or drills to restore baseline status."
             },
             {
               id: "F6",
               title: "Career Memory (Vector-Graph)",
-              patent: "PAT-005",
+              patent: "Career Memory Engine",
               summary: "Hybrid search and continuity over historical runs.",
               detail: "A local semantic query interface linking cleared artifacts using vector similarity (cosine threshold >= 0.65) overlayed on direct ontology graph dependencies to navigate professional evolution path histories."
             },
             {
               id: "F7",
               title: "Tenure Points & Tier Evolution",
-              patent: "PAT-011",
+              patent: "Tenure Points Ledger",
               summary: "Personal Human Sovereignty Engine (PHSE) logic.",
               detail: "Calculates active capability tiers (1 to 10) on a slow-drift nightly state machine. Tenure points accumulate via cleared gates and decay proportionally based on elapsed skill half-lives or active liabilities."
             },
             {
               id: "F8",
               title: "Bond Status Integration",
-              patent: "PAT-013 + PAT-014",
+              patent: "EWARD Audit · B-300 Battle",
               summary: "Underwritten professional indemnity.",
               detail: "Integrates underwriting parameters (Guaranteed coverage V_u, annual premium credit calculation π, and strike margins) directly onto the verified passport page. Connects credential assurance with liability protection."
             },
             {
               id: "F9",
               title: "Asymmetric Liability Surfacing",
-              patent: "PAT-019",
+              patent: "Asymmetric Liability OL",
               summary: "Transparent overconfidence tracking.",
               detail: "Surfaces Overconfidence Liability (OL) flags where a user's declared confidence mismatch conflicts with verified errors. Generates critical flags to enforce integrity across downstream underwriting and vetting steps."
             },
             {
               id: "F10",
               title: "Three Audiences & Redaction Toggle",
-              patent: "PAT-019 + PAT-020",
+              patent: "Liability OL · Annotation Persistence",
               summary: "Radical privacy and verification control.",
               detail: "Dynamic rendering formats details specifically for Owner views (complete data), Recruiters (verdict-focused reveal mechanics), and Public systems (anonymized hash proofs) managed by toggle settings."
             }

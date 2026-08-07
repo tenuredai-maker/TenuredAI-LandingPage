@@ -201,7 +201,7 @@ export default function Methodology() {
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
                   <div className="w-64 h-64 flex items-center justify-center">
                     <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aiciRadarData}>
+                      <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aiciRadarData}>
                         <PolarGrid stroke="#d1c5b4" />
                         <PolarAngleAxis dataKey="subject" tick={{ fill: '#775a19', fontSize: 10, fontWeight: 'bold' }} />
                         <RadarArea name="Score" dataKey="A" stroke="#775a19" fill="#775a19" fillOpacity={0.4} animationDuration={300} />
@@ -529,7 +529,7 @@ export default function Methodology() {
                   <RadarChart 
                     cx="50%" 
                     cy="50%" 
-                    outerRadius="80%" 
+                    outerRadius="65%" 
                     data={aiciRadarData}
                     onMouseMove={(data) => {
                       if (data && data.activeLabel) {
@@ -604,7 +604,7 @@ export default function Methodology() {
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aioiRadarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aioiRadarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
                     <PolarAngleAxis 
                       dataKey="subject" 
@@ -781,7 +781,7 @@ export default function Methodology() {
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aibsRadarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aibsRadarData}>
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
                     <PolarAngleAxis 
                       dataKey="subject" 

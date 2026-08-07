@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Sovereign Manifesto · Tenured AI</title>
+<meta name="description" content="The credential collapsed. This is the verification infrastructure that replaces it — forensic, adversarial, and underwritten.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--error:#BA1A1A;--mentor:#4F8A6B;
+  --inverse-surface:#1C1C1A;--inverse-on-surface:#F3F0EC;
+  --font-display:'Fraunces',serif;
+  --font-headline:'Sora',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);
+  --ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
+  --maxw:1240px;
+}
+[data-theme="dark"]{
+  --surface:#0F0F0E;--sc-low:#1A1A18;--sc-lowest:#161614;--sc-high:#262624;
+  --on-surface:#F3F0EC;--on-surface-variant:#C7BFB1;
+  --primary:#E8C37E;--primary-container:#C5A059;
+  --tertiary:#8FA5D6;--tertiary-soft:#8FA5D6;--mentor:#7FBF9B;
+  --outline:#9A8F80;--outline-variant:#3A352C;
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.5);
+  --ambient:0 32px 64px -16px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--surface);color:var(--on-surface);
+  font-family:var(--font-body);font-size:17px;line-height:1.78;
+  -webkit-font-smoothing:antialiased;transition:background .4s,color .4s;
+  position:relative;overflow-x:hidden;
+}
+/* Atmospheric grain — Tactile Retrofuturism */
+body::before{
+  content:"";position:fixed;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+  opacity:.03;pointer-events:none;z-index:1;mix-blend-mode:multiply;
+}
+[data-theme="dark"] body::before{mix-blend-mode:overlay;opacity:.05}
+main{position:relative;z-index:2}
+::selection{background:rgba(197,160,89,.3)}
+
+/* ───────── META BAR ───────── */
+.meta-bar{
+  position:fixed;top:0;left:0;right:0;padding:14px clamp(16px,4vw,32px);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--on-surface-variant);
+  background:rgba(252,249,245,.78);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);
+  z-index:50;
+}
+[data-theme="dark"] .meta-bar{background:rgba(15,15,14,.82)}
+.meta-bar .lockup{font-family:var(--font-headline);font-weight:700;color:var(--on-surface);letter-spacing:-.02em;text-transform:none;font-size:14px}
+.meta-bar .lockup .dot{color:var(--primary-container)}
+.meta-bar .right{display:flex;gap:22px;align-items:center}
+.meta-bar .right .doc-id{opacity:.7}
+@media(max-width:640px){.meta-bar .right .doc-id{display:none}}
+.themebtn{background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);transition:color .2s}
+.themebtn:hover{color:var(--primary)}
+.read-progress{height:1px;background:transparent;position:absolute;bottom:0;left:0;right:0;overflow:hidden}
+.read-progress span{display:block;height:100%;background:var(--sovereign);width:0%;transition:width .12s linear}
+
+/* ───────── HERO ───────── */
+.hero{
+  min-height:100vh;padding:168px clamp(16px,4vw,32px) 100px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  max-width:var(--maxw);margin:0 auto;position:relative;
+}
+.hero-glow{position:absolute;top:4%;right:-10%;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle,rgba(197,160,89,.20),transparent 68%);filter:blur(36px);pointer-events:none;z-index:-1}
+.hero .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--primary);margin-bottom:44px}
+.hero h1{font-family:var(--font-display);font-weight:300;font-size:clamp(3rem,7.6vw,7rem);line-height:.95;letter-spacing:-.035em;max-width:15ch;margin-bottom:34px}
+.hero h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--on-surface-variant)}
+.hero .subhead{font-size:clamp(1.05rem,1.5vw,1.28rem);line-height:1.6;color:var(--on-surface-variant);max-width:56ch;margin-bottom:auto;font-weight:400}
+.hero .figure{margin:56px 0 auto}
+.hero .signature{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant);display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:48px}
+.hero .signature .dash{width:36px;height:1px;background:var(--outline-variant)}
+
+/* ───────── ACT DIVIDER ───────── */
+.act-divider{
+  min-height:88vh;padding:120px clamp(16px,4vw,32px) 80px;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  position:relative;
+}
+.act-divider .inner{max-width:var(--maxw);margin:0 auto;width:100%}
+.act-divider[data-act="ii"]{background:var(--sc-low)}
+.act-divider[data-act="iv"]{background:var(--inverse-surface);color:var(--inverse-on-surface)}
+.act-divider[data-act="iv"] .act-num-label{color:var(--inverse-on-surface);opacity:.55}
+.act-roman{font-family:var(--font-display);font-weight:300;font-size:clamp(7rem,17vw,15rem);line-height:1;letter-spacing:-.05em;margin-bottom:18px;
+  background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.act-num-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:26px}
+.act-statement{font-family:var(--font-display);font-weight:400;font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.05;letter-spacing:-.025em;max-width:22ch;font-style:italic}
+.act-statement .em{font-style:normal;font-weight:600}
+.act-statement .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+.act-foot{margin-top:64px;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);width:100%;max-width:var(--maxw);gap:24px;flex-wrap:wrap}
+.act-foot .scroll-cue{display:flex;align-items:center;gap:10px}
+.act-foot .scroll-cue::after{content:"↓";font-size:14px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(4px);opacity:1}}
+
+/* ───────── CHAPTER ───────── */
+.chapter{padding:96px clamp(16px,4vw,32px);position:relative}
+.chapter[data-act="ii"]{background:var(--sc-low)}
+.chapter[data-act="iv"]{background:var(--inverse-surface);color:var(--inverse-on-surface)}
+.chapter[data-act="iv"] .lead-quote{color:var(--inverse-on-surface);border-color:var(--primary-container)}
+.chapter[data-act="iv"] .ck-num{color:var(--primary-container)}
+.chapter[data-act="iv"] strong{color:var(--inverse-on-surface)}
+.chapter[data-act="iv"] .footnote{color:var(--inverse-on-surface);opacity:.65;border-color:rgba(243,240,236,.16)}
+.chapter[data-act="iv"] .chapter-body ol.cinematic li{border-color:rgba(243,240,236,.16)}
+.chapter[data-act="iv"] .chapter-body ol.cinematic li:last-child{border-color:rgba(243,240,236,.16)}
+.chapter-grid{display:grid;grid-template-columns:140px 1fr;gap:64px;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.chapter-grid{grid-template-columns:1fr;gap:20px}}
+.chapter-meta{position:sticky;top:120px;align-self:start}
+@media(max-width:820px){.chapter-meta{position:static}}
+.chapter-meta .ck-num{font-family:var(--font-display);font-weight:300;font-size:3.2rem;line-height:1;letter-spacing:-.04em;
+  background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.chapter-meta .ck-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:12px;line-height:1.6}
+.chapter-body{font-size:17.5px;line-height:1.78}
+.chapter-body > h3{font-family:var(--font-display);font-weight:400;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.12;letter-spacing:-.022em;max-width:26ch;margin-bottom:30px}
+.chapter-body > h4{font-family:var(--font-headline);font-weight:600;font-size:1.18rem;letter-spacing:-.01em;margin:48px 0 14px}
+.chapter-body p{margin-bottom:22px;max-width:62ch}
+.chapter-body p strong{font-weight:600;color:var(--on-surface)}
+.chapter[data-act="iv"] .chapter-body p strong{color:var(--inverse-on-surface)}
+.chapter-body p.drop-cap::first-letter{font-family:var(--font-display);font-weight:400;font-size:5em;float:left;line-height:.82;padding:7px 14px 0 0;color:var(--primary);
+  background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.chapter-body ul.editorial{list-style:none;margin:26px 0;max-width:62ch}
+.chapter-body ul.editorial li{padding:10px 0 10px 30px;position:relative;line-height:1.6;font-size:16.5px;color:var(--on-surface-variant)}
+.chapter[data-act="iv"] .chapter-body ul.editorial li{color:var(--inverse-on-surface);opacity:.85}
+.chapter-body ul.editorial li::before{content:"";position:absolute;left:0;top:20px;width:14px;height:1px;background:var(--primary-container)}
+.chapter-body ul.editorial li strong{color:var(--on-surface)}
+.chapter[data-act="iv"] .chapter-body ul.editorial li strong{color:var(--inverse-on-surface)}
+
+/* numbered cinematic list */
+.chapter-body ol.cinematic{list-style:none;margin:34px 0;max-width:64ch;counter-reset:cin}
+.chapter-body ol.cinematic li{counter-increment:cin;padding:20px 0 20px 60px;position:relative;border-top:1px solid var(--sc-high);font-size:16.5px;line-height:1.6;color:var(--on-surface-variant)}
+.chapter-body ol.cinematic li:last-child{border-bottom:1px solid var(--sc-high)}
+.chapter-body ol.cinematic li::before{content:counter(cin,decimal-leading-zero);position:absolute;left:0;top:21px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--primary);font-weight:700}
+.chapter-body ol.cinematic li strong{display:block;font-family:var(--font-headline);font-weight:600;font-size:17px;color:var(--on-surface);margin-bottom:5px}
+.chapter[data-act="iv"] .chapter-body ol.cinematic li strong{color:var(--inverse-on-surface)}
+
+/* lead quote */
+.lead-quote{font-family:var(--font-display);font-weight:400;font-size:clamp(1.5rem,2.7vw,2.15rem);line-height:1.25;letter-spacing:-.018em;margin:48px 0;padding:28px 0 28px 32px;border-left:2px solid var(--primary);max-width:46ch;font-style:italic}
+.lead-quote .em{font-style:normal;font-weight:500}
+.lead-quote .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+
+/* pullout */
+.pullout{margin:80px calc(-1 * clamp(16px,4vw,32px));padding:96px clamp(16px,4vw,32px);background:var(--sc-low);text-align:center;position:relative;overflow:hidden}
+.chapter[data-act="ii"] .pullout{background:var(--surface)}
+.pullout[data-act="iv"]{background:rgba(243,240,236,.04)}
+.pullout p{font-family:var(--font-display);font-weight:300;font-size:clamp(1.7rem,3.2vw,2.7rem);line-height:1.2;letter-spacing:-.022em;max-width:24ch;margin:0 auto;font-style:italic;color:var(--on-surface);position:relative;z-index:2}
+.pullout[data-act="iv"] p{color:var(--inverse-on-surface)}
+.pullout p .em{font-style:normal;font-weight:500}
+.pullout p .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+.pullout .attr{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:32px;position:relative;z-index:2}
+
+/* figure / diagram plate */
+figure.plate{margin:48px 0;background:var(--sc-lowest);border-radius:var(--r-2xl);padding:clamp(20px,3vw,36px);box-shadow:var(--editorial)}
+.chapter[data-act="ii"] figure.plate{background:var(--sc-lowest)}
+.chapter[data-act="iv"] figure.plate{background:rgba(243,240,236,.045);box-shadow:none}
+figure.plate svg{display:block;width:100%;height:auto}
+figure.plate figcaption{margin-top:22px;display:flex;flex-direction:column;gap:6px}
+figure.plate figcaption .id{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--primary);font-weight:700}
+figure.plate figcaption .t{font-family:var(--font-headline);font-weight:600;font-size:1.05rem;color:var(--on-surface)}
+.chapter[data-act="iv"] figure.plate figcaption .t{color:var(--inverse-on-surface)}
+figure.plate figcaption .c{font-size:.95rem;color:var(--on-surface-variant);font-style:italic;max-width:70ch}
+
+/* stat band */
+.statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sc-high);border-radius:var(--r-xl);overflow:hidden;margin:48px 0;box-shadow:var(--editorial)}
+@media(max-width:760px){.statband{grid-template-columns:repeat(2,1fr)}}
+.statband .cell{background:var(--sc-lowest);padding:30px 24px}
+.statband .cell .n{font-family:var(--font-mono);font-weight:500;font-size:1.9rem;letter-spacing:-.02em;color:var(--on-surface);line-height:1.05}
+.statband .cell .n .unit{color:var(--primary)}
+.statband .cell .l{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);margin-top:12px;line-height:1.6}
+
+/* footnote */
+.footnote{font-family:var(--font-mono);font-size:11.5px;color:var(--on-surface-variant);line-height:1.65;margin-top:52px;padding-top:16px;border-top:1px solid var(--sc-high);max-width:64ch}
+.footnote .fn-num{color:var(--primary);font-weight:700;margin-right:6px}
+
+/* closing */
+.closing{padding:128px clamp(16px,4vw,32px) 96px;max-width:var(--maxw);margin:0 auto;text-align:center}
+.closing .mark{font-family:var(--font-display);font-weight:300;font-size:clamp(2.6rem,6vw,5.4rem);line-height:1;letter-spacing:-.04em;margin-bottom:28px}
+.closing .mark .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
+.closing .lede{font-size:1.15rem;color:var(--on-surface-variant);max-width:48ch;margin:0 auto 44px}
+.closing .cta{display:inline-block;background:var(--sovereign);color:#fff;font-family:var(--font-headline);font-weight:600;font-size:15px;letter-spacing:.01em;padding:16px 40px;border-radius:var(--r-pill);box-shadow:var(--ambient);transition:transform .2s}
+.closing .cta:hover{transform:translateY(-2px)}
+.colophon{max-width:var(--maxw);margin:0 auto;padding:56px clamp(16px,4vw,32px) 96px;font-family:var(--font-mono);font-size:11px;line-height:1.9;letter-spacing:.04em;color:var(--on-surface-variant);text-align:center}
+.colophon .div{width:40px;height:1px;background:var(--outline-variant);margin:0 auto 32px}
+
+a{color:inherit;text-decoration:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="meta-bar">
+  <span class="lockup">Tenured<span class="dot">.</span>AI</span>
+  <span class="right">
+    <span class="doc-id">The Sovereign Manifesto</span>
+    <button class="themebtn" id="themebtn" aria-label="Toggle theme">◐ Theme</button>
+  </span>
+  <span class="read-progress"><span id="rp"></span></span>
+</div>
+
+<main>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div>
+    <div class="kicker">The Sovereign Ledger for Global Workforce Readiness</div>
+    <h1>Stop hiring on faith.<br><span class="gild">Underwrite</span> <em>the work.</em></h1>
+    <p class="subhead">For sixty years, the world ran on credentials. Then the machines learned to pass the test. This is the document that explains what we built to replace the broken signal — and why it changes who gets to be believed.</p>
+  </div>
+
+  <figure class="figure" aria-label="Abstract: traditional credentials dissolving into verified intelligence">
+    <svg viewBox="0 0 1240 300" xmlns="http://www.w3.org/2000/svg" role="img">
+      <defs>
+        <linearGradient id="sov" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#775A19"/><stop offset="1" stop-color="#C5A059"/></linearGradient>
+        <linearGradient id="bleed" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C5A059" stop-opacity=".0"/><stop offset=".55" stop-color="#C5A059" stop-opacity=".55"/><stop offset="1" stop-color="#775A19" stop-opacity=".85"/></linearGradient>
+        <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#1C1C1A" flood-opacity="0.07"/></filter>
+      </defs>
+      <!-- left: stacked rigid credentials -->
+      <g filter="url(#soft)">
+        <rect x="40" y="86" width="150" height="190" rx="6" fill="#FFFFFF"/>
+        <rect x="26" y="70" width="150" height="190" rx="6" fill="#FFFFFF"/>
+        <rect x="12" y="54" width="150" height="190" rx="6" fill="#FFFFFF"/>
+      </g>
+      <g fill="#D1C5B4">
+        <rect x="30" y="78" width="92" height="7" rx="3.5"/><rect x="30" y="96" width="116" height="5" rx="2.5"/>
+        <rect x="30" y="110" width="104" height="5" rx="2.5"/><rect x="30" y="124" width="116" height="5" rx="2.5"/>
+        <rect x="30" y="138" width="70" height="5" rx="2.5"/>
+      </g>
+      <!-- ink bleed → flowing ochre streams -->
+      <g opacity="0.92">
+        <path d="M176 150 C 360 70, 520 230, 720 150 C 900 80, 1040 210, 1230 150" fill="none" stroke="url(#bleed)" stroke-width="3"/>
+        <path d="M176 168 C 380 110, 560 250, 760 176 C 940 110, 1060 230, 1230 176" fill="none" stroke="url(#bleed)" stroke-width="2" opacity=".7"/>
+        <path d="M176 132 C 340 60, 540 200, 700 126 C 880 60, 1050 190, 1230 126" fill="none" stroke="url(#bleed)" stroke-width="1.5" opacity=".5"/>
+      </g>
+      <!-- right: a single verified node -->
+      <circle cx="1150" cy="150" r="9" fill="url(#sov)"/>
+      <circle cx="1150" cy="150" r="20" fill="none" stroke="#C5A059" stroke-opacity=".4" stroke-width="1.5"/>
+      <text x="12" y="295" font-family="'JetBrains Mono',monospace" font-size="11" letter-spacing="2" fill="#4E4639">CREDENTIAL  →  COLLAPSE  →  FORENSIC PROOF</text>
+    </svg>
+  </figure>
+
+  <div class="signature">
+    <span>The Manifesto</span><span class="dash"></span>
+    <span>A Public Edition</span><span class="dash"></span>
+    <span>Read time · ~22 min</span>
+  </div>
+</header>
+
+<!-- ════════════ ACT I — DIVIDER ════════════ -->
+<section class="act-divider" data-act="i" id="act-i">
+  <div class="inner">
+    <div class="act-roman">I</div>
+    <div class="act-num-label">The Collapse</div>
+    <p class="act-statement">The signal we trusted for <span class="gild">sixty years</span> stopped meaning anything.</p>
+  </div>
+  <div class="act-foot"><span>Act I · The Credential Collapse</span><span class="scroll-cue">Continue</span></div>
+</section>
+
+<!-- ════════════ ACT I — BODY ════════════ -->
+<article class="chapter" data-act="i">
+  <div class="chapter-grid">
+    <aside class="chapter-meta"><div class="ck-num">01</div><div class="ck-label">The Verification Gap</div></aside>
+    <div class="chapter-body">
+      <h3>The credential was an act of faith. The machine called the bluff.</h3>
+      <p class="drop-cap">For most of a century, hiring worked on a relay of borrowed trust. A university conferred a degree. A board issued a certificate. A recruiter pattern-matched a résumé. An employer extended an offer on the strength of all three — none of which it had witnessed, all of which it took on faith. The diploma did not prove you could do the work. It proved you had, at some fixed point in the past, produced an artifact that someone agreed to vouch for.</p>
+      <p>That arrangement had one quiet assumption holding it up: <strong>the artifact was expensive to fake.</strong> Passing the bar took years. The CPA exam took discipline. A take-home coding test took a working brain and an evening. The cost of forgery was the moat.</p>
+      <p>Large language models drained the moat overnight.</p>
+
+      <div class="lead-quote">When a model can pass the bar, the <span class="gild">CPA</span>, and the medical boards from the next browser tab, the credential is no longer proof of competence. It is proof of <span class="em">access to a competent machine.</span></div>
+
+      <p>This is not a future risk. It is the present condition of every assessment that issues a verdict from a point-in-time test. The coding screen, the certification exam, the structured interview answered through an earpiece — each one now measures a candidate's ability to <em>operate a tool</em>, not their ability to <em>think</em>. The signal and the noise became indistinguishable, and the entire apparatus kept printing certificates as if nothing had changed.</p>
+
+      <h4>The gap nobody can close from the inside</h4>
+      <p>We call the distance between what a credential claims and what a person can actually do under pressure <strong>the Verification Gap</strong>. It is widening every quarter, and the incumbents best positioned to notice are structurally forbidden from fixing it.</p>
+
+      <ol class="cinematic">
+        <li><strong>The professional network sells the profile.</strong> Its entire value is the self-reported résumé and the social graph around it. To say "profiles are insufficient" would be to indict its own core product.</li>
+        <li><strong>The HR suite administers the system of record.</strong> It is built to file, route, and approve — not to assess whether a human can reason when the problem mutates underneath them.</li>
+        <li><strong>The course marketplace sells completion.</strong> It certifies that you watched the videos and submitted the quiz, in a world where the videos can be summarized and the quiz can be answered for you.</li>
+        <li><strong>The university confers the historical credential.</strong> It issues a verdict about who you were at graduation, not a forensic judgment about who you are at the moment of hire.</li>
+      </ol>
+
+      <p>None of these are failures of effort. They are failures of <em>architecture</em>. Each incumbent's revenue depends on the very signal that collapsed. Closing the Verification Gap would require them to declare their own flagship product obsolete — and no public company narrates its own cannibalization on purpose. That is the opening. It does not belong to whoever has the most data. It belongs to whoever is willing to <strong>build a new primitive from scratch.</strong></p>
+
+      <p class="footnote"><span class="fn-num">¶</span> Throughout this manifesto, "the incumbents" refers to the structural categories above — professional networks, HR systems, course marketplaces, and degree-granting institutions — and to the business models that make the Verification Gap unfixable from within them. We name no acquisition. We describe a market.</p>
+    </div>
+  </div>
+
+  <div class="pullout">
+    <p>The degree told you where someone <span class="gild">had been.</span> The market now needs to know what they can <span class="em">do at 2 p.m. on a Tuesday, when the problem changes.</span></p>
+  </div>
+</article>
+
+<!-- ════════════ ACT II — DIVIDER ════════════ -->
+<section class="act-divider" data-act="ii" id="act-ii">
+  <div class="inner">
+    <div class="act-roman">II</div>
+    <div class="act-num-label">The Replacement</div>
+    <p class="act-statement">Stop testing for the <span class="gild">answer.</span> Start measuring the <span class="em">thinking.</span></p>
+  </div>
+  <div class="act-foot"><span>Act II · Forensic Verification</span><span class="scroll-cue">Continue</span></div>
+</section>
+
+<!-- ════════════ ACT II — BODY ════════════ -->
+<article class="chapter" data-act="ii">
+  <div class="chapter-grid">
+    <aside class="chapter-meta"><div class="ck-num">02</div><div class="ck-label">The New Primitive</div></aside>
+    <div class="chapter-body">
+      <h3>Tenured AI does not give a test. It runs a forensic investigation.</h3>
+      <p class="drop-cap">A test asks a question and grades the answer. That model died the day the answer became free. So we threw it out. In its place we built something closer to a flight recorder than an exam: a real-time, adversarial environment that watches <em>how</em> a person reasons, not just whether they arrive at the right output.</p>
+
+      <p>The distinction is the whole company. A point-in-time test captures a single frozen frame and asks you to trust it. <strong>Forensic verification captures the entire reel</strong> — every hesitation, every recovery, every moment the ground shifts and the candidate has to rebuild their approach in flight. It is the difference between a photograph of a finish line and the full footage of the race.</p>
+
+      <div class="lead-quote">An LLM can produce a correct answer. It cannot produce a <span class="gild">human being</span> demonstrably reasoning under pressure they did not see coming. <span class="em">That</span> is the thing we measure.</div>
+
+      <h4>Three properties no legacy assessment has</h4>
+      <ul class="editorial">
+        <li><strong>It is real-time.</strong> Competency is observed as it happens, in a live session, not reconstructed from an artifact submitted after the fact.</li>
+        <li><strong>It is adversarial.</strong> The environment actively pushes back — introducing new constraints, contradicting the candidate's approach, applying pressure — because genuine judgment only becomes visible when the easy path is taken away.</li>
+        <li><strong>It is behavioral.</strong> The verdict rests on a forensic record of <em>conduct under stress</em>, captured at millisecond resolution, that an outside party can audit without ever having to take our word for it.</li>
+      </ul>
+
+      <p>The output is not a grade. It is a <strong>verdict with evidence attached</strong> — a credential that carries its own proof, defensible to an auditor, legible to an employer, and owned by the person who earned it. The rest of this document is the architecture that makes such a verdict possible, and the economics that make it worth building.</p>
+    </div>
+  </div>
+
+  <div class="pullout">
+    <p>We do not certify that you <span class="em">finished.</span> We prove that you can <span class="gild">think when it gets hard.</span></p>
+  </div>
+</article>
+
+<!-- ════════════ ACT III — DIVIDER ════════════ -->
+<section class="act-divider" data-act="iii" id="act-iii">
+  <div class="inner">
+    <div class="act-roman">III</div>
+    <div class="act-num-label">The Engine</div>
+    <p class="act-statement">Five stages. <span class="gild">Four minds.</span> One verdict that holds up in court.</p>
+  </div>
+  <div class="act-foot"><span>Act III · How It Works</span><span class="scroll-cue">Continue</span></div>
+</section>
+
+<!-- ════════════ ACT III — BODY ════════════ -->
+<article class="chapter" data-act="iii">
+  <div class="chapter-grid">
+    <aside class="chapter-meta"><div class="ck-num">03</div><div class="ck-label">The Pipeline</div></aside>
+    <div class="chapter-body">
+      <h3>From raw effort to underwritten proof, in five deliberate stages.</h3>
+      <p class="drop-cap">The platform is a pipeline, not a feature list. Each stage hands a cryptographically distinct artifact to the next, and each stage is engineered against a specific way the old credential system lied. A candidate enters as a person with claims. They exit with a verdict that anyone can verify and someone is willing to insure.</p>
+
+      <figure class="plate" aria-label="The five-stage verification pipeline">
+        <svg viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="sovV3" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#775A19"/><stop offset="1" stop-color="#C5A059"/></linearGradient>
+            <filter id="amb3" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1C1C1A" flood-opacity="0.06"/></filter>
+          </defs>
+          <style>.d3{font-family:'Sora',sans-serif}.b3{font-family:'Inter',sans-serif}.m3{font-family:'JetBrains Mono',monospace}</style>
+          <g class="m3" font-size="11" letter-spacing="2" fill="#4E4639"><text x="20" y="36">THE FIVE-STAGE PIPELINE</text></g>
+          <!-- cards -->
+          <g filter="url(#amb3)">
+            <rect x="20"  y="80" width="210" height="170" rx="16" fill="#FFFFFF"/>
+            <rect x="262" y="110" width="210" height="170" rx="16" fill="#FFFFFF"/>
+            <rect x="504" y="80" width="210" height="170" rx="16" fill="#FFFFFF"/>
+            <rect x="746" y="110" width="210" height="170" rx="16" fill="#FFFFFF"/>
+          </g>
+          <rect x="988" y="80" width="192" height="170" rx="16" fill="url(#sovV3)" filter="url(#amb3)"/>
+          <!-- card 1 -->
+          <text x="44" y="128" class="d3" font-size="22" font-weight="800" fill="#D1C5B4">1</text>
+          <text x="44" y="168" class="d3" font-size="20" font-weight="700" fill="#1C1C1A">INTAKE</text>
+          <text x="44" y="200" class="b3" font-size="13" fill="#4E4639">Identity verified.</text>
+          <text x="44" y="220" class="b3" font-size="13" fill="#4E4639">Consent for telemetry.</text>
+          <text x="44" y="240" class="m3" font-size="11" fill="#2C4771">a person, confirmed</text>
+          <!-- card 2 -->
+          <text x="286" y="158" class="d3" font-size="22" font-weight="800" fill="#D1C5B4">2</text>
+          <text x="286" y="198" class="d3" font-size="20" font-weight="700" fill="#1C1C1A">FORGE</text>
+          <text x="286" y="230" class="b3" font-size="13" fill="#4E4639">Hard, novel problems.</text>
+          <text x="286" y="250" class="b3" font-size="13" fill="#4E4639">Surprises injected.</text>
+          <text x="286" y="270" class="m3" font-size="11" fill="#2C4771">competency, surfaced</text>
+          <!-- card 3 -->
+          <text x="528" y="128" class="d3" font-size="22" font-weight="800" fill="#D1C5B4">3</text>
+          <text x="528" y="168" class="d3" font-size="20" font-weight="700" fill="#1C1C1A">GATE</text>
+          <text x="528" y="200" class="b3" font-size="13" fill="#4E4639">Preliminary read.</text>
+          <text x="528" y="220" class="b3" font-size="13" fill="#4E4639">Flags edge cases.</text>
+          <text x="528" y="240" class="m3" font-size="11" fill="#2C4771">signal, triaged</text>
+          <!-- card 4 -->
+          <text x="770" y="158" class="d3" font-size="22" font-weight="800" fill="#D1C5B4">4</text>
+          <text x="770" y="198" class="d3" font-size="20" font-weight="700" fill="#1C1C1A">COUNCIL</text>
+          <text x="770" y="230" class="b3" font-size="13" fill="#4E4639">Four agents, one vote.</text>
+          <text x="770" y="250" class="b3" font-size="13" fill="#4E4639">Human tiebreak.</text>
+          <text x="770" y="270" class="m3" font-size="11" fill="#2C4771">verdict, reached</text>
+          <!-- card 5 -->
+          <text x="1010" y="128" class="d3" font-size="22" font-weight="800" fill="#FFFFFF">5</text>
+          <text x="1010" y="168" class="d3" font-size="20" font-weight="700" fill="#FFFFFF">ANCHOR</text>
+          <text x="1010" y="200" class="b3" font-size="13" fill="#FFFFFF">Cryptographically</text>
+          <text x="1010" y="220" class="b3" font-size="13" fill="#FFFFFF">sealed, portable.</text>
+          <text x="1010" y="240" class="m3" font-size="11" fill="#FFFFFF">proof, permanent</text>
+          <!-- connectors -->
+          <g stroke="#1C1C1A" stroke-width="2" opacity="0.6" stroke-linecap="round">
+            <line x1="230" y1="165" x2="262" y2="178"/><line x1="472" y1="178" x2="504" y2="165"/>
+            <line x1="714" y1="165" x2="746" y2="178"/><line x1="956" y1="178" x2="988" y2="165"/>
+          </g>
+        </svg>
+        <figcaption><span class="id">Figure 3A</span><span class="t">Intake → Forge → Gate → Council → Anchor</span><span class="c">Roughly six hours of work, spread across a few days. The candidate walks out with a credential carrying its own evidence.</span></figcaption>
+      </figure>
+
+      <h4>The five stages, in plain language</h4>
+      <ol class="cinematic">
+        <li><strong>Intake.</strong> We confirm the candidate is who they say they are and secure their consent to capture behavioral signals — the texture of how they work. Nothing proceeds without it.</li>
+        <li><strong>Forge.</strong> The system presents the hard, novel scenarios a person would actually face on the job — then changes the rules mid-stream. New constraints. Contradictory feedback. Time pressure. This is where real competence either holds or breaks.</li>
+        <li><strong>Gate.</strong> A fast preliminary read of the behavioral patterns, flagging which sessions need deeper scrutiny before a verdict is rendered.</li>
+        <li><strong>Council.</strong> Instead of one algorithm passing judgment, four independent agents each evaluate the session against a different question. They are designed to disagree — and only their <em>agreement</em> means anything.</li>
+        <li><strong>Anchor.</strong> The verdict is cryptographically sealed to a public ledger — tamper-proof, permanent, and portable. The candidate receives a credential they own outright.</li>
+      </ol>
+
+      <h4>The Four-Agent Council</h4>
+      <p>The Council is the heart of the engine, and its design is intentionally adversarial. We do not ask one model "is this person good?" We convene four, give each a conflicting mandate, and wall them off from one another so none can bias the others. <strong>The Mentor's job is to help the candidate succeed. The Chaos agent's job is to make them fail.</strong> When two minds with opposite incentives — plus two independent auditors — still converge on the same verdict, that agreement carries weight a single grader never could.</p>
+
+      <figure class="plate" aria-label="The four-agent council converging on consensus">
+        <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <radialGradient id="core4" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#C5A059"/><stop offset="1" stop-color="#775A19"/></radialGradient>
+            <filter id="amb4" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1C1C1A" flood-opacity="0.07"/></filter>
+          </defs>
+          <style>.d4{font-family:'Sora',sans-serif}.b4{font-family:'Inter',sans-serif}.m4{font-family:'JetBrains Mono',monospace}</style>
+          <text x="20" y="36" class="m4" font-size="11" letter-spacing="2" fill="#4E4639">THE FOUR-AGENT COUNCIL · WALLED OFF FROM ONE ANOTHER</text>
+          <!-- connectors to center -->
+          <g stroke="#D1C5B4" stroke-width="1.5">
+            <line x1="210" y1="150" x2="600" y2="230"/><line x1="990" y1="150" x2="600" y2="230"/>
+            <line x1="210" y1="330" x2="600" y2="230"/><line x1="990" y1="330" x2="600" y2="230"/>
+          </g>
+          <!-- four agent chips -->
+          <g filter="url(#amb4)">
+            <rect x="70"  y="116" width="280" height="74" rx="14" fill="#FFFFFF"/>
+            <rect x="850" y="116" width="280" height="74" rx="14" fill="#FFFFFF"/>
+            <rect x="70"  y="296" width="280" height="74" rx="14" fill="#FFFFFF"/>
+            <rect x="850" y="296" width="280" height="74" rx="14" fill="#FFFFFF"/>
+          </g>
+          <g class="d4" font-size="17" font-weight="700" fill="#1C1C1A">
+            <text x="92" y="150">AUDITOR</text><text x="872" y="150">INVIGILATOR</text>
+            <text x="92" y="330">MENTOR</text><text x="872" y="330">CHAOS</text>
+          </g>
+          <g class="b4" font-size="12.5" fill="#4E4639">
+            <text x="92" y="172">"Was this fair and compliant?"</text>
+            <text x="872" y="172">"Is the data authentic?"</text>
+            <text x="92" y="352">"Is this genuine reasoning?"</text>
+            <text x="872" y="352">"How did they handle the storm?"</text>
+          </g>
+          <!-- tiny role color dots -->
+          <circle cx="335" cy="135" r="5" fill="#2C4771"/><circle cx="1115" cy="135" r="5" fill="#2C4771"/>
+          <circle cx="335" cy="315" r="5" fill="#4F8A6B"/><circle cx="1115" cy="315" r="5" fill="#FFBF00"/>
+          <!-- consensus core -->
+          <circle cx="600" cy="230" r="64" fill="url(#core4)" filter="url(#amb4)"/>
+          <text x="600" y="226" text-anchor="middle" class="d4" font-size="15" font-weight="700" fill="#FFFFFF">CONSENSUS</text>
+          <text x="600" y="248" text-anchor="middle" class="m4" font-size="10.5" fill="#FFFFFF">all four sign</text>
+          <text x="600" y="345" text-anchor="middle" class="b4" font-size="13" fill="#4E4639" font-style="italic">Disagreement routes to a human expert.</text>
+        </svg>
+        <figcaption><span class="id">Figure 3B</span><span class="t">Designed to disagree</span><span class="c">The Mentor wants you to pass; the Chaos agent wants you to fail. Their structural separation is what makes their eventual agreement mean something.</span></figcaption>
+      </figure>
+
+      <h4>The proof of human cognition</h4>
+      <p>Underneath the Council runs the platform's behavioral telemetry — a layer we built specifically to answer the only question that matters in the age of generative models: <strong>was this a human being thinking, or a tool producing?</strong></p>
+      <p>Across the entire session, the system captures the texture of work at millisecond resolution: keystroke rhythm, response latency, the pauses that come with genuine confusion, the pattern of error and self-correction, the moments a candidate persists instead of giving up. A human under real cognitive load leaves a messy, irreducibly human signature. <strong>A pasted machine answer arrives in a perfectly even rhythm that has nowhere to hide.</strong> The result is a sealed, time-stamped forensic record we call the <em>Proof of Friction</em> — the evidence file that justifies the verdict and survives independent audit.</p>
+
+      <div class="lead-quote">The certificate is what an employer verifies. The forensic record is what an auditor reviews. Both come from <span class="gild">one session</span> a candidate cannot fake their way through.</div>
+
+      <p>This is the engine. It is protected end to end by what we describe in the next act as a <strong>21-patent vertical fortress</strong> — but the patents are not the point. The point is that the verdict it produces is good enough to do something no credential has ever done: <strong>carry a financial guarantee.</strong></p>
+    </div>
+  </div>
+</article>
+
+<!-- ════════════ ACT IV — DIVIDER ════════════ -->
+<section class="act-divider" data-act="iv" id="act-iv">
+  <div class="inner">
+    <div class="act-roman">IV</div>
+    <div class="act-num-label">The Guarantee</div>
+    <p class="act-statement">We are so sure, we <span class="gild">put money on it.</span></p>
+  </div>
+  <div class="act-foot"><span>Act IV · The Performance Bond</span><span class="scroll-cue">Continue</span></div>
+</section>
+
+<!-- ════════════ ACT IV — BODY ════════════ -->
+<article class="chapter" data-act="iv">
+  <div class="chapter-grid">
+    <aside class="chapter-meta"><div class="ck-num">04</div><div class="ck-label">The Performance Bond</div></aside>
+    <div class="chapter-body">
+      <h3>A credential you can argue with. A guarantee you can cash.</h3>
+      <p class="drop-cap">Here is the mic drop. Every verification platform in history has asked employers to trust its judgment. We do something no one else can: we <strong>insure</strong> ours. When our verdict is accurate enough to be measured against real-world outcomes — and it is — it stops behaving like a grade and starts behaving like an actuarial signal. And anything that behaves like an actuarial signal can be underwritten.</p>
+
+      <p>So we underwrite it. For our top-tier candidates, Tenured AI issues a <strong>$150,000 performance bond to the hiring enterprise.</strong> If the verified hire fails to perform within the bond term, the enterprise does not file a complaint. <strong>The enterprise gets paid.</strong></p>
+
+      <div class="lead-quote">Every other platform sells you a <span class="em">verdict.</span> We sell you a verdict with a <span class="gild">cheque attached</span> if we're wrong.</div>
+
+      <h4>The Triple-85: who earns the bond</h4>
+      <p>Not every candidate is bondable, and that is the point. The guarantee is reserved for those who clear the <strong>Triple-85</strong> — a candidate whose three core indices each clear a score of 85. It is the line between "verified" and "verified <em>and insured</em>," and it is deliberately hard to reach.</p>
+
+      <figure class="plate" aria-label="The Triple-85 bondable threshold">
+        <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs><linearGradient id="sov5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#775A19"/><stop offset="1" stop-color="#C5A059"/></linearGradient></defs>
+          <style>.d5{font-family:'Sora',sans-serif}.b5{font-family:'Inter',sans-serif}.m5{font-family:'JetBrains Mono',monospace}</style>
+          <text x="20" y="34" class="m5" font-size="11" letter-spacing="2" fill="#C7BFB1">THE TRIPLE-85 · BONDABLE THRESHOLD</text>
+          <g>
+            <!-- three dials -->
+            <g transform="translate(180,160)">
+              <circle r="70" fill="none" stroke="#262624" stroke-width="14"/>
+              <circle r="70" fill="none" stroke="url(#sov5)" stroke-width="14" stroke-linecap="round" stroke-dasharray="374 440" transform="rotate(-90)"/>
+              <text y="2" text-anchor="middle" class="m5" font-size="30" fill="#F3F0EC">85</text>
+              <text y="26" text-anchor="middle" class="m5" font-size="11" fill="#C7BFB1">AICI</text>
+              <text y="118" text-anchor="middle" class="b5" font-size="13" fill="#C7BFB1">Competency Index</text>
+            </g>
+            <g transform="translate(600,160)">
+              <circle r="70" fill="none" stroke="#262624" stroke-width="14"/>
+              <circle r="70" fill="none" stroke="url(#sov5)" stroke-width="14" stroke-linecap="round" stroke-dasharray="374 440" transform="rotate(-90)"/>
+              <text y="2" text-anchor="middle" class="m5" font-size="30" fill="#F3F0EC">85</text>
+              <text y="26" text-anchor="middle" class="m5" font-size="11" fill="#C7BFB1">AIOI</text>
+              <text y="118" text-anchor="middle" class="b5" font-size="13" fill="#C7BFB1">Outcome Index</text>
+            </g>
+            <g transform="translate(1020,160)">
+              <circle r="70" fill="none" stroke="#262624" stroke-width="14"/>
+              <circle r="70" fill="none" stroke="url(#sov5)" stroke-width="14" stroke-linecap="round" stroke-dasharray="374 440" transform="rotate(-90)"/>
+              <text y="2" text-anchor="middle" class="m5" font-size="30" fill="#F3F0EC">85</text>
+              <text y="26" text-anchor="middle" class="m5" font-size="11" fill="#C7BFB1">AIBS</text>
+              <text y="118" text-anchor="middle" class="b5" font-size="13" fill="#C7BFB1">Behavioral Score</text>
+            </g>
+          </g>
+          <line x1="270" y1="160" x2="510" y2="160" stroke="#3A352C" stroke-width="2"/>
+          <line x1="690" y1="160" x2="930" y2="160" stroke="#3A352C" stroke-width="2"/>
+        </svg>
+        <figcaption><span class="id">Figure 4A</span><span class="t">Three indices, one line</span><span class="c">Clear all three at 85 and the credential becomes insurable. The score is the trigger; the bond is the consequence.</span></figcaption>
+      </figure>
+
+      <h4>How the guarantee actually works</h4>
+      <ul class="editorial">
+        <li><strong>The enterprise pays the premium, the enterprise collects the payout.</strong> The party that benefits from the hire bears the risk and receives the protection. Incentives line up by design — not by goodwill.</li>
+        <li><strong>It is a real surety instrument.</strong> Not a marketing promise. Reserves are held in segregated escrow, claims are adjudicated through a formal process, and the whole product sits inside an established insurance framework.</li>
+        <li><strong>It is backed by Tier-1 reinsurance partners.</strong> The bond is reinsured through the same kind of institutions that stand behind catastrophe risk — because the underlying signal is stable enough to price.</li>
+        <li><strong>It turns hiring from a leap of faith into a covered position.</strong> A public company can now say: our talent verification is independent, audit-ready, forensically grounded — and the downside is insured.</li>
+      </ul>
+
+      <p>This is why the bond is the entire thesis in a single artifact. It converts a verification product into something the credentialing industry has never produced: <strong>an insurable instrument backed by proof.</strong> The certificate tells you what someone can do. The bond tells you we will stake real capital on it.</p>
+
+      <h4>A word on the fortress</h4>
+      <p>People ask how this is defensible. The honest answer is that the moat is the architecture itself — a <strong>21-patent vertical fortress</strong> covering the engine end to end. Think of it less as a wall and more as a load-bearing structure: the adversarial environment, the behavioral telemetry, the four-agent consensus, the cryptographic anchoring, and the actuarial bridge that makes the bond underwritable are each protected, and each assumes the others hold. You cannot copy one floor without rebuilding the whole building. That is the point of a fortress — not that it has a tall wall, but that there is no way in that doesn't require building the thing yourself.</p>
+
+      <div class="lead-quote">A test you can fake. A grade you can dispute. <span class="gild">A bond pays out</span> — or it doesn't. There is no arguing with a cheque.</div>
+    </div>
+  </div>
+
+  <div class="pullout" data-act="iv">
+    <p>If our verified hire fails, the company that trusted us <span class="gild">gets $150,000.</span> <span class="em">That</span> is what conviction costs.</p>
+  </div>
+</article>
+
+<!-- ════════════ ACT V — DIVIDER ════════════ -->
+<section class="act-divider" data-act="v" id="act-v">
+  <div class="inner">
+    <div class="act-roman">V</div>
+    <div class="act-num-label">The Movement</div>
+    <p class="act-statement">The worker owns the proof. <span class="gild">Everyone</span> who built it gets paid.</p>
+  </div>
+  <div class="act-foot"><span>Act V · The Sovereign Passport</span><span class="scroll-cue">Continue</span></div>
+</section>
+
+<!-- ════════════ ACT V — BODY ════════════ -->
+<article class="chapter" data-act="v">
+  <div class="chapter-grid">
+    <aside class="chapter-meta"><div class="ck-num">05</div><div class="ck-label">Ownership & Alignment</div></aside>
+    <div class="chapter-body">
+      <h3>A credential the platform cannot revoke, and an economy where everyone's interests point the same way.</h3>
+      <p class="drop-cap">Everything to this point produces proof. The last act is about who owns it — and who profits when it is used. Because a verification system that quietly hoards the record, or that pays only itself, would just be a better-built version of the thing we set out to replace. We did the opposite. We gave the proof to the person who earned it, and we split the money with everyone who made them ready.</p>
+
+      <h4>The Sovereign Passport</h4>
+      <p>The credential lives in what we call the <strong>Sovereign Passport</strong> — a portable, cryptographically anchored artifact held under the candidate's own decentralized identity. It is not a profile on someone else's network. It is not a page that disappears when an account is closed. <strong>It is owned by the worker, full stop.</strong></p>
+      <p>Every claim inside it can be independently verified without trusting Tenured AI at all. The proof is anchored across multiple public chains, the verification client is open, and the record outlives the company that issued it. <strong>If Tenured AI vanished tomorrow, every credential already earned would remain verifiable forever.</strong> That is the line between a service and an infrastructure — and we built infrastructure on purpose.</p>
+
+      <div class="lead-quote">Your competence is the most valuable thing you own. It should not live on a <span class="em">platform that can delete you.</span> It should live with <span class="gild">you.</span></div>
+
+      <h4>The 40-40-20</h4>
+      <p>Now the economics. When an enterprise pays for a verified, bonded hire, the revenue does not flow to a single beneficiary. It is split three ways, by a settlement written into the contract itself:</p>
+
+      <figure class="plate" aria-label="The 40-40-20 settlement split">
+        <svg viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="sov6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#775A19"/><stop offset="1" stop-color="#C5A059"/></linearGradient>
+            <linearGradient id="blue6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2C4771"/><stop offset="1" stop-color="#3a5a8f"/></linearGradient>
+          </defs>
+          <style>.d6{font-family:'Sora',sans-serif}.b6{font-family:'Inter',sans-serif}.m6{font-family:'JetBrains Mono',monospace}</style>
+          <text x="20" y="34" class="m6" font-size="11" letter-spacing="2" fill="#4E4639">THE 40·40·20 SETTLEMENT · ONE VERIFIED HIRE</text>
+          <!-- bar -->
+          <g>
+            <rect x="20"  y="74" width="464" height="96" rx="10" fill="url(#sov6)"/>
+            <rect x="492" y="74" width="464" height="96" rx="10" fill="url(#blue6)"/>
+            <rect x="964" y="74" width="216" height="96" rx="10" fill="#1C1C1A"/>
+          </g>
+          <g fill="#FFFFFF">
+            <text x="44"  y="118" class="m6" font-size="30" font-weight="700">40%</text>
+            <text x="44"  y="148" class="b6" font-size="14">The Platform</text>
+            <text x="516" y="118" class="m6" font-size="30" font-weight="700">40%</text>
+            <text x="516" y="148" class="b6" font-size="14">The University that trained them</text>
+            <text x="988" y="118" class="m6" font-size="24" font-weight="700">20%</text>
+            <text x="988" y="148" class="b6" font-size="13">State Treasury</text>
+          </g>
+          <g class="b6" font-size="13" fill="#4E4639">
+            <text x="20" y="208">Builds & runs the engine</text>
+            <text x="492" y="208">Earns from the talent it actually produces</text>
+            <text x="964" y="208">Public workforce funds replenished</text>
+          </g>
+          <text x="20" y="252" class="b6" font-size="14" fill="#1C1C1A" font-style="italic">Everyone who makes a worker ready has a stake in the proof that they are.</text>
+        </svg>
+        <figcaption><span class="id">Figure 5A</span><span class="t">The 40·40·20 settlement</span><span class="c">Platform, university, and state workforce treasury share every verified placement. Training stops being a cost center and becomes a revenue stream.</span></figcaption>
+      </figure>
+
+      <ul class="editorial">
+        <li><strong>40% to the Platform</strong> — for building and operating the verification engine, the bond, and the ledger.</li>
+        <li><strong>40% to the University</strong> that actually trained the worker — turning education from a one-time tuition transaction into an ongoing stake in the careers it launches.</li>
+        <li><strong>20% to the State Workforce Treasury</strong> — returning value to the public systems that underwrite opportunity, and giving regions a direct financial reason to want their people verified.</li>
+      </ul>
+
+      <p>This is the part that turns a product into a movement. The old model pitted everyone against everyone: schools competed for tuition, platforms hoarded data, states funded training and saw none of the upside. <strong>The 40-40-20 makes them allies.</strong> When a graduate earns a bonded credential, the school that trained them earns, the state that supported them earns, and the worker owns a portable asset that no one can take away. Align the incentives and the ecosystem stops fighting the future and starts building it.</p>
+
+      <div class="lead-quote">We did not build a better résumé. We built an <span class="gild">economy of proof</span> — and handed the deed to the people in it.</div>
+    </div>
+  </div>
+</article>
+
+<!-- ════════════ CLOSING ════════════ -->
+<section class="closing">
+  <div class="statband" aria-label="Summary of the four founding commitments">
+    <div class="cell"><div class="n">Forensic</div><div class="l">Real-time · adversarial · behavioral</div></div>
+    <div class="cell"><div class="n">4<span class="unit">-agent</span></div><div class="l">Council built to disagree</div></div>
+    <div class="cell"><div class="n">$150<span class="unit">K</span></div><div class="l">Performance bond on Triple-85 hires</div></div>
+    <div class="cell"><div class="n">40·40·20</div><div class="l">Worker-owned · ecosystem-aligned</div></div>
+  </div>
+
+  <div class="mark">The credential is dead.<br><span class="gild">Long live the proof.</span></div>
+  <p class="lede">Sixty years of borrowed trust ended the moment the machine could fake the artifact. What replaces it is not another test. It is verification you can audit, a guarantee you can cash, and a record you actually own.</p>
+  <a class="cta" href="#act-i">Read it again from the top</a>
+</section>
+
+<div class="colophon">
+  <div class="div"></div>
+  TENURED AI · THE SOVEREIGN MANIFESTO · PUBLIC EDITION<br>
+  The Sovereign Ledger for Global Workforce Readiness<br>
+  A forward-looking statement of intent. Not an offer of securities, a guarantee of outcomes, or financial advice.<br>
+  © 2026 Tenured AI, Inc. · All rights reserved.
+</div>
+
+</main>
+
+<script>
+// theme toggle
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themebtn');
+  btn.addEventListener('click',function(){
+    root.setAttribute('data-theme', root.getAttribute('data-theme')==='dark'?'light':'dark');
+  });
+  // reading progress
+  var rp=document.getElementById('rp');
+  function upd(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    rp.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  document.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+</script>
+</body>
+</html>

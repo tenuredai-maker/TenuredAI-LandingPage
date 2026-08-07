@@ -8,7 +8,7 @@ import { logEvent } from 'firebase/analytics';
 // ─── Types ─────────────────────────────────────────────────────────────────
 interface LogLine {
   text: string;
-  type: 'system' | 'error' | 'user' | 'adversary' | 'mentor' | 'invigilator' | 'auditor';
+  type: 'system' | 'error' | 'user' | 'adversary' | 'mentor' | 'proctor' | 'auditor';
   timestamp: string;
 }
 
@@ -24,7 +24,7 @@ const TELEMETRY_CHANNELS = [
 
 const COUNCIL = [
   { id: 'mentor',      label: 'Mentor',      color: '#7FBF9B', status: 'observing', role: 'Coach voice — scaffolds learning, not rescue.' },
-  { id: 'invigilator', label: 'Invigilator', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — owns the session lock.' },
+  { id: 'proctor', label: 'Proctor', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — owns the session lock.' },
   { id: 'auditor',     label: 'Auditor',     color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — signs the Ledger.' },
   { id: 'chaos',       label: 'Chaos',       color: '#FF8B7A', status: 'dormant',   role: 'ALE operator — injects when Bully Logic fires.' },
 ];
@@ -51,7 +51,7 @@ const HARD_GATE_PILLARS = [
     num: '02',
     title: 'Four-Agent Council',
     tag: 'PAT-004 · Weighted Consensus',
-    body: 'Four independent AI agents observe every keystroke via six concurrent ALTFL telemetry channels (PAT-002). Mentor coaches without rescuing. Invigilator holds exam authority. Auditor records forensically. Chaos operates the ALE. Consensus Certificate issuance requires all four to sign — and the signing threshold is the Triple-85 threshold: AICI ≥ 85, AIOI ≥ 85, AIBS ≥ 85 simultaneously.',
+    body: 'Four independent AI agents observe every keystroke via six concurrent ALTFL telemetry channels (PAT-002). Mentor coaches without rescuing. Proctor holds exam authority. Auditor records forensically. Chaos operates the ALE. Consensus Certificate issuance requires all four to sign — and the signing threshold is the Triple-85 threshold: AICI ≥ 85, AIOI ≥ 85, AIBS ≥ 85 simultaneously.',
   },
   {
     num: '03',
@@ -115,7 +115,7 @@ export default function ChaosLab() {
       await new Promise(r => setTimeout(r, 500));
       addLog('[MENTOR] Ready. I observe. I do not rescue.', 'mentor');
       await new Promise(r => setTimeout(r, 300));
-      addLog('[INVIGILATOR] Session monitoring active. Sovereign Lock armed.', 'invigilator');
+      addLog('[PROCTOR] Session monitoring active. Sovereign Lock armed.', 'proctor');
       await new Promise(r => setTimeout(r, 300));
       addLog('[AUDITOR] Forensic record open. Proof of Friction logging.', 'auditor');
       await new Promise(r => setTimeout(r, 300));
@@ -191,7 +191,7 @@ export default function ChaosLab() {
     } else {
       setDenialLevel(3);
       setShowOverride(true);
-      addLog('[INVIGILATOR] Sovereign Override available. Execute or capitulate.', 'invigilator');
+      addLog('[PROCTOR] Sovereign Override available. Execute or capitulate.', 'proctor');
     }
   };
 
@@ -262,7 +262,7 @@ export default function ChaosLab() {
         const cleared = scores.AICI >= 85 && scores.AIOI >= 85 && scores.AIBS >= 85;
         if (cleared && isFixed) {
           addLog('[AUDITOR] Triple-85 confirmed. Initiating Sovereign Ledger anchor…', 'auditor');
-          addLog('[INVIGILATOR] All four agents signing. Council consensus: CONFIRMED.', 'invigilator');
+          addLog('[PROCTOR] All four agents signing. Council consensus: CONFIRMED.', 'proctor');
           addLog('Proof of Friction hashed. Anchoring to Polygon mainnet…', 'system');
           addLog('MINT_COMPLETE: Consensus Certificate issued. Sovereign Passport updated.', 'system');
         } else {
@@ -464,7 +464,7 @@ export default function ChaosLab() {
                       'flex gap-4',
                       log.type === 'adversary' && 'bg-[rgba(255,139,122,.06)] px-3 py-2 rounded-lg border border-[rgba(255,139,122,.08)]',
                       log.type === 'mentor' && 'bg-[rgba(127,191,155,.05)] px-3 py-2 rounded-lg',
-                      log.type === 'invigilator' && 'bg-[rgba(143,165,214,.05)] px-3 py-2 rounded-lg',
+                      log.type === 'proctor' && 'bg-[rgba(143,165,214,.05)] px-3 py-2 rounded-lg',
                       log.type === 'auditor' && 'bg-[rgba(197,160,89,.05)] px-3 py-2 rounded-lg',
                     )}
                   >
@@ -476,7 +476,7 @@ export default function ChaosLab() {
                       log.type === 'user'        && 'text-[#F3F0EC]',
                       log.type === 'adversary'   && 'text-[#FF8B7A]',
                       log.type === 'mentor'      && 'text-[#7FBF9B]',
-                      log.type === 'invigilator' && 'text-[#8FA5D6]',
+                      log.type === 'proctor' && 'text-[#8FA5D6]',
                       log.type === 'auditor'     && 'text-[#C5A059]',
                     )}>
                       {log.type === 'user'        && <span className="text-[#FFBF00] mr-2">$</span>}
@@ -661,7 +661,7 @@ export default function ChaosLab() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
         <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-004 · Four-Agent Council · Weighted Consensus</p>
         <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
-          Mentor. Invigilator. Auditor. Chaos.<br />
+          Mentor. Proctor. Auditor. Chaos.<br />
           <em className="text-on-surface-variant italic font-normal">The witnesses.</em>
         </h2>
         <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
@@ -726,7 +726,7 @@ export default function ChaosLab() {
           <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-002 · ALTFL Telemetry · Six Concurrent Channels</p>
           <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
           <p className="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl">
-            Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Invigilator as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
+            Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Proctor as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {TELEMETRY_CHANNELS.map(ch => (
@@ -766,7 +766,7 @@ export default function ChaosLab() {
               { type: 'user', prefix: '$ ', color: '#F3F0EC', container: false, example: 'docker exec -it proving-ground sh' },
               { type: 'system', prefix: '› ', color: '#827A6C', container: false, example: 'Node Identity: SOVEREIGN_ALPHA_7 verified.', italic: true },
               { type: 'mentor', prefix: '[MENTOR] ', color: '#7FBF9B', container: 'rgba(127,191,155,.04)', example: 'Ready. I observe. I do not rescue.' },
-              { type: 'invigilator', prefix: '[INVIGILATOR] ', color: '#8FA5D6', container: 'rgba(143,165,214,.04)', example: 'Session monitoring active. Sovereign Lock armed.' },
+              { type: 'proctor', prefix: '[PROCTOR] ', color: '#8FA5D6', container: 'rgba(143,165,214,.04)', example: 'Session monitoring active. Sovereign Lock armed.' },
               { type: 'auditor', prefix: '[AUDITOR] ', color: '#C5A059', container: 'rgba(197,160,89,.04)', example: 'Forensic record open. Proof of Friction logging.' },
               { type: 'chaos', prefix: '[CHAOS] ', color: '#FF8B7A', container: 'rgba(255,139,122,.06)', example: 'L2 · Engaging Bully Logic subsystem…', glow: '0 0 12px 3px rgba(255,139,122,.15)' },
               { type: 'error', prefix: '! ', color: '#FF8B7A', container: false, example: 'ERR_UNKNOWN_CMD: That command is not in the protocol.', bold: true },
@@ -793,56 +793,7 @@ export default function ChaosLab() {
         </div>
       </section>
 
-      {/* ── CAMPAIGN LAUNCH INTEL ─────────────────────────────────────── */}
-      <section className="bg-surface-container-low py-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Campaign Launch · §01 · Sovereign Authority Voice</p>
-          <h2 className="font-headline text-3xl font-bold mb-4">The tone every word must hold.</h2>
-          <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-            Sovereign Authority is not a marketing voice. It is a posture. It speaks like someone who already operates infrastructure that matters — a central bank's chief economist, a senior policy adviser, a partner at a long-tenured firm — to peers, not prospects.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-emerald-600 dark:text-emerald-400 font-bold mb-4">Approved Vocabulary</p>
-              <div className="space-y-2.5 text-sm">
-                {[
-                  ['Verify.', 'Not "test," not "check." Verify carries finality.'],
-                  ['Anchor.', 'Cryptographic, immutable, on-chain.'],
-                  ['Earn.', 'Credentials are earned, never granted.'],
-                  ['Survive.', 'Hard-Gates are survived; the Proving Ground is endured.'],
-                  ['Triple-85.', 'Always rendered exactly. Always with the hyphen.'],
-                  ['Hard-Gate.', 'Capitalized, hyphenated, treated as a proper noun.'],
-                  ['Proof of Friction.', 'The forensic record. Never "session log."'],
-                ].map(([word, def]) => (
-                  <div key={word} className="flex gap-3">
-                    <span className="font-bold text-on-surface shrink-0">{word}</span>
-                    <span className="text-on-surface-variant">{def}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg">
-              <p className="font-mono text-[10px] tracking-widest uppercase text-red-600 dark:text-red-400 font-bold mb-4">Forbidden Vocabulary</p>
-              <div className="space-y-2.5 text-sm">
-                {[
-                  ['"Game-changing."', 'A retail word. We do not change games; we end them.'],
-                  ['"AI-powered."', 'Every product is now AI-powered. We are AI-resistant.'],
-                  ['"Skill up." "Level up."', 'Gaming vocabulary. We verify, not gamify.'],
-                  ['"Disrupt."', 'Old startup language. We replace.'],
-                  ['"Join the revolution."', 'No revolutions. Only standards.'],
-                  ['"Boost your career."', 'Boosting is retail SaaS. We underwrite.'],
-                  ['"Empowering."', 'The reader is already powerful. We attest to it.'],
-                ].map(([word, def]) => (
-                  <div key={word} className="flex gap-3">
-                    <span className="font-bold text-on-surface shrink-0">{word}</span>
-                    <span className="text-on-surface-variant">{def}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* ── CTA ──────────────────────────────────────────────────────── */}
       <section className="bg-inverse-surface text-inverse-on-surface py-24 relative overflow-hidden">

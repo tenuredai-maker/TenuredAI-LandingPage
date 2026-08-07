@@ -216,7 +216,7 @@ export default function Recruiters() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
-            <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">B-300 · Auction Protocol · PAT-014 USPTO filed</p>
+            <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">B-300 · Auction Protocol</p>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.04] mb-0">
               The <span className="bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent italic font-medium">Recruiter Battle.</span> <em className="italic text-on-surface-variant font-light">Live.</em>
             </h1>
@@ -335,7 +335,7 @@ export default function Recruiters() {
                     {/* Bid tape */}
                     <div className="flex justify-between items-center font-mono text-[10px] tracking-widest uppercase mb-3">
                       <span className="text-primary-container font-bold">Bid tape · last 8 events</span>
-                      <span className="text-inverse-on-surface/50">PAT-014</span>
+                      <span className="text-inverse-on-surface/50">B-300</span>
                     </div>
                     <div className="space-y-1.5">
                       {bidTape.map((row) => (
@@ -509,7 +509,7 @@ export default function Recruiters() {
                       Once settled, the placement is bonded by the Performance Bond product. The winning recruiter's escrow releases; the 40/40/20 split executes on-chain — candidate, institution, and state Treasury receive dividends automatically.
                     </p>
                     <span className="inline-block font-mono text-[10.5px] tracking-widest uppercase text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-full">
-                      PAT-014 · B-300 Recruiter Battle Auction
+                      B-300 · Recruiter Battle Auction
                     </span>
                   </div>
                   <div className="space-y-4">
@@ -653,7 +653,7 @@ export default function Recruiters() {
                 <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">UW / F4 · 3-Phase Privacy-Preserving Match Protocol</p>
                 <h3 className="font-headline text-2xl md:text-3xl font-bold mb-4">Recruiters pay to reach. Candidates choose to be reached.</h3>
                 <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-                  PAT-013 Module 1354 inverts the power dynamic of every existing talent platform. The recruiter sees a match count, then de-identified profiles, then — and only after paying a credit and the candidate accepting — the identity. Top talent pays nothing to participate; recruiters pay premium SaaS fees to reach them.
+                  The privacy-preserving match protocol inverts the power dynamic of every existing talent platform. The recruiter sees a match count, then de-identified profiles, then — and only after paying a credit and the candidate accepting — the identity. Top talent pays nothing to participate; recruiters pay premium SaaS fees to reach them.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   {I100_PHASES.map((phase) => (
@@ -718,7 +718,7 @@ export default function Recruiters() {
                 <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">UW / F3 · The AIRF™ Classifier</p>
                 <h3 className="font-headline text-2xl md:text-3xl font-bold mb-4">Four conditions. Five tiers. Zero "flashcard engineers."</h3>
                 <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-                  The AIRF™ Classifier (PAT-013, Module 1352) is the platform's filter against false signal. A candidate earns a tier only when <em>all four</em> conditions clear simultaneously: Verified Count, Accuracy, Calibration Gap, and Overconfident Liability count.
+                  The AIRF™ Classifier is the platform's filter against false signal. A candidate earns a tier only when <em>all four</em> conditions clear simultaneously: Verified Count, Accuracy, Calibration Gap, and Overconfident Liability count.
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
                   {[

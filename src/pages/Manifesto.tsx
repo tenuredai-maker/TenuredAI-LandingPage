@@ -30,7 +30,13 @@ export default function Manifesto() {
         <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
         <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12 max-w-2xl text-left z-10 p-6 md:p-8 bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl border border-outline-variant/30">
           <h2 className="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 tracking-tight">The Ledger of Human Agency</h2>
-          <p className="text-on-surface-variant text-base md:text-lg">Defending the qualitative delta between sterile machine output and human-authored brilliance. The algorithm generates; the human curates, audits, and commands.</p>
+          <p className="text-on-surface-variant text-base md:text-lg mb-4">Defending the qualitative delta between sterile machine output and human-authored brilliance. The algorithm generates; the human curates, audits, and commands.</p>
+          <a
+            href="#full-manifesto"
+            className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold shadow-lg hover:scale-[1.02] transition-transform inline-flex items-center gap-2 text-sm"
+          >
+            Read the Manifesto <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </motion.div>
 

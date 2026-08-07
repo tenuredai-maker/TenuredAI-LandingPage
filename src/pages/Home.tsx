@@ -62,10 +62,10 @@ export default function Home() {
 
   // Proving Ground states
   const [pgActiveLevel, setPgActiveLevel] = useState<'idle' | 'L1' | 'L2' | 'L3'>('idle');
-  const [pgLogs, setPgLogs] = useState<Array<{ text: string, type: 'info' | 'ok' | 'err' | 'chaos' | 'invigilator' | 'input' }>>([
+  const [pgLogs, setPgLogs] = useState<Array<{ text: string, type: 'info' | 'ok' | 'err' | 'chaos' | 'proctor' | 'input' }>>([
     { text: "Initializing V-100 Proving Ground Protocol...", type: 'info' },
     { text: "Node Identity · SOVEREIGN_ALPHA_7 · DID verified", type: 'ok' },
-    { text: "[INVIGILATOR] ALTFL armed · 6 channels · monitoring", type: 'invigilator' },
+    { text: "[PROCTOR] ALTFL armed · 6 channels · monitoring", type: 'proctor' },
     { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
     { text: "⏳ running 24 assertions...", type: 'info' },
     { text: "✓ 22 passed · ✗ 2 failed (retrieval grounding)", type: 'err' },
@@ -81,7 +81,7 @@ export default function Home() {
     CCT: '0.04'
   });
   const [pgCouncil, setPgCouncil] = useState({
-    invigilator: 'active',
+    proctor: 'active',
     chaos: 'idle',
     auditor: 'idle',
     mentor: 'suspended'
@@ -90,9 +90,9 @@ export default function Home() {
   const [overrideStep, setOverrideStep] = useState(0);
   const [isOverrideExecuting, setIsOverrideExecuting] = useState(false);
 
-  const [taMode, setTaMode] = useState<'mentor' | 'invigilator'>('mentor');
+  const [taMode, setTaMode] = useState<'mentor' | 'proctor'>('mentor');
   const [taTtr, setTaTtr] = useState(45); // Observed TTR in seconds (baseline 45s)
-  const [taActiveCouncilAgent, setTaActiveCouncilAgent] = useState<'mentor' | 'invigilator' | 'auditor' | 'chaos' | null>(null);
+  const [taActiveCouncilAgent, setTaActiveCouncilAgent] = useState<'mentor' | 'proctor' | 'auditor' | 'chaos' | null>(null);
 
   // Learning Loop states
   const [decayMv, setDecayMv] = useState(60);
@@ -127,7 +127,7 @@ export default function Home() {
       CCT: '0.12'
     });
     setPgCouncil({
-      invigilator: 'active',
+      proctor: 'active',
       chaos: 'active',
       auditor: 'idle',
       mentor: 'suspended'
@@ -136,7 +136,7 @@ export default function Home() {
       { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
       { text: "✗ POST /v1/embeddings → 503 Service Unavailable", type: 'err' },
       { text: "[CHAOS] L1 · Your retry interval is too aggressive — back off and let the gateway settle.", type: 'chaos' },
-      { text: "[INVIGILATOR] Core exception detected. Telemetry flagged. Response interval anomalous.", type: 'invigilator' }
+      { text: "[PROCTOR] Core exception detected. Telemetry flagged. Response interval anomalous.", type: 'proctor' }
     ]);
   };
 
@@ -153,7 +153,7 @@ export default function Home() {
       CCT: '0.24'
     });
     setPgCouncil({
-      invigilator: 'warning',
+      proctor: 'warning',
       chaos: 'active',
       auditor: 'idle',
       mentor: 'suspended'
@@ -161,10 +161,10 @@ export default function Home() {
     setPgLogs([
       { text: "learner@sovereign:~$ pnpm run apply-retry-patch", type: 'input' },
       { text: "✓ partial: 503 resolved", type: 'ok' },
-      { text: "[INVIGILATOR] Pattern-match detected · Bully Loop arming...", type: 'invigilator' },
+      { text: "[PROCTOR] Pattern-match detected · Bully Loop arming...", type: 'proctor' },
       { text: "✗ POST /v1/embeddings → 401 Unauthorized", type: 'err' },
       { text: "[CHAOS] L2 · Different symptom · same domain. The Bully Logic loop has rotated. Auth credentials expired.", type: 'chaos' },
-      { text: "[INVIGILATOR] 45s to identify the actual cause before AIBS penalizes.", type: 'invigilator' }
+      { text: "[PROCTOR] 45s to identify the actual cause before AIBS penalizes.", type: 'proctor' }
     ]);
   };
 
@@ -181,7 +181,7 @@ export default function Home() {
       CCT: '0.38'
     });
     setPgCouncil({
-      invigilator: 'warning',
+      proctor: 'warning',
       chaos: 'warning',
       auditor: 'idle',
       mentor: 'suspended'
@@ -189,7 +189,7 @@ export default function Home() {
     setPgLogs([
       { text: "learner@sovereign:~$ pnpm run check-credentials", type: 'input' },
       { text: "[CHAOS] L3 · The environment is stable. Your local system clock is skewed by 31 seconds. Adjust clock or terminate session.", type: 'chaos' },
-      { text: "[INVIGILATOR] System time verified correct. Gaslighting active. Sovereign Override Code 31 unlocked.", type: 'invigilator' }
+      { text: "[PROCTOR] System time verified correct. Gaslighting active. Sovereign Override Code 31 unlocked.", type: 'proctor' }
     ]);
   };
 
@@ -218,14 +218,14 @@ export default function Home() {
         CCT: '0.01'
       });
       setPgCouncil({
-        invigilator: 'active',
+        proctor: 'active',
         chaos: 'idle',
         auditor: 'active',
         mentor: 'active'
       });
       setPgLogs([
         { text: "learner@sovereign:~$ execute-override --code 31", type: 'input' },
-        { text: "[INVIGILATOR] Sovereign Override executed. truth_baseline = TRUE. Chaos Agent bypassed.", type: 'invigilator' },
+        { text: "[PROCTOR] Sovereign Override executed. truth_baseline = TRUE. Chaos Agent bypassed.", type: 'proctor' },
         { text: "[AUDITOR] Weighted consensus: 0.98. MINTING Consensus Certificate.", type: 'ok' },
         { text: "[MENTOR] Gate cleared. Merit credential anchored to Ledger at block 81,402.", type: 'ok' }
       ]);
@@ -263,7 +263,7 @@ export default function Home() {
     },
     {
       question: "What is the Tenured Agent? Is it ChatGPT?",
-      answer: "The Tenured Agent is the platform's AI orchestrator — a four-agent council architecture, not a single chatbot. It operates internally as four specialized agents with strict separation of concerns: the Mentor (supportive, growth-focused), the Invigilator (monitors integrity and detects AI-mediated cheating), the Auditor (silently evaluates artifacts for the Consensus Certificate), and the Chaos Agent (dispatches adversarial injections during Hard-Gates). No single agent can mint a credential."
+      answer: "The Tenured Agent is the platform's AI orchestrator — a four-agent council architecture, not a single chatbot. It operates internally as four specialized agents with strict separation of concerns: the Mentor (supportive, growth-focused), the Proctor (monitors integrity and detects AI-mediated cheating), the Auditor (silently evaluates artifacts for the Consensus Certificate), and the Chaos Agent (dispatches adversarial injections during Hard-Gates). No single agent can mint a credential."
     },
     {
       question: "What is the Learning Loop? How does daily practice actually work?",
@@ -279,7 +279,7 @@ export default function Home() {
     },
     {
       question: "Can a candidate actually cheat the Hard-Gate?",
-      answer: "The platform is engineered against the obvious cheating vectors. The Hard-Gate runs in an air-gapped sandbox where the candidate's screen contents are not the same as the platform's live state — so pasting their terminal output into ChatGPT and asking for help produces guidance that is plausible-looking but wrong, because ChatGPT can't see the live chaos injections. The Invigilator agent monitors keystroke patterns for AI-typical signatures and can trigger a Hard-Gate Preemption mid-session when AI-mediation confidence crosses the threshold."
+      answer: "The platform is engineered against the obvious cheating vectors. The Hard-Gate runs in an air-gapped sandbox where the candidate's screen contents are not the same as the platform's live state — so pasting their terminal output into ChatGPT and asking for help produces guidance that is plausible-looking but wrong, because ChatGPT can't see the live chaos injections. The Proctor agent monitors keystroke patterns for AI-typical signatures and can trigger a Hard-Gate Preemption mid-session when AI-mediation confidence crosses the threshold."
     },
     {
       question: "Do credentials expire? What is \"decay\"?",
@@ -881,19 +881,21 @@ export default function Home() {
       </section>
 
 
-      {/* Section 2: Triple-Threat Scoring Section */}
+      {/* Section 2: Triple-Threat / Core 4 Scoring Section */}
       <section className="py-24 bg-surface px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="font-headline text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core Trinity Metrics</h2>
-            <p className="text-on-surface-variant max-w-3xl">A multidimensional approach to AI proficiency. We don't just measure output; we measure the architecture of intelligence and the efficacy of the operator.</p>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core 4 — 4 Scores, One Platform</h2>
+            <p className="text-on-surface-variant max-w-3xl text-base md:text-lg leading-relaxed">
+              The Big 3 core indices plus 1 specialized designation — delivering a complete 360° benchmark of AI competence and operator capability on one unified platform.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             {/* AICI™ Card */}
             <motion.div
               whileHover={{ y: -5 }}
-              className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
+              className="bg-surface-container-low p-8 md:p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
@@ -938,18 +940,18 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* AIOI™ Card */}
-            <div className="space-y-8 flex flex-col">
+            {/* AIOI™ Card & AIOI-ED™ Educator Box */}
+            <div className="space-y-6 flex flex-col justify-between">
               <motion.div
                 whileHover={{ y: -5 }}
-                className="bg-primary text-on-primary p-10 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col h-full group"
+                className="bg-primary text-on-primary p-6 md:p-8 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col flex-1 group"
               >
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-                <div className="relative z-10 space-y-6 flex-grow">
+                <div className="relative z-10 space-y-4 flex-grow">
                   <div className="text-xs font-bold text-primary-fixed tracking-widest uppercase">Index II • Strategic Level</div>
-                  <h3 className="text-3xl font-headline font-bold text-white">AIOI™: Orchestration</h3>
-                  <p className="text-sm text-primary-fixed leading-relaxed">Focusing on Strategic Orchestration: managing systems, multi-agent workflows, and AI solution architecture. Command of the machine through complex loops and agentic reasoning.</p>
-                  <div className="grid grid-cols-2 gap-4 pt-2">
+                  <h3 className="text-2xl md:text-3xl font-headline font-bold text-white">AIOI™: Orchestration</h3>
+                  <p className="text-xs md:text-sm text-primary-fixed leading-relaxed">Focusing on Strategic Orchestration: managing systems, multi-agent workflows, and AI solution architecture. Command of the machine through complex loops and agentic reasoning.</p>
+                  <div className="grid grid-cols-2 gap-4 pt-1">
                     <div className="border-l-2 border-primary-fixed/30 pl-3">
                       <div className="text-[10px] uppercase font-bold text-primary-fixed/70 tracking-widest">Workflows</div>
                       <div className="text-lg font-bold">9.7</div>
@@ -960,8 +962,8 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="relative z-10 pt-0 flex items-center gap-4">
-                  <GitBranch className="text-primary-fixed w-8 h-8" />
+                <div className="relative z-10 pt-4 flex items-center gap-4">
+                  <GitBranch className="text-primary-fixed w-6 h-6 shrink-0" />
                   <div className="h-1 flex-grow bg-primary-fixed/20 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
@@ -973,20 +975,20 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <div className="bg-surface-container-highest p-6 rounded-3xl border-2 border-primary/20 relative overflow-hidden flex flex-col gap-4">
+              <div className="bg-surface-container-highest p-5 md:p-6 rounded-3xl border-2 border-primary/20 relative overflow-hidden flex flex-col gap-3 shrink-0">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center flex-shrink-0 shadow-lg">
                     <School className="text-on-primary w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold tracking-tight text-on-surface">AIOI-ED™ Educator Designation</h4>
-                    <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Specialized Management Sub-score</p>
+                    <h4 className="text-xs md:text-sm font-bold tracking-tight text-on-surface">AIOI-ED™ Educator Designation</h4>
+                    <p className="text-[9px] text-on-surface-variant font-bold uppercase tracking-widest">Specialized Management Sub-score</p>
                   </div>
                 </div>
-                <p className="text-[11px] text-on-surface-variant leading-tight">A specialized sub-score for Management & Education focusing on Efficiency, Security, and Debug Speed. Measured via the WMF (Weighted Multi-Factor) Index.</p>
-                <div className="bg-on-surface/5 rounded-xl p-3 font-mono text-[10px] border border-outline-variant/10">
+                <p className="text-[11px] text-on-surface-variant leading-normal">Specialized sub-score for Management & Education focusing on Efficiency, Security, and Debug Speed via the WMF Index.</p>
+                <div className="bg-on-surface/5 rounded-xl p-2.5 font-mono text-[9px] border border-outline-variant/10">
                   <div className="text-primary font-bold mb-1">// WMF Index: Efficiency (40%) + Security (30%) + Debug (30%)</div>
-                  <div className="flex justify-between items-center text-on-surface">
+                  <div className="flex justify-between items-center text-on-surface font-semibold">
                     <span>Certification Status:</span>
                     <span className="text-green-600 font-bold flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> VALIDATED
@@ -999,7 +1001,7 @@ export default function Home() {
             {/* AIBS™ Card */}
             <motion.div
               whileHover={{ y: -5 }}
-              className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
+              className="bg-surface-container-low p-8 md:p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
@@ -1164,7 +1166,7 @@ export default function Home() {
                   <RadarChart
                     cx="50%"
                     cy="50%"
-                    outerRadius="80%"
+                    outerRadius="65%"
                     data={aiciRadarData}
                     onMouseMove={(data) => {
                       if (data && data.activeLabel) {
@@ -1239,7 +1241,7 @@ export default function Home() {
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full max-w-sm md:max-w-md mx-auto relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aioiRadarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aioiRadarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
                     <PolarAngleAxis
                       dataKey="subject"
@@ -1416,7 +1418,7 @@ export default function Home() {
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full max-w-sm md:max-w-md mx-auto relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={aibsRadarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aibsRadarData}>
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
                     <PolarAngleAxis
                       dataKey="subject"
@@ -1575,7 +1577,7 @@ export default function Home() {
                       log.type === 'ok' && "text-[#7FBF9B]",
                       log.type === 'err' && "text-[#ff8a8a]",
                       log.type === 'chaos' && "text-[#FFBF00] font-semibold",
-                      log.type === 'invigilator' && "text-[#8FA5D6]",
+                      log.type === 'proctor' && "text-[#8FA5D6]",
                       log.type === 'input' && "text-[#FCF9F5]"
                     )}
                   >
@@ -1668,7 +1670,7 @@ export default function Home() {
 
                 <div className="space-y-3">
                   {[
-                    { id: 'invigilator', name: 'Invigilator Agent', state: pgCouncil.invigilator, color: 'bg-[#8FA5D6]', text: 'Narration & Anomaly Check' },
+                    { id: 'proctor', name: 'Proctor Agent', state: pgCouncil.proctor, color: 'bg-[#8FA5D6]', text: 'Narration & Anomaly Check' },
                     { id: 'chaos', name: 'Chaos Agent', state: pgCouncil.chaos, color: 'bg-[#FFBF00]', text: 'Adversary Injection Control' },
                     { id: 'auditor', name: 'Auditor Agent', state: pgCouncil.auditor, color: 'bg-[#2C4771]', text: 'Blackboard Merit Evaluation' },
                     { id: 'mentor', name: 'Mentor Agent', state: pgCouncil.mentor, color: 'bg-[#4F8A6B]', text: 'Pedagogical Synthesis (Phase 4)' }
@@ -1725,7 +1727,7 @@ export default function Home() {
                       CCT: '0.04'
                     });
                     setPgCouncil({
-                      invigilator: 'active',
+                      proctor: 'active',
                       chaos: 'idle',
                       auditor: 'idle',
                       mentor: 'suspended'
@@ -1733,7 +1735,7 @@ export default function Home() {
                     setPgLogs([
                       { text: "Initializing V-100 Proving Ground Protocol...", type: 'info' },
                       { text: "Node Identity · SOVEREIGN_ALPHA_7 · DID verified", type: 'ok' },
-                      { text: "[INVIGILATOR] ALTFL armed · 6 channels · monitoring", type: 'invigilator' },
+                      { text: "[PROCTOR] ALTFL armed · 6 channels · monitoring", type: 'proctor' },
                       { text: "learner@sovereign:~$ pnpm test RAG-pipeline", type: 'input' },
                       { text: "⏳ running 24 assertions...", type: 'info' },
                       { text: "✓ 22 passed · ✗ 2 failed (retrieval grounding)", type: 'err' },
@@ -1810,7 +1812,7 @@ export default function Home() {
                   <span className="text-[9px] font-bold font-mono text-primary uppercase tracking-wider block">Step 3 · PAT-004</span>
                   <h4 className="text-xs font-bold text-on-surface">L3 Chaos Deception</h4>
                   <p className="text-[10px] text-on-surface-variant leading-relaxed">
-                    The Chaos Agent gaslights with clock-skew deceptions. The Invigilator confirms the deception, unlocking the Override.
+                    The Chaos Agent gaslights with clock-skew deceptions. The Proctor confirms the deception, unlocking the Override.
                   </p>
                 </div>
                 <div className="pt-4 flex items-center gap-1.5 text-[10px] font-bold text-primary">
@@ -1943,7 +1945,7 @@ export default function Home() {
               The dual-nature <span className="italic text-primary">Tenured Agent</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
-              Observe the user-facing intelligence pivot between Mentor and Invigilator modes (PAT-005), governed by a four-agent council (PAT-004) and a dynamic Growth Loop (PAT-005).
+              Observe the user-facing intelligence pivot between Mentor and Proctor modes (PAT-005), governed by a four-agent council (PAT-004) and a dynamic Growth Loop (PAT-005).
             </p>
           </div>
 
@@ -1971,15 +1973,15 @@ export default function Home() {
                       Mentor Mode
                     </button>
                     <button
-                      onClick={() => setTaMode('invigilator')}
+                      onClick={() => setTaMode('proctor')}
                       className={cn(
                         "px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer",
-                        taMode === 'invigilator'
+                        taMode === 'proctor'
                           ? "bg-red-500/10 text-red-600 border border-red-500/20"
                           : "text-on-surface-variant hover:text-on-surface border border-transparent"
                       )}
                     >
-                      Invigilator Mode
+                      Proctor Mode
                     </button>
                   </div>
                 </div>
@@ -2000,7 +2002,7 @@ export default function Home() {
                           taMode === 'mentor' ? "bg-emerald-500" : "bg-red-600"
                         )} />
                         <span className="text-xs font-bold font-mono uppercase tracking-wider text-on-surface">
-                          {taMode === 'mentor' ? "MENTOR · ACTIVE" : "INVIGILATOR · LIVE"}
+                          {taMode === 'mentor' ? "MENTOR · ACTIVE" : "PROCTOR · LIVE"}
                         </span>
                       </div>
 
@@ -2050,7 +2052,7 @@ export default function Home() {
                       ) : (
                         <>
                           <div className="text-[#E8DFC9] bg-[#16140F] p-3.5 rounded-xl border border-red-950/40 leading-relaxed font-mono">
-                            <span className="text-[10px] font-bold block text-red-500 uppercase tracking-widest mb-1">Invigilator Feed</span>
+                            <span className="text-[10px] font-bold block text-red-500 uppercase tracking-widest mb-1">Proctor Feed</span>
                             [MONITOR] Telemetry stream online.<br />
                             ▸ KV burst signature detected at 16:42:01. Copy-paste probability: 91%<br />
                             ▸ Diagnostic latency: 180s timeout active.<br />
@@ -2065,7 +2067,7 @@ export default function Home() {
                     {taMode === 'mentor' ? (
                       <span>**Mentor Demeanor**: Context-aware Socratic helper. Automatically decays guidance λ as your mastery improves.</span>
                     ) : (
-                      <span>**Invigilator Demeanor**: Telemetry-focused observer. Enforces air-gap boundaries and fires anomalies on AI keystroke signatures.</span>
+                      <span>**Proctor Demeanor**: Telemetry-focused observer. Enforces air-gap boundaries and fires anomalies on AI keystroke signatures.</span>
                     )}
                   </div>
                 </div>
@@ -2165,7 +2167,7 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { id: 'mentor', name: 'Mentor (TA)', color: 'border-emerald-500/30 text-emerald-600 bg-emerald-500/[0.02]', desc: 'Socratic helper. Cannot see pending Chaos Injections.' },
-                      { id: 'invigilator', name: 'Invigilator (TA)', color: 'border-rose-950 text-rose-500 bg-rose-500/[0.02]', desc: 'Silent telemetry check. Freezes Mentor when anomaly triggers.' },
+                      { id: 'proctor', name: 'Proctor (TA)', color: 'border-rose-950 text-rose-500 bg-rose-500/[0.02]', desc: 'Silent telemetry check. Freezes Mentor when anomaly triggers.' },
                       { id: 'auditor', name: 'Auditor Agent', color: 'border-blue-900/30 text-blue-600 bg-blue-500/[0.02]', desc: 'Silent artifact analyzer. Evaluates asynchronously on Blackboard.' },
                       { id: 'chaos', name: 'Chaos Agent', state: 'Active', color: 'border-amber-500/30 text-amber-500 bg-amber-500/[0.02]', desc: 'Friction dispatcher. Cannot view Mentor guidance states.' }
                     ].map((agent) => (
@@ -2195,7 +2197,7 @@ export default function Home() {
                         <strong>Insulation:</strong> {
                           [
                             { id: 'mentor', text: 'Mentor cannot read Chaos injection plans to prevent guidance softening or target hints. This separates training from grading.' },
-                            { id: 'invigilator', text: 'Invigilator acts as a watchman. If copy-paste or macro keystrokes trigger anomaly thresholds, it halts Mentor dispatches.' },
+                            { id: 'proctor', text: 'Proctor acts as a watchman. If copy-paste or macro keystrokes trigger anomaly thresholds, it halts Mentor dispatches.' },
                             { id: 'auditor', text: 'Auditor remains socially blind. It does not communicate with the user, grading purely by Blackboard file outputs.' },
                             { id: 'chaos', text: 'Chaos Agent mutates containers via the ALE. It has no access to Auditor evaluations to maintain stochastic objectivity.' }
                           ].find(a => a.id === taActiveCouncilAgent)?.text
@@ -2226,8 +2228,16 @@ export default function Home() {
               Static credentials decay. <span className="italic text-primary">So we built a loop.</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-3xl mx-auto font-body">
-              PAT-003's core invention: every one of the 4,000 ontology nodes carries its own decay coefficient λ, computed from real-time market signals. The Learning Loop's entire job is to keep your St above the Sovereign Threshold.
+              Every one of the 4,000 ontology nodes carries its own decay coefficient λ, computed from real-time market signals. The Learning Loop's entire job is to keep your verified standing above the Sovereign Threshold.
             </p>
+            <div className="pt-4">
+              <Link 
+                to="/learning-loop" 
+                className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+              >
+                More on Learning Loop <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">

@@ -9,7 +9,7 @@ const PATENTS = [
   { id: 'PAT-001', name: 'Adversary Logic Engine (ALE)', category: 'gold', desc: 'Real-time logic hazard & Bully AI injection engine for live Xterm.js verification.' },
   { id: 'PAT-002', name: 'ALTFL Telemetry Stack', category: 'gold', desc: 'Six-channel concurrent telemetry monitoring keystroke velocity, latency, and calibration.' },
   { id: 'PAT-003', name: 'Skill-Decay Lambda (λ)', category: 'gray', desc: 'Mathematical modeling of skill decay half-life over time across ontology nodes.' },
-  { id: 'PAT-004', name: 'Four-Agent Council', category: 'gold', desc: 'Multi-agent weighted consensus protocol (Mentor, Invigilator, Auditor, Chaos).' },
+  { id: 'PAT-004', name: 'Four-Agent Council', category: 'gold', desc: 'Multi-agent weighted consensus protocol (Mentor, Proctor, Auditor, Chaos).' },
   { id: 'PAT-005', name: 'Career Memory Engine', category: 'gray', desc: 'Stateful memory persistence for lifelong candidate annotations.' },
   { id: 'PAT-006', name: 'Blackboard State Bus', category: 'gray', desc: 'Decoupled agent communication architecture for zero-latency audit logs.' },
   { id: 'PAT-007', name: 'Confidence Calibration', category: 'gray', desc: 'Overconfidence delta detection against verified correctness.' },
@@ -45,25 +45,25 @@ const THESIS_PILLARS = [
     num: '01',
     title: 'The verification gap is unfilled.',
     body: 'LLMs invalidated every credential-class signal in 2022. No incumbent — LinkedIn, Workday, Coursera, HackerRank — can pivot to verification without cannibalizing core revenue.',
-    patents: 'PAT-001 · PAT-004 · PAT-008',
+    patents: 'Verification · Consensus · Credentialing',
   },
   {
     num: '02',
     title: 'The category is infrastructure, not SaaS.',
     body: 'Three uncorrelated revenue streams: ledger settlement (Visa-class), reserve float (Berkshire-class), index licensing (S&P-class). Composite supports 25–40× multiples.',
-    patents: 'PAT-010 · PAT-015 · PAT-017',
+    patents: 'Sovereign Ledger · Liability Reserve · Credit Tiering',
   },
   {
     num: '03',
     title: 'The moat is four-layer structural.',
     body: '21-patent fortress + Polygon-anchored ledger network + 40/40/20 perpetual institutional contracts + two-sided network effects. Each layer compounds independently.',
-    patents: 'PAT-001 through PAT-021',
+    patents: '21-IP Fortress across all systems',
   },
   {
     num: '04',
     title: 'The window is briefly open.',
     body: '~36 months until a strategic incumbent mounts defensive entry. After this window, the IP and institutional lock-ins compound into a non-replicable moat.',
-    patents: 'PAT-013 · PAT-014 · PAT-016',
+    patents: 'Enterprise Audit · Recruiter Battle · Risk Projection',
   },
 ];
 
@@ -284,7 +284,7 @@ export default function About() {
                         ].join(' ')}
                         style={isGold ? { background: 'linear-gradient(135deg,#775A19,#C5A059)' } : undefined}
                       >
-                        <span className="text-[8px] opacity-70">PAT</span>
+                        <span className="text-[8px] opacity-70">IP</span>
                         <span className="text-[11px] leading-none mt-0.5">{pat.id.replace('PAT-', '')}</span>
                       </motion.button>
                     );
@@ -315,7 +315,7 @@ export default function About() {
                     className="mt-4 p-4 rounded-xl bg-surface-container-low border border-primary/20 text-xs"
                   >
                     <div className="flex justify-between items-center mb-1">
-                      <span className="font-mono font-bold text-primary">{selectedPatent.id}</span>
+                      <span className="font-mono font-bold text-primary">{selectedPatent.name}</span>
                       <span className="font-mono text-[10px] uppercase text-on-surface-variant">{selectedPatent.category} tier</span>
                     </div>
                     <p className="font-bold text-on-surface text-sm mb-1">{selectedPatent.name}</p>

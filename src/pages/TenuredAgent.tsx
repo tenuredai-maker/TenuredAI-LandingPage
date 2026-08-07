@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 const AGENT_COLORS = {
   mentor: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/30', text: 'text-emerald-400', dot: 'bg-emerald-500', label: 'MENTOR' },
-  invigilator: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', dot: 'bg-red-500', label: 'INVIGILATOR' },
+  proctor: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', dot: 'bg-red-500', label: 'PROCTOR' },
   auditor: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', dot: 'bg-blue-500', label: 'AUDITOR' },
   chaos: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400', dot: 'bg-amber-500', label: 'CHAOS AGENT' },
 };
@@ -32,7 +32,7 @@ export default function TenuredAgent() {
   const [activeCouncilTab, setActiveCouncilTab] = useState<keyof typeof AGENT_COLORS>('mentor');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [activeSlashCmd, setActiveSlashCmd] = useState<string | null>(null);
-  const [currentMode, setCurrentMode] = useState<'mentor' | 'invigilator'>('mentor');
+  const [currentMode, setCurrentMode] = useState<'mentor' | 'proctor'>('mentor');
 
   const councilAgents = [
     {
@@ -46,10 +46,10 @@ export default function TenuredAgent() {
       description: 'The warm, concise user-facing seat. Draws on Vector-Graph career memory for context. Never hands the answer — always a doc path or a pattern.',
     },
     {
-      key: 'invigilator' as const,
-      name: 'Invigilator',
+      key: 'proctor' as const,
+      name: 'Proctor',
       patent: 'PAT-004',
-      role: 'Tenured Agent · Invigilator mode + Council Invigilator',
+      role: 'Tenured Agent · Proctor mode + Council Proctor',
       speaks: true,
       objective: 'Monitor telemetry for AI-typical signatures · trigger Hard-Gate preemption',
       cannotSee: 'Mentor guidance content',
@@ -93,7 +93,7 @@ export default function TenuredAgent() {
       icon: <Eye className="w-5 h-5" />,
       label: 'ALWAYS KNOWABLE',
       color: 'text-emerald-400',
-      description: "Current mode (Mentor vs Invigilator) is always shown via pulse + label. The council's active phase is announced at transition. No ambiguity about who's evaluating you.",
+      description: "Current mode (Mentor vs Proctor) is always shown via pulse + label. The council's active phase is announced at transition. No ambiguity about who's evaluating you.",
     },
     {
       icon: <CheckCircle className="w-5 h-5" />,
@@ -112,7 +112,7 @@ export default function TenuredAgent() {
   const faqs = [
     {
       q: 'Is the Tenured Agent one AI or four?',
-      a: "The user feels one Agent — but the platform runs a four-agent council. The Tenured Agent itself is the dual-natured user-facing entity (Mentor/Invigilator, per PAT-005). It operates as one member of PAT-004's four-agent council alongside the Auditor and Chaos Agent. The Orchestrator Node coordinates all four through a shared Blackboard.",
+      a: "The user feels one Agent — but the platform runs a four-agent council. The Tenured Agent itself is the dual-natured user-facing entity (Mentor/Proctor, per PAT-005). It operates as one member of PAT-004's four-agent council alongside the Auditor and Chaos Agent. The Orchestrator Node coordinates all four through a shared Blackboard.",
     },
     {
       q: 'Why do two agents speak and two do not?',
@@ -120,7 +120,7 @@ export default function TenuredAgent() {
     },
     {
       q: 'What is the Weighted Consensus Protocol?',
-      a: "A credential is authorized only when the Auditor (weight: 0.40), Invigilator (0.30), and at minimum one additional council member independently confirm verification criteria. The Weighted Consensus Score must exceed the Credential Authorization Threshold before the Sovereign Ledger receives a Consensus Certificate. No single agent can mint a credential — ever.",
+      a: "A credential is authorized only when the Auditor (weight: 0.40), Proctor (0.30), and at minimum one additional council member independently confirm verification criteria. The Weighted Consensus Score must exceed the Credential Authorization Threshold before the Sovereign Ledger receives a Consensus Certificate. No single agent can mint a credential — ever.",
     },
     {
       q: 'What does the Growth Coefficient y do?',
@@ -222,16 +222,16 @@ export default function TenuredAgent() {
                 Mentor
               </button>
               <button
-                onClick={() => setCurrentMode('invigilator')}
+                onClick={() => setCurrentMode('proctor')}
                 className={cn(
                   'flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-widest transition-all',
-                  currentMode === 'invigilator'
+                  currentMode === 'proctor'
                     ? 'bg-red-500/20 text-red-400 border border-red-500/40'
                     : 'text-[#9A8F80] hover:text-[#F3F0EC]'
                 )}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                Invigilator
+                Proctor
               </button>
             </div>
 
@@ -255,10 +255,10 @@ export default function TenuredAgent() {
                   </div>
                 </motion.div>
               ) : (
-                <motion.div key="invigilator" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                <motion.div key="proctor" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                   <div className="flex items-center gap-2 mb-4">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse inline-block" />
-                    <span className="text-red-400 text-xs font-mono font-bold uppercase tracking-wider">INVIGILATOR ENGAGED</span>
+                    <span className="text-red-400 text-xs font-mono font-bold uppercase tracking-wider">PROCTOR ENGAGED</span>
                     <span className="ml-auto text-[#9A8F80] text-[10px] font-mono">monitoring</span>
                   </div>
                   <div className="space-y-2 font-mono text-[11px] leading-relaxed">
@@ -388,7 +388,7 @@ export default function TenuredAgent() {
               <div className="text-[#FFBF00]">WCS = (w_agent x eval_agent)</div>
               <div className="h-px bg-white/10 my-3" />
               <div><span className="text-blue-400">w_auditor</span><span className="text-[#F3F0EC]"> = 0.40</span> <span className="text-[#9A8F80] text-xs">highest weight</span></div>
-              <div><span className="text-red-400">w_invigilator</span><span className="text-[#F3F0EC]"> = 0.30</span></div>
+              <div><span className="text-red-400">w_proctor</span><span className="text-[#F3F0EC]"> = 0.30</span></div>
               <div><span className="text-emerald-400">w_mentor</span><span className="text-[#F3F0EC]"> = 0.20</span></div>
               <div><span className="text-amber-400">w_chaos</span><span className="text-[#F3F0EC]"> = 0.10</span> <span className="text-[#9A8F80] text-xs">observation only</span></div>
               <div className="h-px bg-white/10 my-3" />
@@ -401,7 +401,7 @@ export default function TenuredAgent() {
               <div className="font-mono text-[10px] uppercase tracking-widest text-red-400">Hard-Gate Priority Queue</div>
             </div>
             <p className="text-sm text-on-surface-variant leading-relaxed mb-6">
-              When the Invigilator posts an anomaly flag, the Orchestrator switches modes immediately.
+              When the Proctor posts an anomaly flag, the Orchestrator switches modes immediately.
             </p>
             <div className="bg-[#1E1E1D] rounded-xl p-4 font-mono text-xs leading-loose">
               <div className="text-amber-400">PREEMPTION MODE · anomaly = TRUE</div>
@@ -422,7 +422,7 @@ export default function TenuredAgent() {
             One Agent. Two souls. Route-driven.
           </h2>
           <p className="text-on-surface-variant font-light max-w-3xl text-lg leading-relaxed">
-            On the dashboard, docs, and learning surfaces it is the <strong className="text-emerald-400">Mentor</strong>. The instant the user crosses into the Proving Ground, the state machine flips to the <strong className="text-red-400">Invigilator</strong>. Same Agent, same memory, opposite demeanor. The pivot is announced, never implied.
+            On the dashboard, docs, and learning surfaces it is the <strong className="text-emerald-400">Mentor</strong>. The instant the user crosses into the Proving Ground, the state machine flips to the <strong className="text-red-400">Proctor</strong>. Same Agent, same memory, opposite demeanor. The pivot is announced, never implied.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -439,7 +439,7 @@ export default function TenuredAgent() {
               provides: 'Patterns · doc paths · staged Refresh',
             },
             {
-              mode: 'Invigilator mode',
+              mode: 'Proctor mode',
               color: 'text-red-400',
               borderColor: 'border-red-500/30',
               bg: 'bg-red-500/5',
@@ -600,7 +600,7 @@ export default function TenuredAgent() {
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { type: 'mentor' as const, rhythm: '2.4s', desc: "The platform's resting state on learning surfaces." },
-            { type: 'invigilator' as const, rhythm: '1.6s', desc: 'In-Gate monitoring. Hostility increases tempo if anomaly flag fires.' },
+            { type: 'proctor' as const, rhythm: '1.6s', desc: 'In-Gate monitoring. Hostility increases tempo if anomaly flag fires.' },
             { type: 'auditor' as const, rhythm: '2.0s', desc: 'Appears during Synthetic Review and consensus deliberation.' },
             { type: 'chaos' as const, rhythm: '1.4s', desc: 'Brief — pulses only while a Friction Injection is firing.' },
           ].map((pulse) => {

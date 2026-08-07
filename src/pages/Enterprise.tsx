@@ -64,7 +64,7 @@ export default function Enterprise() {
           <div className="flex items-center gap-3 mb-6">
             <span className="font-mono text-[10px] tracking-[.22em] uppercase text-primary font-bold bg-primary/10 px-4 py-1.5 rounded-full flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              DECK 02 / ENTERPRISE · EWARD BRIEFING
+              ENTERPRISE · EWARD BRIEFING
             </span>
           </div>
 
@@ -304,15 +304,14 @@ export default function Enterprise() {
                 {OSD_GRID_NODES.map((node, i) => (
                   <div
                     key={i}
-                    className={`p-3 rounded-xl border text-center transition-all ${
-                      node.level === 'sovereign'
+                    className={`p-3 rounded-xl border text-center transition-all ${node.level === 'sovereign'
                         ? 'bg-primary/15 border-primary/30 text-primary font-bold'
                         : node.level === 'high'
-                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold'
-                        : node.level === 'mid'
-                        ? 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400'
-                        : 'bg-rose-500/15 border-rose-500/30 text-rose-500 font-bold'
-                    }`}
+                          ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold'
+                          : node.level === 'mid'
+                            ? 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400'
+                            : 'bg-rose-500/15 border-rose-500/30 text-rose-500 font-bold'
+                      }`}
                   >
                     <p className="font-mono text-xs mb-0.5">{node.code}</p>
                     <p className="font-mono text-[9px] truncate opacity-80">{node.label}</p>

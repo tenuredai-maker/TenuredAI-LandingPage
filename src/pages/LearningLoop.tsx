@@ -9,8 +9,8 @@ const SURFACES = [
   {
     badge: 'FORGE · DRILLS',
     title: 'Declarative recall',
-    desc: 'Two-Phase Flashcards (PAT-018) measure not just what you know but how confidently you know it — Confidence-Calibration is the second axis.',
-    patents: 'PAT-018 · PAT-019',
+    desc: 'Two-Phase Flashcards measure not just what you know but how confidently you know it — Confidence-Calibration is the second axis.',
+    patents: 'Core Mechanics',
     icon: Zap,
     color: 'text-amber-500 bg-amber-500/10',
   },
@@ -18,7 +18,7 @@ const SURFACES = [
     badge: 'REFRESH · LABS',
     title: 'Procedural restoration',
     desc: 'Scoped Hard-Gates targeting decaying nodes to restore Skill-Decay λ without taking the full Proving Ground gauntlet.',
-    patents: 'PAT-003 · PAT-006',
+    patents: 'Skill-Decay Engine',
     icon: RefreshCw,
     color: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10',
   },
@@ -26,7 +26,7 @@ const SURFACES = [
     badge: 'GATE · CATALOG',
     title: 'Adversarial verification',
     desc: 'Air-gapped proctored gauntlets with live Bully AI injections, 4-agent council consensus, and multi-chain Consensus Certificates.',
-    patents: 'PAT-001 · PAT-004 · PAT-010',
+    patents: 'Adversarial Council',
     icon: Shield,
     color: 'text-blue-600 dark:text-blue-400 bg-blue-500/10',
   },
@@ -34,7 +34,7 @@ const SURFACES = [
     badge: 'EDUCATION · MODULES',
     title: 'Content & TP Economy',
     desc: 'Five M-3xx surfaces (Text, Video, Audio, Code, Quiz) where reading and watching earn Tenure Points, preparing candidates for verification.',
-    patents: 'PAT-002 · PAT-020',
+    patents: 'TP Economy',
     icon: BookOpen,
     color: 'text-primary bg-primary/10',
   },
@@ -53,7 +53,7 @@ const MODULE_SURFACES = [
     id: 'M-310',
     name: 'Article Reader',
     type: 'Text + Telemetry',
-    desc: 'Long-form technical documentation with reading-pace and active-presence telemetry (ALTFL PAT-002).',
+    desc: 'Long-form technical documentation with reading-pace and active-presence telemetry.',
     tp: '+15 TP / 5 min read',
     icon: BookOpen,
   },
@@ -77,7 +77,7 @@ const MODULE_SURFACES = [
     id: 'M-340',
     name: 'Annotated Source',
     type: 'Code & Spec Viewer',
-    desc: 'Syntax-highlighted code samples, patent specs, and technical papers with PAT-020 inline candidate annotations.',
+    desc: 'Syntax-highlighted code samples, specs, and technical papers with inline candidate annotations.',
     tp: '+30 TP / annotation',
     icon: Code2,
   },
@@ -85,7 +85,7 @@ const MODULE_SURFACES = [
     id: 'M-350',
     name: 'Comprehension Check',
     type: 'Gauntlet Multiplier',
-    desc: 'End-of-module 3-question gauntlet using PAT-019 confidence weights to grant up to 2.0x TP multipliers.',
+    desc: 'End-of-module 3-question gauntlet using confidence weights to grant up to 2.0x TP multipliers.',
     tp: '×1.5 to ×2.0 Multiplier',
     icon: HelpCircle,
   },
@@ -131,7 +131,7 @@ export default function LearningLoop() {
               { label: 'SURFACES', val: '4', sub: 'Forge · Refresh · Gate · Atlas' },
               { label: 'MODULE TRACKS', val: '5', sub: 'Text · Video · Audio · Code · Quiz' },
               { label: 'ONTOLOGY ATLAS', val: '4,000', sub: 'Mapped knowledge nodes' },
-              { label: 'PATENT BACKING', val: '7 IP', sub: 'PAT-001/002/003/018/019/020/021' },
+              { label: 'PATENT BACKING', val: '7 IP', sub: 'Across Core Systems' },
             ].map((m) => (
               <div key={m.label} className="bg-surface-container-lowest rounded-2xl p-5 shadow-lg border border-outline-variant/10">
                 <p className="font-mono text-[10px] tracking-[.14em] uppercase text-on-surface-variant font-semibold mb-1">{m.label}</p>
@@ -210,7 +210,7 @@ export default function LearningLoop() {
             The reading <span className="bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent italic font-medium">earns TP too.</span>
           </h2>
           <p className="text-on-surface-variant text-sm max-w-3xl mb-10 leading-relaxed">
-            Where the original campaign credited drills, the Education Modules spec (M-301 family) extends the Tenure Points (TP) economy to content consumption. Reading, watching, listening, and annotating prepare the candidate for verification and earn defensible TP backed by active-presence telemetry (ALTFL PAT-002).
+            Where the original campaign credited drills, the Education Modules spec (M-301 family) extends the Tenure Points (TP) economy to content consumption. Reading, watching, listening, and annotating prepare the candidate for verification and earn defensible TP backed by active-presence telemetry.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -245,7 +245,7 @@ export default function LearningLoop() {
 
         <div className="bg-[#16140F] text-inverse-on-surface p-8 rounded-3xl font-mono text-[11px] leading-relaxed overflow-x-auto shadow-2xl border border-white/10">
           <div className="text-amber-400 font-bold text-[10px] tracking-widest uppercase mb-4">
-            ARCHITECTURE SCHEMATIC · LOOP TOPOLOGY (PAT-002 / PAT-006 / PAT-020)
+            ARCHITECTURE SCHEMATIC · LOOP TOPOLOGY
           </div>
           <pre className="text-amber-200/90 font-mono">
 {`                    ┌───────────────────────────────────────────────┐
@@ -266,7 +266,7 @@ export default function LearningLoop() {
                                             ▼
                     ┌───────────────────────────────────────────────┐
                     │      4,000-NODE ONTOLOGY KNOWLEDGE ATLAS      │
-                    │   Node λ · ALTFL Telemetry · PAT-020 Memory   │
+                    │   Node λ · ALTFL Telemetry · Career Memory      │
                     └───────────────────────┬───────────────────────┘
                                             │
                                             ▼

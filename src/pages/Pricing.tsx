@@ -91,7 +91,7 @@ export default function Pricing() {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
-          <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Pricing Strategy v4.0</span>
+          <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Pricing For Everyone</span>
           <h1 className="text-5xl md:text-7xl font-headline font-bold text-on-surface tracking-tight">
             Pay for <span className="italic text-primary">Proven Capability.</span>
           </h1>
@@ -136,7 +136,7 @@ export default function Pricing() {
       <section className="mb-32">
         <div className="flex justify-center items-center gap-4 mb-12">
           <span className={cn("text-sm font-bold uppercase tracking-widest transition-colors", billingCycle === 'monthly' ? "text-on-surface" : "text-outline")}>Monthly</span>
-          <button 
+          <button
             onClick={() => setBillingCycle(prev => prev === 'monthly' ? 'annual' : 'monthly')}
             className="w-12 h-6 bg-surface-container-highest rounded-full relative p-1 transition-colors"
           >
@@ -149,12 +149,12 @@ export default function Pricing() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {individualPlans.map((plan, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className={cn(
                 "p-10 rounded-2xl flex flex-col border transition-all duration-500 relative",
-                plan.highlight 
-                  ? "bg-primary text-on-primary border-primary shadow-2xl scale-105 z-10" 
+                plan.highlight
+                  ? "bg-primary text-on-primary border-primary shadow-2xl scale-105 z-10"
                   : "bg-surface-container-low border-outline-variant/15 hover:border-primary/30"
               )}
             >
@@ -185,12 +185,12 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Link 
+              <Link
                 to="/request-access"
                 className={cn(
                   "w-full py-4 rounded-lg font-bold uppercase tracking-widest text-xs transition-all active:scale-95 text-center",
-                  plan.highlight 
-                    ? "bg-surface-container-lowest text-primary hover:bg-white" 
+                  plan.highlight
+                    ? "bg-surface-container-lowest text-primary hover:bg-white"
                     : "bg-primary text-on-primary hover:opacity-90"
                 )}
               >
@@ -206,7 +206,7 @@ export default function Pricing() {
         <div className="max-w-5xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div>
             <span className="font-label text-xs tracking-[0.3em] text-primary-fixed uppercase font-bold block mb-4">Automated Fiscal Settlement</span>
-            <h2 className="text-4xl md:text-5xl font-headline font-bold mb-6">The 40/40/20 <br/> Dividend Model</h2>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold mb-6">The 40/40/20 <br /> Dividend Model</h2>
             <p className="text-stone-400 leading-relaxed mb-8">
               An automated settlement system where verification fees from "Hard-Gate" activations are split to support a new talent economy.
             </p>
@@ -247,7 +247,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      {/* Sovereign Verification Fee */}
+      {/* College/University Mandated Fee */}
       <section className="mb-32">
         <div className="mb-12">
           <h2 className="text-3xl font-headline font-bold mb-4">Sovereign Verification Fee</h2>
@@ -264,9 +264,9 @@ export default function Pricing() {
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
               {[
-                { name: "Proving Ground Access", price: "$125.00", desc: "Unlimited use of adversarial AI sandbox environments." },
-                { name: "Ledger Maintenance", price: "$75.00", desc: "Recording 'Hard-Gate' attempts on the immutable record." },
-                { name: "Underwriting Seed", price: "$50.00", desc: "Initial capital to 'Mint' the student's first Performance Bond." }
+                { name: "Proving Ground Access", price: "$50.00", desc: "Unlimited use of adversarial AI sandbox environments." },
+                { name: "Ledger Maintenance", price: "$50.00", desc: "Recording 'Hard-Gate' attempts on the immutable record." },
+                { name: "Underwriting Seed", price: "$25.00", desc: "Initial capital to 'Mint' the student's first Performance Bond." }
               ].map((row, i) => (
                 <tr key={i} className="hover:bg-surface-container-highest/50 transition-colors">
                   <td className="p-6 font-bold text-sm">{row.name}</td>
@@ -276,7 +276,7 @@ export default function Pricing() {
               ))}
               <tr className="bg-primary/5">
                 <td className="p-6 font-headline font-bold text-lg">TOTAL SEMESTER FEE</td>
-                <td className="p-6 font-headline font-bold text-2xl text-primary">$250.00</td>
+                <td className="p-6 font-headline font-bold text-2xl text-primary">$125.00</td>
                 <td className="p-6 text-sm font-bold italic">Fully underwritten professional identity.</td>
               </tr>
             </tbody>
@@ -314,7 +314,7 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <Link 
+              <Link
                 to="/request-access"
                 className="mt-8 w-full py-3 border border-primary text-primary rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-primary/5 transition-colors text-center"
               >
@@ -394,7 +394,7 @@ export default function Pricing() {
       <section className="bg-gradient-to-br from-tertiary to-[#2e3e60] p-12 md:p-20 rounded-3xl text-white text-center relative overflow-hidden shadow-2xl">
         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           <h2 className="text-4xl md:text-6xl font-headline font-bold leading-tight">
-            Stop measuring learning by time. <br/> Start proving your <span className="italic underline decoration-white/30 text-tertiary-container">Worth.</span>
+            Stop measuring learning by time. <br /> Start proving your <span className="italic underline decoration-white/30 text-tertiary-container">Worth.</span>
           </h2>
           <p className="text-xl opacity-90 max-w-2xl mx-auto text-white/90">
             You don’t pay for content. You pay for confidence, capability, and proof.
@@ -412,7 +412,7 @@ export default function Pricing() {
             ))}
           </div>
           <div className="pt-10">
-            <Link 
+            <Link
               to="/request-access"
               className="inline-block bg-white text-tertiary px-10 py-4 rounded-lg font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform"
             >
