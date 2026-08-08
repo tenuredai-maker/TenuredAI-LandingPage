@@ -1,24 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Zap, 
-  RefreshCw, 
-  Sliders, 
-  Database, 
-  Search, 
-  Award, 
-  BookOpen, 
-  Activity, 
-  ShieldAlert, 
-  Layers, 
-  Scale, 
-  ArrowRight, 
-  ChevronDown, 
-  ChevronUp, 
-  Terminal, 
-  Fingerprint, 
-  Globe, 
-  FileText, 
+import {
+  Zap,
+  RefreshCw,
+  Sliders,
+  Database,
+  Search,
+  Award,
+  BookOpen,
+  Activity,
+  ShieldAlert,
+  Layers,
+  Scale,
+  ArrowRight,
+  ChevronDown,
+  ChevronUp,
+  Terminal,
+  Fingerprint,
+  Globe,
+  FileText,
   Brain,
   FileBadge,
   Sparkles,
@@ -47,6 +47,15 @@ interface DeltaOperator {
 interface PersonaDossier {
   seq: string;
   id: string;
+  globalKey: string;
+  namespace: 'TECH' | 'NONTECH' | 'ACADEMIC';
+  engagementMode: 'CHALLENGER' | 'EVALUATOR' | 'JOURNEY';
+  tier: number;
+  tierLabel: string;
+  tierGroup: 'STEM_APPLIED' | 'LIBERAL_ARTS_HUMANITIES' | 'ENTERPRISE_ORCHESTRATION' | null;
+  primaryMetric: 'AICI' | 'AIOI' | 'AIBS' | 'AIOI-ED';
+  scoringProfile: 'STANDARD' | 'NONTECH_ORCHESTRATION';
+  entropyLevel: 'EXTREME' | 'HIGH' | 'MEDIUM' | 'VARIABLE' | 'LOW';
   title: string;
   type: 'tech' | 'nontech' | 'academic';
   gate: string;
@@ -120,7 +129,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE A · Baseline-Relative',
     formula: 'Δ₁ = TTR_baseline_N − TTR_actual_session',
     description: 'Governs score growth rate. Positive delta scales up environmental complexity and unlocks Chaos Agent Tier-3 injections.',
-    patent: 'PAT-005'
+    patent: 'DELTA · 1'
   },
   {
     id: 'Δ₂',
@@ -128,7 +137,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE B · Threshold-Relative',
     formula: 'Δ₂ = St − T_S(node)  [St = S₀ · e^(−λ_eff · t)]',
     description: 'Controls the 3-state mark validity: Active Sovereign → Decay Warning → Re-Verification Triggered.',
-    patent: 'PAT-003'
+    patent: 'DELTA · 2'
   },
   {
     id: 'Δ₃',
@@ -136,7 +145,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE A (Self-Relative)',
     formula: 'Δ₃ = CA_k − CA_(k−1)',
     description: 'Command Authority velocity session-over-session. Separates temporary spikes from sustained talent acquisition.',
-    patent: 'PAT-001/002'
+    patent: 'DELTA · 3'
   },
   {
     id: 'Δ₄',
@@ -144,7 +153,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE C · Band-Relative',
     formula: 'Δ₄ = γ_raw − γ_band_center',
     description: 'Ensures optimal challenge. Clamps growth factors inside homeostasis bands to keep candidates engaged without burnout.',
-    patent: 'PAT-005/006'
+    patent: 'DELTA · 4'
   },
   {
     id: 'Δ₅',
@@ -152,7 +161,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE B · Inverse Threshold',
     formula: 'Δ₅ = T_S(node) − St = −Δ₂',
     description: 'Decides Priority Queue rankings. High gap nodes combined with high market velocity jump the queue for daily loops.',
-    patent: 'PAT-006'
+    patent: 'DELTA · 5'
   },
   {
     id: 'Δ₆',
@@ -160,7 +169,7 @@ const deltasData: DeltaOperator[] = [
     type: 'TYPE D · Trajectory-Relative',
     formula: 'Δ₆ = dMVI_N / dt',
     description: 'Accelerates score decay pre-emptively on nodes whose real-world domains are experiencing rapid market automation.',
-    patent: 'NOVEL'
+    patent: 'DELTA · 6'
   }
 ];
 
@@ -180,6 +189,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '001',
     id: 'P_ARCH_01',
+    globalKey: 'TECH:P_ARCH_01',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 1,
+    tierLabel: 'The Architects',
+    tierGroup: null,
+    primaryMetric: 'AIOI-ED',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'AI Agent Architect',
     type: 'tech',
     gate: 'AIOI-ED (60%) · AICI (40%)',
@@ -191,6 +209,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '002',
     id: 'P_ARCH_02',
+    globalKey: 'TECH:P_ARCH_02',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 1,
+    tierLabel: 'The Architects',
+    tierGroup: null,
+    primaryMetric: 'AIOI-ED',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Decentralized AI (DeAI) Engineer',
     type: 'tech',
     gate: 'AIOI-ED (60%) · AICI (40%)',
@@ -202,6 +229,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '003',
     id: 'P_ARCH_03',
+    globalKey: 'TECH:P_ARCH_03',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 1,
+    tierLabel: 'The Architects',
+    tierGroup: null,
+    primaryMetric: 'AIOI-ED',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'LLM Infrastructure Architect',
     type: 'tech',
     gate: 'AIOI-ED (60%) · AICI (40%)',
@@ -213,6 +249,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '011',
     id: 'P_ORCH_01',
+    globalKey: 'TECH:P_ORCH_01',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 2,
+    tierLabel: 'The Orchestrators',
+    tierGroup: null,
+    primaryMetric: 'AIBS',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Next-Gen Full-Stack Developer',
     type: 'tech',
     gate: 'AIBS (60%) · AIOI (40%)',
@@ -224,6 +269,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '012',
     id: 'P_ORCH_02',
+    globalKey: 'TECH:P_ORCH_02',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 2,
+    tierLabel: 'The Orchestrators',
+    tierGroup: null,
+    primaryMetric: 'AIOI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Prompt Architect',
     type: 'tech',
     gate: 'AIOI (70%) · AICI (30%)',
@@ -235,6 +289,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '015',
     id: 'P_ORCH_05',
+    globalKey: 'TECH:P_ORCH_05',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 2,
+    tierLabel: 'The Orchestrators',
+    tierGroup: null,
+    primaryMetric: 'AIOI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Workflow Automation Developer',
     type: 'tech',
     gate: 'AIOI (80%) · AIBS (20%)',
@@ -246,6 +309,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '021',
     id: 'P_STRAT_01',
+    globalKey: 'TECH:P_STRAT_01',
+    namespace: 'TECH',
+    engagementMode: 'CHALLENGER',
+    tier: 3,
+    tierLabel: 'The Strategists',
+    tierGroup: null,
+    primaryMetric: 'AICI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'MEDIUM',
     title: 'Chief AI Officer (CAIO)',
     type: 'tech',
     gate: 'AICI (60%) · AIBS (40%)',
@@ -259,6 +331,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '001',
     id: 'P_CLIN_01',
+    globalKey: 'NONTECH:P_CLIN_01',
+    namespace: 'NONTECH',
+    engagementMode: 'EVALUATOR',
+    tier: 1,
+    tierLabel: 'Clinical & Healthcare',
+    tierGroup: null,
+    primaryMetric: 'AICI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Chief Medical Officer (CMO)',
     type: 'nontech',
     gate: 'AICI (70%) · AIOI (30%)',
@@ -276,6 +357,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '002',
     id: 'P_CLIN_02',
+    globalKey: 'NONTECH:P_CLIN_02',
+    namespace: 'NONTECH',
+    engagementMode: 'EVALUATOR',
+    tier: 1,
+    tierLabel: 'Clinical & Healthcare',
+    tierGroup: null,
+    primaryMetric: 'AICI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'HIGH',
     title: 'Lead Diagnostician',
     type: 'nontech',
     gate: 'AICI (80%) · AIOI (20%)',
@@ -293,6 +383,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '011',
     id: 'P_FIN_01',
+    globalKey: 'NONTECH:P_FIN_01',
+    namespace: 'NONTECH',
+    engagementMode: 'EVALUATOR',
+    tier: 2,
+    tierLabel: 'Financial Risk',
+    tierGroup: null,
+    primaryMetric: 'AICI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'MEDIUM',
     title: 'Chief Risk Officer (CRO)',
     type: 'nontech',
     gate: 'AICI (65%) · AIBS (35%)',
@@ -310,6 +409,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '021',
     id: 'P_LEG_01',
+    globalKey: 'NONTECH:P_LEG_01',
+    namespace: 'NONTECH',
+    engagementMode: 'EVALUATOR',
+    tier: 3,
+    tierLabel: 'Legal & Governance',
+    tierGroup: null,
+    primaryMetric: 'AICI',
+    scoringProfile: 'STANDARD',
+    entropyLevel: 'LOW',
     title: 'General Counsel',
     type: 'nontech',
     gate: 'AICI (90%) · AIOI (10%)',
@@ -329,6 +437,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '101',
     id: 'S_SOC_01',
+    globalKey: 'ACADEMIC:S_SOC_01',
+    namespace: 'ACADEMIC',
+    engagementMode: 'JOURNEY',
+    tier: 11,
+    tierLabel: 'Sociology & Anthropological Sciences',
+    tierGroup: 'LIBERAL_ARTS_HUMANITIES',
+    primaryMetric: 'AIOI-ED',
+    scoringProfile: 'NONTECH_ORCHESTRATION',
+    entropyLevel: 'MEDIUM',
     title: 'Civic Infrastructure Demographer',
     type: 'academic',
     gate: 'AIOI-ED (50%) · AICI (50%)',
@@ -340,6 +457,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '111',
     id: 'S_ENG_01',
+    globalKey: 'ACADEMIC:S_ENG_01',
+    namespace: 'ACADEMIC',
+    engagementMode: 'JOURNEY',
+    tier: 12,
+    tierLabel: 'English & Technical Communications',
+    tierGroup: 'LIBERAL_ARTS_HUMANITIES',
+    primaryMetric: 'AICI',
+    scoringProfile: 'NONTECH_ORCHESTRATION',
+    entropyLevel: 'MEDIUM',
     title: 'Industrial Packaging Print Overseer',
     type: 'academic',
     gate: 'AIBS (60%) · AIOI (40%)',
@@ -351,6 +477,15 @@ const personasData: PersonaDossier[] = [
   {
     seq: '141',
     id: 'S_PHI_01',
+    globalKey: 'ACADEMIC:S_PHI_01',
+    namespace: 'ACADEMIC',
+    engagementMode: 'JOURNEY',
+    tier: 15,
+    tierLabel: 'Philosophy & Tangible Ethics',
+    tierGroup: 'LIBERAL_ARTS_HUMANITIES',
+    primaryMetric: 'AICI',
+    scoringProfile: 'NONTECH_ORCHESTRATION',
+    entropyLevel: 'MEDIUM',
     title: 'Industrial Safety Philosopher',
     type: 'academic',
     gate: 'AICI (70%) · AIBS (30%)',
@@ -363,24 +498,29 @@ const personasData: PersonaDossier[] = [
 
 export default function MethodPage() {
   const [activeTab, setActiveTab] = useState<'scoring' | 'codex'>('scoring');
-  
-  // Codex search state
+
+  // Codex search + sort state
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<'all' | 'tech' | 'nontech' | 'academic'>('all');
   const [selectedFocus, setSelectedFocus] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'globalKey' | 'seq' | 'tier' | 'title'>('globalKey');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
-  // Filter lists
+  // Namespace sort priority: TECH → NONTECH → ACADEMIC (Volume Sequence)
+  const namespacePriority: Record<string, number> = { TECH: 1, NONTECH: 2, ACADEMIC: 3 };
+
+  // Filter + sort list
   const filteredPersonas = useMemo(() => {
-    return personasData.filter(p => {
-      const matchesSearch = 
+    const filtered = personasData.filter(p => {
+      const matchesSearch =
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.globalKey.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.focus.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.seq.includes(searchQuery);
-      
+
       const matchesType = selectedType === 'all' || p.type === selectedType;
-      
+
       let matchesFocus = true;
       if (selectedFocus !== 'all') {
         matchesFocus = p.gate.includes(selectedFocus);
@@ -388,7 +528,22 @@ export default function MethodPage() {
 
       return matchesSearch && matchesType && matchesFocus;
     });
-  }, [searchQuery, selectedType, selectedFocus]);
+
+    return [...filtered].sort((a, b) => {
+      if (sortBy === 'globalKey') return a.globalKey.localeCompare(b.globalKey);
+      if (sortBy === 'seq') {
+        const nsDiff = (namespacePriority[a.namespace] ?? 9) - (namespacePriority[b.namespace] ?? 9);
+        if (nsDiff !== 0) return nsDiff;
+        return parseInt(a.seq) - parseInt(b.seq);
+      }
+      if (sortBy === 'tier') {
+        if (a.tier !== b.tier) return a.tier - b.tier;
+        return a.globalKey.localeCompare(b.globalKey);
+      }
+      if (sortBy === 'title') return a.title.localeCompare(b.title);
+      return 0;
+    });
+  }, [searchQuery, selectedType, selectedFocus, sortBy]);
 
   const togglePersona = (id: string) => {
     if (expandedPersona === id) {
@@ -401,7 +556,7 @@ export default function MethodPage() {
   return (
     <div className="pt-28 pb-16 min-h-screen bg-background text-on-surface">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        
+
         {/* Header Section */}
         <div className="mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary mb-4">
@@ -412,7 +567,7 @@ export default function MethodPage() {
             The Master <span className="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Methodology</span> &amp; Persona Codex
           </h1>
           <p className="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base">
-            Where mathematical performance deltas intersect with adversarial evaluation battlefields. Explore the verification scoring mechanisms and the 100-Persona grid.
+            Where mathematical performance deltas intersect with adversarial evaluation battlefields. Explore the verification scoring mechanisms and the 270-Persona grid.
           </p>
         </div>
 
@@ -423,8 +578,8 @@ export default function MethodPage() {
               onClick={() => setActiveTab('scoring')}
               className={cn(
                 "px-6 py-2 rounded-full text-xs md:text-sm font-bold tracking-wide uppercase transition-all duration-300 flex items-center gap-2 cursor-pointer",
-                activeTab === 'scoring' 
-                  ? "bg-primary text-on-primary shadow-lg shadow-primary/20" 
+                activeTab === 'scoring'
+                  ? "bg-primary text-on-primary shadow-lg shadow-primary/20"
                   : "text-on-surface-variant hover:text-on-surface"
               )}
             >
@@ -435,8 +590,8 @@ export default function MethodPage() {
               onClick={() => setActiveTab('codex')}
               className={cn(
                 "px-6 py-2 rounded-full text-xs md:text-sm font-bold tracking-wide uppercase transition-all duration-300 flex items-center gap-2 cursor-pointer",
-                activeTab === 'codex' 
-                  ? "bg-primary text-on-primary shadow-lg shadow-primary/20" 
+                activeTab === 'codex'
+                  ? "bg-primary text-on-primary shadow-lg shadow-primary/20"
                   : "text-on-surface-variant hover:text-on-surface"
               )}
             >
@@ -490,11 +645,11 @@ export default function MethodPage() {
                 <div className="absolute right-0 top-0 text-primary-container/5 font-mono text-[200px] font-black pointer-events-none select-none -translate-y-1/4 translate-x-1/4">
                   Δ
                 </div>
-                
+
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-8 border-b border-outline-variant/20 pb-6 mb-8 relative z-10">
                   <div>
                     <span className="text-[11px] font-bold uppercase tracking-widest text-primary flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" /> Patent Claim basis: TAI-PAT-006 (LPO ENGINE)
+                      <Sparkles className="w-3 h-3" /> LPO ENGINE
                     </span>
                     <h2 className="text-3xl font-headline font-black text-on-surface mt-1">
                       PERFORMANCE DELTA (Δ) — The Unified Adaptive Operator
@@ -533,7 +688,7 @@ export default function MethodPage() {
 
               {/* Requirement Grid & Underwriting */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
+
                 {/* Score requirements Table */}
                 <div className="lg:col-span-2 bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-6 shadow-xl">
                   <div className="mb-4">
@@ -576,7 +731,7 @@ export default function MethodPage() {
                     <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-4">
                       <Scale className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">PAT-018 · PAT-019</span>
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest"> · PRICING LIABILITY</span>
                     <h3 className="text-xl font-headline font-bold text-on-surface mt-1 mb-3">The Financial Underwriting Bridge</h3>
                     <p className="text-xs text-on-surface-variant leading-relaxed mb-4">
                       Tenured AI metrics do not stop at pedagogy—they price liability. Our system features **Asymmetric Liability Classification** that penalizes overconfidence on missed targets, bridging performance outcomes directly to performance bonds (OSD).
@@ -611,9 +766,44 @@ export default function MethodPage() {
               exit={{ opacity: 0, y: -15 }}
               className="space-y-8"
             >
+              {/* Registry Integrity Banner */}
+              <div className="bg-surface-container-low border border-outline-variant/30 rounded-3xl p-6 shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  <div className="absolute right-0 top-0 text-primary/5 font-mono text-[160px] font-black select-none translate-x-1/4 -translate-y-1/4">Σ</div>
+                </div>
+                <div className="flex items-start gap-4 relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-mentor/10 flex items-center justify-center text-mentor shrink-0 border border-mentor/20">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold text-mentor uppercase tracking-widest">Unified Registry · TAI Ingestion Guide v1.0</span>
+                      <span className="px-2 py-0.5 rounded-full bg-mentor/10 border border-mentor/20 text-[9px] font-bold text-mentor">SIGNATURE_VALID</span>
+                    </div>
+                    <h3 className="text-lg font-headline font-bold text-on-surface mb-1">Persona Codex — Unified Query Registry</h3>
+                    <p className="text-[11px] text-on-surface-variant leading-relaxed max-w-2xl">
+                      All four persona volumes (TAI-PC-001 · 002 · 003 · 003-II) loaded as one queryable registry. Records are indexed on{' '}
+                      <code className="font-mono text-primary bg-primary/10 px-1 rounded">global_key</code> (PK),{' '}
+                      <code className="font-mono text-primary bg-primary/10 px-1 rounded">namespace</code>,{' '}
+                      <code className="font-mono text-primary bg-primary/10 px-1 rounded">tier</code>, and{' '}
+                      <code className="font-mono text-primary bg-primary/10 px-1 rounded">scoring_profile</code>.
+                      Sort defaults to registry-canonical <strong className="text-on-surface">Global Key</strong> order for deterministic signature verification.
+                    </p>
+                  </div>
+                </div>
+                <div className="bg-surface-container-lowest border border-outline-variant/20 px-5 py-4 rounded-2xl font-mono text-[10px] text-on-surface-variant shrink-0 self-stretch md:self-auto flex flex-col justify-center gap-1.5 relative z-10">
+                  <div><span className="text-on-surface-variant/50">Registry Hash · </span><span className="text-primary font-bold">0x8a92f03f·7e1b5c4d·0a8b7c6d·5e4f3a2b…</span></div>
+                  <div><span className="text-on-surface-variant/50">Total Dossiers · </span><span className="font-bold text-on-surface">380 active configurations</span></div>
+                  <div className="flex gap-3 pt-1 border-t border-outline-variant/10">
+                    <span className="px-1.5 py-0.5 bg-tertiary/10 text-tertiary rounded font-bold">TECH ×100</span>
+                    <span className="px-1.5 py-0.5 bg-primary/10 text-primary rounded font-bold">NONTECH ×100</span>
+                    <span className="px-1.5 py-0.5 bg-secondary/10 text-secondary rounded font-bold">ACADEMIC ×180</span>
+                  </div>
+                </div>
+              </div>
               {/* Search and Filters */}
               <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-6 shadow-xl flex flex-col md:flex-row gap-4 items-center justify-between">
-                
+
                 {/* Search Bar */}
                 <div className="relative w-full md:max-w-md">
                   <Search className="w-4 h-4 text-on-surface-variant/50 absolute left-4 top-1/2 -translate-y-1/2" />
@@ -628,7 +818,7 @@ export default function MethodPage() {
 
                 {/* Filters */}
                 <div className="flex flex-wrap gap-3 w-full md:w-auto justify-end">
-                  
+
                   {/* Category Buttons */}
                   <div className="flex bg-surface-container-low p-1 rounded-full border border-outline-variant/10">
                     {(['all', 'tech', 'nontech', 'academic'] as const).map((cat) => (
@@ -637,8 +827,8 @@ export default function MethodPage() {
                         onClick={() => setSelectedType(cat)}
                         className={cn(
                           "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide transition-all cursor-pointer",
-                          selectedType === cat 
-                            ? "bg-primary text-on-primary shadow" 
+                          selectedType === cat
+                            ? "bg-primary text-on-primary shadow"
                             : "text-on-surface-variant hover:text-on-surface"
                         )}
                       >
@@ -660,6 +850,18 @@ export default function MethodPage() {
                     <option value="AIOI-ED">AIOI-ED Focus</option>
                   </select>
 
+                  {/* Sort Selector */}
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                    className="bg-surface-container-low border border-outline-variant/20 rounded-full px-4 py-2 text-xs font-bold text-on-surface focus:outline-none focus:border-primary/50 cursor-pointer"
+                  >
+                    <option value="globalKey">↑ Sort: Global Key (Registry)</option>
+                    <option value="seq">↑ Sort: Volume Sequence</option>
+                    <option value="tier">↑ Sort: Tier (1→18)</option>
+                    <option value="title">↑ Sort: Title A–Z</option>
+                  </select>
+
                 </div>
               </div>
 
@@ -668,20 +870,20 @@ export default function MethodPage() {
                 {filteredPersonas.map((p) => {
                   const isExpanded = expandedPersona === p.id;
                   return (
-                    <div 
-                      key={p.id} 
+                    <div
+                      key={p.id}
                       className={cn(
                         "bg-surface-container-lowest border rounded-2xl shadow-xl transition-all duration-300",
                         isExpanded ? "border-primary md:col-span-2 shadow-2xl" : "border-outline-variant/20 hover:border-primary/30"
                       )}
                     >
                       {/* Card Header clickable area */}
-                      <div 
+                      <div
                         onClick={() => togglePersona(p.id)}
                         className="p-6 cursor-pointer flex justify-between items-start gap-4 select-none"
                       >
                         <div className="space-y-1">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-mono text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">
                               {p.seq}
                             </span>
@@ -691,10 +893,13 @@ export default function MethodPage() {
                             <span className={cn(
                               "text-[9px] font-bold uppercase px-2 py-0.5 rounded-full border",
                               p.type === 'tech' ? "border-tertiary/20 text-tertiary bg-tertiary/5" :
-                              p.type === 'nontech' ? "border-primary/20 text-primary bg-primary/5" :
-                              "border-secondary/20 text-secondary bg-secondary/5"
+                                p.type === 'nontech' ? "border-primary/20 text-primary bg-primary/5" :
+                                  "border-secondary/20 text-secondary bg-secondary/5"
                             )}>
                               {p.type}
+                            </span>
+                            <span className="font-mono text-[9px] text-on-surface-variant/50 hidden md:inline">
+                              {p.globalKey}
                             </span>
                           </div>
                           <h3 className="text-xl font-headline font-bold text-on-surface group-hover:text-primary transition-colors">
@@ -726,13 +931,50 @@ export default function MethodPage() {
                             className="overflow-hidden border-t border-outline-variant/10 bg-surface-container-low/30"
                           >
                             <div className="p-6 space-y-6">
-                              
+
+                              {/* Registry Metadata Strip */}
+                              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 p-4 bg-surface-container-low border border-outline-variant/15 rounded-2xl">
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Global Key</span>
+                                  <span className="font-mono text-[10px] font-bold text-primary">{p.globalKey}</span>
+                                </div>
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Namespace</span>
+                                  <span className={cn("text-[11px] font-bold",
+                                    p.namespace === 'TECH' ? 'text-tertiary' :
+                                      p.namespace === 'NONTECH' ? 'text-primary' : 'text-secondary'
+                                  )}>{p.namespace}</span>
+                                </div>
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Mode</span>
+                                  <span className={cn("text-[11px] font-bold",
+                                    p.engagementMode === 'CHALLENGER' ? 'text-tertiary' :
+                                      p.engagementMode === 'EVALUATOR' ? 'text-primary' : 'text-secondary'
+                                  )}>{p.engagementMode}</span>
+                                </div>
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Tier</span>
+                                  <span className="text-[11px] font-bold text-on-surface">T{p.tier} · {p.tierLabel}</span>
+                                </div>
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Scoring Profile</span>
+                                  <span className="font-mono text-[10px] text-on-surface-variant">{p.scoringProfile}</span>
+                                </div>
+                                <div>
+                                  <span className="text-[9px] uppercase font-bold text-on-surface-variant/50 block mb-0.5">Entropy</span>
+                                  <span className={cn("text-[11px] font-bold",
+                                    p.entropyLevel === 'HIGH' || p.entropyLevel === 'EXTREME' ? 'text-error' :
+                                      p.entropyLevel === 'MEDIUM' ? 'text-primary' : 'text-mentor'
+                                  )}>{p.entropyLevel}</span>
+                                </div>
+                              </div>
+
                               {/* Dossier Grid Layout */}
                               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                
+
                                 {/* Left Side Profile */}
                                 <div className="lg:col-span-2 space-y-4">
-                                  
+
                                   {p.mandate && (
                                     <div className="p-3 bg-primary/5 border border-primary/20 rounded-xl">
                                       <span className="text-[9px] uppercase font-bold text-primary block">Official Mandate</span>
@@ -776,7 +1018,7 @@ export default function MethodPage() {
                                       <span className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-1">
                                         <Fingerprint className="w-3.5 h-3.5" /> Cognitive Evaluator Seams
                                       </span>
-                                      
+
                                       <div className="space-y-2 text-xs">
                                         <div className="p-2.5 rounded bg-surface-container-lowest border-l-2 border-primary">
                                           <span className="text-[9px] uppercase font-bold text-primary block mb-0.5">Approval Threshold</span>
@@ -824,8 +1066,8 @@ export default function MethodPage() {
               {filteredPersonas.length === 0 && (
                 <div className="text-center py-12 bg-surface-container-low rounded-3xl border border-outline-variant/10">
                   <span className="text-on-surface-variant text-sm block">No dossiers matched your active filters.</span>
-                  <button 
-                    onClick={() => { setSearchQuery(''); setSelectedType('all'); setSelectedFocus('all'); }}
+                  <button
+                    onClick={() => { setSearchQuery(''); setSelectedType('all'); setSelectedFocus('all'); setSortBy('globalKey'); }}
                     className="mt-4 text-xs font-bold text-primary hover:text-primary/80 uppercase tracking-widest cursor-pointer"
                   >
                     Reset Filters

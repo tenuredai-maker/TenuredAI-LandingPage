@@ -23,16 +23,16 @@ const TELEMETRY_CHANNELS = [
 ];
 
 const COUNCIL = [
-  { id: 'mentor', label: 'Mentor', color: '#7FBF9B', status: 'observing', role: 'Coach voice — scaffolds learning, not rescue.' },
-  { id: 'proctor', label: 'Proctor', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — owns the session lock.' },
-  { id: 'auditor', label: 'Auditor', color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — signs the Ledger.' },
-  { id: 'chaos', label: 'Chaos', color: '#FF8B7A', status: 'dormant', role: 'ALE operator — injects when Bully Logic fires.' },
+  { id: 'mentor', label: 'Mentor', color: '#7FBF9B', status: 'observing', role: 'Coach voice — designed to build your skills, not give you the answer.' },
+  { id: 'proctor', label: 'Proctor', color: '#8FA5D6', status: 'monitoring', role: 'Exam authority — controls and secures the entire test session.' },
+  { id: 'auditor', label: 'Auditor', color: '#C5A059', status: 'recording', role: 'Forensic record-keeper — verifies and signs the official Ledger.' },
+  { id: 'chaos', label: 'Chaos', color: '#FF8B7A', status: 'dormant', role: 'ALE operator — injects live evaluation trigger when Bully Logic is detected.' },
 ];
 
 const CHAOS_TIERS = [
-  { tier: 'L1', name: 'Environment Instability', desc: 'Subtle environment noise. Missing files, unexpected stderr. Tests whether candidate stays composed under minor friction.', pulse: '2.4s ease-in-out' },
-  { tier: 'L2', name: 'Bully Logic Re-injection', desc: 'Gaslighting assertions injected into terminal stream. The Chaos Agent states incorrect "facts" as authoritative truth and monitors for capitulation.', pulse: '1.2s ease-in-out' },
-  { tier: 'L3', name: 'Full ALE — Protocol Hostility', desc: 'All subsystems: syntax poisoning, dependency hijacking, fake verification failures, and multi-vector gaslighting simultaneously. Only candidates with genuine deep calibration survive.', pulse: '0.6s ease-in-out' },
+  { tier: 'L1', name: 'Environment Instability', desc: 'Level 1 is subtle environmental noise — missing files, unexpected error output. It tests whether you can stay composed under minor friction.', pulse: '2.4s ease-in-out' },
+  { tier: 'L2', name: 'Bully Logic Re-injection', desc: 'At this level, false assertions are injected directly into the terminal. The Chaos Agent presents incorrect information as authoritative fact and monitors whether you accept it.', pulse: '1.2s ease-in-out' },
+  { tier: 'L3', name: 'Full ALE — Protocol Hostility', desc: 'L3 is everything at once — broken syntax, hijacked dependencies, fake failed checks, and gaslighting coming from every direction. Only people who really know their stuff at a deep level make it through.', pulse: '0.6s ease-in-out' },
 ];
 
 const TRIPLE_THREAT_SCORES = {
@@ -45,19 +45,19 @@ const HARD_GATE_PILLARS = [
     num: '01',
     title: 'Adversarial Hard-Gate',
     tag: 'ALE / Bully Logic',
-    body: 'Unlike certifications that test recall, the Hard-Gate is a live adversarial execution environment. The Adversary Logic Engine (ALE) injects real chaos — missing dependencies, poisoned logic, false authority — while the candidate works. The environment adapts to their responses via a three-tier Bully Logic loop. Survival requires genuine operational fluency; no LLM can pre-load a working memory into a live Xterm.js shell.',
+    body: "This isn't a multiple-choice test you can memorize for. It's a live, hands-on challenge where things go wrong on purpose. While you work, our system throws real-world curveballs at you — like missing files, bad instructions, and misleading info — and it gets tougher based on how you respond. You can't fake your way through it. You have to actually know how to fix things under pressure, and no AI can do the typing for you.",
   },
   {
     num: '02',
     title: 'Four-Agent Council',
     tag: 'Weighted Consensus',
-    body: 'Four independent AI agents observe every keystroke via six concurrent ALTFL telemetry channels (PAT-002). Mentor coaches without rescuing. Proctor holds exam authority. Auditor records forensically. Chaos operates the ALE. Consensus Certificate issuance requires all four to sign — and the signing threshold is the Triple-85 threshold: AICI ≥ 85, AIOI ≥ 85, AIBS ≥ 85 simultaneously.',
+    body: "Every keystroke is observed by four independent AI agents across six simultaneous telemetry streams. Each has a distinct role: the Mentor coaches you without giving you the answer, the Proctor runs the exam, the Auditor creates a forensic record, and Chaos runs the live evaluation environment. A Consensus Certificate is only issued when all four sign off — meaning you must hit 85 or above on all three core indices at the same time: AICI, AIOI, and AIBS.",
   },
   {
     num: '03',
     title: 'Sovereign Ledger Anchor',
     tag: 'Simulation-Based Credentialing',
-    body: 'On Triple-85 clearance, the candidate\'s Proof of Friction record is cryptographically hashed and anchored to Polygon mainnet as a Sovereign Passport entry. The credential is owned by the candidate — not stored in Tenured AI\'s database — and carries a $150K Performance Bond backed by Chubb for 180 days post-placement. No platform survival required.',
+    body: "When you clear Triple-85, your complete Proof of Friction record is cryptographically hashed and anchored to the Polygon mainnet as your Sovereign Passport. You own the credential outright — we don't store it in our database. It includes a $150K Performance Bond that covers your first 180 days after placement. It works even if our platform doesn't.",
   },
 ];
 
@@ -341,7 +341,8 @@ export default function ChaosLab() {
               </em>
             </h1>
             <p className="text-on-surface-variant leading-relaxed max-w-2xl text-lg">
-              An air-gapped adversarial execution environment where Hard-Gate verification happens. The four-agent council watches every keystroke. The Adversary Logic Engine injects real chaos. Survive and mint the only credential AI cannot fake.
+              A secure, offline challenge space where your skills are put to a real test. Four different AI reviewers track your entire process, while another AI throws unexpected problems at you along the way. If you make it through, you earn a verified credential that proves you did the work — something AI can't fake for you.
+
             </p>
           </div>
           <div className="font-mono text-[11px] leading-relaxed space-y-1.5 text-on-surface-variant/70 text-right self-end pb-2">
@@ -374,8 +375,7 @@ export default function ChaosLab() {
           <em className="text-on-surface-variant italic font-normal">What no one had built.</em>
         </h2>
         <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-          We rebuilt the credential market on three structural decisions: an adversarial Proving Ground that LLMs cannot solve, a four-agent verification council that requires consensus to mint, and a Sovereign Ledger anchored to Polygon mainnet — independent of any platform's survival.
-        </p>
+          We rebuilt how credentials work from the ground up with three key choices: 1) A hands-on testing ground that AI can't cheat its way through, 2) A team of four verifiers that all have to agree before you earn your credential, and 3) A permanent record stored on a public blockchain, so your proof belongs to you forever — not to us.        </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {HARD_GATE_PILLARS.map((p) => (
             <div key={p.num} className="bg-surface-container-lowest rounded-2xl p-7 shadow-lg border border-outline-variant/10">
@@ -665,7 +665,8 @@ export default function ChaosLab() {
           <em className="text-on-surface-variant italic font-normal">The witnesses.</em>
         </h2>
         <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-          Four AI agents independently observe every Hard-Gate session. Each has a distinct role and a distinct voice in the terminal stream. All four must sign to issue a Consensus Certificate. The signing threshold is triple-simultaneous Triple-85.
+          Every Hard-Gate session is independently observed by four AI agents, each with a distinct role and a distinct voice in the terminal. A Consensus Certificate is only issued when all four sign — which requires hitting Triple-85 across all three indices at the same time.
+
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {COUNCIL.map(agent => (
@@ -696,8 +697,7 @@ export default function ChaosLab() {
             <em className="text-on-surface-variant italic font-normal">The Chaos Banner pulses faster each time.</em>
           </h2>
           <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-            The ALE does not run at a single intensity. It escalates via a three-tier Bully Logic loop, each tier more aggressive than the last. The chaos-banner's pulse cadence signals severity — L1 is a hint, L3 is hostile. Most LLM-assisted candidates fail at L2 when the gaslighting becomes direct.
-          </p>
+            The ALE doesn't operate at one fixed level. It escalates through three tiers of Bully Logic, each more aggressive than the last. The pulse rate of the Chaos Banner tells you the severity — L1 is a nudge, L3 is outright hostile. Most candidates using LLM assistance fail at L2, when the gaslighting turns direct.          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {CHAOS_TIERS.map(tier => (
               <div key={tier.tier} className="bg-surface-container-lowest rounded-2xl p-6 shadow-lg border border-red-200/20 dark:border-red-800/20">
@@ -726,8 +726,7 @@ export default function ChaosLab() {
           <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">ALTFL Telemetry · Six Concurrent Channels</p>
           <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
           <p className="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl">
-            Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Proctor as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
-          </p>
+            Six parallel channels capture every dimension of your live session. The Proctor flags LLM-typical typing speed — 2,200+ keystrokes per minute — as a concern. Response times under 200ms flag pre-computed answers. And the Confidence Calibration gap catches overconfidence before your Opportunity Lock count closes your tier.          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {TELEMETRY_CHANNELS.map(ch => (
               <div key={ch.id} className="bg-surface-container-lowest rounded-xl px-5 py-3.5 shadow-sm">
@@ -749,8 +748,7 @@ export default function ChaosLab() {
         <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Terminal · Seven Voice Types</p>
         <h2 className="font-headline text-3xl font-bold mb-4">Seven voice types. One terminal stream.</h2>
         <p className="text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
-          Every line in the terminal carries a semantic type. Each type renders with a distinct color, container treatment, and prefix. The visual grammar of the terminal is as deliberate as the scoring.
-        </p>
+          Every line in the terminal has a semantic type, each rendered with its own color, container style, and prefix. The terminal's visual language is as intentional as the scoring itself.        </p>
         <div
           className="rounded-2xl overflow-hidden shadow-xl"
           style={{ background: '#0E0D0B', fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5 }}
@@ -809,7 +807,8 @@ export default function ChaosLab() {
             </span>
           </h2>
           <p className="text-inverse-on-surface/85 max-w-[52ch] text-base leading-relaxed mb-8">
-            10,000 Hard-Gate attempts. 2,500 Triple-85 clearances minted to the Sovereign Ledger. 1,000 candidates with a $150K Performance Bond attached to a Sovereign Passport. Those are the Genesis cohort targets. The Proving Ground is open.
+            Our Genesis cohort targets: 10,000 Hard-Gate attempts, 2,500 Triple-85 clearances minted to the Sovereign Ledger, and 1,000 candidates with a $150,000 Performance Bond attached to a Sovereign Passport. The Proving Ground is now open.
+
           </p>
           <div className="flex flex-wrap gap-4">
             <a
