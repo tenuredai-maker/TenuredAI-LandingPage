@@ -44,19 +44,19 @@ const HARD_GATE_PILLARS = [
   {
     num: '01',
     title: 'Adversarial Hard-Gate',
-    tag: 'PAT-001 · ALE / Bully Logic',
+    tag: 'ALE / Bully Logic',
     body: 'Unlike certifications that test recall, the Hard-Gate is a live adversarial execution environment. The Adversary Logic Engine (ALE) injects real chaos — missing dependencies, poisoned logic, false authority — while the candidate works. The environment adapts to their responses via a three-tier Bully Logic loop. Survival requires genuine operational fluency; no LLM can pre-load a working memory into a live Xterm.js shell.',
   },
   {
     num: '02',
     title: 'Four-Agent Council',
-    tag: 'PAT-004 · Weighted Consensus',
+    tag: 'Weighted Consensus',
     body: 'Four independent AI agents observe every keystroke via six concurrent ALTFL telemetry channels (PAT-002). Mentor coaches without rescuing. Proctor holds exam authority. Auditor records forensically. Chaos operates the ALE. Consensus Certificate issuance requires all four to sign — and the signing threshold is the Triple-85 threshold: AICI ≥ 85, AIOI ≥ 85, AIBS ≥ 85 simultaneously.',
   },
   {
     num: '03',
     title: 'Sovereign Ledger Anchor',
-    tag: 'PAT-008 · Simulation-Based Credentialing',
+    tag: 'Simulation-Based Credentialing',
     body: 'On Triple-85 clearance, the candidate\'s Proof of Friction record is cryptographically hashed and anchored to Polygon mainnet as a Sovereign Passport entry. The credential is owned by the candidate — not stored in Tenured AI\'s database — and carries a $150K Performance Bond backed by Chubb for 180 days post-placement. No platform survival required.',
   },
 ];
@@ -346,10 +346,10 @@ export default function ChaosLab() {
           </div>
           <div className="font-mono text-[11px] leading-relaxed space-y-1.5 text-on-surface-variant/70 text-right self-end pb-2">
             <div className="text-amber-600 dark:text-amber-400 font-bold">21 patents filed · 97 trade secrets</div>
-            <div>PAT-001 (ALE / Bully Logic)</div>
-            <div>PAT-002 (ALTFL telemetry)</div>
-            <div>PAT-004 (Four-Agent Council)</div>
-            <div>PAT-008 (Simulation-Based Credentialing)</div>
+            <div>· ALE / Bully Logic</div>
+            <div>· ALTFL telemetry</div>
+            <div>· Four-Agent Council</div>
+            <div>· Simulation-Based Credentialing</div>
           </div>
         </div>
       </section>
@@ -415,7 +415,7 @@ export default function ChaosLab() {
                 </div>
                 <div className="flex items-center gap-2 font-mono text-[10px] tracking-[.12em] text-[#F3F0EC] opacity-60">
                   <Terminal className="w-3 h-3" />
-                  V-100 · SG-301 · ENERGY-AI-RAG-DEBUG
+                  ENERGY-AI-RAG-DEBUG
                 </div>
                 <div
                   className="font-mono text-[10px] font-bold tabular-nums"
@@ -659,13 +659,13 @@ export default function ChaosLab() {
 
       {/* ── FOUR-AGENT COUNCIL DEEP DIVE ──────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-004 · Four-Agent Council · Weighted Consensus</p>
+        <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Four-Agent Council · Weighted Consensus</p>
         <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
           Mentor. Proctor. Auditor. Chaos.<br />
           <em className="text-on-surface-variant italic font-normal">The witnesses.</em>
         </h2>
         <p className="text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
-          Per PAT-004, four AI agents independently observe every Hard-Gate session. Each has a distinct role and a distinct voice in the terminal stream. All four must sign to issue a Consensus Certificate. The signing threshold is triple-simultaneous Triple-85.
+          Four AI agents independently observe every Hard-Gate session. Each has a distinct role and a distinct voice in the terminal stream. All four must sign to issue a Consensus Certificate. The signing threshold is triple-simultaneous Triple-85.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {COUNCIL.map(agent => (
@@ -690,7 +690,7 @@ export default function ChaosLab() {
       {/* ── ALE · THREE CHAOS TIERS ──────────────────────────────────── */}
       <section className="bg-surface-container-low py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-001 · Adversary Logic Engine · Bully Logic Loop</p>
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">Adversary Logic Engine · Bully Logic Loop</p>
           <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4 leading-tight">
             Three tiers. Escalating adversity.<br />
             <em className="text-on-surface-variant italic font-normal">The Chaos Banner pulses faster each time.</em>
@@ -723,7 +723,7 @@ export default function ChaosLab() {
       {/* ── ALTFL CHANNELS ────────────────────────────────────────────── */}
       <section className="bg-surface-container-low py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">PAT-002 · ALTFL Telemetry · Six Concurrent Channels</p>
+          <p className="font-mono text-[10px] tracking-[.18em] uppercase text-primary font-bold mb-3">ALTFL Telemetry · Six Concurrent Channels</p>
           <h3 className="font-headline text-2xl font-bold mb-4">Real-time forensic instrumentation.</h3>
           <p className="text-on-surface-variant text-sm leading-relaxed mb-8 max-w-2xl">
             Six concurrent channels capture every dimension of a candidate's live session. LLM-typical keystroke velocity (≥ 2,200 kpm) is flagged by the Proctor as a concern. Sub-200ms inference latency flags pre-computation. The Confidence Calibration delta catches the overconfident candidate before the OL count closes their tier.
