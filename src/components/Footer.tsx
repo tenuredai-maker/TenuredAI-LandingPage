@@ -12,7 +12,7 @@ export default function Footer() {
               <span className="hidden md:block text-xl font-headline font-black text-on-surface tracking-tight ml-3">Tenured AI</span>
             </Link>
             <p className="text-sm text-on-surface-variant leading-relaxed max-w-xs">
-              Mathematical underwriting of human competence for the autonomous era. Precise benchmarks for cognitive sovereignty.
+              Mathematically-verified proof of human skill for the age of AI — clear benchmarks that show you can think for yourself and stay in control.
             </p>
             <div className="flex gap-4 pt-2 flex-wrap">
               <a href="https://x.com/tenuredai" className="p-2 rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors" aria-label="X">
