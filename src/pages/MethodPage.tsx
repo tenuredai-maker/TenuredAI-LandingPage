@@ -76,7 +76,7 @@ const metricsData: ScoreMetric[] = [
     id: 'aici',
     name: 'AICI™',
     sub: 'AI Competency Index',
-    desc: 'Measures cognitive, linguistic, and prompt fidelity performance—forcing deterministic behavior out of non-deterministic models.',
+    desc: 'It measures cognitive, linguistic, and prompt fidelity — forcing deterministic performance from non-deterministic models.',
     points: [
       'Prompt Fidelity (Syntax and boundary parameters)',
       'Latent Recall (Direct extraction capability under noise)',
@@ -88,7 +88,7 @@ const metricsData: ScoreMetric[] = [
     id: 'aioi',
     name: 'AIOI™',
     sub: 'AI Orchestration Index',
-    desc: 'Measures multi-agent synchronization, memory routing efficiency, and transactional recovery within complex loops.',
+    desc: 'Evaluates multi-agent synchronization, memory routing efficiency, and transactional recovery within complex loops.',
     points: [
       'Multi-agent Sync (Conflict-of-interest isolation)',
       'Loop Efficiency (Recursive loop circuit-breaking)',
@@ -100,7 +100,7 @@ const metricsData: ScoreMetric[] = [
     id: 'aibs',
     name: 'AIBS™',
     sub: 'AI Builder Score',
-    desc: 'Measures technical builder capacity, database schemas, local model deployment, and runtime efficiency.',
+    desc: 'Measures technical builder capacity, including database schema design, local model deployment, and runtime efficiency.',
     points: [
       'Vector RAG Architecture (Retrieval precision)',
       'Model Fine-Tuning (Hyperparameter calibration)',
@@ -112,7 +112,7 @@ const metricsData: ScoreMetric[] = [
     id: 'aioi-ed',
     name: 'AIOI-ED™',
     sub: 'Educator Designation',
-    desc: 'A specialized sub-score evaluating pedagogy, safety, and operational efficiency within academic workflows.',
+    desc: 'Specialized sub-score that looks at how you teach, how safe you are, and how efficiently you operate inside academic workflows.',
     points: [
       'WMF Index Calculation (Weighted Multi-Factor)',
       'Material Sourcing (Curriculum provenance)',
@@ -567,7 +567,8 @@ export default function MethodPage() {
             The Master <span className="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Methodology</span> &amp; Persona Codex
           </h1>
           <p className="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base">
-            Where mathematical performance deltas intersect with adversarial evaluation battlefields. Explore the verification scoring mechanisms and the 270-Persona grid.
+            This is where real skill differences show up under pressure. Dive in to see how we score your performance and how our 100-persona test grid puts you through every scenario.
+
           </p>
         </div>
 
@@ -655,7 +656,7 @@ export default function MethodPage() {
                       PERFORMANCE DELTA (Δ) — The Unified Adaptive Operator
                     </h2>
                     <p className="text-xs text-on-surface-variant mt-2 leading-relaxed max-w-3xl">
-                      Performance Delta is the single mathematical operator governing adaptive system response throughout the platform — the nervous system connecting the four marks to every engine that grows, decays, prioritizes, and underwrites them.
+                      Performance Delta is the single mathematical operator that governs adaptive response across the platform — the nervous system linking the four scores to every engine that grows, decays, prioritizes, and underwrites them.
                     </p>
                   </div>
                   <div className="font-mono bg-surface-container-lowest border border-outline-variant/20 px-6 py-4 rounded-2xl shadow-inner text-center shrink-0">
@@ -734,8 +735,7 @@ export default function MethodPage() {
                     <span className="text-[10px] font-bold text-primary uppercase tracking-widest"> · PRICING LIABILITY</span>
                     <h3 className="text-xl font-headline font-bold text-on-surface mt-1 mb-3">The Financial Underwriting Bridge</h3>
                     <p className="text-xs text-on-surface-variant leading-relaxed mb-4">
-                      Tenured AI metrics do not stop at pedagogy—they price liability. Our system features **Asymmetric Liability Classification** that penalizes overconfidence on missed targets, bridging performance outcomes directly to performance bonds (OSD).
-                    </p>
+                      We don't just measure how well you teach — we measure how much risk you create. Our Asymmetric Liability Classification hits overconfidence on missed targets harder, linking what you do directly to your performance bond (OSD).                    </p>
                     <div className="space-y-2 border-t border-outline-variant/20 pt-4 text-[11px] text-on-surface-variant">
                       <div className="flex gap-2">
                         <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
