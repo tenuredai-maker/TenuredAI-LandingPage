@@ -503,8 +503,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-lg text-on-surface-variant max-w-xl leading-relaxed">
-            Tenured AI is the operating system for liquid professional identities. We bridge the trust gap through high-stakes adversarial testing and immutable telemetry. Your true capabilities are proven in real-world scenarios. Own your verified reputation, carrying it seamlessly across every project, platform, and career milestone.
-          </p>
+            Tenured AI is the OS for portable professional identity. We prove what you can do with hard adversarial tests and immutable telemetry — so you own your reputation and can take it anywhere.          </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={handleRequestAccessClick}
@@ -600,17 +599,18 @@ export default function Home() {
               Five stages. <span className="italic text-primary">One bonded hire.</span>
             </h2>
             <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-base">
-              A learner enters the Forge. A platform-mutated adversarial Hard-Gate determines whether they earned the credential. The Sovereign Passport is minted to Polygon. The Performance Bond is issued. The Tenured Agent carries the record forward.
-            </p>
+              Enter the Forge, pass the final boss-level test, and you walk out with a verified digital passport, a bond that backs your skills, and an AI agent that carries your reputation forward            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
-              { num: '01', title: 'The Forge', desc: 'Daily two-phase practice against decay across a curated 4,000-node ontology. Builds the candidate, doesn\'t certify them.', pat: 'WHERE YOU TRAIN' },
-              { num: '02', title: 'The Hard-Gate', desc: 'Adversarial air-gapped verification. Four-agent council. LLM-defeat-proof by architectural property, not empirical defense.', pat: 'WHERE YOU PROVE IT' },
-              { num: '03', title: 'The Passport', desc: 'Merkle-anchored Consensus Certificate. Four-chain redundancy. Candidate-controlled DID. Open-source verification client.', pat: 'WHERE YOU OWN IT' },
-              { num: '04', title: 'The Bond', desc: '$150K face value. $11,250 annual premium. 180-day term. Chubb-reinsured Reserve. Audit-ready quarterly attestation.', pat: "WHERE IT'S GUARANTEED" },
-              { num: '05', title: 'The Agent', desc: 'Stateful career assistant with persistent memory. Career Memory annotations on every ontology node. Permanent record.', pat: 'WHERE IT FOLLOWS YOU' },
+              {
+                num: '01', title: 'The Forge', desc: 'Daily practice, in two quick phases, across 4,000+ topics to fight skill decay. It makes you better — it does not certify you.', pat: 'WHERE YOU TRAIN'
+              },
+              { num: '02', title: 'The Hard-Gate', desc: "Offline, adversarial final exam. Four AI judges. You can't LLM your way through it — it's cheat-proof by design.", pat: 'WHERE YOU PROVE IT' },
+              { num: '03', title: 'The Passport', desc: 'A blockchain-backed certificate you actually own. Stored across 4 chains, controlled by you, verifiable by anyone.', pat: 'WHERE YOU OWN IT' },
+              { num: '04', title: 'The Bond', desc: '$150K guarantee. $11,250/year. 180-day coverage, reinsured. With quarterly proof you can actually show employers.', pat: "WHERE IT'S GUARANTEED" },
+              { num: '05', title: 'The Agent', desc: 'Your career assistant that never forgets. It remembers every skill, every win, and builds your permanent record as you go.', pat: 'WHERE IT FOLLOWS YOU' },
             ].map((stage, idx) => (
               <motion.div
                 key={stage.num}
