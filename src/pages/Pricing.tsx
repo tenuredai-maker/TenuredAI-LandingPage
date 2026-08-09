@@ -92,8 +92,11 @@ export default function Pricing() {
           className="space-y-6"
         >
           <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Pricing For Everyone</span>
-          <h1 className="text-5xl md:text-7xl font-headline font-bold text-on-surface tracking-tight">
+          {/* <h1 className="text-5xl md:text-7xl font-headline font-bold text-on-surface tracking-tight">
             Pay for <span className="italic text-primary">Proven Capability.</span>
+          </h1> */}
+          <h1 className="text-5xl md:text-7xl font-headline font-bold leading-tight text-on-surface">
+            Pay for <span className="italic text-white gold-gradient bg-clip-text text-transparent">Proven Capability</span>
           </h1>
           <p className="text-xl text-on-surface-variant leading-relaxed">
             Not content. Not seat time. TenuredAI pricing is built on confidence and proof.

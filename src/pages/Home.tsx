@@ -606,11 +606,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[
-              { num: '01', title: 'The Forge', desc: 'Daily two-phase practice against decay across a curated 4,000-node ontology. Builds the candidate, doesn\'t certify them.', pat: 'PAT-003 · 018 · 020 · 021' },
-              { num: '02', title: 'The Hard-Gate', desc: 'Adversarial air-gapped verification. Four-agent council. LLM-defeat-proof by architectural property, not empirical defense.', pat: 'PAT-001 · 002 · 004 · 005 · 008' },
-              { num: '03', title: 'The Passport', desc: 'Merkle-anchored Consensus Certificate. Four-chain redundancy. Candidate-controlled DID. Open-source verification client.', pat: 'PAT-010 · 011 · 020' },
-              { num: '04', title: 'The Bond', desc: '$150K face value. $11,250 annual premium. 180-day term. Chubb-reinsured Reserve. Audit-ready quarterly attestation.', pat: 'PAT-013 · 014 · 015 · 016 · 017 · 019' },
-              { num: '05', title: 'The Agent', desc: 'Stateful career assistant with persistent memory. Career Memory annotations on every ontology node. Permanent record.', pat: 'PAT-002 · 006 · 009 · 011' },
+              { num: '01', title: 'The Forge', desc: 'Daily two-phase practice against decay across a curated 4,000-node ontology. Builds the candidate, doesn\'t certify them.', pat: 'WHERE YOU TRAIN' },
+              { num: '02', title: 'The Hard-Gate', desc: 'Adversarial air-gapped verification. Four-agent council. LLM-defeat-proof by architectural property, not empirical defense.', pat: 'WHERE YOU PROVE IT' },
+              { num: '03', title: 'The Passport', desc: 'Merkle-anchored Consensus Certificate. Four-chain redundancy. Candidate-controlled DID. Open-source verification client.', pat: 'WHERE YOU OWN IT' },
+              { num: '04', title: 'The Bond', desc: '$150K face value. $11,250 annual premium. 180-day term. Chubb-reinsured Reserve. Audit-ready quarterly attestation.', pat: "WHERE IT'S GUARANTEED" },
+              { num: '05', title: 'The Agent', desc: 'Stateful career assistant with persistent memory. Career Memory annotations on every ontology node. Permanent record.', pat: 'WHERE IT FOLLOWS YOU' },
             ].map((stage, idx) => (
               <motion.div
                 key={stage.num}
@@ -686,14 +686,14 @@ export default function Home() {
                     Genesis Institutions receive a smart-contract-enforced 40% dividend on every transaction value originating from an alumna of the institution — for the length of the graduate's career. Deployed without admin keys.
                   </p>
                   <p className="text-on-surface-variant text-sm leading-relaxed">
-                    L-200 League Table quarterly publication ranks institutions by GDA dollars and corridor dominance. Zero upfront procurement cost.
+                    The League Table quarterly publication ranks institutions by GDA dollars and corridor dominance. Zero upfront procurement cost.
                   </p>
                   <div className="flex gap-4 pt-4">
                     <Link to="/universities" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Become a Genesis Institution →
                     </Link>
                     <Link to="/universities" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
-                      See the L-200 League →
+                      See The League Table →
                     </Link>
                   </div>
                 </div>
@@ -721,10 +721,10 @@ export default function Home() {
                 <div className="space-y-4">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Enterprises · EWARD + Bond</span>
                   <h3 className="font-display text-3xl font-light leading-snug">
-                    Underwrite every AI-deploying hire with a <span className="italic text-primary font-medium">$150K Chubb-reinsured bond.</span>
+                    Underwrite every AI-deploying hire with a <span className="italic text-primary font-medium">$150K reinsured bond.</span>
                   </h3>
                   <p className="text-on-surface-variant text-sm leading-relaxed">
-                    The Enterprise Workforce AI Readiness Dashboard (EWARD) produces an Organizational Sovereign Density score across your AI-deploying workforce. OSD ≥ 0.40 unlocks Chubb Silver (15% D&O credit); Gold (25%); Platinum (35%).
+                    The Enterprise Workforce AI Readiness Dashboard (EWARD) produces an Organizational Sovereign Density score across your AI-deploying workforce. OSD ≥ 0.40 unlocks Silver (15% D&O credit); Gold (25%); Platinum (35%).
                   </p>
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     Every Triple-85 candidate placed comes with an optional Performance Bond — $11,250 annual premium, $150,000 face value, 180-day term.
@@ -741,7 +741,7 @@ export default function Home() {
                 <div className="space-y-3 font-mono">
                   {[
                     { label: 'Bond face value', detail: 'Per verified hire', val: '$150K' },
-                    { label: 'Premium credit', detail: 'Chubb Platinum tier', val: '35%' },
+                    { label: 'Premium credit', detail: 'Platinum tier', val: '35%' },
                     { label: 'Pilot deployment', detail: 'HRIS to live', val: '14 wk' },
                     { label: 'SEC-ready output', detail: 'Quarterly audit', val: 'Auto' },
                   ].map((s, idx) => (
@@ -760,7 +760,7 @@ export default function Home() {
             {activePersonaTab === 'recruiter' && (
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
                 <div className="space-y-4">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Recruiters · I-100 Protocol</span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Recruiters · Candidate Protocol</span>
                   <h3 className="font-display text-3xl font-light leading-snug">
                     Source from <span className="italic text-primary font-medium">Gate-verified candidates only.</span> Win the B-300 Auction.
                   </h3>
@@ -768,14 +768,14 @@ export default function Home() {
                     Verified recruiter seats ($18K/year + $120/reveal credit) gain access to the cross-surface attribution filter distinguishing Gate-verified candidates. First 100 seats get $24K credit pack free for 90 days.
                   </p>
                   <p className="text-on-surface-variant text-sm leading-relaxed">
-                    The B-300 Auction is the snipe-protected escrowed talent auction for senior-tier engagements with public livestream broadcasting.
+                    The Tenured Candidate Auction is the snipe-protected escrowed talent auction for senior-tier engagements with public livestream broadcasting.
                   </p>
                   <div className="flex gap-4 pt-4">
                     <Link to="/recruiters" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
-                      Claim a Seat · I-100 →
+                      Claim a Seat →
                     </Link>
                     <Link to="/recruiters" className="px-6 py-3 rounded-full font-headline font-semibold text-xs text-on-surface bg-surface-container-lowest border border-outline-variant/20 hover:bg-surface-container">
-                      Watch the B-300 Battle →
+                      Watch the Tenured Candidate Auction →
                     </Link>
                   </div>
                 </div>
@@ -885,7 +885,7 @@ export default function Home() {
       <section className="py-24 bg-surface px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core 4 — 4 Scores, One Platform</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core 3— Plus One Special Designation - 4 Scores, One Platform</h2>
             <p className="text-on-surface-variant max-w-3xl text-base md:text-lg leading-relaxed">
               The Big 3 core indices plus 1 specialized designation — delivering a complete 360° benchmark of AI competence and operator capability on one unified platform.
             </p>
@@ -2231,8 +2231,8 @@ export default function Home() {
               Every one of the 4,000 ontology nodes carries its own decay coefficient λ, computed from real-time market signals. The Learning Loop's entire job is to keep your verified standing above the Sovereign Threshold.
             </p>
             <div className="pt-4">
-              <Link 
-                to="/learning-loop" 
+              <Link
+                to="/learning-loop"
                 className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
               >
                 More on Learning Loop <ArrowRight className="w-4 h-4" />

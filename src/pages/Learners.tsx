@@ -110,15 +110,19 @@ export default function Learners() {
             </span>
           </motion.div>
 
-          <motion.h1
+          {/* <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="font-headline text-5xl md:text-7xl lg:text-8xl leading-[1.05] font-bold text-on-surface tracking-tighter"
           >
-            Your career record, owned by Your, <br />
-            <span className="italic text-white gold-gradient bg-clip-text text-transparent">ortable anywhere,</span> verifiable by anyone.
-          </motion.h1>
+            Your career record,<br />
+            <span className="italic text-white gold-gradient bg-clip-text text-transparent">portable anywhere,</span> verifiable by anyone.
+          </motion.h1> */}
+          <h1 className="text-5xl md:text-7xl font-headline font-bold leading-tight text-on-surface">
+            Your Career Record,<br />
+            <span className="italic text-white gold-gradient bg-clip-text text-transparent">portable anywhere,</span> verifiable by anyone.
+          </h1>
           {/* Reduced Verifiable bar */}
           <div className="verifiable-bar mt-2 w-32 bg-primary/20 h-1" />
 

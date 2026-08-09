@@ -334,11 +334,15 @@ export default function ChaosLab() {
                 Adversary Interface
               </span>
             </div>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.02] mb-5">
+            {/* <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.02] mb-5">
               The Proving Ground.{' '}
               <em className="bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent italic font-medium">
                 Endure it.
               </em>
+            </h1> */}
+            <h1 className="text-5xl md:text-7xl font-headline font-bold leading-tight text-on-surface">
+              The Proving Ground{' '}
+              <span className="italic text-white gold-gradient bg-clip-text text-transparent">Endure it.</span>
             </h1>
             <p className="text-on-surface-variant leading-relaxed max-w-2xl text-lg">
               A secure, offline challenge space where your skills are put to a real test. Four different AI reviewers track your entire process, while another AI throws unexpected problems at you along the way. If you make it through, you earn a verified credential that proves you did the work — something AI can't fake for you.
