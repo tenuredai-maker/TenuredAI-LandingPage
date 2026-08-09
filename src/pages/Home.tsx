@@ -782,7 +782,7 @@ export default function Home() {
                 <div className="space-y-3 font-mono">
                   {[
                     { label: 'Annual seat', detail: 'Verified recruiter access', val: '$18K' },
-                    { label: 'I-100 starter', detail: 'Free credit pack · 90d', val: '$24K' },
+                    { label: 'Preferred Recruiter Starter', detail: 'Free credit pack · 90d', val: '$24K' },
                     { label: 'Reveal credit', detail: 'Per candidate identity', val: '$120' },
                     { label: 'Volume tier', detail: '50+ seats', val: '25% off' },
                   ].map((s, idx) => (
@@ -900,7 +900,7 @@ export default function Home() {
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
                   <div className="text-xs font-bold text-primary tracking-widest uppercase">Index I</div>
-                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded"></span>
                 </div>
                 <h3 className="text-3xl font-headline font-bold text-on-surface">AICI™: Competency</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Focus on foundational literacy, prompting logic, and ethical framework alignment. Verifying the bridge between human intent and synthetic reasoning.</p>
@@ -1006,7 +1006,7 @@ export default function Home() {
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
                   <div className="text-xs font-bold text-primary tracking-widest uppercase">Index III • Architect</div>
-                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded"></span>
                 </div>
                 <h3 className="text-3xl font-headline font-bold text-on-surface">AIBS™: Builder Score</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Quantifying technical architect skills: RAG, vector databases, model optimization, and complex agentic workflows.</p>
@@ -1465,10 +1465,10 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-2 hover:bg-surface-tint transition-all shadow-lg active:scale-95">
+              <button href="./method" className="px-8 py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center gap-2 hover:bg-surface-tint transition-all shadow-lg active:scale-95">
                 Explore Further Details <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="px-8 py-4 bg-surface-container-highest text-on-surface rounded-xl font-bold flex items-center gap-2 hover:bg-outline-variant transition-all active:scale-95 border border-outline-variant/20">
+              <button href="./ai-protocol-spec" className="px-8 py-4 bg-surface-container-highest text-on-surface rounded-xl font-bold flex items-center gap-2 hover:bg-outline-variant transition-all active:scale-95 border border-outline-variant/20">
                 Download Full Protocol <Bolt className="w-4 h-4" />
               </button>
             </div>
@@ -1536,7 +1536,7 @@ export default function Home() {
           <div className="text-center mb-16 space-y-4">
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block">REAL ADVERSARIAL INGENUITY · SIMULATION</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface">
-              The air-gapped <span className="italic text-primary">Proving Ground</span>
+              Enter The <span className="italic text-primary">Proving Ground</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
               Interact with the active environment. Trigger failure injections to witness how the Adversary Logic Engine evaluates engineers in real-time.

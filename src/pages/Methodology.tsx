@@ -18,7 +18,7 @@ const Tooltip: React.FC<{ children: React.ReactNode; content: React.ReactNode; e
   const show = externalVisible || isVisible;
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
@@ -46,7 +46,7 @@ const Tooltip: React.FC<{ children: React.ReactNode; content: React.ReactNode; e
 export default function Methodology() {
   const location = useLocation();
   const [challengeInput, setChallengeInput] = useState('');
-  
+
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
@@ -86,7 +86,7 @@ export default function Methodology() {
   const [aibsLog, setAibsLog] = useState<string[]>(['System initialized...', 'Baseline architecture verified.']);
   const [hoveredAiciKey, setHoveredAiciKey] = useState<string | null>(null);
 
-  const getRadarData = (scores: Record<string, number>) => 
+  const getRadarData = (scores: Record<string, number>) =>
     Object.entries(scores).map(([subject, value]) => ({
       subject,
       A: value,
@@ -159,13 +159,13 @@ export default function Methodology() {
       {/* Hero Section */}
       <header className="relative overflow-hidden bg-surface-container-low pt-24 pb-32">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-7 space-y-8"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-bold uppercase tracking-widest">
-              Technical Specification v4.0.1
+              Technical Specification
             </div>
             <h1 className="font-headline text-6xl lg:text-8xl font-bold text-on-surface tracking-tighter leading-none">
               The Institutional <span className="text-primary italic">Standard</span> for Intelligence.
@@ -182,8 +182,8 @@ export default function Methodology() {
               </button>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
@@ -192,9 +192,9 @@ export default function Methodology() {
             <div className="aspect-square bg-gradient-to-tr from-surface-container-highest to-surface-container-low rounded-3xl p-1 relative flex items-center justify-center">
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:20px_20px]"></div>
               <div className="w-full h-full rounded-[1.4rem] bg-surface flex flex-col items-center justify-center overflow-hidden border border-outline-variant/10 relative">
-                <img 
-                  alt="technical blueprint" 
-                  className="w-full h-full object-cover mix-blend-multiply opacity-80" 
+                <img
+                  alt="technical blueprint"
+                  className="w-full h-full object-cover mix-blend-multiply opacity-80"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBnqUDfzQ4NZqLMoafvXSpf5bkDpuibmGCQvCW4YJi7qojNqMCq4h-hC_lLXNDRx0Vwun8QVo1HP-sOc95nbHIfaPOXQeFgSXYCISbL_JXmQWPsPwr_AMPqkhCFEpNVonuJMmp7t0l69j5L6kILM0lXNCt_bAHhU0z7goNo0iO90SZlEbe8wUOgWiXUGfj3WqBEF8ZXXEDHcNzskVkV2tcvv4aM_WWuT8hj9yVyJzEiQFv5Fp2_02kgjIVbkqs0gEOU1ISHKM"
                   referrerPolicy="no-referrer"
                 />
@@ -253,21 +253,21 @@ export default function Methodology() {
             <h2 className="font-headline text-5xl font-bold mb-4 tracking-tight">The Core Trinity Metrics</h2>
             <p className="text-on-surface-variant max-w-3xl">A multidimensional approach to AI proficiency. We don't just measure output; we measure the architecture of intelligence and the efficacy of the operator.</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             {/* AICI™ Card */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
                   <div className="text-xs font-bold text-primary tracking-widest uppercase">Index I</div>
-                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded"></span>
                 </div>
                 <h3 className="text-3xl font-headline font-bold">AICI™: Competency</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Focus on foundational literacy, prompting logic, and ethical framework alignment. Verifying the bridge between human intent and synthetic reasoning.</p>
-                
+
                 <div className="pt-4">
                   <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">Foundational Knowledge Heatmap</div>
                   <div className="grid grid-cols-8 gap-1">
@@ -291,7 +291,7 @@ export default function Methodology() {
                       <span className="text-sm font-bold text-primary">{item.val}/100</span>
                     </div>
                     <div className="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${item.val}%` }}
                         viewport={{ once: true }}
@@ -305,7 +305,7 @@ export default function Methodology() {
 
             {/* AIOI™ Card */}
             <div className="space-y-8 flex flex-col">
-              <motion.div 
+              <motion.div
                 whileHover={{ y: -5 }}
                 className="bg-primary text-on-primary p-10 rounded-3xl relative overflow-hidden shadow-2xl flex flex-col h-full group"
               >
@@ -328,7 +328,7 @@ export default function Methodology() {
                 <div className="relative z-10 pt-8 flex items-center gap-4">
                   <GitBranch className="text-primary-fixed w-8 h-8" />
                   <div className="h-1 flex-grow bg-primary-fixed/20 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: '96%' }}
                       viewport={{ once: true }}
@@ -362,18 +362,18 @@ export default function Methodology() {
             </div>
 
             {/* AIBS™ Card */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-low p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-outline-variant/10"
             >
               <div className="space-y-6 flex-grow">
                 <div className="flex justify-between items-start">
                   <div className="text-xs font-bold text-primary tracking-widest uppercase">Index III • Architect</div>
-                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded">v4.0.1</span>
+                  <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded"></span>
                 </div>
                 <h3 className="text-3xl font-headline font-bold">AIBS™: Builder Score</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">Quantifying technical architect skills: RAG, vector databases, model optimization, and complex agentic workflows.</p>
-                
+
                 <div className="pt-4">
                   <div className="text-[10px] uppercase font-bold text-secondary mb-3 tracking-widest">System Integrity Stress-Test</div>
                   <div className="w-full h-24 bg-surface-container flex items-center justify-center rounded-xl border border-outline-variant/20 relative overflow-hidden">
@@ -405,7 +405,7 @@ export default function Methodology() {
       <section id="aici-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -421,8 +421,8 @@ export default function Methodology() {
 
               <div className="space-y-6">
                 {Object.entries(aiciScores).map(([key, value]) => (
-                  <Tooltip 
-                    key={key} 
+                  <Tooltip
+                    key={key}
                     externalVisible={hoveredAiciKey === key}
                     content={
                       <div className="space-y-2 text-left">
@@ -442,13 +442,13 @@ export default function Methodology() {
                       </div>
                     }
                   >
-                    <motion.div 
+                    <motion.div
                       layout
-                      animate={hoveredAiciKey === key ? { 
+                      animate={hoveredAiciKey === key ? {
                         scale: 1.02,
                         x: 5,
                         backgroundColor: "rgba(119, 90, 25, 0.08)"
-                      } : { 
+                      } : {
                         scale: 1,
                         x: 0,
                         backgroundColor: "rgba(255, 255, 255, 0)"
@@ -465,7 +465,7 @@ export default function Methodology() {
                         )}>{key}</label>
                         <div className="flex items-center gap-2">
                           {hoveredAiciKey === key && (
-                            <motion.span 
+                            <motion.span
                               initial={{ opacity: 0, x: -5 }}
                               animate={{ opacity: 1, x: 0 }}
                               className="text-[8px] font-black text-primary uppercase tracking-tighter"
@@ -480,16 +480,16 @@ export default function Methodology() {
                         {aiciDescriptions[key]}
                       </p>
                       <div className="relative">
-                        <input 
-                          type="range" 
-                          min="0" 
-                          max="100" 
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
                           value={value}
                           onChange={(e) => setAiciScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                           className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary relative z-10"
                         />
                         {hoveredAiciKey === key && (
-                          <motion.div 
+                          <motion.div
                             layoutId="active-glow"
                             className="absolute -inset-1 bg-primary/10 blur-sm rounded-full z-0"
                           />
@@ -517,7 +517,7 @@ export default function Methodology() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -526,10 +526,10 @@ export default function Methodology() {
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:30px_30px]"></div>
               <div className="aspect-square w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart 
-                    cx="50%" 
-                    cy="50%" 
-                    outerRadius="65%" 
+                  <RadarChart
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="65%"
                     data={aiciRadarData}
                     onMouseMove={(data) => {
                       if (data && data.activeLabel) {
@@ -539,22 +539,22 @@ export default function Methodology() {
                     onMouseLeave={() => setHoveredAiciKey(null)}
                   >
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#775a19" 
-                      fill="#775a19" 
-                      fillOpacity={0.5} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#775a19"
+                      fill="#775a19"
+                      fillOpacity={0.5}
                       animationDuration={300}
                     />
                   </RadarChart>
                 </ResponsiveContainer>
               </div>
-              
+
               <AnimatePresence>
                 {hoveredAiciKey && (
                   <motion.div
@@ -595,7 +595,7 @@ export default function Methodology() {
       <section id="aioi-section" className="py-24 bg-surface px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -606,16 +606,16 @@ export default function Methodology() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aioiRadarData}>
                     <PolarGrid stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#ffffff', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#ffffff" 
-                      fill="#ffffff" 
-                      fillOpacity={0.3} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#ffffff"
+                      fill="#ffffff"
+                      fillOpacity={0.3}
                       animationDuration={300}
                     />
                   </RadarChart>
@@ -623,7 +623,7 @@ export default function Methodology() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -647,10 +647,10 @@ export default function Methodology() {
                     <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
                       {aioiDescriptions[key]}
                     </p>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="100" 
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
                       value={value}
                       onChange={(e) => setAioiScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                       className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
@@ -683,7 +683,7 @@ export default function Methodology() {
       <section id="aibs-section" className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -695,7 +695,7 @@ export default function Methodology() {
                     <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Technical Soundness</span>
                     <h2 className="text-4xl md:text-5xl font-headline font-bold">AIBS™ Deep Dive</h2>
                   </div>
-                  <button 
+                  <button
                     onClick={() => {
                       setAibsScores({
                         'Vector RAG': 98,
@@ -726,10 +726,10 @@ export default function Methodology() {
                     <p className="text-[10px] text-on-surface-variant/80 leading-tight mb-1">
                       {aibsDescriptions[key]}
                     </p>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="100" 
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
                       value={value}
                       onChange={(e) => updateAibsScore(key, parseInt(e.target.value))}
                       className="w-full h-1.5 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
@@ -750,14 +750,14 @@ export default function Methodology() {
                       <div className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-2">Architect Status</div>
                       <div className={cn(
                         "text-lg font-bold px-3 py-1 rounded-lg inline-block",
-                        getAverage(aibsScores) >= 90 ? "bg-green-500/10 text-green-700" : 
-                        getAverage(aibsScores) >= 75 ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"
+                        getAverage(aibsScores) >= 90 ? "bg-green-500/10 text-green-700" :
+                          getAverage(aibsScores) >= 75 ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"
                       )}>
                         {getAverage(aibsScores) >= 90 ? 'Master Builder' : getAverage(aibsScores) >= 75 ? 'Senior Engineer' : 'Apprentice'}
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-surface p-4 rounded-xl border border-outline-variant/10 font-mono text-[10px] space-y-1 overflow-hidden">
                     <div className="flex items-center gap-2 text-primary font-bold mb-2 uppercase tracking-widest">
                       <Activity className="w-3 h-3" /> System Log
@@ -772,7 +772,7 @@ export default function Methodology() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -783,16 +783,16 @@ export default function Methodology() {
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="65%" data={aibsRadarData}>
                     <PolarGrid stroke="#d1c5b4" strokeDasharray="3 3" />
-                    <PolarAngleAxis 
-                      dataKey="subject" 
-                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }} 
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: '#775a19', fontSize: 12, fontWeight: 'bold' }}
                     />
-                    <RadarArea 
-                      name="Score" 
-                      dataKey="A" 
-                      stroke="#775a19" 
-                      fill="#775a19" 
-                      fillOpacity={0.5} 
+                    <RadarArea
+                      name="Score"
+                      dataKey="A"
+                      stroke="#775a19"
+                      fill="#775a19"
+                      fillOpacity={0.5}
                       animationDuration={300}
                     />
                   </RadarChart>
@@ -815,7 +815,7 @@ export default function Methodology() {
           </div>
 
           {/* AIBS CTA */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -846,7 +846,7 @@ export default function Methodology() {
             <div className="absolute top-0 right-0 p-8 opacity-10">
               <School className="w-32 h-32 text-primary" />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -867,10 +867,10 @@ export default function Methodology() {
                       <p className="text-[9px] text-on-surface-variant/80 leading-tight mb-1">
                         {aioiedDescriptions[key]}
                       </p>
-                      <input 
-                        type="range" 
-                        min="0" 
-max="100" 
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
                         value={value}
                         onChange={(e) => setAioiedScores(prev => ({ ...prev, [key]: parseInt(e.target.value) }))}
                         className="w-full h-1 bg-surface-container-low rounded-full appearance-none cursor-pointer accent-primary"
@@ -896,7 +896,7 @@ max="100"
       {/* Section 3: Hard-Gate Mini-Terminal Widget */}
       <section className="py-24 bg-surface-container-low border-y border-outline-variant/10 px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -923,21 +923,21 @@ max="100"
               </div>
               <div className="bg-white/5 p-4 rounded mb-6 text-xs text-white/70 overflow-x-auto border border-white/5">
                 <code className="block">
-                  // Fix the hydration error in this component:<br/>
-                  export default function Counter() {'{'}<br/>
-                  &nbsp;&nbsp;const [count, setCount] = useState(window.localStorage.getItem('count') || 0);<br/>
-                  &nbsp;&nbsp;return &lt;div&gt;{'{'}count{'}'}&lt;/div&gt;;<br/>
+                  // Fix the hydration error in this component:<br />
+                  export default function Counter() {'{'}<br />
+                  &nbsp;&nbsp;const [count, setCount] = useState(window.localStorage.getItem('count') || 0);<br />
+                  &nbsp;&nbsp;return &lt;div&gt;{'{'}count{'}'}&lt;/div&gt;;<br />
                   {'}'}
                 </code>
               </div>
               <div className="space-y-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] uppercase tracking-[0.2em] opacity-50 font-bold">Submit Correct Implementation Hash</label>
-                  <input 
+                  <input
                     value={challengeInput}
                     onChange={(e) => setChallengeInput(e.target.value)}
-                    className="bg-white/5 border border-white/10 focus:ring-1 focus:ring-primary-container rounded p-3 text-sm font-mono placeholder:opacity-20 outline-none transition-all" 
-                    placeholder="useEffect(() => ..." 
+                    className="bg-white/5 border border-white/10 focus:ring-1 focus:ring-primary-container rounded p-3 text-sm font-mono placeholder:opacity-20 outline-none transition-all"
+                    placeholder="useEffect(() => ..."
                     type="text"
                   />
                 </div>
@@ -956,15 +956,15 @@ max="100"
       {/* Philosophy Section */}
       <section className="py-32 bg-surface px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             className="relative order-2 md:order-1"
           >
-            <img 
-              alt="liquid gold" 
-              className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000" 
+            <img
+              alt="liquid gold"
+              className="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwfXoSCwmGGF9zo8T3TM_Q6xsXLr4gYEWlGxfDfG6y87ptt_is5cHxt6BNjLfVfRVRUGCh_gICKXI2IiW_3-0yFhNxOqUSc4C2cADXN5_oHfzVsTvEpFdyAgpB9yHNmn2tWTGdFdAtgn0ixwMVFnDjKr3yWtQ2i7Q6vg8KE4_tAKJAZT6cf2VjbGWPvleLE5YmKFGuYHV8X41jfzF2u3TXl4y4oLGOEemHn8S8fZ3pMva-Vyq59GddwDFUMnw4xltXVzawv2w"
               referrerPolicy="no-referrer"
             />
@@ -974,7 +974,7 @@ max="100"
             </div>
           </motion.div>
           <div className="space-y-8 order-1 md:order-2">
-            <h2 className="font-headline text-5xl font-bold tracking-tight">The Gilded Slate <br/>Philosophy.</h2>
+            <h2 className="font-headline text-5xl font-bold tracking-tight">The Gilded Slate <br />Philosophy.</h2>
             <p className="text-lg text-on-surface-variant leading-relaxed">We believe that institutional intelligence should be as beautiful as it is precise. Our "Gilded Slate" design system represents the fusion of raw technical power (Slate) and executive prestige (Gold).</p>
             <div className="space-y-6 pt-4">
               {[
