@@ -116,8 +116,8 @@ export default function Learners() {
             transition={{ delay: 0.1 }}
             className="font-headline text-5xl md:text-7xl lg:text-8xl leading-[1.05] font-bold text-on-surface tracking-tighter"
           >
-            The portable, verifiable, <br />
-            <span className="italic text-white gold-gradient bg-clip-text text-transparent">sovereign record</span> of a career.
+            Your career record, owned by Your, <br />
+            <span className="italic text-white gold-gradient bg-clip-text text-transparent">ortable anywhere,</span> verifiable by anyone.
           </motion.h1>
           {/* Reduced Verifiable bar */}
           <div className="verifiable-bar mt-2 w-32 bg-primary/20 h-1" />
@@ -128,7 +128,8 @@ export default function Learners() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed font-light"
           >
-            The complete implementation of the Sovereign Passport—the single user-facing credential that displays everything the platform produces. Cryptographically anchored, redaction-controlled, and instantly auditable by recruiters or insurers.
+            The Sovereign Passport is your single, all-in-one credential. It brings together everything you've earned on the platform into one secure, verifiable record. It's cryptographically protected, you control what you share, and recruiters or insurers can audit it instantly.
+
           </motion.p>
 
           <motion.div
@@ -201,7 +202,8 @@ export default function Learners() {
             Sovereign Passport Simulator
           </h2>
           <p className="text-on-surface-variant font-light">
-            Toggle between three target audiences to observe how the platform dynamically formats, redacts, and cryptographically certifies career metrics.
+            Switch between three different audiences to see how the platform automatically formats your data, controls what gets shared, and cryptographically certifies your career metrics for each viewer.
+
           </p>
         </div>
 

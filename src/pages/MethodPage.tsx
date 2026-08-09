@@ -567,7 +567,7 @@ export default function MethodPage() {
             The Master <span className="bg-gradient-to-r from-primary to-primary-container bg-clip-text text-transparent">Methodology</span> &amp; Persona Codex
           </h1>
           <p className="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base">
-            This is where real skill differences show up under pressure. Dive in to see how we score your performance and how our 100-persona test grid puts you through every scenario.
+            This is where real skill differences show up under pressure. Dive in to see how we score your performance and how our 270-persona test grid puts you through every scenario.
 
           </p>
         </div>
