@@ -760,9 +760,9 @@ export default function Home() {
             {activePersonaTab === 'recruiter' && (
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
                 <div className="space-y-4">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Recruiters · Candidate Protocol</span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary">Recruiters · Tenured Candidate Protocol</span>
                   <h3 className="font-display text-3xl font-light leading-snug">
-                    Source from <span className="italic text-primary font-medium">Gate-verified candidates only.</span> Win the B-300 Auction.
+                    Source from <span className="italic text-primary font-medium">Gate-verified candidates only.</span> Win the Tenured Candidate Auction.
                   </h3>
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     Verified recruiter seats ($18K/year + $120/reveal credit) gain access to the cross-surface attribution filter distinguishing Gate-verified candidates. First 100 seats get $24K credit pack free for 90 days.
