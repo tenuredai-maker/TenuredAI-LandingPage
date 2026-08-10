@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tenured AI · University Leadership · One-Pager</title>
+<title>Tenured AI · Recruiters · One-Pager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   --primary:#775A19;--primary-container:#C5A059;
   --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
   --tertiary:#2C4771;--tertiary-container:#DBE2F9;
-  --amber:#FFBF00;--mentor:#4F8A6B;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
   --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
   --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
   --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
@@ -36,7 +36,7 @@ h1,h2,h3{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06
 .head .left{flex:1;min-width:280px}
 .head .right{flex:0 0 auto;text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--on-surface-variant);text-transform:uppercase}
 .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--primary);text-transform:uppercase;margin-bottom:10px}
-.head h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:20ch}
+.head h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:22ch}
 .head h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
 .hero{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;margin-bottom:32px}
 @media(max-width:900px){.hero{grid-template-columns:1fr}}
@@ -45,9 +45,9 @@ h1,h2,h3{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06
 .vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:10px}
 .vault .big{font-family:var(--font-headline);font-size:3.6rem;font-weight:800;line-height:1;color:var(--primary-container)}
 .vault .small{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.75;margin-top:10px;line-height:1.6}
-.share{margin-top:18px;padding-top:18px;border-top:1px solid rgba(197,160,89,.2)}
-.share-stack{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
-.share-stack i{height:24px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;font-weight:700}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(197,160,89,.2)}
+.dual div{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.85}
+.dual div b{display:block;color:var(--primary-container);font-family:var(--font-headline);font-size:1.4rem;line-height:1;margin-top:4px;opacity:1}
 .props{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:32px}
 @media(max-width:900px){.props{grid-template-columns:1fr}}
 .prop{background:var(--sc-lowest);border-radius:var(--r-xl);padding:20px;box-shadow:var(--editorial)}
@@ -74,66 +74,63 @@ h1,h2,h3{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06
 <div class="page">
   <div class="head">
     <div class="left">
-      <div class="kicker">One-Pager · University Leadership Brief</div>
-      <h1>The university as its alumni's <span class="gild">largest shareholder.</span></h1>
+      <div class="kicker">One-Pager · Recruiter Brief</div>
+      <h1>Find the engineer who can <span class="gild">actually do it.</span> Then bid for them.</h1>
     </div>
-    <div class="right">TENURED AI<br>SOVEREIGN TALENT LEDGER<br>2026 · CONFIDENTIAL</div>
+    <div class="right">TENURED AI<br>VERIFIED SOURCING<br>2026 · CONFIDENTIAL</div>
   </div>
 
   <div class="hero">
     <div class="vault">
-      <span class="seal">YOUR INSTITUTION'S DIVIDEND SHARE</span>
-      <div class="big">40%</div>
-      <div class="small">Of every verified hire's premium routes to your institution — perpetually, atomically, for the length of your alumna's career. Modeled: <b style="color:var(--primary-container)">$8.4M / year</b> at mature graduate-program participation. The platform turns each successful graduate into a recurring revenue line.</div>
-      <div class="share">
-        <div class="share-stack">
-          <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40% UNIVERSITY</i>
-          <i style="grid-column:span 4;background:#B8862E;color:#FFF">40% PLATFORM</i>
-          <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20% STATE</i>
-        </div>
+      <span class="seal">YOUR FIRST 30 DAYS</span>
+      <div class="big">200</div>
+      <div class="small">Starter reveal credits. Each unlocks a candidate's identity, Proof of Friction replay, and OL flag disclosure. One avoided blown placement covers <b style="color:var(--primary-container)">years</b> of platform access.</div>
+      <div class="dual">
+        <div>SEAT · ANNUAL<b>$18,000</b><span style="opacity:.7">incl. 200 credits / yr</span></div>
+        <div>ADD'L CREDITS<b>$120 ea</b><span style="opacity:.7">below an InMail batch</span></div>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:center">
-      <p style="font-size:15px;line-height:1.6;color:var(--on-surface-variant)">Tenured AI is the verification infrastructure that converts every successful graduate into a perpetual revenue line. Every Hard-Gate cleared issues a Consensus Certificate — Merkle-anchored, multi-agent-verified, LLM-resistant. <b style="color:var(--on-surface)">40% of every premium routes to your institution</b>, anchored to the ledger, for as long as your graduate is employed.</p>
+      <p style="font-size:15px;line-height:1.6;color:var(--on-surface-variant)">Tenured AI is the verification-first sourcing platform where every candidate has cleared a forensically verifiable Hard-Gate. The I-100 reveal protocol inverts the LinkedIn dynamic: <b style="color:var(--on-surface)">you browse verified competence, then spend a credit to reveal identity when you're serious</b>. Tier-5 candidates go to live B-300 auctions with snipe protection and atomic settlement.</p>
     </div>
   </div>
 
   <div class="props">
     <div class="prop">
-      <div class="num">01 · REVENUE</div>
-      <h3>40% perpetual dividend</h3>
-      <p>Atomic, cryptographic settlement on every transaction. Unrestricted use by your board. The largest equity stake in your graduate's career.</p>
+      <div class="num">01 · VERIFIED POOL</div>
+      <h3>Every candidate Gated</h3>
+      <p>Hard-Gate cleared. Six-channel PoF telemetry. Merkle-anchored Consensus Certificate. Cross-surface attribution filters out flashcard engineers.</p>
     </div>
     <div class="prop">
-      <div class="num">02 · RANK</div>
-      <h3>L-200 League Table</h3>
-      <p>Rank by real dollars (GDA) and corridor dominance, not editorial prestige. The L-200 anchors the financial-era successor to U.S. News.</p>
+      <div class="num">02 · I-100 PROTOCOL</div>
+      <h3>Three-phase reveal</h3>
+      <p>Match count → De-identified scores → Reveal (1 credit). Browse competence before identity. Candidates respond because outreach has skin in the game.</p>
     </div>
     <div class="prop">
-      <div class="num">03 · CURRICULUM</div>
-      <h3>No course changes</h3>
-      <p>Verification layer over what you teach. Forge drills, Refresh Labs, senior Hard-Gates map to existing programs. FERPA-compliant by design.</p>
+      <div class="num">03 · B-300 AUCTION</div>
+      <h3>Bid on Tier-5 talent</h3>
+      <p>Live timed auction with snipe protection. Atomic settlement to Performance Bond at close. Real price discovery on senior corridor talent.</p>
     </div>
   </div>
 
   <div class="math">
-    <h3>GDA Revenue Math · 40% Institutional Share</h3>
+    <h3>The Math · Why It Pays For Itself</h3>
     <table class="tbl">
-      <tr><td>Pilot · 3 cohorts onboarded</td><td>340 active alumni</td><td>$2.9M / year</td></tr>
-      <tr><td>Year 2 · 8 cohorts onboarded</td><td>~840 active</td><td>$4.1M / year</td></tr>
-      <tr><td>Year 4 · full undergraduate participation</td><td>~1,800 active</td><td>$6.2M / year</td></tr>
-      <tr><td>Mature · graduate programs added</td><td>~2,400 active</td><td>$8.4M / year</td></tr>
+      <tr><td>Platform seat · annual (incl. 200 credits)</td><td></td><td>$18,000 / year</td></tr>
+      <tr><td>Additional reveal credit</td><td>1 reveal · PoF · OL flags</td><td>$120 / credit</td></tr>
+      <tr><td>B-300 auction entry</td><td>2 credits / auction</td><td>$240 / auction</td></tr>
+      <tr style="background:linear-gradient(135deg,rgba(186,26,26,.04),transparent)"><td><b>One blown placement avoided</b></td><td>25% fee refund + relationship damage + reputation rebuild</td><td style="color:var(--error)">$50K–$200K saved</td></tr>
     </table>
-    <p style="font-size:11px;font-family:var(--font-mono);color:var(--on-surface-variant);margin-top:10px;letter-spacing:.04em">Modeled at $11,250 average annual premium per bonded hire. Excludes reveal-credit transactions (+28%) and B-300 Recruiter Battle premiums.</p>
+    <p style="font-size:11px;font-family:var(--font-mono);color:var(--on-surface-variant);margin-top:10px;letter-spacing:.04em">A single avoided placement failure covers multiple years of platform access. The first reveal is the demo.</p>
   </div>
 
   <div class="footer">
     <div class="left">
-      <p>One MOU. One Genesis cohort. 18 months to first GDA check. The decision is whether your institution sets the standard or follows it.</p>
+      <p>One seat. One active mandate. 30 days. Sign up among the first 100 verified seats and shape what the standard looks like.</p>
     </div>
     <div class="right">
-      Begin the MOU conversation<br>
-      <a href="mailto:institutions@tenured.ai">institutions@tenured.ai</a><br>
+      Begin recruiter onboarding<br>
+      <a href="mailto:recruiters@tenured.ai">recruiters@tenured.ai</a><br>
       <span style="font-size:10px;letter-spacing:.1em">TENURED AI · HOUSTON, TX</span>
     </div>
   </div>

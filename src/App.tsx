@@ -26,6 +26,7 @@ import ComingSoon from './pages/ComingSoon';
 import K12Page from './pages/K12Page';
 import Recruiters from './pages/Recruiters';
 import Universities from './pages/Universities';
+import StateRegents from './pages/StateRegents';
 import About from './pages/About';
 import LearningLoop from './pages/LearningLoop';
 import Enterprise from './pages/Enterprise';
@@ -60,6 +61,7 @@ function AppRoutes() {
           <Route path="/method" element={<PageTransition><MethodPage /></PageTransition>} />
           <Route path="/recruiters" element={<PageTransition><Recruiters /></PageTransition>} />
           <Route path="/universities" element={<PageTransition><Universities /></PageTransition>} />
+          <Route path="/state-regents" element={<PageTransition><StateRegents /></PageTransition>} />
           <Route path="/enterprise" element={<PageTransition><Enterprise /></PageTransition>} />
           <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
           <Route path="/tenured-agent" element={<PageTransition><TenuredAgent /></PageTransition>} />

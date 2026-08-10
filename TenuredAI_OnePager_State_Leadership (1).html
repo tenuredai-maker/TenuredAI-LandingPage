@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · State Leadership · Onboarding One-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-container:#DBE2F9;
+  --amber:#FFBF00;--mentor:#4F8A6B;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--tertiary-container:#233A65;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sc-low);color:var(--on-surface);font-family:var(--font-body);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+.mono{font-family:var(--font-mono)}
+.page{max-width:1180px;margin:24px auto;background:var(--surface);padding:48px;border-radius:24px;box-shadow:var(--ambient);position:relative}
+
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:30px;margin-bottom:34px;flex-wrap:wrap}
+.head .left{flex:1;min-width:280px}
+.head .right{flex:0 0 auto;text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--on-surface-variant);text-transform:uppercase;line-height:1.9}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--primary);text-transform:uppercase;margin-bottom:10px}
+.head h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:20ch}
+.head h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+
+.hero{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;margin-bottom:8px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:240px;height:240px;background:radial-gradient(circle,rgba(197,160,89,.15),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:10px}
+.vault .big{font-family:var(--font-headline);font-size:4.2rem;font-weight:800;line-height:1;color:var(--primary-container);letter-spacing:-.04em}
+.vault .small{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.75;margin-top:12px;line-height:1.7}
+.chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}
+.chip{background:rgba(197,160,89,.12);border-radius:10px;padding:11px 12px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--inverse-on-surface);opacity:.9;line-height:1.5}
+.chip b{display:block;font-family:var(--font-headline);font-size:1.15rem;color:var(--primary-container);letter-spacing:-.02em;margin-top:4px;opacity:1}
+
+.sect{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin:34px 0 14px;flex-wrap:wrap}
+.sect b{font-family:var(--font-headline);font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+.sect span{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant)}
+
+.rail{display:flex;flex-direction:column;gap:8px}
+.rail-row{display:grid;grid-template-columns:82px 1fr 186px;gap:20px;background:var(--sc-lowest);border-radius:var(--r-lg);padding:15px 20px;box-shadow:var(--editorial);align-items:start;page-break-inside:avoid}
+@media(max-width:760px){.rail-row{grid-template-columns:1fr;gap:8px}}
+.rail-row .st{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:700;line-height:1.5}
+.rail-row .st b{display:block;font-family:var(--font-headline);font-size:1.5rem;color:var(--on-surface);letter-spacing:-.05em;font-weight:800;margin-bottom:2px}
+.rail-row h4{font-size:.98rem;font-weight:700;margin-bottom:4px}
+.rail-row p{font-size:12.5px;color:var(--on-surface-variant);line-height:1.55}
+.rail-row .art{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tertiary);line-height:1.95;font-weight:700}
+.rail-row.end{background:var(--inverse-surface);color:var(--inverse-on-surface)}
+.rail-row.end .st,.rail-row.end .st b{color:var(--primary-container)}
+.rail-row.end h4{color:var(--primary-container)}
+.rail-row.end p{color:var(--inverse-on-surface);opacity:.82}
+.rail-row.end .art{color:var(--amber)}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+.panel{background:var(--sc-lowest);border-radius:var(--r-xl);padding:22px;box-shadow:var(--editorial)}
+.panel .lbl{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:12px}
+.panel ul{list-style:none;font-size:12.8px;color:var(--on-surface-variant);line-height:1.75}
+.panel ul li{padding:5px 0}
+.panel ul li b{color:var(--on-surface)}
+.panel ul li::before{content:"· ";color:var(--primary-container);font-weight:700}
+
+.strip{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-xl);padding:20px 24px;font-family:var(--font-mono);font-size:10.5px;line-height:2.05;display:grid;grid-template-columns:1fr 1fr;gap:0 36px;position:relative;overflow:hidden;page-break-inside:avoid}
+.strip::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:repeating-linear-gradient(0deg,#FFF 0 1px,transparent 1px 3px)}
+@media(max-width:760px){.strip{grid-template-columns:1fr}}
+.strip .hd{color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-size:9px;text-shadow:var(--crt-glow)}
+.strip .ok{color:#7FBF9B}.strip .no{color:#ff8a8a}.strip .bl{color:#8FA5D6}
+
+.effort{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+@media(max-width:900px){.effort{grid-template-columns:1fr 1fr}}
+.effort div{background:var(--sc-low);border-radius:10px;padding:13px 14px}
+.effort .who{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant)}
+.effort .hrs{font-family:var(--font-headline);font-size:1.4rem;font-weight:800;letter-spacing:-.03em;margin-top:4px}
+.effort .task{font-size:11px;color:var(--on-surface-variant);margin-top:3px;line-height:1.4}
+
+/* SUBORDINATE BOTTOM BAND */
+.band{background:var(--sc-low);border-radius:var(--r-2xl);padding:28px;margin-top:36px;page-break-inside:avoid}
+.band .bandhead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.band .bandhead b{font-family:var(--font-headline);font-size:1.15rem;font-weight:700;letter-spacing:-.02em}
+.band .bandhead span{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant)}
+.bandgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.bandgrid{grid-template-columns:1fr}}
+.share-stack{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.share-stack i{height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8.5px;font-weight:700;font-style:normal;text-align:center;line-height:1.3}
+.splitcard{background:var(--sc-lowest);border-radius:var(--r-xl);padding:22px;box-shadow:var(--editorial)}
+.splitcard.primary{background:var(--sc-lowest);box-shadow:var(--ambient);position:relative;overflow:hidden}
+.splitcard.primary::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--sovereign)}
+.splittag{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:10px}
+.splitcard h4{font-size:1.1rem;font-weight:700;margin-bottom:8px;letter-spacing:-.02em}
+.splitsub{font-size:12.5px;color:var(--on-surface-variant);line-height:1.65}
+.splitsub b{color:var(--on-surface)}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:12.5px}
+.tbl td{padding:9px 12px;background:var(--sc-lowest)}
+.tbl td:first-child{border-radius:8px 0 0 8px}
+.tbl td:last-child{text-align:right;font-family:var(--font-mono);color:var(--primary);font-weight:700;border-radius:0 8px 8px 0}
+.tbl td:nth-child(2){font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);text-align:right}
+.note{font-size:10.5px;font-family:var(--font-mono);color:var(--on-surface-variant);margin-top:10px;letter-spacing:.03em;line-height:1.7}
+
+.footer{display:flex;justify-content:space-between;align-items:center;margin-top:30px;padding-top:24px;gap:20px;flex-wrap:wrap;background:var(--sc-lowest);border-radius:var(--r-xl);padding:22px 24px;box-shadow:var(--editorial)}
+.footer .left p{font-size:13.5px;font-family:var(--font-headline);font-weight:600;max-width:52ch;line-height:1.4}
+.footer .right{text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.9}
+.footer .right a{color:var(--primary);text-decoration:none;font-weight:700}
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{body{background:#FFF}.page{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:22px}.themebtn,.printbtn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="left">
+      <div class="kicker">One-Pager · State Onboarding Brief</div>
+      <h1>No appropriation. No procurement. <span class="gild">One instrument.</span></h1>
+    </div>
+    <div class="right">TENURED AI<br>STATE PARTNERSHIP ONBOARDING<br>2026 · CONFIDENTIAL</div>
+  </div>
+
+  <div class="hero">
+    <div class="vault">
+      <span class="seal">GENERAL REVENUE REQUIRED</span>
+      <div class="big">$0</div>
+      <div class="small">The state is a <b style="color:var(--primary-container)">revenue counterparty, not a purchaser.</b> No state funds are obligated, so no competitive-bid statute attaches. The state receives; it does not disburse. This is the fact your Attorney General will test first, and it is the one that clears the path.</div>
+      <div class="chips">
+        <div class="chip">MOU to live<b>60–90d</b></div>
+        <div class="chip">Legislation for pilot<b>None</b></div>
+        <div class="chip">First settlement<b>Mo. 12–18</b></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:14px">
+      <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">Tenured AI is the verification infrastructure that restores demonstrable competence to state-funded degrees. Onboarding your state does not require a bill, a budget line, a mandate on any institution, or a vote of any faculty senate. <b style="color:var(--on-surface)">It requires an executive MOU naming one corridor and three flagship institutions.</b></p>
+      <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">The institutions run their own technical onboarding independently — the state is not a party to it and carries none of its burden. Your office's obligations are four, and none of them is operational.</p>
+    </div>
+  </div>
+
+  <div class="sect"><b>The onboarding sequence</b><span>Five stages · each terminating in a filable artifact</span></div>
+  <div class="rail">
+    <div class="rail-row">
+      <div class="st"><b>01</b>Days 0–30</div>
+      <div><h4>Executive briefing &amp; corridor selection</h4><p>A session with the Governor's policy office, the Workforce Commission, and Treasury. The revenue model is run against your state's actual enrollment and corridor employment data. Candidate corridors and flagship institutions are shortlisted in the room.</p></div>
+      <div class="art">→ Corridor shortlist<br>→ State revenue model<br>→ Institution candidates</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>02</b>Days 20–60</div>
+      <div><h4>Attorney General &amp; Treasury review</h4><p>The AG receives the procurement-posture memorandum, the privacy dossier, the settlement terms, and the wind-down provisions. Treasury receives the settlement-integration spec and the GASB revenue-recognition note. <b style="color:var(--on-surface)">This is the critical path — worth not rushing.</b></p></div>
+      <div class="art">→ AG posture opinion<br>→ Executed State MOU<br>→ Treasury approval</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>03</b>Days 45–90</div>
+      <div><h4>Treasury settlement integration</h4><p>The designated account or dedicated workforce fund is registered as settlement recipient. Reconciliation cadence, reporting format, and audit-access credentials are configured to your Comptroller's specification rather than ours.</p></div>
+      <div class="art">→ Settlement designation<br>→ Comptroller credential<br>→ Reconciliation schedule</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>04</b>Mo. 4–12</div>
+      <div><h4>Institutional activation</h4><p>The three flagship institutions execute their own Genesis MOUs and run their technical intake independently. Corridor recruiters activate against cleared graduates. The first 40/40/20 transactions route to the ledger.</p></div>
+      <div class="art">→ 3 Genesis MOUs<br>→ Recruiter corridor live<br>→ First routed transactions</div>
+    </div>
+    <div class="rail-row end">
+      <div class="st"><b>05</b>Mo. 12–18</div>
+      <div><h4>First Treasury settlement &amp; Heatmap go-live</h4><p>Quarterly settlement begins to the designated account. The Kill-Switch Dashboard and statewide AICI Heatmap go live in your office. Statewide expansion becomes a legislative option supported by twelve months of live data rather than a projection.</p></div>
+      <div class="art">→ First settlement receipt<br>→ Kill-Switch credential<br>→ AICI Heatmap live</div>
+    </div>
+  </div>
+
+  <div class="sect"><b>Treasury integration · the specification your Comptroller will ask for</b><span>Atomic settlement · no escrow risk</span></div>
+  <div class="strip">
+    <div>
+      <div class="hd">Settlement mechanics</div>
+      <div>enforcement&nbsp;&nbsp;&nbsp;<span class="ok">smart contract · immutable</span></div>
+      <div>state_share&nbsp;&nbsp;&nbsp;<span class="ok">20.00% · public institutions</span></div>
+      <div>routing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;per-transaction · atomic</div>
+      <div>accrual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bl">none · no escrow held</span></div>
+      <div>clawback&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bl">not permissible by contract</span></div>
+      <br>
+      <div class="hd">Recipient configuration</div>
+      <div>designation&nbsp;&nbsp;&nbsp;Treasury | dedicated fund</div>
+      <div>reassignment&nbsp;&nbsp;state-initiated · 30-day</div>
+      <div>restriction&nbsp;&nbsp;&nbsp;<span class="ok">none · unrestricted revenue</span></div>
+    </div>
+    <div>
+      <div class="hd">Reconciliation &amp; audit</div>
+      <div>cadence&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quarterly settlement</div>
+      <div>reporting&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;monthly detail statement</div>
+      <div>proof&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">Merkle root · public chain</span></div>
+      <div>verification&nbsp;&nbsp;<span class="ok">independent of platform</span></div>
+      <div>format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GASB-aligned revenue schedule</div>
+      <br>
+      <div class="hd">Wind-down provision</div>
+      <div>notice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;180 days · either party</div>
+      <div>routed_funds&nbsp;&nbsp;<span class="ok">retained by state · final</span></div>
+      <div>credentials&nbsp;&nbsp;&nbsp;<span class="ok">survive · on-chain anchored</span></div>
+    </div>
+  </div>
+
+  <div class="sect"><b>Who does what</b><span>Four offices · no operational burden on the state</span></div>
+  <div class="effort">
+    <div><div class="who">Governor's policy office</div><div class="hrs">1 session</div><div class="task">Corridor selection · MOU execution</div></div>
+    <div><div class="who">Attorney General</div><div class="hrs">Critical path</div><div class="task">Procurement posture · privacy review</div></div>
+    <div><div class="who">Treasury / Comptroller</div><div class="hrs">~8 hrs</div><div class="task">Recipient designation · audit config</div></div>
+    <div><div class="who">Workforce Commission</div><div class="hrs">Liaison</div><div class="task">Kill-Switch custody · corridor demand</div></div>
+    <div><div class="who">Institutions</div><div class="hrs">Independent</div><div class="task">Own MOU · own technical intake</div></div>
+  </div>
+
+  <div class="duo" style="margin-top:16px">
+    <div class="panel">
+      <div class="lbl">The state commits to four things</div>
+      <ul>
+        <li><b>One pilot corridor</b> — one industry vertical, three flagship public institutions</li>
+        <li><b>A settlement recipient</b> — Treasury account or dedicated workforce fund of record</li>
+        <li><b>A governance liaison</b> — one named officer to hold the Kill-Switch credential</li>
+        <li><b>Permission to participate</b> — board-level acknowledgment, not a mandate</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="lbl">Tenured AI commits to four things</div>
+      <ul>
+        <li><b>20% of the per-semester Access Fee</b> and <b>20% of every in-state transaction</b> — two separate settlements, both routed atomically, both unrestricted as to use</li>
+        <li><b>Zero cost to the state</b> — no license, implementation fee, match, or in-kind commitment</li>
+        <li><b>Kill-Switch Dashboard and AICI Heatmap</b> across every participating institution</li>
+        <li><b>Merkle-proof audit access</b> — verify every routed dollar without trusting the platform</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sect"><b>Statutory pathways · pilot first, then scale</b><span>Phase 1 needs none of these</span></div>
+  <div class="effort" style="grid-template-columns:repeat(3,1fr)">
+    <div><div class="who">Path A · System board resolution</div><div class="hrs">60–120d</div><div class="task">Fastest, lowest friction. Binds one system only.</div></div>
+    <div><div class="who">Path B · Appropriations rider</div><div class="hrs">6–14 mo</div><div class="task">Most durable, hardest to reverse. Needs floor time.</div></div>
+    <div><div class="who">Path C · Executive workforce order</div><div class="hrs">30–60d</div><div class="task">Fast and unilateral. Reversible by a successor.</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:12px;line-height:1.65;max-width:100ch">Recommended sequencing: run the ninety-day pilot under executive MOU with no statutory instrument at all. At Month 12 you hold a live revenue line and twelve months of Heatmap data. <b style="color:var(--on-surface)">Take Path A or B into the following session with evidence rather than a projection</b> — the pilot is what makes the legislation trivial.</p>
+
+  <!-- SUBORDINATE BAND · UNDERWRITING / TALENT ECONOMICS -->
+  <div class="band">
+    <div class="bandhead">
+      <b>Two settlements. Same ratio. Different instruments entirely.</b>
+      <span>Reference only · full model in Addendum 01-A §B5</span>
+    </div>
+    <p style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.65;margin-bottom:20px;max-width:104ch">Both settle 40/40/20, and they are routinely confused in briefing. They are not the same money. <b style="color:var(--on-surface)">The Access Split divides a per-student enrollment fee. The Dividend Split divides a per-hire transaction.</b> The first is termly and scales with your public headcount; the second is perpetual and scales with corridor employment. Your Treasury receives 20% of both, on separate settlement schedules.</p>
+
+    <div class="bandgrid">
+      <div class="splitcard primary">
+        <div class="splittag">SETTLEMENT ONE · THE ACCESS SPLIT</div>
+        <h4>The $100 per-student, per-semester fee</h4>
+        <p class="splitsub">The Sovereign Access Fee is charged <b>per enrolled student, per semester</b>, at participating public institutions. It is the platform's access instrument and the larger near-term line for Treasury, because it settles every term <b>whether or not a single graduate has yet been hired.</b></p>
+        <div class="share-stack" style="margin-top:16px">
+          <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>$40.00<br>UNIVERSITY</i>
+          <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>$40.00<br>PLATFORM</i>
+          <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>$20.00<br>STATE</i>
+        </div>
+        <p class="note" style="margin-top:12px">The State Workforce Dividend is the $20. <b style="color:var(--on-surface)">Private institutions settle 50 / 50</b> with no state share, because no public workforce levy attaches.</p>
+        <table class="tbl" style="margin-top:14px">
+          <tr><td>Public enrollment 400,000</td><td>20% · 2 terms</td><td>$16M / yr</td></tr>
+          <tr><td>Public enrollment 800,000</td><td>20% · 2 terms</td><td>$32M / yr</td></tr>
+          <tr><td>Texas reference · ~1.6M</td><td>20% · 2 terms</td><td>$64M / yr</td></tr>
+          <tr><td>California reference · ~2.6M</td><td>20% · 2 terms</td><td>$104M / yr</td></tr>
+        </table>
+        <p class="note">Non-tax, unrestricted, counter-cyclical — enrollment rises in downturns, so the line strengthens exactly when general revenue weakens. Figures assume full statewide public adoption; pilot-stage revenue scales from the participating cohort only.</p>
+      </div>
+
+      <div class="splitcard">
+        <div class="splittag" style="color:var(--tertiary)">SETTLEMENT TWO · THE DIVIDEND SPLIT</div>
+        <h4>20% of every in-state transaction, in perpetuity</h4>
+        <p class="splitsub">A separate instrument on a separate base. Every recruiter reveal and every Performance Bond premium issued against a hire in your corridor routes 40/40/20 at the moment of transaction — attaching to the graduate rather than the enrollment year.</p>
+        <table class="tbl" style="margin-top:16px">
+          <tr><td>Pilot · single corridor</td><td>3,500 hires</td><td>$7.9M / yr</td></tr>
+          <tr><td>Statewide rollout</td><td>15,000 hires</td><td>$33.8M / yr</td></tr>
+          <tr><td>Mature integration</td><td>40,000 hires</td><td>$90M / yr</td></tr>
+          <tr><td>National anchor</td><td>67,800 hires</td><td>$152.5M / yr</td></tr>
+        </table>
+        <p class="note">Modeled at $11,250 average annual premium per bonded hire at Chubb Gold tier; excludes reveal-credit volume (+22–34%).</p>
+        <p class="note" style="margin-top:10px">Both splits are enforced at the smart-contract layer, route atomically with no escrow held, and carry a Merkle proof your Comptroller can verify without trusting the platform. All figures are modeled projections against stated inputs — not booked revenue, not a guarantee, not a forecast of your state's outcome.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <p>One briefing. One MOU. One pilot corridor. Phase 1 seats one state — first-mover terms, corridor origination status, and the founding seat on the multi-state governance council attach to the first signature.</p>
+    </div>
+    <div class="right">
+      Begin the MOU conversation<br>
+      <a href="mailto:state-partners@tenured.ai">state-partners@tenured.ai</a><br>
+      <span style="font-size:10px;letter-spacing:.1em">TENURED AI · HOUSTON, TX</span>
+    </div>
+  </div>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

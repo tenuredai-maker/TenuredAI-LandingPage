@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Pitch to Students</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:96px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:22ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:700;max-width:24ch;margin-bottom:24px}
+.slide-lede{font-size:1.22rem;color:var(--on-surface-variant);max-width:66ch;margin-top:24px;line-height:1.55}
+
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:24px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+
+.passport-mock{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.passport-mock::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.pmrow{display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:11px;line-height:1.9;position:relative;z-index:1}
+.pmrow .ind{width:8px;height:8px;border-radius:50%;background:var(--mentor)}
+
+.year-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+@media(max-width:860px){.year-flow{grid-template-columns:1fr}}
+.year{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial);position:relative}
+.year .y-num{position:absolute;top:18px;right:18px;font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.1em;font-weight:700}
+.year h3{font-size:1.1rem;font-weight:700;margin-top:8px;margin-bottom:8px}
+.year p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.6}
+
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:48px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<section class="slide" id="s1">
+  <div class="slide-num">DECK 05 / 13 · STUDENTS</div>
+  <div class="slide-kicker">PITCH · TENURED AI · CONFIDENTIAL</div>
+  <h1>Graduate with proof. <span class="gild">Not just a degree.</span></h1>
+  <p class="slide-lede">A briefing for undergraduate and graduate students on Tenured AI — the verification platform where you build a Sovereign Passport throughout your major, walk into the hiring market with a portable, employer-trusted credential your degree alone cannot provide, and own it for the rest of your career.</p>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · CURRENT &amp; PROSPECTIVE STUDENTS · 2026</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="slide-num">02</div>
+  <div class="slide-kicker">The Honest Truth · About Your Degree</div>
+  <h2>Your degree no longer proves what your career needs it to prove.</h2>
+  <p class="slide-lede">This isn't a critique of your institution. Your professors are working harder than ever. It's a fact about the world your degree enters when you graduate. ChatGPT and Claude have changed what a take-home assignment, a senior thesis, and a coding interview actually verify. Your résumé is now reading like everyone else's résumé. The credential gap is real — and so is the opportunity.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">REALITY 01</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Employers don't trust the signal</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">75% of HR leaders now prioritize skills-based hiring over degrees. Your dream company already assumes the candidate next to you used an LLM for half their portfolio. The interview loop has gotten harder, longer, and more invasive — because employers don't believe what they're seeing.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">REALITY 02</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Your peers are using the LLM too</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">Even if you don't, your classmates' polished projects look identical to yours from the outside. You're competing on the wrong signal. The students who refuse to use AI as a crutch are penalized in the very metric (résumé output) that employers stopped trusting.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">REALITY 03</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">"AI-skilled" is now table stakes</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">Listing "Python, Claude API, RAG" on a résumé is what listing "Microsoft Office" was in 2003. The graduates who differentiate are the ones who can show <i>how</i> they think with AI — not whether they've heard of it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="slide-num">03</div>
+  <div class="slide-kicker">The Idea · Proof, Not Claims</div>
+  <h2>A Sovereign Passport is the credential the hiring market actually wants.</h2>
+  <p class="slide-lede">Every time you clear a Hard-Gate — an adversarial, air-gapped engineering challenge run by a four-agent council — you earn a Consensus Certificate. Each certificate is cryptographically anchored to a public blockchain, contains a forensic record of how you actually worked under pressure, and lives on a Passport you own outright. The recruiter doesn't see a claim. They see what you did.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="passport-mock">
+      <span class="seal">SOVEREIGN PASSPORT · YOUR ARTIFACT</span>
+      <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em">COMMAND AUTHORITY</div>
+      <div style="font-family:var(--font-headline);font-size:3.6rem;font-weight:800;line-height:1;color:var(--primary-container);margin-top:4px">87</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--inverse-on-surface);opacity:.7;margin-top:6px">Tier 2 Orchestrator · 18 Consensus Certificates</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(197,160,89,.18)">
+        <div class="pmrow"><span class="ind"></span> G-014 · Adversarial RAG · cleared</div>
+        <div class="pmrow"><span class="ind"></span> G-008 · Prompt Injection · cleared</div>
+        <div class="pmrow"><span class="ind"></span> G-022 · Multi-Agent Consensus · cleared</div>
+        <div class="pmrow" style="opacity:.6"><span class="ind" style="background:#D88828"></span> N-052 Embedding Models · refreshing</div>
+      </div>
+      <div style="margin-top:16px;font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.05em">✓ ANCHORED · Polygon mainnet</div>
+    </div>
+    <div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What the Passport carries</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Command Authority score.</b> The composite the platform's council issues at each Gate — your headline metric.</li>
+        <li>· <b style="color:var(--on-surface)">Every Hard-Gate you've cleared.</b> Sealed, browsable, replayable on a forensic timeline. Recruiters can verify without trusting Tenured AI.</li>
+        <li>· <b style="color:var(--on-surface)">A career memory.</b> Every artifact from every cleared Gate stays in your Vault. Six months into your first job, you can still query "where did I handle distributed transactions?" and surface real proof.</li>
+        <li>· <b style="color:var(--on-surface)">Yours, forever.</b> Stored on a public chain. Owned by your DID, not your school's database. If the platform disappeared tomorrow, your Passport stays valid.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4 · SIGNUP & ONBOARDING -->
+<section class="slide" id="s4">
+  <div class="slide-num">04</div>
+  <div class="slide-kicker">Signing Up · What Actually Happens in the First Five Minutes</div>
+  <h2>Nobody enrolls you. You enroll yourself, and you can decline.</h2>
+  <p class="slide-lede">Your school does not put you on this platform. You opt in personally, through your own university login, against a consent screen that itemizes exactly what is shared and with whom — with every optional field defaulted to off. <b>If you decline, nothing happens: you stay enrolled in your degree, your grades are untouched, and no faculty member is notified.</b> That is architectural, not a policy we could quietly revise later.</p>
+
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">STEP 01 · ~1 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Log in with your school account</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">You click the invite and land on your own university's login page — the same one you already use. Tenured AI never sees a password, never issues you one, and never becomes a second account you have to remember.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">STEP 02 · ~3 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Read the consent screen</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">One itemized page: what gets verified, what's published, what stays private, what your school sees, what a recruiter sees, what happens if you leave. Granular toggles, not a blanket accept.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">STEP 03 · ~1 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Your Passport mints</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant)">Issued to you — not your school, not us. The public side shows verified competency bands with zero personal identifiers until you personally authorize a reveal. Anchored to your DID from minute one.</p>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:22px">
+    <div class="vault">
+      <span class="seal">WHAT YOUR SCHOOL CAN AND CANNOT SEE</span>
+      <div style="font-family:var(--font-mono);font-size:11px;line-height:2;opacity:.9">
+        <div><span style="color:#7FBF9B">CAN</span> · aggregate cohort trajectory</div>
+        <div><span style="color:#7FBF9B">CAN</span> · k-anonymous competency distribution</div>
+        <div><span style="color:#ff8a8a">CANNOT</span> · your individual score, at any zoom</div>
+        <div><span style="color:#ff8a8a">CANNOT</span> · your drills or your reasoning</div>
+        <div><span style="color:#ff8a8a">CANNOT</span> · failed Hard-Gate attempts, ever</div>
+        <div style="margin-top:14px;color:var(--amber)">AND WE NEVER RECEIVE YOUR GRADES.</div>
+        <div style="opacity:.7">Transcripts, GPA, and disciplinary records are outside the field set entirely — not withheld, not requested.</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:14px">Then it's fifteen minutes a day</h3>
+      <ul style="list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Forge drills</b> — scoped to coursework you're already doing. Mon–Fri, about fifteen minutes. Most students do it on the bus.</li>
+        <li>· <b style="color:var(--on-surface)">Refresh Labs</b> — one or two a month, mapped to what your program is covering that term.</li>
+        <li>· <b style="color:var(--on-surface)">One Hard-Gate</b> — roughly ninety minutes at the end of the semester. Retakeable. Failed attempts are invisible to everyone, including your school.</li>
+        <li>· <b style="color:var(--on-surface)">Leave whenever</b> — export as signed JSON or PDF, credentials intact via Merkle proof. The Passport works after you stop using the platform.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="slide-num">05</div>
+  <div class="slide-kicker">The Daily · How You'd Use It This Semester</div>
+  <h2>Forge drills look like flashcards. They're not.</h2>
+  <p class="slide-lede">The Forge is the platform's daily practice surface — a Two-Phase Flashcard engine engineered against decay. You see a prompt. You answer in your own words. The Mentor agent verifies your reasoning. Your Tenure Points compound. Over a semester, you build the decay-resistant baseline that makes Hard-Gates achievable. It fits in 15 minutes a day. Most students do it on the bus.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">PHASE 1 · BUILD</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Recall</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">You see the prompt. You answer aloud or by typing. No multiple choice. The platform's Mentor checks your reasoning against the canonical pattern, but never penalizes you for getting it your own way.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">PHASE 2 · COMPRESS</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Re-state</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">You re-state the concept in 12 words or fewer. This is the compression that makes the knowledge actually stick. Your re-statement gets pinned to that node's annotation history — a record of how <i>you</i> understood it.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">DECAY DEFENSE</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Refresh</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Every node decays on its own timer (λ). The platform schedules Refresh Labs before your knowledge drops below the active threshold. By graduation, your Decay Atlas is mostly green — and the credential is still real.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="slide-num">06</div>
+  <div class="slide-kicker">The Hiring Inversion · I-100 From Your Side</div>
+  <h2>Recruiters spend credits to talk to you. Not the other way around.</h2>
+  <p class="slide-lede">LinkedIn turned the job search into an open inbox where any recruiter can send you noise for free. Tenured AI inverts this. A recruiter who wants to see your name has to spend a reveal credit ($120). They commit before you do. They see the platform's published statistic on their firm's accept rate before you reply. By the time a recruiter reaches you, the outreach is already filtered for seriousness.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What recruiters see (Phase 2)</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· Your stable de-identified candidate ID (cNNNN)</li>
+        <li>· Command Authority composite + Triple-Threat scores</li>
+        <li>· Triple-85 bondable status (yes / no)</li>
+        <li>· Tier label and credential count</li>
+        <li>· <b style="color:var(--on-surface)">Nothing else. Not your name. Not your school. Not your photo.</b></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What recruiters need to spend (Phase 3)</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· 1 reveal credit · $120 cost to their firm</li>
+        <li>· The candidate (you) is notified the moment they reveal</li>
+        <li>· You see the recruiter's firm and their accept rate</li>
+        <li>· You see the role and the Hire Brief before responding</li>
+        <li>· <b style="color:var(--on-surface)">You can decline. The credit doesn't come back.</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="slide-num">07</div>
+  <div class="slide-kicker">The Auction · B-300 Recruiter Battle</div>
+  <h2>When two firms want you, they bid.</h2>
+  <p class="slide-lede">If you reach Tier 5 status and opt in, your Passport becomes auction-eligible. Multiple recruiting firms place escrowed bids in a live timed market with snipe protection. The auction closes with atomic settlement to a Performance Bond on you — a $150K guarantee paid to your employer if your competency is mis-evaluated. This is what senior talent acquisition looks like when the candidate is verified. You set the floor; the market sets the ceiling.</p>
+  <div class="vault" style="margin-top:36px">
+    <span class="seal">B-300 · WHY THE AUCTION MATTERS TO YOU</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:14px">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">PRICE DISCOVERY</div>
+        <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85;margin-top:6px;line-height:1.55">You stop guessing whether you accepted the right offer. Multiple firms compete on price in real time.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">SET YOUR FLOOR</div>
+        <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85;margin-top:6px;line-height:1.55">You define the minimum acceptable. No firm sees you below that number. The auction can close without a winner — you keep all your leverage.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber)">BOND ATTACHED</div>
+        <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85;margin-top:6px;line-height:1.55">A Performance Bond automatically issues when the auction closes. Your offer is real money, on day one, with downside protection for the employer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="slide-num">08</div>
+  <div class="slide-kicker">The Privacy · What's Yours, What's Theirs</div>
+  <h2>You own the Passport. Always.</h2>
+  <p class="slide-lede">The platform's privacy model is structural, not promotional. Your Passport lives on a public blockchain under your DID. Tenured AI cannot delete it, recall it, or condition your access to it. Your Vault — every artifact you've ever produced — is exportable to JSON or PDF at any time. If you stop using the platform tomorrow, what you've built is yours.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">You own the Passport.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Anchored to your DID on Polygon mainnet. Independent of Tenured AI's servers. Verifiable by anyone, anywhere, forever. The credential survives platform failure.</p>
+    </div>
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">You control redactions.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Three audience modes — Owner / Recruiter / Public. You decide what each can see. A recruiter cannot bypass your redaction toggle. A public verifier sees only what you've explicitly chosen to show.</p>
+    </div>
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">You get exports.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Every artifact in your Vault is exportable as signed JSON or PDF. Your Career Memory is portable. Take it to your next platform, your next role, your next decade.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="slide-num">09</div>
+  <div class="slide-kicker">The Four-Year Path</div>
+  <h2>How a Passport gets built across your major.</h2>
+  <p class="slide-lede">This isn't a sprint to graduation. It's a gradual baseline-build, woven into the work you already do. The platform integrates with your coursework — never replaces it. The Hard-Gates happen when you're ready, not on a calendar.</p>
+  <div class="year-flow">
+    <div class="year">
+      <div class="y-num">YEAR 1</div>
+      <h3>Discover</h3>
+      <p>Optional Forge drills aligned to intro courses. You build a baseline; no public scoring yet. Your AICI starts to take shape over the semester. About 10–15 minutes a day.</p>
+    </div>
+    <div class="year">
+      <div class="y-num">YEAR 2</div>
+      <h3>Build</h3>
+      <p>Refresh Labs aligned to major-required coursework. You earn your first scoped Consensus Certificates. Your Passport starts to look like an artifact — not a profile.</p>
+    </div>
+    <div class="year">
+      <div class="y-num">YEAR 3</div>
+      <h3>Prove</h3>
+      <p>First adversarial Hard-Gate. Real chaos injections, real four-agent council. The Triple-Threat scores stabilize. Your I-100 sourcing eligibility opens; some recruiters reach out.</p>
+    </div>
+    <div class="year" style="background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.03))">
+      <div class="y-num">YEAR 4</div>
+      <h3>Graduate</h3>
+      <p>Senior-tier Adversarial Audit Gates. Triple-85 status if your scores cross. Your Passport walks across the stage with you — and into the job market the next morning.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="slide-num">10</div>
+  <div class="slide-kicker">The Comparative · Three Tools You Already Use</div>
+  <h2>None of them carry forward into your career.</h2>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Platform</th><th>What it does for you</th><th>What it doesn't</th></tr></thead>
+      <tbody>
+        <tr><td><b>LinkedIn</b></td><td>You post a profile and hope recruiters notice it</td><td>Self-reported skills. No verification. No portable proof. After graduation it becomes a noise channel for spam outreach.</td></tr>
+        <tr><td><b>Handshake</b></td><td>University-curated postings during your job search</td><td>Useful while you're a student. Goes mostly dormant after graduation. Your résumé still does all the work.</td></tr>
+        <tr><td><b>Course certificates</b> (Coursera, etc.)</td><td>Completion proof for an MOOC</td><td>Completion is not competency. Most employers know this. Adding 12 to your résumé doesn't change the signal.</td></tr>
+        <tr><td><b>Coding portfolios</b> (GitHub, etc.)</td><td>Public code you've written</td><td>Most projects use AI heavily. Employers know. The "your code is your résumé" era ended in 2023.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">Tenured AI Passport</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))">Verified Consensus Certificates · Command Authority · I-100 sourcing · B-300 auction eligibility</td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><span style="color:var(--primary)">Survives graduation. Survives platform changes. Carries your full career into your next role.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <div class="slide-num">11</div>
+  <div class="slide-kicker">The Cost · What You'll Actually Pay</div>
+  <h2>Free if your university is a partner. Modest if it's not.</h2>
+  <p class="slide-lede">Tenured AI's pricing is structured so the financial barrier never falls on the student. Genesis Institutions cover their cohorts' platform access via the 40% GDA dividend stream — students at partner schools use the platform for free for the duration of their enrollment. Students at non-partner schools pay a transparent monthly fee with major hardship coverage.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-mentor" style="margin-bottom:14px">PARTNER INSTITUTION</div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:8px;color:var(--primary)">$0 / month</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your institution covers full platform access for the duration of your enrollment. Forge unlimited, Hard-Gates unlimited, Passport perpetual. Check whether your school is a Genesis Institution.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">NON-PARTNER · STANDARD</div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:8px;color:var(--primary)">$19 / month</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Full platform access. Forge unlimited, Hard-Gates included, Passport perpetual. About what one streaming subscription costs. You can pause and resume any month.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:14px">HARDSHIP · FULLY COVERED</div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:8px;color:var(--primary)">$0 / month</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Pell-eligible, first-generation, or financial hardship: full coverage with no application beyond eligibility verification. The platform exists to widen access, not narrow it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s12">
+  <div class="slide-num">12</div>
+  <div class="slide-kicker">The Questions You're Asking</div>
+  <h2>Five things a smart 21-year-old will want to know.</h2>
+  <table class="matrix" style="margin-top:36px">
+    <thead><tr><th>Question</th><th>The answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>"Will my professor know my score?"</b></td><td>No. Faculty see aggregate cohort calibration only. Your individual Command Authority, Triple-Threat scores, and Passport contents are visible only to you (and to recruiters who reveal credits to see you). Your GPA and your Passport are independent records.</td></tr>
+      <tr><td><b>"What if I bomb a Hard-Gate?"</b></td><td>Hard-Gates can be retaken. A failed Gate doesn't appear on your Passport — only cleared Gates mint Consensus Certificates. The failure stays in your private practice history for your own learning. The recruiter never sees it.</td></tr>
+      <tr><td><b>"Does this replace my degree?"</b></td><td>No. It complements it. Your degree certifies that you completed the program. Your Passport certifies what you can actually do. Employers want both — for different reasons. Some employers care more about one than the other; the platform's bet is that both matter.</td></tr>
+      <tr><td><b>"Can I cheat the Forge drills?"</b></td><td>Yes, but it doesn't help. Drill scores alone don't qualify you for sourcing — the cross-surface attribution filter (which recruiters use by default) excludes profiles whose AICI is drill-only. The Hard-Gate is what counts. The drill is just how you train for it.</td></tr>
+      <tr><td><b>"What if Tenured AI fails as a company?"</b></td><td>Your Passport is anchored to Polygon mainnet under your DID. It is independent of Tenured AI's servers. If we shut down tomorrow, every Consensus Certificate you've earned is still cryptographically verifiable by any employer, anywhere, forever. We will publish open-source verification tools for that case.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="s13">
+  <div class="slide-num">13</div>
+  <div class="slide-kicker">The Ask</div>
+  <h1>One semester. <span class="gild">One Hard-Gate.</span> One Passport.</h1>
+  <p class="slide-lede">We are asking you to sign up free, do 15 minutes of Forge drills a day for one semester, and attempt one scoped Hard-Gate by the end. If your school is a Genesis Institution, you pay nothing. If it isn't, the first 30 days are free anyway. After one semester, you have either a Consensus Certificate that walks with you for the rest of your career — or you have data telling you where your gaps actually are. <b>The decision is whether the next interview you walk into has proof on your side, or just a résumé.</b></p>
+  <div style="margin-top:48px">
+    <a href="#contact" class="cta">Sign up free →</a>
+    <a href="#s4" class="cta-pill">See how signup works</a>
+    <a href="#s5" class="cta-pill">See what Forge looks like</a>
+    <a href="#s11" class="cta-pill">Check if my school is a partner</a>
+  </div>
+  <div id="contact" style="margin-top:80px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · Student Onboarding<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">students@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · PITCH TO STUDENTS · 13 SLIDES · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

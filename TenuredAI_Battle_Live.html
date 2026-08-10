@@ -1,669 +1,1700 @@
 <!doctype html>
 <html lang="en" data-theme="light">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Recruiter Battle · Tenured AI</title>
-<meta name="description" content="The B-300 Auction protocol. Live snipe-protected escrowed talent auctions for senior-tier engagements.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
-  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
-  --primary:#775A19;--primary-container:#C5A059;
-  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
-  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;
-  --outline:#7F7667;--outline-variant:#D1C5B4;
-  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
-  --inverse-surface:#1C1C1A;--inverse-on-surface:#F3F0EC;
-  --font-display:'Fraunces',serif;
-  --font-headline:'Sora',serif;
-  --font-body:'Inter',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
-  --editorial:0 24px 40px -12px rgba(28,28,26,.08);
-  --ambient:0 32px 64px -16px rgba(28,28,26,.10);
-  --r-md:.75rem;--r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;
-}
-[data-theme="dark"]{
-  --surface:#0F0F0E;--sc-low:#1A1A18;--sc-lowest:#161614;--sc-high:#262624;
-  --on-surface:#F3F0EC;--on-surface-variant:#C7BFB1;
-  --primary:#E8C37E;--primary-container:#775A19;
-  --tertiary:#8FA5D6;--tertiary-container:#233A65;
-  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
-  --ambient:0 32px 64px -16px rgba(0,0,0,.5);
-  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--surface);color:var(--on-surface);
-  font-family:var(--font-body);font-size:15px;line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-  transition:background .4s,color .4s;
-  overflow-x:hidden;
-}
-body::before{
-  content:"";position:fixed;inset:0;
-  background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
-  opacity:.025;pointer-events:none;z-index:1;mix-blend-mode:multiply;
-}
-[data-theme="dark"] body::before{mix-blend-mode:overlay;opacity:.04}
-main{position:relative;z-index:2}
-h1,h2,h3,h4,h5,h6{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.1}
-.gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Recruiter Battle · Tenured AI</title>
+  <meta name="description"
+    content="The B-300 Auction protocol. Live snipe-protected escrowed talent auctions for senior-tier engagements.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --surface: #FCF9F5;
+      --sc-low: #F6F3EF;
+      --sc-lowest: #FFFFFF;
+      --sc-high: #EAE8E4;
+      --on-surface: #1C1C1A;
+      --on-surface-variant: #4E4639;
+      --primary: #775A19;
+      --primary-container: #C5A059;
+      --sovereign: linear-gradient(135deg, #775A19 0%, #C5A059 100%);
+      --tertiary: #2C4771;
+      --tertiary-soft: #8FA5D6;
+      --tertiary-container: #DBE2F9;
+      --outline: #7F7667;
+      --outline-variant: #D1C5B4;
+      --amber: #FFBF00;
+      --mentor: #4F8A6B;
+      --error: #BA1A1A;
+      --inverse-surface: #1C1C1A;
+      --inverse-on-surface: #F3F0EC;
+      --font-display: 'Fraunces', serif;
+      --font-headline: 'Sora', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --editorial: 0 24px 40px -12px rgba(28, 28, 26, .08);
+      --ambient: 0 32px 64px -16px rgba(28, 28, 26, .10);
+      --r-md: .75rem;
+      --r-lg: 1rem;
+      --r-xl: 1.25rem;
+      --r-2xl: 1.5rem;
+      --r-pill: 9999px;
+    }
 
-@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.35}}
-@keyframes tickerblink{0%,100%{box-shadow:0 0 0 0 rgba(186,26,26,.4)}50%{box-shadow:0 0 0 6px rgba(186,26,26,0)}}
+    [data-theme="dark"] {
+      --surface: #0F0F0E;
+      --sc-low: #1A1A18;
+      --sc-lowest: #161614;
+      --sc-high: #262624;
+      --on-surface: #F3F0EC;
+      --on-surface-variant: #C7BFB1;
+      --primary: #E8C37E;
+      --primary-container: #775A19;
+      --tertiary: #8FA5D6;
+      --tertiary-container: #233A65;
+      --editorial: 0 24px 40px -12px rgba(0, 0, 0, .4);
+      --ambient: 0 32px 64px -16px rgba(0, 0, 0, .5);
+      --inverse-surface: #F3F0EC;
+      --inverse-on-surface: #1C1C1A;
+    }
 
-/* ============ NAV ============ */
-nav.top{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 32px;
-  background:rgba(252,249,245,.78);
-  backdrop-filter:blur(20px) saturate(1.2);
-  -webkit-backdrop-filter:blur(20px) saturate(1.2);
-  border-bottom:1px solid var(--sc-high);
-}
-[data-theme="dark"] nav.top{background:rgba(15,15,14,.78)}
-nav.top .lockup{font-family:var(--font-headline);font-weight:700;font-size:15px;letter-spacing:-.02em;text-decoration:none;color:var(--on-surface)}
-nav.top .lockup .dot{color:var(--primary-container)}
-nav.top .lockup .sub{font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant);letter-spacing:.18em;text-transform:uppercase;display:block;font-weight:400;margin-top:2px}
-nav.top .links{display:flex;gap:28px;align-items:center;font-size:13px}
-nav.top .links a{color:var(--on-surface);opacity:.75;text-decoration:none;font-weight:500;transition:opacity .2s,color .2s}
-nav.top .links a:hover{opacity:1;color:var(--primary)}
-nav.top .live-badge{
-  font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:#fff;background:var(--error);padding:5px 11px;border-radius:var(--r-pill);font-weight:700;
-  display:flex;align-items:center;gap:6px;
-}
-nav.top .live-badge .dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:livepulse 1.4s ease-in-out infinite}
-nav.top .nav-cta{
-  padding:8px 16px;border-radius:var(--r-pill);
-  background:var(--sovereign);color:#fff;
-  font-family:var(--font-headline);font-weight:600;font-size:12.5px;
-  text-decoration:none;letter-spacing:.01em;
-  box-shadow:0 4px 16px rgba(197,160,89,.25);
-}
-nav.top .right{display:flex;gap:14px;align-items:center}
-@media(max-width:780px){nav.top{padding:12px 20px}nav.top .links{display:none}}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-/* ============ HERO / BROADCAST STAGE ============ */
-.broadcast{
-  padding:100px 32px 60px;
-  max-width:1440px;margin:0 auto;
-}
-.broadcast-header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
-.broadcast-title{font-family:var(--font-display);font-weight:400;font-size:clamp(2.4rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.025em;max-width:18ch}
-.broadcast-title em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
-.broadcast-title .gild{font-style:italic;font-weight:500}
-.broadcast-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--on-surface-variant);text-transform:uppercase;text-align:right;line-height:1.7}
-.broadcast-meta strong{color:var(--on-surface);font-weight:700;display:block;font-size:13px;letter-spacing:.06em}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* ============ MAIN BROADCAST GRID ============ */
-.stage{
-  display:grid;grid-template-columns:1.6fr 1fr;gap:18px;
-}
-@media(max-width:980px){.stage{grid-template-columns:1fr}}
+    body {
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      transition: background .4s, color .4s;
+      overflow-x: hidden;
+    }
 
-/* ============ LIVE AUCTION CARD ============ */
-.auction{
-  background:var(--inverse-surface);color:var(--inverse-on-surface);
-  border-radius:var(--r-2xl);
-  padding:0;overflow:hidden;
-  position:relative;
-  box-shadow:var(--ambient);
-}
-.auction-head{
-  padding:20px 24px;
-  border-bottom:1px solid rgba(243,240,236,.1);
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
-}
-.auction-head .a-id{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--primary-container);font-weight:700}
-.auction-head .a-live{
-  font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--error);color:#fff;padding:5px 12px;border-radius:var(--r-pill);font-weight:700;
-  display:inline-flex;align-items:center;gap:6px;
-}
-.auction-head .a-live .dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:livepulse 1.2s ease-in-out infinite}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+      opacity: .025;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+    }
 
-.auction-body{
-  padding:32px 28px;
-}
-.lot-tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-container);margin-bottom:10px;font-weight:700}
-.lot-title{font-family:var(--font-display);font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
-.lot-meta{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--inverse-on-surface);opacity:.7;margin-bottom:24px}
-.lot-meta span{display:inline-flex;gap:6px;align-items:center}
-.lot-meta strong{color:var(--primary-container);font-weight:700}
+    [data-theme="dark"] body::before {
+      mix-blend-mode: overlay;
+      opacity: .04
+    }
 
-.scoreboard{
-  display:grid;grid-template-columns:1.4fr 1fr;gap:18px;
-  padding:24px;background:rgba(243,240,236,.04);border-radius:var(--r-xl);
-  margin-bottom:24px;
-}
-@media(max-width:580px){.scoreboard{grid-template-columns:1fr}}
-.bid-current{}
-.bid-current .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-container);font-weight:700;margin-bottom:10px}
-.bid-current .v{font-family:var(--font-display);font-weight:500;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;letter-spacing:-.02em;color:#fff;display:flex;align-items:baseline;gap:8px}
-.bid-current .v .delta{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--mentor);letter-spacing:.06em}
-.bid-current .by{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.65;margin-top:10px;letter-spacing:.06em}
-.bid-current .by .rid{color:var(--primary-container);font-weight:700}
+    main {
+      position: relative;
+      z-index: 2
+    }
 
-.countdown{}
-.countdown .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.countdown .lbl::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);animation:livepulse 1s ease-in-out infinite}
-.countdown .clock{font-family:var(--font-mono);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.4rem);letter-spacing:.02em;color:#fff;display:flex;gap:6px;align-items:baseline}
-.countdown .clock .sep{color:var(--amber)}
-.countdown .clock .ms{color:var(--inverse-on-surface);opacity:.5;font-size:.6em}
-.countdown .note{font-family:var(--font-mono);font-size:10.5px;color:var(--inverse-on-surface);opacity:.65;margin-top:10px;letter-spacing:.05em}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-headline);
+      letter-spacing: -.02em;
+      line-height: 1.1
+    }
 
-.bid-tape-head{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--primary-container);margin-bottom:12px;font-weight:700;display:flex;justify-content:space-between}
-.bid-tape{display:grid;gap:6px}
-.bid-row{
-  display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;
-  padding:11px 14px;background:rgba(243,240,236,.04);border-radius:var(--r-md);
-  font-family:var(--font-mono);font-size:12px;
-}
-.bid-row.snipe{animation:tickerblink 1.6s ease-out 1;background:rgba(186,26,26,.1)}
-.bid-row .t{color:var(--inverse-on-surface);opacity:.5;font-size:10px;letter-spacing:.05em}
-.bid-row .rid{color:var(--primary-container);font-weight:700;letter-spacing:.04em}
-.bid-row .a{color:#fff;font-weight:700;font-feature-settings:"tnum";text-align:right}
-.bid-row .tag{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mentor);font-weight:700;background:rgba(79,138,107,.15);padding:3px 8px;border-radius:var(--r-pill)}
-.bid-row.snipe .tag{color:var(--error);background:rgba(186,26,26,.18)}
-.bid-row.snipe-protected .tag{color:var(--amber);background:rgba(255,191,0,.12)}
+    .gild {
+      background: var(--sovereign);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
 
-/* ============ SIDEBAR · L-100 leaderboard + Now Playing ============ */
-.side-stack{display:grid;gap:18px}
-.side-card{
-  background:var(--sc-lowest);border-radius:var(--r-2xl);
-  padding:24px;box-shadow:var(--editorial);
-}
-.side-card .sc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.side-card .sc-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--primary);text-transform:uppercase;font-weight:700}
-.side-card .sc-q{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);letter-spacing:.1em}
-.side-card h3{font-family:var(--font-display);font-weight:400;font-size:1.35rem;line-height:1.1;letter-spacing:-.02em;margin-bottom:18px}
+    @keyframes livepulse {
 
-.leaderboard{display:grid;gap:6px;font-family:var(--font-mono)}
-.lrow{
-  display:grid;grid-template-columns:24px 1fr auto auto;gap:14px;align-items:center;
-  padding:10px 14px;background:var(--sc-low);border-radius:var(--r-md);
-  font-size:12px;
-}
-.lrow .rk{color:var(--primary);font-weight:700;letter-spacing:.04em}
-.lrow .rid{color:var(--on-surface);font-weight:600;letter-spacing:.04em}
-.lrow .winrate{color:var(--mentor);font-weight:700;font-size:11px}
-.lrow .gmv{color:var(--on-surface-variant);font-size:11px}
-.lrow.top1{background:linear-gradient(135deg,rgba(197,160,89,.12),rgba(197,160,89,.04));position:relative}
-.lrow.top1::before{content:"●";position:absolute;left:-4px;top:50%;transform:translateY(-50%);color:var(--primary-container)}
-.lrow.top1 .rk{color:var(--primary)}
-.lrow.top1 .rid{color:var(--on-surface)}
+      0%,
+      100% {
+        opacity: 1
+      }
 
-.upcoming-list{display:grid;gap:10px}
-.up-row{padding:12px 14px;background:var(--sc-low);border-radius:var(--r-md);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;font-family:var(--font-mono)}
-.up-row .role{font-family:var(--font-headline);font-weight:600;font-size:13px;color:var(--on-surface);letter-spacing:-.01em}
-.up-row .meta{color:var(--on-surface-variant);font-size:10.5px;letter-spacing:.06em;margin-top:3px}
-.up-row .when{font-family:var(--font-mono);font-size:10.5px;font-weight:700;color:var(--primary);letter-spacing:.08em;text-align:right;align-self:start}
-.up-row .when small{display:block;color:var(--on-surface-variant);font-weight:400;margin-top:3px;letter-spacing:.04em}
+      50% {
+        opacity: .35
+      }
+    }
 
-/* ============ STATS STRIP ============ */
-.stats-strip{
-  padding:40px 32px;
-  max-width:1440px;margin:0 auto;
-}
-.stats-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
-}
-@media(max-width:780px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
-.stat-tile{
-  background:var(--sc-lowest);border-radius:var(--r-xl);
-  padding:24px;box-shadow:var(--editorial);
-  position:relative;
-}
-.stat-tile .l{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;margin-bottom:10px}
-.stat-tile .v{font-family:var(--font-display);font-weight:500;font-size:clamp(1.8rem,3vw,2.4rem);line-height:1;letter-spacing:-.025em;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat-tile .delta{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--mentor);margin-top:8px;letter-spacing:.04em}
+    @keyframes tickerblink {
 
-/* ============ RECENT BATTLES TABLE ============ */
-.archive{padding:80px 32px;max-width:1440px;margin:0 auto}
-.archive-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
-.archive-head h2{font-family:var(--font-display);font-weight:400;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.1;letter-spacing:-.022em;max-width:24ch}
-.archive-head h2 em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
-.archive-head h2 .gild{font-style:italic;font-weight:500}
-.archive-table{
-  width:100%;border-collapse:collapse;
-  background:var(--sc-lowest);border-radius:var(--r-xl);overflow:hidden;
-  box-shadow:var(--editorial);
-}
-.archive-table thead th{
-  text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--on-surface-variant);font-weight:600;
-  padding:14px 18px;background:var(--sc-low);border-bottom:1px solid var(--sc-high);
-}
-.archive-table td{padding:14px 18px;border-bottom:1px solid var(--sc-high);font-size:13.5px;vertical-align:middle}
-.archive-table tr:last-child td{border-bottom:none}
-.archive-table tr:hover td{background:var(--sc-low)}
-.archive-table td.id{font-family:var(--font-mono);color:var(--primary);font-weight:700;font-size:11.5px;letter-spacing:.04em}
-.archive-table td.role{font-family:var(--font-headline);font-weight:600;letter-spacing:-.01em}
-.archive-table td.role small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);font-weight:400;margin-top:3px;letter-spacing:.04em}
-.archive-table td.amt{font-family:var(--font-mono);font-weight:700;text-align:right;font-feature-settings:"tnum"}
-.archive-table td.win{font-family:var(--font-mono);font-size:11.5px;color:var(--primary);font-weight:700;letter-spacing:.04em}
-.archive-table td.dur{font-family:var(--font-mono);font-size:11.5px;color:var(--on-surface-variant);text-align:right}
-.archive-table .replay{padding:5px 12px;border-radius:var(--r-pill);background:var(--sc-low);color:var(--on-surface);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-block;transition:background .2s}
-.archive-table .replay:hover{background:var(--primary);color:#fff}
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(186, 26, 26, .4)
+      }
 
-/* ============ RULES / EXPLAINER ============ */
-.rules-band{padding:100px 32px;background:var(--sc-low);max-width:none;margin:0}
-.rules-inner{max-width:1280px;margin:0 auto}
-.rules-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
-@media(max-width:880px){.rules-grid{grid-template-columns:1fr}}
-.rules-grid h2{font-family:var(--font-display);font-weight:400;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1.05;letter-spacing:-.025em;max-width:20ch;margin-bottom:16px}
-.rules-grid h2 em{font-style:italic;color:var(--on-surface-variant);font-weight:300}
-.rules-grid h2 .gild{font-style:italic;font-weight:500}
-.rules-grid .lede{font-size:15px;color:var(--on-surface-variant);line-height:1.6;max-width:46ch;margin-bottom:14px}
-.rules-grid .pat-cite{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;color:var(--primary);font-weight:700;text-transform:uppercase;padding:4px 10px;background:rgba(197,160,89,.12);border-radius:var(--r-pill);display:inline-block}
-.rules-steps{display:grid;gap:14px}
-.rstep{display:grid;grid-template-columns:64px 1fr;gap:18px;background:var(--sc-lowest);padding:24px;border-radius:var(--r-xl);box-shadow:var(--editorial)}
-.rstep .num{font-family:var(--font-display);font-weight:300;font-size:2.4rem;line-height:1;letter-spacing:-.03em;background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.rstep h4{font-family:var(--font-headline);font-weight:700;font-size:15px;letter-spacing:-.01em;margin-bottom:6px}
-.rstep p{font-size:13.5px;line-height:1.55;color:var(--on-surface-variant)}
+      50% {
+        box-shadow: 0 0 0 6px rgba(186, 26, 26, 0)
+      }
+    }
 
-/* ============ CLOSING / JOIN ============ */
-.closing{
-  background:var(--inverse-surface);color:var(--inverse-on-surface);
-  padding:120px 32px;position:relative;overflow:hidden;
-}
-.closing::before{
-  content:"";position:absolute;top:-30%;right:-15%;
-  width:520px;height:520px;
-  background:radial-gradient(circle,rgba(197,160,89,.18),transparent 65%);
-  pointer-events:none;
-}
-.closing-inner{max-width:1280px;margin:0 auto;position:relative}
-.closing .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--primary-container);margin-bottom:24px;font-weight:700}
-.closing h2{font-family:var(--font-display);font-weight:300;font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.04;letter-spacing:-.025em;max-width:22ch;margin-bottom:24px}
-.closing h2 em{font-style:italic;color:var(--primary-container);opacity:.85}
-.closing h2 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:500}
-.closing p.lede{font-size:1.05rem;line-height:1.55;color:var(--inverse-on-surface);opacity:.85;max-width:54ch;margin-bottom:36px}
-.closing .closing-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
-.cta-gild{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:16px 32px;border-radius:var(--r-pill);
-  background:var(--sovereign);color:#fff;
-  font-family:var(--font-headline);font-weight:600;font-size:14px;
-  text-decoration:none;letter-spacing:.01em;
-  box-shadow:0 8px 32px rgba(197,160,89,.32);
-}
-.cta-line{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:16px 32px;border-radius:var(--r-pill);
-  background:transparent;color:var(--inverse-on-surface);
-  font-family:var(--font-headline);font-weight:500;font-size:14px;
-  text-decoration:none;letter-spacing:.01em;
-  border:1px solid rgba(243,240,236,.2);
-}
-.cta-line:hover{background:rgba(243,240,236,.05)}
+    /* ============ NAV ============ */
+    nav.top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 32px;
+      background: rgba(252, 249, 245, .78);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--sc-high);
+    }
 
-/* ============ FOOTER ============ */
-.site-foot{
-  padding:40px 32px;background:var(--inverse-surface);color:var(--inverse-on-surface);
-  border-top:1px solid rgba(243,240,236,.12);
-  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;
-}
-.site-foot a{color:var(--inverse-on-surface);opacity:.65;text-decoration:none;transition:opacity .2s}
-.site-foot a:hover{opacity:1}
-.site-foot .copy{opacity:.5}
+    [data-theme="dark"] nav.top {
+      background: rgba(15, 15, 14, .78)
+    }
 
-/* ============ THEME TOGGLE ============ */
-.themebtn{position:fixed;bottom:24px;right:24px;z-index:55;background:var(--sc-lowest);box-shadow:0 8px 32px rgba(28,28,26,.12);border:none;cursor:pointer;border-radius:var(--r-pill);padding:11px 18px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface);font-weight:700;letter-spacing:.04em}
-</style>
+    nav.top .lockup {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -.02em;
+      text-decoration: none;
+      color: var(--on-surface)
+    }
+
+    nav.top .lockup .dot {
+      color: var(--primary-container)
+    }
+
+    nav.top .lockup .sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--on-surface-variant);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: block;
+      font-weight: 400;
+      margin-top: 2px
+    }
+
+    nav.top .links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      font-size: 13px
+    }
+
+    nav.top .links a {
+      color: var(--on-surface);
+      opacity: .75;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity .2s, color .2s
+    }
+
+    nav.top .links a:hover {
+      opacity: 1;
+      color: var(--primary)
+    }
+
+    nav.top .live-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--error);
+      padding: 5px 11px;
+      border-radius: var(--r-pill);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav.top .live-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      animation: livepulse 1.4s ease-in-out infinite
+    }
+
+    nav.top .nav-cta {
+      padding: 8px 16px;
+      border-radius: var(--r-pill);
+      background: var(--sovereign);
+      color: #fff;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 12.5px;
+      text-decoration: none;
+      letter-spacing: .01em;
+      box-shadow: 0 4px 16px rgba(197, 160, 89, .25);
+    }
+
+    nav.top .right {
+      display: flex;
+      gap: 14px;
+      align-items: center
+    }
+
+    @media(max-width:780px) {
+      nav.top {
+        padding: 12px 20px
+      }
+
+      nav.top .links {
+        display: none
+      }
+    }
+
+    /* ============ HERO / BROADCAST STAGE ============ */
+    .broadcast {
+      padding: 100px 32px 60px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .broadcast-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 32px
+    }
+
+    .broadcast-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.025em;
+      max-width: 18ch
+    }
+
+    .broadcast-title em {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-weight: 300
+    }
+
+    .broadcast-title .gild {
+      font-style: italic;
+      font-weight: 500
+    }
+
+    .broadcast-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .14em;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      text-align: right;
+      line-height: 1.7
+    }
+
+    .broadcast-meta strong {
+      color: var(--on-surface);
+      font-weight: 700;
+      display: block;
+      font-size: 13px;
+      letter-spacing: .06em
+    }
+
+    /* ============ MAIN BROADCAST GRID ============ */
+    .stage {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 18px;
+    }
+
+    @media(max-width:980px) {
+      .stage {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* ============ LIVE AUCTION CARD ============ */
+    .auction {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      border-radius: var(--r-2xl);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--ambient);
+    }
+
+    .auction-head {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(243, 240, 236, .1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .auction-head .a-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      color: var(--primary-container);
+      font-weight: 700
+    }
+
+    .auction-head .a-live {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      background: var(--error);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .auction-head .a-live .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      animation: livepulse 1.2s ease-in-out infinite
+    }
+
+    .auction-body {
+      padding: 32px 28px;
+    }
+
+    .lot-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: 10px;
+      font-weight: 700
+    }
+
+    .lot-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 12px
+    }
+
+    .lot-meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      color: var(--inverse-on-surface);
+      opacity: .7;
+      margin-bottom: 24px
+    }
+
+    .lot-meta span {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center
+    }
+
+    .lot-meta strong {
+      color: var(--primary-container);
+      font-weight: 700
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      padding: 24px;
+      background: rgba(243, 240, 236, .04);
+      border-radius: var(--r-xl);
+      margin-bottom: 24px;
+    }
+
+    @media(max-width:580px) {
+      .scoreboard {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .bid-current {}
+
+    .bid-current .lbl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      font-weight: 700;
+      margin-bottom: 10px
+    }
+
+    .bid-current .v {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2.6rem, 5vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.02em;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 8px
+    }
+
+    .bid-current .v .delta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--mentor);
+      letter-spacing: .06em
+    }
+
+    .bid-current .by {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--inverse-on-surface);
+      opacity: .65;
+      margin-top: 10px;
+      letter-spacing: .06em
+    }
+
+    .bid-current .by .rid {
+      color: var(--primary-container);
+      font-weight: 700
+    }
+
+    .countdown {}
+
+    .countdown .lbl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .countdown .lbl::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: livepulse 1s ease-in-out infinite
+    }
+
+    .countdown .clock {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      letter-spacing: .02em;
+      color: #fff;
+      display: flex;
+      gap: 6px;
+      align-items: baseline
+    }
+
+    .countdown .clock .sep {
+      color: var(--amber)
+    }
+
+    .countdown .clock .ms {
+      color: var(--inverse-on-surface);
+      opacity: .5;
+      font-size: .6em
+    }
+
+    .countdown .note {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--inverse-on-surface);
+      opacity: .65;
+      margin-top: 10px;
+      letter-spacing: .05em
+    }
+
+    .bid-tape-head {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: 12px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .bid-tape {
+      display: grid;
+      gap: 6px
+    }
+
+    .bid-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+      padding: 11px 14px;
+      background: rgba(243, 240, 236, .04);
+      border-radius: var(--r-md);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .bid-row.snipe {
+      animation: tickerblink 1.6s ease-out 1;
+      background: rgba(186, 26, 26, .1)
+    }
+
+    .bid-row .t {
+      color: var(--inverse-on-surface);
+      opacity: .5;
+      font-size: 10px;
+      letter-spacing: .05em
+    }
+
+    .bid-row .rid {
+      color: var(--primary-container);
+      font-weight: 700;
+      letter-spacing: .04em
+    }
+
+    .bid-row .a {
+      color: #fff;
+      font-weight: 700;
+      font-feature-settings: "tnum";
+      text-align: right
+    }
+
+    .bid-row .tag {
+      font-size: 9.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mentor);
+      font-weight: 700;
+      background: rgba(79, 138, 107, .15);
+      padding: 3px 8px;
+      border-radius: var(--r-pill)
+    }
+
+    .bid-row.snipe .tag {
+      color: var(--error);
+      background: rgba(186, 26, 26, .18)
+    }
+
+    .bid-row.snipe-protected .tag {
+      color: var(--amber);
+      background: rgba(255, 191, 0, .12)
+    }
+
+    /* ============ SIDEBAR · L-100 leaderboard + Now Playing ============ */
+    .side-stack {
+      display: grid;
+      gap: 18px
+    }
+
+    .side-card {
+      background: var(--sc-lowest);
+      border-radius: var(--r-2xl);
+      padding: 24px;
+      box-shadow: var(--editorial);
+    }
+
+    .side-card .sc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px
+    }
+
+    .side-card .sc-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 700
+    }
+
+    .side-card .sc-q {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--on-surface-variant);
+      letter-spacing: .1em
+    }
+
+    .side-card h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.35rem;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 18px
+    }
+
+    .leaderboard {
+      display: grid;
+      gap: 6px;
+      font-family: var(--font-mono)
+    }
+
+    .lrow {
+      display: grid;
+      grid-template-columns: 24px 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--sc-low);
+      border-radius: var(--r-md);
+      font-size: 12px;
+    }
+
+    .lrow .rk {
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: .04em
+    }
+
+    .lrow .rid {
+      color: var(--on-surface);
+      font-weight: 600;
+      letter-spacing: .04em
+    }
+
+    .lrow .winrate {
+      color: var(--mentor);
+      font-weight: 700;
+      font-size: 11px
+    }
+
+    .lrow .gmv {
+      color: var(--on-surface-variant);
+      font-size: 11px
+    }
+
+    .lrow.top1 {
+      background: linear-gradient(135deg, rgba(197, 160, 89, .12), rgba(197, 160, 89, .04));
+      position: relative
+    }
+
+    .lrow.top1::before {
+      content: "●";
+      position: absolute;
+      left: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-container)
+    }
+
+    .lrow.top1 .rk {
+      color: var(--primary)
+    }
+
+    .lrow.top1 .rid {
+      color: var(--on-surface)
+    }
+
+    .upcoming-list {
+      display: grid;
+      gap: 10px
+    }
+
+    .up-row {
+      padding: 12px 14px;
+      background: var(--sc-low);
+      border-radius: var(--r-md);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12.5px;
+      font-family: var(--font-mono)
+    }
+
+    .up-row .role {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--on-surface);
+      letter-spacing: -.01em
+    }
+
+    .up-row .meta {
+      color: var(--on-surface-variant);
+      font-size: 10.5px;
+      letter-spacing: .06em;
+      margin-top: 3px
+    }
+
+    .up-row .when {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: .08em;
+      text-align: right;
+      align-self: start
+    }
+
+    .up-row .when small {
+      display: block;
+      color: var(--on-surface-variant);
+      font-weight: 400;
+      margin-top: 3px;
+      letter-spacing: .04em
+    }
+
+    /* ============ STATS STRIP ============ */
+    .stats-strip {
+      padding: 40px 32px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    @media(max-width:780px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .stat-tile {
+      background: var(--sc-lowest);
+      border-radius: var(--r-xl);
+      padding: 24px;
+      box-shadow: var(--editorial);
+      position: relative;
+    }
+
+    .stat-tile .l {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+      margin-bottom: 10px
+    }
+
+    .stat-tile .v {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1;
+      letter-spacing: -.025em;
+      background: var(--sovereign);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .stat-tile .delta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mentor);
+      margin-top: 8px;
+      letter-spacing: .04em
+    }
+
+    /* ============ RECENT BATTLES TABLE ============ */
+    .archive {
+      padding: 80px 32px;
+      max-width: 1440px;
+      margin: 0 auto
+    }
+
+    .archive-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 28px
+    }
+
+    .archive-head h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -.022em;
+      max-width: 24ch
+    }
+
+    .archive-head h2 em {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-weight: 300
+    }
+
+    .archive-head h2 .gild {
+      font-style: italic;
+      font-weight: 500
+    }
+
+    .archive-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--sc-lowest);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--editorial);
+    }
+
+    .archive-table thead th {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      font-weight: 600;
+      padding: 14px 18px;
+      background: var(--sc-low);
+      border-bottom: 1px solid var(--sc-high);
+    }
+
+    .archive-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--sc-high);
+      font-size: 13.5px;
+      vertical-align: middle
+    }
+
+    .archive-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .archive-table tr:hover td {
+      background: var(--sc-low)
+    }
+
+    .archive-table td.id {
+      font-family: var(--font-mono);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 11.5px;
+      letter-spacing: .04em
+    }
+
+    .archive-table td.role {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: -.01em
+    }
+
+    .archive-table td.role small {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--on-surface-variant);
+      font-weight: 400;
+      margin-top: 3px;
+      letter-spacing: .04em
+    }
+
+    .archive-table td.amt {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-align: right;
+      font-feature-settings: "tnum"
+    }
+
+    .archive-table td.win {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: .04em
+    }
+
+    .archive-table td.dur {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--on-surface-variant);
+      text-align: right
+    }
+
+    .archive-table .replay {
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      background: var(--sc-low);
+      color: var(--on-surface);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s
+    }
+
+    .archive-table .replay:hover {
+      background: var(--primary);
+      color: #fff
+    }
+
+    /* ============ RULES / EXPLAINER ============ */
+    .rules-band {
+      padding: 100px 32px;
+      background: var(--sc-low);
+      max-width: none;
+      margin: 0
+    }
+
+    .rules-inner {
+      max-width: 1280px;
+      margin: 0 auto
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: start
+    }
+
+    @media(max-width:880px) {
+      .rules-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .rules-grid h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+      max-width: 20ch;
+      margin-bottom: 16px
+    }
+
+    .rules-grid h2 em {
+      font-style: italic;
+      color: var(--on-surface-variant);
+      font-weight: 300
+    }
+
+    .rules-grid h2 .gild {
+      font-style: italic;
+      font-weight: 500
+    }
+
+    .rules-grid .lede {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+      max-width: 46ch;
+      margin-bottom: 14px
+    }
+
+    .rules-grid .pat-cite {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(197, 160, 89, .12);
+      border-radius: var(--r-pill);
+      display: inline-block
+    }
+
+    .rules-steps {
+      display: grid;
+      gap: 14px
+    }
+
+    .rstep {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      background: var(--sc-lowest);
+      padding: 24px;
+      border-radius: var(--r-xl);
+      box-shadow: var(--editorial)
+    }
+
+    .rstep .num {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 2.4rem;
+      line-height: 1;
+      letter-spacing: -.03em;
+      background: var(--sovereign);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .rstep h4 {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -.01em;
+      margin-bottom: 6px
+    }
+
+    .rstep p {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--on-surface-variant)
+    }
+
+    /* ============ CLOSING / JOIN ============ */
+    .closing {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      padding: 120px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .closing::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(197, 160, 89, .18), transparent 65%);
+      pointer-events: none;
+    }
+
+    .closing-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative
+    }
+
+    .closing .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--primary-container);
+      margin-bottom: 24px;
+      font-weight: 700
+    }
+
+    .closing h2 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      line-height: 1.04;
+      letter-spacing: -.025em;
+      max-width: 22ch;
+      margin-bottom: 24px
+    }
+
+    .closing h2 em {
+      font-style: italic;
+      color: var(--primary-container);
+      opacity: .85
+    }
+
+    .closing h2 .gild {
+      background: var(--sovereign);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: italic;
+      font-weight: 500
+    }
+
+    .closing p.lede {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--inverse-on-surface);
+      opacity: .85;
+      max-width: 54ch;
+      margin-bottom: 36px
+    }
+
+    .closing .closing-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px
+    }
+
+    .cta-gild {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--r-pill);
+      background: var(--sovereign);
+      color: #fff;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      letter-spacing: .01em;
+      box-shadow: 0 8px 32px rgba(197, 160, 89, .32);
+    }
+
+    .cta-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--r-pill);
+      background: transparent;
+      color: var(--inverse-on-surface);
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: 14px;
+      text-decoration: none;
+      letter-spacing: .01em;
+      border: 1px solid rgba(243, 240, 236, .2);
+    }
+
+    .cta-line:hover {
+      background: rgba(243, 240, 236, .05)
+    }
+
+    /* ============ FOOTER ============ */
+    .site-foot {
+      padding: 40px 32px;
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      border-top: 1px solid rgba(243, 240, 236, .12);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .site-foot a {
+      color: var(--inverse-on-surface);
+      opacity: .65;
+      text-decoration: none;
+      transition: opacity .2s
+    }
+
+    .site-foot a:hover {
+      opacity: 1
+    }
+
+    .site-foot .copy {
+      opacity: .5
+    }
+
+    /* ============ THEME TOGGLE ============ */
+    .themebtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 55;
+      background: var(--sc-lowest);
+      box-shadow: 0 8px 32px rgba(28, 28, 26, .12);
+      border: none;
+      cursor: pointer;
+      border-radius: var(--r-pill);
+      padding: 11px 18px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--on-surface);
+      font-weight: 700;
+      letter-spacing: .04em
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ============ NAV ============ -->
-<nav class="top">
-  <a class="lockup" href="index.html">
-    Tenured AI<span class="dot">.</span>
-    <span class="sub">The Recruiter Battle</span>
-  </a>
-  <div class="links">
-    <a href="index.html">Platform</a>
-    <a href="manifesto.html">Manifesto</a>
-    <a href="l200.html">L-200 League</a>
-    <a href="#archive">Archive</a>
-  </div>
-  <div class="right">
-    <div class="live-badge"><span class="dot"></span>Live</div>
-    <a href="#join" class="nav-cta">Claim a seat →</a>
-  </div>
-</nav>
-
-<main>
-
-<!-- ============ BROADCAST STAGE ============ -->
-<section class="broadcast">
-  <div class="broadcast-header">
-    <h1 class="broadcast-title">The <span class="gild">Recruiter Battle.</span> <em>Live.</em></h1>
-    <div class="broadcast-meta">
-      <strong>B-300 · Auction Protocol</strong>
-      Snipe-protected escrowed talent auction<br>
-      Patent · PAT-014 · USPTO filed
+  <!-- ============ NAV ============ -->
+  <nav class="top">
+    <a class="lockup" href="index.html">
+      Tenured AI<span class="dot">.</span>
+      <span class="sub">The Recruiter Battle</span>
+    </a>
+    <div class="links">
+      <a href="index.html">Platform</a>
+      <a href="manifesto.html">Manifesto</a>
+      <a href="l200.html">League League</a>
+      <a href="#archive">Archive</a>
     </div>
-  </div>
-
-  <div class="stage">
-    <!-- LEFT: live auction -->
-    <div class="auction">
-      <div class="auction-head">
-        <span class="a-id">B-300 · 00094 · NYC-Finance</span>
-        <span class="a-live"><span class="dot"></span>Auction live</span>
-      </div>
-      <div class="auction-body">
-        <div class="lot-tag">Lot 094 · Senior Quantitative Forecasting Engineer</div>
-        <h2 class="lot-title">Triple-89 verified · <span class="gild">NYC-Finance</span> · 14yr senior · OL-clean</h2>
-        <div class="lot-meta">
-          <span>AICI <strong>91</strong></span>
-          <span>AIOI <strong>88</strong></span>
-          <span>AIBS <strong>89</strong></span>
-          <span>OSD <strong>0.74</strong></span>
-          <span>Genesis · <strong>Columbia</strong></span>
-        </div>
-
-        <div class="scoreboard">
-          <div class="bid-current">
-            <div class="lbl">Current bid · placement value</div>
-            <div class="v">$348K <span class="delta">▲ +$22K</span></div>
-            <div class="by">by <span class="rid">R-0027 · Tate &amp; Howell</span> · 11s ago</div>
-          </div>
-          <div class="countdown">
-            <div class="lbl">Snipe window closes</div>
-            <div class="clock" id="clock"><span>00</span><span class="sep">:</span><span>14</span><span class="sep">:</span><span>32</span><span class="ms">.412</span></div>
-            <div class="note">Anti-snipe extension · +120s per terminal bid</div>
-          </div>
-        </div>
-
-        <div class="bid-tape-head">
-          <span>Bid tape · last 8 events</span>
-          <span style="opacity:.5">PAT-014</span>
-        </div>
-        <div class="bid-tape">
-          <div class="bid-row snipe">
-            <span class="t">14s</span>
-            <span class="rid">R-0027 · Tate &amp; Howell</span>
-            <span class="a">$348,000</span>
-            <span class="tag">Snipe</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">38s</span>
-            <span class="rid">R-0019 · Bennett Search</span>
-            <span class="a">$326,000</span>
-            <span class="tag">Standard</span>
-          </div>
-          <div class="bid-row snipe-protected">
-            <span class="t">1m 12s</span>
-            <span class="rid">R-0011 · Aerie Talent</span>
-            <span class="a">$312,000</span>
-            <span class="tag">Protected</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">1m 47s</span>
-            <span class="rid">R-0034 · Greybrook</span>
-            <span class="a">$298,000</span>
-            <span class="tag">Standard</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">2m 18s</span>
-            <span class="rid">R-0027 · Tate &amp; Howell</span>
-            <span class="a">$284,000</span>
-            <span class="tag">Standard</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">3m 02s</span>
-            <span class="rid">R-0019 · Bennett Search</span>
-            <span class="a">$272,000</span>
-            <span class="tag">Standard</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">3m 41s</span>
-            <span class="rid">R-0008 · Houghton</span>
-            <span class="a">$258,000</span>
-            <span class="tag">Standard</span>
-          </div>
-          <div class="bid-row">
-            <span class="t">4m 28s</span>
-            <span class="rid">R-0011 · Aerie Talent</span>
-            <span class="a">$245,000</span>
-            <span class="tag">Opening</span>
-          </div>
-        </div>
-      </div>
+    <div class="right">
+      <div class="live-badge"><span class="dot"></span>Live</div>
+      <a href="#join" class="nav-cta">Claim a seat →</a>
     </div>
+  </nav>
 
-    <!-- RIGHT: side stack -->
-    <div class="side-stack">
-      <!-- L-100 leaderboard -->
-      <div class="side-card">
-        <div class="sc-head">
-          <span class="sc-eyebrow">§ L-100 · Verified Recruiter League</span>
-          <span class="sc-q">Q2 2026</span>
-        </div>
-        <h3>This quarter's <span class="gild">top settlements.</span></h3>
-        <div class="leaderboard">
-          <div class="lrow top1">
-            <span class="rk">01</span>
-            <span class="rid">R-0027 · Tate &amp; Howell</span>
-            <span class="winrate">88%</span>
-            <span class="gmv">$2.84M GMV</span>
-          </div>
-          <div class="lrow">
-            <span class="rk">02</span>
-            <span class="rid">R-0019 · Bennett Search</span>
-            <span class="winrate">81%</span>
-            <span class="gmv">$2.21M GMV</span>
-          </div>
-          <div class="lrow">
-            <span class="rk">03</span>
-            <span class="rid">R-0011 · Aerie Talent</span>
-            <span class="winrate">79%</span>
-            <span class="gmv">$1.96M GMV</span>
-          </div>
-          <div class="lrow">
-            <span class="rk">04</span>
-            <span class="rid">R-0034 · Greybrook</span>
-            <span class="winrate">74%</span>
-            <span class="gmv">$1.74M GMV</span>
-          </div>
-          <div class="lrow">
-            <span class="rk">05</span>
-            <span class="rid">R-0042 · Northbridge</span>
-            <span class="winrate">71%</span>
-            <span class="gmv">$1.56M GMV</span>
-          </div>
-          <div class="lrow">
-            <span class="rk">06</span>
-            <span class="rid">R-0008 · Houghton</span>
-            <span class="winrate">68%</span>
-            <span class="gmv">$1.42M GMV</span>
-          </div>
+  <main>
+
+    <!-- ============ BROADCAST STAGE ============ -->
+    <section class="broadcast">
+      <div class="broadcast-header">
+        <h1 class="broadcast-title">The <span class="gild">Recruiter Battle.</span> <em>Live.</em></h1>
+        <div class="broadcast-meta">
+          <strong>B-300 · Auction Protocol</strong>
+          Snipe-protected escrowed talent auction<br>
+          Patent · PAT-014 · USPTO filed
         </div>
       </div>
 
-      <!-- Upcoming battles -->
-      <div class="side-card">
-        <div class="sc-head">
-          <span class="sc-eyebrow">§ Upcoming · Next 24h</span>
-          <span class="sc-q">5 scheduled</span>
+      <div class="stage">
+        <!-- LEFT: live auction -->
+        <div class="auction">
+          <div class="auction-head">
+            <span class="a-id">B-300 · 00094 · NYC-Finance</span>
+            <span class="a-live"><span class="dot"></span>Auction live</span>
+          </div>
+          <div class="auction-body">
+            <div class="lot-tag">Lot 094 · Senior Quantitative Forecasting Engineer</div>
+            <h2 class="lot-title">Triple-89 verified · <span class="gild">NYC-Finance</span> · 14yr senior · OL-clean
+            </h2>
+            <div class="lot-meta">
+              <span>AICI <strong>91</strong></span>
+              <span>AIOI <strong>88</strong></span>
+              <span>AIBS <strong>89</strong></span>
+              <span>OSD <strong>0.74</strong></span>
+              <span>Genesis · <strong>Columbia</strong></span>
+            </div>
+
+            <div class="scoreboard">
+              <div class="bid-current">
+                <div class="lbl">Current bid · placement value</div>
+                <div class="v">$348K <span class="delta">▲ +$22K</span></div>
+                <div class="by">by <span class="rid">R-0027 · Tate &amp; Howell</span> · 11s ago</div>
+              </div>
+              <div class="countdown">
+                <div class="lbl">Snipe window closes</div>
+                <div class="clock" id="clock"><span>00</span><span class="sep">:</span><span>14</span><span
+                    class="sep">:</span><span>32</span><span class="ms">.412</span></div>
+                <div class="note">Anti-snipe extension · +120s per terminal bid</div>
+              </div>
+            </div>
+
+            <div class="bid-tape-head">
+              <span>Bid tape · last 8 events</span>
+              <span style="opacity:.5">PAT-014</span>
+            </div>
+            <div class="bid-tape">
+              <div class="bid-row snipe">
+                <span class="t">14s</span>
+                <span class="rid">R-0027 · Tate &amp; Howell</span>
+                <span class="a">$348,000</span>
+                <span class="tag">Snipe</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">38s</span>
+                <span class="rid">R-0019 · Bennett Search</span>
+                <span class="a">$326,000</span>
+                <span class="tag">Standard</span>
+              </div>
+              <div class="bid-row snipe-protected">
+                <span class="t">1m 12s</span>
+                <span class="rid">R-0011 · Aerie Talent</span>
+                <span class="a">$312,000</span>
+                <span class="tag">Protected</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">1m 47s</span>
+                <span class="rid">R-0034 · Greybrook</span>
+                <span class="a">$298,000</span>
+                <span class="tag">Standard</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">2m 18s</span>
+                <span class="rid">R-0027 · Tate &amp; Howell</span>
+                <span class="a">$284,000</span>
+                <span class="tag">Standard</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">3m 02s</span>
+                <span class="rid">R-0019 · Bennett Search</span>
+                <span class="a">$272,000</span>
+                <span class="tag">Standard</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">3m 41s</span>
+                <span class="rid">R-0008 · Houghton</span>
+                <span class="a">$258,000</span>
+                <span class="tag">Standard</span>
+              </div>
+              <div class="bid-row">
+                <span class="t">4m 28s</span>
+                <span class="rid">R-0011 · Aerie Talent</span>
+                <span class="a">$245,000</span>
+                <span class="tag">Opening</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h3>Next on the <em>auction floor.</em></h3>
-        <div class="upcoming-list">
-          <div class="up-row">
-            <div>
-              <div class="role">Sr ML Infrastructure Engineer</div>
-              <div class="meta">Houston-Energy · AICI 87 · OSD 0.81</div>
+
+        <!-- RIGHT: side stack -->
+        <div class="side-stack">
+          <!-- L-100 leaderboard -->
+          <div class="side-card">
+            <div class="sc-head">
+              <span class="sc-eyebrow">§ L-100 · Verified Recruiter League</span>
+              <span class="sc-q">Q2 2026</span>
             </div>
-            <div class="when">02:14:00<small>in 2h 14m</small></div>
+            <h3>This quarter's <span class="gild">top settlements.</span></h3>
+            <div class="leaderboard">
+              <div class="lrow top1">
+                <span class="rk">01</span>
+                <span class="rid">R-0027 · Tate &amp; Howell</span>
+                <span class="winrate">88%</span>
+                <span class="gmv">$2.84M GMV</span>
+              </div>
+              <div class="lrow">
+                <span class="rk">02</span>
+                <span class="rid">R-0019 · Bennett Search</span>
+                <span class="winrate">81%</span>
+                <span class="gmv">$2.21M GMV</span>
+              </div>
+              <div class="lrow">
+                <span class="rk">03</span>
+                <span class="rid">R-0011 · Aerie Talent</span>
+                <span class="winrate">79%</span>
+                <span class="gmv">$1.96M GMV</span>
+              </div>
+              <div class="lrow">
+                <span class="rk">04</span>
+                <span class="rid">R-0034 · Greybrook</span>
+                <span class="winrate">74%</span>
+                <span class="gmv">$1.74M GMV</span>
+              </div>
+              <div class="lrow">
+                <span class="rk">05</span>
+                <span class="rid">R-0042 · Northbridge</span>
+                <span class="winrate">71%</span>
+                <span class="gmv">$1.56M GMV</span>
+              </div>
+              <div class="lrow">
+                <span class="rk">06</span>
+                <span class="rid">R-0008 · Houghton</span>
+                <span class="winrate">68%</span>
+                <span class="gmv">$1.42M GMV</span>
+              </div>
+            </div>
           </div>
-          <div class="up-row">
-            <div>
-              <div class="role">AI Risk &amp; Compliance Lead</div>
-              <div class="meta">NYC-Finance · AICI 92 · OL Clean</div>
+
+          <!-- Upcoming battles -->
+          <div class="side-card">
+            <div class="sc-head">
+              <span class="sc-eyebrow">§ Upcoming · Next 24h</span>
+              <span class="sc-q">5 scheduled</span>
             </div>
-            <div class="when">05:47:00<small>in 5h 47m</small></div>
-          </div>
-          <div class="up-row">
-            <div>
-              <div class="role">Head of Diagnostic AI Validation</div>
-              <div class="meta">Boston-Healthcare · AICI 89 · AIBS 91</div>
+            <h3>Next on the <em>auction floor.</em></h3>
+            <div class="upcoming-list">
+              <div class="up-row">
+                <div>
+                  <div class="role">Sr ML Infrastructure Engineer</div>
+                  <div class="meta">Houston-Energy · AICI 87 · OSD 0.81</div>
+                </div>
+                <div class="when">02:14:00<small>in 2h 14m</small></div>
+              </div>
+              <div class="up-row">
+                <div>
+                  <div class="role">AI Risk &amp; Compliance Lead</div>
+                  <div class="meta">NYC-Finance · AICI 92 · OL Clean</div>
+                </div>
+                <div class="when">05:47:00<small>in 5h 47m</small></div>
+              </div>
+              <div class="up-row">
+                <div>
+                  <div class="role">Head of Diagnostic AI Validation</div>
+                  <div class="meta">Boston-Healthcare · AICI 89 · AIBS 91</div>
+                </div>
+                <div class="when">11:30:00<small>in 11h 30m</small></div>
+              </div>
+              <div class="up-row">
+                <div>
+                  <div class="role">VP Enterprise Agent Architect</div>
+                  <div class="meta">NYC-Finance · AICI 90 · AIOI 94</div>
+                </div>
+                <div class="when">18:15:00<small>in 18h 15m</small></div>
+              </div>
+              <div class="up-row">
+                <div>
+                  <div class="role">Forecast Quant · Senior IC</div>
+                  <div class="meta">Houston-Energy · AICI 86 · OSD 0.77</div>
+                </div>
+                <div class="when">22:00:00<small>tomorrow</small></div>
+              </div>
             </div>
-            <div class="when">11:30:00<small>in 11h 30m</small></div>
-          </div>
-          <div class="up-row">
-            <div>
-              <div class="role">VP Enterprise Agent Architect</div>
-              <div class="meta">NYC-Finance · AICI 90 · AIOI 94</div>
-            </div>
-            <div class="when">18:15:00<small>in 18h 15m</small></div>
-          </div>
-          <div class="up-row">
-            <div>
-              <div class="role">Forecast Quant · Senior IC</div>
-              <div class="meta">Houston-Energy · AICI 86 · OSD 0.77</div>
-            </div>
-            <div class="when">22:00:00<small>tomorrow</small></div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
-<!-- ============ STATS STRIP ============ -->
-<section class="stats-strip">
-  <div class="stats-grid">
-    <div class="stat-tile"><div class="l">Battles · last 90 days</div><div class="v">94</div><div class="delta">▲ +37 vs prior period</div></div>
-    <div class="stat-tile"><div class="l">Avg placement value · senior tier</div><div class="v">$298K</div><div class="delta">▲ +12.4% vs market</div></div>
-    <div class="stat-tile"><div class="l">Median time-to-settle</div><div class="v">11d</div><div class="delta">▼ vs 47d ext search</div></div>
-    <div class="stat-tile"><div class="l">Active verified recruiter seats</div><div class="v">218</div><div class="delta">▲ I-100 cohort 64% claimed</div></div>
-  </div>
-</section>
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip">
+      <div class="stats-grid">
+        <div class="stat-tile">
+          <div class="l">Battles · last 90 days</div>
+          <div class="v">94</div>
+          <div class="delta">▲ +37 vs prior period</div>
+        </div>
+        <div class="stat-tile">
+          <div class="l">Avg placement value · senior tier</div>
+          <div class="v">$298K</div>
+          <div class="delta">▲ +12.4% vs market</div>
+        </div>
+        <div class="stat-tile">
+          <div class="l">Median time-to-settle</div>
+          <div class="v">11d</div>
+          <div class="delta">▼ vs 47d ext search</div>
+        </div>
+        <div class="stat-tile">
+          <div class="l">Active verified recruiter seats</div>
+          <div class="v">218</div>
+          <div class="delta">▲ I-100 cohort 64% claimed</div>
+        </div>
+      </div>
+    </section>
 
 
-<!-- ============ ARCHIVE / RECENT BATTLES ============ -->
-<section class="archive" id="archive">
-  <div class="archive-head">
-    <h2>Recent settled battles. <em>Replays </em><span class="gild">on-chain.</span></h2>
-    <a class="cta-line" href="#" style="background:var(--sc-lowest);color:var(--on-surface);border:1px solid var(--sc-high)">View full archive →</a>
-  </div>
-  <table class="archive-table">
-    <thead>
-      <tr><th>Battle</th><th>Role · Corridor</th><th style="text-align:right">Settled</th><th>Winner</th><th style="text-align:right">Duration</th><th>Replay</th></tr>
-    </thead>
-    <tbody>
-      <tr><td class="id">B300-0093</td><td class="role">Sr Forecast Engineer<small>NYC-Finance · AICI 90</small></td><td class="amt">$324,000</td><td class="win">R-0027</td><td class="dur">17m 22s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0092</td><td class="role">AI Compliance Lead<small>NYC-Finance · AICI 88</small></td><td class="amt">$288,000</td><td class="win">R-0019</td><td class="dur">24m 47s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0091</td><td class="role">ML Ops Senior<small>Houston-Energy · AICI 87</small></td><td class="amt">$236,000</td><td class="win">R-0011</td><td class="dur">9m 12s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0090</td><td class="role">Diagnostic AI Validator<small>Boston-Healthcare · AICI 91</small></td><td class="amt">$372,000</td><td class="win">R-0027</td><td class="dur">31m 04s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0089</td><td class="role">VP Agent Architect<small>NYC-Finance · AICI 93</small></td><td class="amt">$418,000</td><td class="win">R-0034</td><td class="dur">22m 51s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0088</td><td class="role">Risk Quant Senior<small>NYC-Finance · AICI 89</small></td><td class="amt">$306,000</td><td class="win">R-0019</td><td class="dur">14m 38s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0087</td><td class="role">Grid Stability ML Lead<small>Houston-Energy · AICI 86</small></td><td class="amt">$252,000</td><td class="win">R-0008</td><td class="dur">19m 02s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-      <tr><td class="id">B300-0086</td><td class="role">Sr Refinery Optimization<small>Houston-Energy · AICI 88</small></td><td class="amt">$268,000</td><td class="win">R-0042</td><td class="dur">26m 11s</td><td><a class="replay" href="#">Replay →</a></td></tr>
-    </tbody>
-  </table>
-</section>
+    <!-- ============ ARCHIVE / RECENT BATTLES ============ -->
+    <section class="archive" id="archive">
+      <div class="archive-head">
+        <h2>Recent settled battles. <em>Replays </em><span class="gild">on-chain.</span></h2>
+        <a class="cta-line" href="#"
+          style="background:var(--sc-lowest);color:var(--on-surface);border:1px solid var(--sc-high)">View full archive
+          →</a>
+      </div>
+      <table class="archive-table">
+        <thead>
+          <tr>
+            <th>Battle</th>
+            <th>Role · Corridor</th>
+            <th style="text-align:right">Settled</th>
+            <th>Winner</th>
+            <th style="text-align:right">Duration</th>
+            <th>Replay</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="id">B300-0093</td>
+            <td class="role">Sr Forecast Engineer<small>NYC-Finance · AICI 90</small></td>
+            <td class="amt">$324,000</td>
+            <td class="win">R-0027</td>
+            <td class="dur">17m 22s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0092</td>
+            <td class="role">AI Compliance Lead<small>NYC-Finance · AICI 88</small></td>
+            <td class="amt">$288,000</td>
+            <td class="win">R-0019</td>
+            <td class="dur">24m 47s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0091</td>
+            <td class="role">ML Ops Senior<small>Houston-Energy · AICI 87</small></td>
+            <td class="amt">$236,000</td>
+            <td class="win">R-0011</td>
+            <td class="dur">9m 12s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0090</td>
+            <td class="role">Diagnostic AI Validator<small>Boston-Healthcare · AICI 91</small></td>
+            <td class="amt">$372,000</td>
+            <td class="win">R-0027</td>
+            <td class="dur">31m 04s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0089</td>
+            <td class="role">VP Agent Architect<small>NYC-Finance · AICI 93</small></td>
+            <td class="amt">$418,000</td>
+            <td class="win">R-0034</td>
+            <td class="dur">22m 51s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0088</td>
+            <td class="role">Risk Quant Senior<small>NYC-Finance · AICI 89</small></td>
+            <td class="amt">$306,000</td>
+            <td class="win">R-0019</td>
+            <td class="dur">14m 38s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0087</td>
+            <td class="role">Grid Stability ML Lead<small>Houston-Energy · AICI 86</small></td>
+            <td class="amt">$252,000</td>
+            <td class="win">R-0008</td>
+            <td class="dur">19m 02s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+          <tr>
+            <td class="id">B300-0086</td>
+            <td class="role">Sr Refinery Optimization<small>Houston-Energy · AICI 88</small></td>
+            <td class="amt">$268,000</td>
+            <td class="win">R-0042</td>
+            <td class="dur">26m 11s</td>
+            <td><a class="replay" href="#">Replay →</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
 
-<!-- ============ RULES / EXPLAINER ============ -->
-<section class="rules-band">
-  <div class="rules-inner">
-    <div class="rules-grid">
+    <!-- ============ RULES / EXPLAINER ============ -->
+    <section class="rules-band">
+      <div class="rules-inner">
+        <div class="rules-grid">
+          <div>
+            <h2>How the <em>B-300 Auction </em><span class="gild">actually works.</span></h2>
+            <p class="lede">The B-300 is a snipe-protected escrowed auction protocol. Only verified Tenured AI recruiter
+              seats can enter. Every bid is escrowed in a smart contract until the battle settles. Anti-snipe windows
+              extend the close by 120 seconds on any terminal bid — preventing last-second sniping while preserving
+              auction tension.</p>
+            <p class="lede">Once settled, the placement is bonded by the Performance Bond product. The winning recruiter
+              is paid out of the settlement value; the platform retains the 40% activation fee split through the
+              standard 40/40/20 settlement; the candidate's alma mater and state Treasury receive their dividends
+              on-chain.</p>
+            <p style="margin-top:18px"><span class="pat-cite">PAT-014 · B-300 Recruiter Battle Auction</span></p>
+          </div>
+          <div class="rules-steps">
+            <div class="rstep">
+              <div class="num">01</div>
+              <div>
+                <h4>Lot opens</h4>
+                <p>Verified recruiter seats receive notification 2 hours before lot open. Lot reveals candidate's
+                  Triple-85 status, corridor, AICI/AIOI/AIBS scores, OL-flag status, and Genesis Institution — but not
+                  identity. Reveal credits cost 2 to enter.</p>
+              </div>
+            </div>
+            <div class="rstep">
+              <div class="num">02</div>
+              <div>
+                <h4>Bids escrow</h4>
+                <p>Each bid is escrowed in the B-300 smart contract until settlement. Bids increment in $4K minimums
+                  against the current high bid. Bid history is public, recruiter identity displayed as anonymized R-XXXX
+                  during the battle.</p>
+              </div>
+            </div>
+            <div class="rstep">
+              <div class="num">03</div>
+              <div>
+                <h4>Anti-snipe protection</h4>
+                <p>Any terminal-window bid (within 120s of close) triggers a 120-second auction extension. This prevents
+                  sub-second sniping while preserving the snipe-as-strategy mechanic — sniping is allowed; sniping the
+                  auction <em>close</em> is not.</p>
+              </div>
+            </div>
+            <div class="rstep">
+              <div class="num">04</div>
+              <div>
+                <h4>Settlement</h4>
+                <p>Winning recruiter's escrow releases against the candidate's reveal. 40/40/20 split executes on-chain.
+                  Performance Bond optionally issues at hiring enterprise election. Battle archived to the Replay
+                  surface for forensic review.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ CLOSING / JOIN ============ -->
+    <section class="closing" id="join">
+      <div class="closing-inner">
+        <div class="eyebrow">§ I-100 Protocol · First 100 verified recruiters · 90-day starter</div>
+        <h2>The first 100 verified recruiters get $24K-equivalent <span class="gild">credit at no charge.</span> <em>64
+            seats claimed.</em></h2>
+        <p class="lede">The I-100 Protocol is the platform's launch cohort for the verified recruiter network. The first
+          100 seats receive a $24K credit pack covering reveal credits and B-300 entries for the first 90 days at no
+          charge — designed to seed network liquidity before the platform reaches steady-state.</p>
+        <div class="closing-ctas">
+          <a class="cta-gild" href="mailto:hello@tenured.ai?subject=I-100%20Recruiter%20Seat">Claim a seat · I-100 →</a>
+          <a class="cta-line" href="index.html">Read the platform →</a>
+          <a class="cta-line" href="manifesto.html">Read the manifesto →</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-foot">
+      <div>Tenured AI · Sovereign Talent Ledger · Houston, TX</div>
       <div>
-        <h2>How the <em>B-300 Auction </em><span class="gild">actually works.</span></h2>
-        <p class="lede">The B-300 is a snipe-protected escrowed auction protocol. Only verified Tenured AI recruiter seats can enter. Every bid is escrowed in a smart contract until the battle settles. Anti-snipe windows extend the close by 120 seconds on any terminal bid — preventing last-second sniping while preserving auction tension.</p>
-        <p class="lede">Once settled, the placement is bonded by the Performance Bond product. The winning recruiter is paid out of the settlement value; the platform retains the 40% activation fee split through the standard 40/40/20 settlement; the candidate's alma mater and state Treasury receive their dividends on-chain.</p>
-        <p style="margin-top:18px"><span class="pat-cite">PAT-014 · B-300 Recruiter Battle Auction</span></p>
+        <a href="index.html">Platform</a> · <a href="manifesto.html">Manifesto</a> · <a href="l200.html">League</a> · <a
+          href="#archive">Archive</a>
       </div>
-      <div class="rules-steps">
-        <div class="rstep">
-          <div class="num">01</div>
-          <div>
-            <h4>Lot opens</h4>
-            <p>Verified recruiter seats receive notification 2 hours before lot open. Lot reveals candidate's Triple-85 status, corridor, AICI/AIOI/AIBS scores, OL-flag status, and Genesis Institution — but not identity. Reveal credits cost 2 to enter.</p>
-          </div>
-        </div>
-        <div class="rstep">
-          <div class="num">02</div>
-          <div>
-            <h4>Bids escrow</h4>
-            <p>Each bid is escrowed in the B-300 smart contract until settlement. Bids increment in $4K minimums against the current high bid. Bid history is public, recruiter identity displayed as anonymized R-XXXX during the battle.</p>
-          </div>
-        </div>
-        <div class="rstep">
-          <div class="num">03</div>
-          <div>
-            <h4>Anti-snipe protection</h4>
-            <p>Any terminal-window bid (within 120s of close) triggers a 120-second auction extension. This prevents sub-second sniping while preserving the snipe-as-strategy mechanic — sniping is allowed; sniping the auction <em>close</em> is not.</p>
-          </div>
-        </div>
-        <div class="rstep">
-          <div class="num">04</div>
-          <div>
-            <h4>Settlement</h4>
-            <p>Winning recruiter's escrow releases against the candidate's reveal. 40/40/20 split executes on-chain. Performance Bond optionally issues at hiring enterprise election. Battle archived to the Replay surface for forensic review.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      <div class="copy">© 2026 Tenured AI, Inc. · PAT-014 USPTO filed · AICI™ AIOI™ AIBS™ federally registered</div>
+    </footer>
 
+  </main>
 
-<!-- ============ CLOSING / JOIN ============ -->
-<section class="closing" id="join">
-  <div class="closing-inner">
-    <div class="eyebrow">§ I-100 Protocol · First 100 verified recruiters · 90-day starter</div>
-    <h2>The first 100 verified recruiters get $24K-equivalent <span class="gild">credit at no charge.</span> <em>64 seats claimed.</em></h2>
-    <p class="lede">The I-100 Protocol is the platform's launch cohort for the verified recruiter network. The first 100 seats receive a $24K credit pack covering reveal credits and B-300 entries for the first 90 days at no charge — designed to seed network liquidity before the platform reaches steady-state.</p>
-    <div class="closing-ctas">
-      <a class="cta-gild" href="mailto:hello@tenured.ai?subject=I-100%20Recruiter%20Seat">Claim a seat · I-100 →</a>
-      <a class="cta-line" href="index.html">Read the platform →</a>
-      <a class="cta-line" href="manifesto.html">Read the manifesto →</a>
-    </div>
-  </div>
-</section>
+  <button class="themebtn"
+    onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐
+    TOGGLE THEME</button>
 
-
-<!-- ============ FOOTER ============ -->
-<footer class="site-foot">
-  <div>Tenured AI · Sovereign Talent Ledger · Houston, TX</div>
-  <div>
-    <a href="index.html">Platform</a> · <a href="manifesto.html">Manifesto</a> · <a href="l200.html">L-200</a> · <a href="#archive">Archive</a>
-  </div>
-  <div class="copy">© 2026 Tenured AI, Inc. · PAT-014 USPTO filed · AICI™ AIOI™ AIBS™ federally registered</div>
-</footer>
-
-</main>
-
-<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
-
-<script>
-  // Live countdown clock - decrements each second
-  (function(){
-    var el = document.getElementById('clock');
-    if(!el) return;
-    var t = 14 * 60 + 32; // 14m 32s
-    setInterval(function(){
-      if(t <= 0){ t = 14*60+32; } // reset for demo
-      t--;
-      var m = Math.floor(t/60);
-      var s = t%60;
-      var ms = Math.floor(Math.random()*900+100);
-      el.innerHTML = '<span>00</span><span class="sep">:</span><span>'+String(m).padStart(2,'0')+'</span><span class="sep">:</span><span>'+String(s).padStart(2,'0')+'</span><span class="ms">.'+ms+'</span>';
-    }, 1000);
-  })();
-</script>
+  <script>
+    // Live countdown clock - decrements each second
+    (function () {
+      var el = document.getElementById('clock');
+      if (!el) return;
+      var t = 14 * 60 + 32; // 14m 32s
+      setInterval(function () {
+        if (t <= 0) { t = 14 * 60 + 32; } // reset for demo
+        t--;
+        var m = Math.floor(t / 60);
+        var s = t % 60;
+        var ms = Math.floor(Math.random() * 900 + 100);
+        el.innerHTML = '<span>00</span><span class="sep">:</span><span>' + String(m).padStart(2, '0') + '</span><span class="sep">:</span><span>' + String(s).padStart(2, '0') + '</span><span class="ms">.' + ms + '</span>';
+      }, 1000);
+    })();
+  </script>
 
 </body>
+
 </html>

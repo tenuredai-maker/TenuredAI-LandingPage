@@ -248,7 +248,7 @@ export default function LearningLoop() {
             ARCHITECTURE SCHEMATIC · LOOP TOPOLOGY
           </div>
           <pre className="text-amber-200/90 font-mono">
-{`                    ┌───────────────────────────────────────────────┐
+            {`                    ┌───────────────────────────────────────────────┐
                     │            L-100 THE FORGE HUB                │
                     │   Daily entry · streak · λ decay alerts        │
                     └───────────────────────┬───────────────────────┘
@@ -256,7 +256,7 @@ export default function LearningLoop() {
                ┌────────────────────────────┼────────────────────────────┐
                ▼                            ▼                            ▼
       ┌─────────────────┐          ┌─────────────────┐          ┌─────────────────┐
-      │  M-301 MODULE   │          │  L-110 / L-120  │          │  L-200 REFRESH  │
+      │  M-301 MODULE   │          │  L-110 / L-120  │          │  League REFRESH  │
       │  HUB (NEW)      │          │  DRILL SURFACES │          │  LABS           │
       │  Text/Video/Aud │          │  Quiz/Flashcard │          │  Node Repair    │
       └────────┬────────┘          └────────┬────────┘          └────────┬────────┘

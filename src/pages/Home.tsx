@@ -885,7 +885,7 @@ export default function Home() {
       <section className="py-24 bg-surface px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core 3— Plus One Special Designation - 4 Scores, One Platform</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 tracking-tight text-on-surface">The Core 3 + One Special Designation</h2>
             <p className="text-on-surface-variant max-w-3xl text-base md:text-lg leading-relaxed">
               The Big 3 core indices plus 1 specialized designation — delivering a complete 360° benchmark of AI competence and operator capability on one unified platform.
             </p>

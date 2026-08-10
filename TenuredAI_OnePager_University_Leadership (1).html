@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tenured AI · University Leadership · Onboarding One-Pager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --surface: #FCF9F5;
+      --sc-low: #F6F3EF;
+      --sc-lowest: #FFFFFF;
+      --sc-high: #EAE8E4;
+      --on-surface: #1C1C1A;
+      --on-surface-variant: #4E4639;
+      --primary: #775A19;
+      --primary-container: #C5A059;
+      --sovereign: linear-gradient(135deg, #775A19 0%, #C5A059 100%);
+      --tertiary: #2C4771;
+      --tertiary-container: #DBE2F9;
+      --amber: #FFBF00;
+      --mentor: #4F8A6B;
+      --inverse-surface: #31302E;
+      --inverse-on-surface: #F3F0EC;
+      --font-headline: 'Sora', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --editorial: 0 24px 40px -12px rgba(28, 28, 26, .06);
+      --ambient: 0 32px 64px -16px rgba(28, 28, 26, .08);
+      --crt-glow: 0 0 8px 2px rgba(255, 191, 0, .2);
+      --r-lg: 1rem;
+      --r-xl: 1.25rem;
+      --r-2xl: 1.5rem;
+    }
+
+    [data-theme="dark"] {
+      --surface: #121211;
+      --sc-low: #1E1E1D;
+      --sc-lowest: #1C1C1A;
+      --sc-high: #2A2A28;
+      --on-surface: #F3F0EC;
+      --on-surface-variant: #D1C5B4;
+      --primary: #E8C37E;
+      --primary-container: #775A19;
+      --tertiary-container: #233A65;
+      --editorial: 0 24px 40px -12px rgba(0, 0, 0, .4);
+      --inverse-surface: #F3F0EC;
+      --inverse-on-surface: #1C1C1A;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: var(--sc-low);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-headline);
+      letter-spacing: -.02em;
+      line-height: 1.06
+    }
+
+    .mono {
+      font-family: var(--font-mono)
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 24px auto;
+      background: var(--surface);
+      padding: 48px;
+      border-radius: 24px;
+      box-shadow: var(--ambient);
+      position: relative
+    }
+
+    .head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 34px;
+      flex-wrap: wrap
+    }
+
+    .head .left {
+      flex: 1;
+      min-width: 280px
+    }
+
+    .head .right {
+      flex: 0 0 auto;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      line-height: 1.9
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px
+    }
+
+    .head h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      max-width: 20ch
+    }
+
+    .head h1 .gild {
+      background: var(--sovereign);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-style: italic
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 24px;
+      margin-bottom: 8px
+    }
+
+    @media(max-width:900px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .vault {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      border-radius: var(--r-2xl);
+      padding: 30px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .vault::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(197, 160, 89, .15), transparent 70%);
+      pointer-events: none
+    }
+
+    .vault .seal {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .18em;
+      color: var(--amber);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 10px
+    }
+
+    .vault .big {
+      font-family: var(--font-headline);
+      font-size: 4.2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--primary-container);
+      letter-spacing: -.04em
+    }
+
+    .vault .small {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--inverse-on-surface);
+      opacity: .75;
+      margin-top: 12px;
+      line-height: 1.7
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px
+    }
+
+    .chip {
+      background: rgba(197, 160, 89, .12);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--inverse-on-surface);
+      opacity: .9;
+      line-height: 1.5
+    }
+
+    .chip b {
+      display: block;
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      color: var(--primary-container);
+      letter-spacing: -.02em;
+      margin-top: 4px;
+      opacity: 1
+    }
+
+    .sect {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      margin: 34px 0 14px;
+      flex-wrap: wrap
+    }
+
+    .sect b {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -.02em
+    }
+
+    .sect span {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant)
+    }
+
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .rail-row {
+      display: grid;
+      grid-template-columns: 82px 1fr 186px;
+      gap: 20px;
+      background: var(--sc-lowest);
+      border-radius: var(--r-lg);
+      padding: 15px 20px;
+      box-shadow: var(--editorial);
+      align-items: start;
+      page-break-inside: avoid
+    }
+
+    @media(max-width:760px) {
+      .rail-row {
+        grid-template-columns: 1fr;
+        gap: 8px
+      }
+    }
+
+    .rail-row .st {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      line-height: 1.5
+    }
+
+    .rail-row .st b {
+      display: block;
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      color: var(--on-surface);
+      letter-spacing: -.05em;
+      font-weight: 800;
+      margin-bottom: 2px
+    }
+
+    .rail-row h4 {
+      font-size: .98rem;
+      font-weight: 700;
+      margin-bottom: 4px
+    }
+
+    .rail-row p {
+      font-size: 12.5px;
+      color: var(--on-surface-variant);
+      line-height: 1.55
+    }
+
+    .rail-row .art {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--tertiary);
+      line-height: 1.95;
+      font-weight: 700
+    }
+
+    .rail-row.end {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface)
+    }
+
+    .rail-row.end .st,
+    .rail-row.end .st b {
+      color: var(--primary-container)
+    }
+
+    .rail-row.end h4 {
+      color: var(--primary-container)
+    }
+
+    .rail-row.end p {
+      color: var(--inverse-on-surface);
+      opacity: .82
+    }
+
+    .rail-row.end .art {
+      color: var(--amber)
+    }
+
+    .duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    @media(max-width:900px) {
+      .duo {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .panel {
+      background: var(--sc-lowest);
+      border-radius: var(--r-xl);
+      padding: 22px;
+      box-shadow: var(--editorial)
+    }
+
+    .panel .lbl {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 12px
+    }
+
+    .panel ul {
+      list-style: none;
+      font-size: 12.8px;
+      color: var(--on-surface-variant);
+      line-height: 1.75
+    }
+
+    .panel ul li {
+      padding: 5px 0
+    }
+
+    .panel ul li b {
+      color: var(--on-surface)
+    }
+
+    .panel ul li::before {
+      content: "· ";
+      color: var(--primary-container);
+      font-weight: 700
+    }
+
+    .strip {
+      background: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      border-radius: var(--r-xl);
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      line-height: 2.05;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 36px;
+      position: relative;
+      overflow: hidden;
+      page-break-inside: avoid
+    }
+
+    .strip::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .03;
+      background-image: repeating-linear-gradient(0deg, #FFF 0 1px, transparent 1px 3px)
+    }
+
+    @media(max-width:760px) {
+      .strip {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .strip .hd {
+      color: var(--amber);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 9px;
+      text-shadow: var(--crt-glow)
+    }
+
+    .strip .ok {
+      color: #7FBF9B
+    }
+
+    .strip .no {
+      color: #ff8a8a
+    }
+
+    .strip .bl {
+      color: #8FA5D6
+    }
+
+    .effort {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    @media(max-width:900px) {
+      .effort {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .effort div {
+      background: var(--sc-low);
+      border-radius: 10px;
+      padding: 13px 14px
+    }
+
+    .effort .who {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant)
+    }
+
+    .effort .hrs {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-top: 4px
+    }
+
+    .effort .task {
+      font-size: 11px;
+      color: var(--on-surface-variant);
+      margin-top: 3px;
+      line-height: 1.4
+    }
+
+    /* SUBORDINATE BOTTOM BAND */
+    .band {
+      background: var(--sc-low);
+      border-radius: var(--r-2xl);
+      padding: 28px;
+      margin-top: 36px;
+      page-break-inside: avoid
+    }
+
+    .band .bandhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 18px
+    }
+
+    .band .bandhead b {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -.02em
+    }
+
+    .band .bandhead span {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant)
+    }
+
+    .bandgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start
+    }
+
+    @media(max-width:900px) {
+      .bandgrid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .share-stack {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 3px
+    }
+
+    .share-stack i {
+      height: 38px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 700;
+      font-style: normal;
+      text-align: center;
+      line-height: 1.3
+    }
+
+    .splitcard {
+      background: var(--sc-lowest);
+      border-radius: var(--r-xl);
+      padding: 22px;
+      box-shadow: var(--editorial)
+    }
+
+    .splitcard.primary {
+      background: var(--sc-lowest);
+      box-shadow: var(--ambient);
+      position: relative;
+      overflow: hidden
+    }
+
+    .splitcard.primary::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--sovereign)
+    }
+
+    .splittag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 10px
+    }
+
+    .splitcard h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -.02em
+    }
+
+    .splitsub {
+      font-size: 12.5px;
+      color: var(--on-surface-variant);
+      line-height: 1.65
+    }
+
+    .splitsub b {
+      color: var(--on-surface)
+    }
+
+    .tbl {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 4px;
+      font-size: 12.5px
+    }
+
+    .tbl td {
+      padding: 9px 12px;
+      background: var(--sc-lowest)
+    }
+
+    .tbl td:first-child {
+      border-radius: 8px 0 0 8px
+    }
+
+    .tbl td:last-child {
+      text-align: right;
+      font-family: var(--font-mono);
+      color: var(--primary);
+      font-weight: 700;
+      border-radius: 0 8px 8px 0
+    }
+
+    .tbl td:nth-child(2) {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--on-surface-variant);
+      text-align: right
+    }
+
+    .note {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--on-surface-variant);
+      margin-top: 10px;
+      letter-spacing: .03em;
+      line-height: 1.7
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      padding-top: 24px;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: var(--sc-lowest);
+      border-radius: var(--r-xl);
+      padding: 22px 24px;
+      box-shadow: var(--editorial)
+    }
+
+    .footer .left p {
+      font-size: 13.5px;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      max-width: 52ch;
+      line-height: 1.4
+    }
+
+    .footer .right {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--on-surface-variant);
+      letter-spacing: .04em;
+      line-height: 1.9
+    }
+
+    .footer .right a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700
+    }
+
+    .themebtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 50;
+      background: var(--sc-lowest);
+      box-shadow: var(--ambient);
+      border: none;
+      cursor: pointer;
+      border-radius: 9999px;
+      padding: 12px 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--on-surface);
+      font-weight: 700
+    }
+
+    .printbtn {
+      position: fixed;
+      bottom: 24px;
+      right: 160px;
+      z-index: 50;
+      background: var(--sc-lowest);
+      box-shadow: var(--ambient);
+      border: none;
+      cursor: pointer;
+      border-radius: 9999px;
+      padding: 12px 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--on-surface);
+      font-weight: 700
+    }
+
+    @media print {
+      body {
+        background: #FFF
+      }
+
+      .page {
+        box-shadow: none;
+        margin: 0;
+        max-width: none;
+        border-radius: 0;
+        padding: 22px
+      }
+
+      .themebtn,
+      .printbtn {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+    <div class="head">
+      <div class="left">
+        <div class="kicker">One-Pager · University Onboarding Brief</div>
+        <h1>Ninety days from signature to <span class="gild">live cohort.</span></h1>
+      </div>
+      <div class="right">TENURED AI<br>GENESIS INSTITUTION ONBOARDING<br>2026 · CONFIDENTIAL</div>
+    </div>
+
+    <div class="hero">
+      <div class="vault">
+        <span class="seal">COST TO YOUR INSTITUTION</span>
+        <div class="big">$0</div>
+        <div class="small">No license. No seat fee. No capital outlay. No procurement, because your institution is a <b
+            style="color:var(--primary-container)">revenue counterparty, not a purchaser</b> — nothing is disbursed in
+          either direction except inbound.</div>
+        <div class="chips">
+          <div class="chip">MOU to live<b>90–120d</b></div>
+          <div class="chip">Faculty hours<b>~40</b></div>
+          <div class="chip">Curriculum change<b>None</b></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:14px">
+        <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">Tenured AI is the verification
+          infrastructure that sits <b style="color:var(--on-surface)">over</b> what you already teach. Onboarding does
+          not replace a course, rewrite a syllabus, or touch your degree requirements. It opens a read-scoped identity
+          channel, translates your existing course outcomes to an ontology, and activates one senior cohort.</p>
+        <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">What your office signs is a <b
+            style="color:var(--on-surface)">Genesis Institution MOU</b> — a perpetual, ledger-anchored revenue
+          agreement. Four obligations on your side, four on ours. No exclusivity on your students, no minimum volume, no
+          obligation past the pilot cohort.</p>
+      </div>
+    </div>
+
+    <div class="sect"><b>The onboarding sequence</b><span>Six stages · each terminating in a named artifact</span></div>
+    <div class="rail">
+      <div class="rail-row">
+        <div class="st"><b>01</b>Days 0–14</div>
+        <div>
+          <h4>Executive briefing &amp; Letter of Intent</h4>
+          <p>Ninety minutes with the Provost's office, the candidate Dean, and Institutional Research. Settlement
+            modeled against your actual placement data, not national averages. The LOI is non-binding and commits only a
+            review window.</p>
+        </div>
+        <div class="art">→ Letter of Intent<br>→ Cohort shortlist<br>→ Placement baseline</div>
+      </div>
+      <div class="rail-row">
+        <div class="st"><b>02</b>Days 15–45</div>
+        <div>
+          <h4>Legal &amp; security review</h4>
+          <p>General Counsel receives the FERPA dossier, GDPR data-processing addendum, and settlement terms. Your CIO
+            receives the security architecture packet in parallel — SSO spec, key policy, and the Zero-Knowledge
+            isolation model for the sandbox.</p>
+        </div>
+        <div class="art">→ Executed MOU<br>→ Data Processing Addendum<br>→ Security sign-off</div>
+      </div>
+      <div class="rail-row">
+        <div class="st"><b>03</b>Days 30–60</div>
+        <div>
+          <h4>Technical intake</h4>
+          <p>Registrar and IT stand up SSO and the enrollment-verification endpoint. Scoped API keys issued. A sandbox
+            tenancy is provisioned so your team tests against synthetic records before a single real record is touched.
+          </p>
+        </div>
+        <div class="art">→ SSO handshake verified<br>→ Scoped key pair<br>→ Sandbox tenancy live</div>
+      </div>
+      <div class="rail-row">
+        <div class="st"><b>04</b>Days 45–90</div>
+        <div>
+          <h4>Ontology mapping</h4>
+          <p>The faculty steering committee maps existing course outcomes to ontology nodes. The only meaningful faculty
+            commitment in the process — roughly forty hours across three to five faculty. <b
+              style="color:var(--on-surface)">No syllabus is rewritten. No course is replaced.</b></p>
+        </div>
+        <div class="art">→ Institutional Ontology v1<br>→ Hard-Gate alignment map<br>→ Steering charter</div>
+      </div>
+      <div class="rail-row">
+        <div class="st"><b>05</b>Days 75–120</div>
+        <div>
+          <h4>Cohort activation</h4>
+          <p>Students authenticate through your own SSO, review an itemized consent surface, and mint their Sovereign
+            Passport individually. Forge drills deploy at calendar points the steering committee selected. Career
+            services receives the recruiter-routing console.</p>
+        </div>
+        <div class="art">→ Roster locked<br>→ Passports minted<br>→ Drill schedule</div>
+      </div>
+      <div class="rail-row end">
+        <div class="st"><b>06</b>Mo. 10–18</div>
+        <div>
+          <h4>First Hard-Gate &amp; first settlement</h4>
+          <p>The cohort clears senior Adversarial Audit Gates. Consensus Certificates mint against the Merkle root.
+            Recruiter reveals begin — and the first quarterly dividend settles to your designated office with the F-100
+            Dashboard live for your finance team.</p>
+        </div>
+        <div class="art">→ Consensus Certificates<br>→ First settlement receipt<br>→ F-100 credential</div>
+      </div>
+    </div>
+
+    <div class="sect"><b>Technical intake · the specification your CIO will ask for</b><span>Read-scoped · no write
+        path</span></div>
+    <div class="strip">
+      <div>
+        <div class="hd">Identity</div>
+        <div>protocol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">SAML 2.0</span> · encrypted assertions</div>
+        <div>alternate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">OpenID Connect 1.0</span></div>
+        <div>mfa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inherited from your IdP</div>
+        <div>passwords&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bl">never seen · never issued</span></div>
+        <br>
+        <div class="hd">Enrollment fields · read only</div>
+        <div>student_id&nbsp;&nbsp;&nbsp;&nbsp;<span class="bl">hashed at edge</span></div>
+        <div>enrollment&nbsp;&nbsp;&nbsp;&nbsp;active | inactive | graduated</div>
+        <div>program &amp; standing &amp; cohort_year</div>
+        <div style="opacity:.5">── complete field set ──</div>
+      </div>
+      <div>
+        <div class="hd">Not requested · not accepted</div>
+        <div><span class="no">✕</span> transcripts · grades · GPA</div>
+        <div><span class="no">✕</span> disciplinary · health records</div>
+        <div><span class="no">✕</span> financial aid · bursar · residency</div>
+        <div><span class="no">✕</span> demographic attributes of any kind</div>
+        <br>
+        <div class="hd">Write path</div>
+        <div><span class="ok">NONE.</span> The platform holds no write credential</div>
+        <div>against any institutional system of record.</div>
+        <br>
+        <div class="hd">Compliance</div>
+        <div>FERPA by architecture · GDPR DPA on file</div>
+        <div>k-anonymity preserved · 90-day key rotation</div>
+      </div>
+    </div>
+
+    <div class="sect"><b>Who does what</b><span>Five offices · no standing committee · procurement not attached</span>
+    </div>
+    <div class="effort">
+      <div>
+        <div class="who">Provost</div>
+        <div class="hrs">2 sessions</div>
+        <div class="task">MOU · cohort · steering appointment</div>
+      </div>
+      <div>
+        <div class="who">General Counsel</div>
+        <div class="hrs">~6 hrs</div>
+        <div class="task">FERPA review · DPA execution</div>
+      </div>
+      <div>
+        <div class="who">CIO / Security</div>
+        <div class="hrs">~12 hrs</div>
+        <div class="task">SSO · key custody · architecture review</div>
+      </div>
+      <div>
+        <div class="who">Registrar</div>
+        <div class="hrs">~8 hrs</div>
+        <div class="task">Enrollment endpoint · roster attestation</div>
+      </div>
+      <div>
+        <div class="who">Treasurer</div>
+        <div class="hrs">~3 hrs</div>
+        <div class="task">Settlement recipient designation</div>
+      </div>
+    </div>
+
+    <div class="duo" style="margin-top:16px">
+      <div class="panel">
+        <div class="lbl">The institution commits to four things</div>
+        <ul>
+          <li><b>One Genesis cohort</b> — senior year, strongest program, 80–150 students</li>
+          <li><b>A faculty steering committee</b> — three to five faculty, chaired by a department head</li>
+          <li><b>A read-scoped SSO / SIS channel</b> — roughly twenty engineering hours</li>
+          <li><b>A settlement recipient of record</b> — Treasurer, Foundation, or Provost discretionary</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="lbl">Tenured AI commits to four things</div>
+        <ul>
+          <li><b>40% of the per-semester Access Fee</b> (50% if private) and <b>40% of every alumna transaction</b> —
+            two separate settlements, both contract-enforced</li>
+          <li><b>Zero platform cost</b> — infrastructure, drills, sandboxes, credentials, settlement rails</li>
+          <li><b>F-100 Dividend Dashboard</b> provisioned to your finance office at go-live</li>
+          <li><b>Full FERPA / GDPR documentation</b> delivered before intake begins, not after</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SUBORDINATE BAND · UNDERWRITING / TALENT ECONOMICS -->
+    <div class="band">
+      <div class="bandhead">
+        <b>Two settlements. Same ratio. Different instruments entirely.</b>
+        <span>Reference only · full model in Addendum 03-A §A7</span>
+      </div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.65;margin-bottom:20px;max-width:104ch">
+        Both settle 40/40/20, and they are routinely confused. They are not the same money. <b
+          style="color:var(--on-surface)">The Access Split divides a per-student enrollment fee. The Dividend Split
+          divides a per-hire transaction.</b> One is termly and scales with headcount; the other is perpetual and scales
+        with career outcomes. Your institution receives both, independently, on separate settlement schedules.</p>
+
+      <div class="bandgrid">
+        <div class="splitcard primary">
+          <div class="splittag">SETTLEMENT ONE · THE ACCESS SPLIT</div>
+          <h4>The $100 per-student, per-semester fee</h4>
+          <p class="splitsub">The Sovereign Access Fee is charged <b>per enrolled student, per semester</b>. It is the
+            platform's access instrument, and it is what the 40/40/20 most often refers to. It settles every term,
+            whether or not a single graduate has been hired yet.</p>
+          <div class="share-stack" style="margin-top:16px">
+            <i
+              style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>$40.00<br>UNIVERSITY</i>
+            <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>$40.00<br>PLATFORM</i>
+            <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>$20.00<br>STATE</i>
+          </div>
+          <p class="note" style="margin-top:12px">Public institutions settle 40/40/20. <b
+              style="color:var(--on-surface)">Private institutions settle 50 / 50</b> — $50 to the institution, $50 to
+            the platform — because no state workforce levy attaches.</p>
+          <table class="tbl" style="margin-top:14px">
+            <tr>
+              <td>Regional public · 12,000 students</td>
+              <td>40% · 2 terms</td>
+              <td>$960K / yr</td>
+            </tr>
+            <tr>
+              <td>Mid-size public · 40,000 students</td>
+              <td>40% · 2 terms</td>
+              <td>$3.2M / yr</td>
+            </tr>
+            <tr>
+              <td>Flagship public · 72,000 students</td>
+              <td>40% · 2 terms</td>
+              <td>$5.76M / yr</td>
+            </tr>
+            <tr>
+              <td>Private research · 18,000 students</td>
+              <td>50% · 2 terms</td>
+              <td>$1.8M / yr</td>
+            </tr>
+          </table>
+          <p class="note">Unrestricted innovation funds. Predictable, enrollment-scaled, and countable from the first
+            term of the pilot cohort.</p>
+        </div>
+
+        <div class="splitcard">
+          <div class="splittag" style="color:var(--tertiary)">SETTLEMENT TWO · THE DIVIDEND SPLIT</div>
+          <h4>40% of every alumna transaction, in perpetuity</h4>
+          <p class="splitsub">A separate instrument on a separate base. Every recruiter reveal and every Performance
+            Bond premium issued against a hire routes 40/40/20 at the moment of transaction — attaching to the alumna
+            rather than the enrollment year, for the length of her career.</p>
+          <table class="tbl" style="margin-top:16px">
+            <tr>
+              <td>Genesis cohort</td>
+              <td>110 hires</td>
+              <td>$495K / yr</td>
+            </tr>
+            <tr>
+              <td>Year 3 · four cohorts</td>
+              <td>640 hires</td>
+              <td>$2.88M / yr</td>
+            </tr>
+            <tr>
+              <td>Year 5 · full college</td>
+              <td>1,900 hires</td>
+              <td>$8.55M / yr</td>
+            </tr>
+            <tr>
+              <td>Year 10 · compounding base</td>
+              <td>6,400 hires</td>
+              <td>$28.8M / yr</td>
+            </tr>
+          </table>
+          <p class="note">Modeled at $11,250 average annual premium per bonded hire at Chubb Gold tier; excludes
+            reveal-credit volume (+22–34%) and B-300 auction premiums.</p>
+          <p class="note" style="margin-top:10px">Both splits are enforced at the smart-contract layer and carry a
+            Merkle proof. The platform never holds your share, so it cannot fail to remit it. All figures are modeled
+            projections against stated inputs — not booked revenue, not a guarantee, not a forecast of your
+            institution's outcome.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="left">
+        <p>One briefing. One Letter of Intent. One thirty-day technical review. The Genesis cohort is capped at three
+          institutions — perpetual terms and League origination status attach to the first three signatures and to no
+          one after.</p>
+      </div>
+      <div class="right">
+        Begin the MOU conversation<br>
+        <a href="mailto:institutions@tenured.ai">institutions@tenured.ai</a><br>
+        <span style="font-size:10px;letter-spacing:.1em">TENURED AI · HOUSTON, TX</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+  <button class="themebtn"
+    onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐
+    TOGGLE THEME</button>
+
+</body>
+
+</html>

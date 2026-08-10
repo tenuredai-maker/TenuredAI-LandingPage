@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · F-100 Dividend Dashboard · Specification &amp; Visual Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--sc-low);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+.mono{font-family:var(--font-mono)}
+
+.doc{max-width:1320px;margin:24px auto;background:var(--surface);padding:56px;border-radius:24px;box-shadow:var(--ambient)}
+.masthead{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;margin-bottom:44px}
+.masthead .l{flex:1;min-width:300px}
+.masthead .r{text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-variant);line-height:2}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;color:var(--primary);text-transform:uppercase;margin-bottom:12px}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;max-width:20ch}
+h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.lede{font-size:1.15rem;color:var(--on-surface-variant);max-width:70ch;margin-top:22px;line-height:1.55}
+
+.sect{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;margin:56px 0 20px}
+.sect .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--primary);text-transform:uppercase;font-weight:700}
+.sect h2{font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:700;flex:1;min-width:280px}
+.sect .meta{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant)}
+.body-copy{font-size:15px;color:var(--on-surface-variant);line-height:1.7;max-width:88ch}
+.body-copy b{color:var(--on-surface)}
+.body-copy + .body-copy{margin-top:14px}
+
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.g32{grid-template-columns:3fr 2fr}.g23{grid-template-columns:2fr 3fr}
+@media(max-width:900px){.g2,.g3,.g4,.g32,.g23{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:20px}
+.microlabel{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:8px}
+.dotlist{list-style:none;font-size:13.5px;color:var(--on-surface-variant);line-height:1.85}
+.dotlist li{padding:3px 0}
+.dotlist li b{color:var(--on-surface)}
+.dotlist li::before{content:"· ";color:var(--primary-container);font-weight:700}
+
+/* ══ F-100 MOCKUP FRAME ══ */
+.f100{background:var(--sc-lowest);border-radius:var(--r-2xl);box-shadow:var(--ambient);overflow:hidden;margin-top:8px}
+.f100-nav{background:var(--sc-lowest);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;box-shadow:0 18px 30px -22px rgba(28,28,26,.18);position:relative;z-index:2}
+.f100-brand{display:flex;align-items:center;gap:16px}
+.f100-mark{width:38px;height:38px;border-radius:9px;background:var(--sovereign);display:flex;align-items:center;justify-content:center;font-family:var(--font-headline);font-weight:800;color:#FFF;font-size:19px}
+.f100-brand .t{font-family:var(--font-mono);font-size:9px;letter-spacing:.24em;color:var(--primary-container);text-transform:uppercase;font-weight:700}
+.f100-brand .t b{display:block;font-family:var(--font-headline);font-size:13.5px;color:var(--on-surface);letter-spacing:-.01em;text-transform:none;margin-top:2px}
+.f100-navr{display:flex;align-items:center;gap:22px;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant)}
+.f100-navr b{display:block;font-family:var(--font-body);font-size:13px;color:var(--on-surface);letter-spacing:0;text-transform:none;margin-top:2px}
+.f100-pill{background:var(--sc-low);border-radius:var(--r-pill);padding:9px 18px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--on-surface)}
+
+.f100-body{padding:30px 28px 0;background:var(--surface)}
+.f100-hero{display:grid;grid-template-columns:2fr 1fr;gap:20px;margin-bottom:26px}
+@media(max-width:900px){.f100-hero{grid-template-columns:1fr}}
+.f100-total{background:var(--sc-lowest);border-radius:var(--r-xl);padding:30px;box-shadow:var(--editorial);position:relative;overflow:hidden}
+.f100-total::before{content:"";position:absolute;right:-60px;bottom:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(197,160,89,.10),transparent 70%)}
+.f100-total .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;position:relative}
+.f100-total .amt{font-family:var(--font-headline);font-size:clamp(2.4rem,5.4vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1;position:relative}
+.f100-yoy{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--tertiary);background:var(--tertiary-container);border-radius:var(--r-pill);padding:5px 12px;white-space:nowrap}
+.f100-substats{display:flex;gap:40px;margin-top:28px;flex-wrap:wrap;position:relative}
+.f100-substats .v{font-family:var(--font-mono);font-size:1.35rem;font-weight:700;margin-top:4px}
+.f100-block{background:var(--sovereign);border-radius:var(--r-xl);padding:26px;display:flex;flex-direction:column;justify-content:space-between;color:#FFF;box-shadow:0 24px 40px -14px rgba(119,90,25,.28);min-height:190px}
+.f100-block .lab{font-family:var(--font-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;font-weight:700}
+.f100-block .cd{font-family:var(--font-headline);font-size:2.6rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.f100-block .est{font-family:var(--font-mono);font-size:10px;opacity:.8;margin-top:8px;letter-spacing:.06em}
+
+.f100-cols{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;padding-bottom:26px}
+@media(max-width:1000px){.f100-cols{grid-template-columns:1fr}}
+.f100-colhd{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:14px}
+.f100-colhd .ttl{font-family:var(--font-mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--on-surface-variant);font-weight:700}
+.f100-colhd .sub{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--outline-variant)}
+
+.dept{background:var(--sc-lowest);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--editorial);margin-bottom:10px}
+.dept .top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:12px}
+.dept .nm{font-size:13.5px;font-weight:700;letter-spacing:-.01em}
+.dept .yl{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--primary)}
+.dept .track{height:6px;background:var(--sc-high);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.dept .track i{display:block;height:100%;border-radius:3px}
+.dept .foot{display:flex;justify-content:space-between;gap:14px;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-variant);flex-wrap:wrap}
+.dept .foot b{color:var(--on-surface)}
+.dept .foot .tier{color:var(--tertiary);font-weight:700}
+
+.inflow{background:var(--sc-lowest);border-radius:var(--r-lg);box-shadow:var(--editorial);overflow:hidden}
+.inflow .row{padding:16px 20px}
+.inflow .row:nth-child(even){background:var(--sc-low)}
+.inflow .r1{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:8px}
+.inflow .tx{font-family:var(--font-mono);font-size:9.5px;font-weight:700;color:var(--primary-container);letter-spacing:.08em}
+.inflow .gate{font-size:12.5px;font-weight:700;margin-top:3px;letter-spacing:-.01em}
+.inflow .amt{font-family:var(--font-mono);font-size:14px;font-weight:700;text-align:right;white-space:nowrap}
+.inflow .of{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-variant);text-align:right;margin-top:2px}
+.inflow .r2{display:flex;justify-content:space-between;gap:14px;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface-variant)}
+.inflow .more{padding:14px;text-align:center;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-surface-variant);background:var(--sc-high)}
+
+.intel{background:var(--tertiary-container);color:var(--on-tertiary-container);border-radius:var(--r-lg);padding:20px;margin-top:14px}
+.intel .h{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.intel p{font-size:12.5px;line-height:1.65;font-style:italic}
+
+.f100-ticker{background:var(--inverse-surface);color:var(--inverse-on-surface);display:flex;align-items:center;height:44px;overflow:hidden;position:relative}
+.f100-ticker .lead{display:flex;align-items:center;gap:10px;padding:0 20px;background:var(--inverse-surface);z-index:2;font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;white-space:nowrap;box-shadow:14px 0 20px -10px rgba(0,0,0,.5)}
+.f100-ticker .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:var(--crt-glow)}
+.f100-ticker .tape{display:flex;gap:44px;white-space:nowrap;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--outline-variant);animation:tape 46s linear infinite;padding-left:32px}
+.f100-ticker .tape em{font-style:normal;color:var(--primary-container);font-weight:700}
+@keyframes tape{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.f100-ticker .tape{animation:none}}
+
+/* ══ ANNOTATION KEYS ══ */
+.keyrow{display:grid;grid-template-columns:44px 1fr;gap:16px;background:var(--sc-lowest);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--editorial);margin-bottom:10px;page-break-inside:avoid}
+.keyrow .num{width:34px;height:34px;border-radius:50%;background:var(--sovereign);color:#FFF;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;font-weight:700}
+.keyrow h4{font-size:1rem;font-weight:700;margin-bottom:5px}
+.keyrow p{font-size:13px;color:var(--on-surface-variant);line-height:1.65}
+.keyrow .src{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tertiary);margin-top:8px;font-weight:700}
+
+.term{background:var(--term);color:var(--inverse-on-surface);border-radius:var(--r-lg);padding:24px;font-family:var(--font-mono);font-size:12px;line-height:1.95;position:relative;overflow:hidden}
+.term::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:repeating-linear-gradient(0deg,#FFF 0 1px,transparent 1px 3px)}
+.term .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.term .gold{color:#C5A059}.term .ok{color:#7FBF9B}.term .blue{color:#8FA5D6}.term .dim{opacity:.45}.term .red{color:#ff8a8a}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:13.5px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 18px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:15px 18px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:700;width:24%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+.matrix .yes{font-family:var(--font-mono);font-size:11px;color:var(--mentor);font-weight:700}
+.matrix .no{font-family:var(--font-mono);font-size:11px;color:var(--error);font-weight:700}
+
+.splitcard{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial);position:relative;overflow:hidden}
+.splitcard.primary{box-shadow:var(--ambient)}
+.splitcard.primary::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--sovereign)}
+.splitcard.secondary::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--tertiary)}
+.splittag{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:10px}
+.share-stack{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:14px}
+.share-stack i{height:44px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8.5px;font-weight:700;font-style:normal;text-align:center;line-height:1.35}
+.note{font-size:11px;font-family:var(--font-mono);color:var(--on-surface-variant);letter-spacing:.03em;line-height:1.75;margin-top:12px}
+
+.foot{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;margin-top:56px;display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;align-items:center}
+.foot p{font-family:var(--font-headline);font-weight:600;font-size:1.05rem;max-width:54ch}
+.foot .c{font-family:var(--font-mono);font-size:11px;line-height:1.9;text-align:right;opacity:.8}
+.foot .c a{color:var(--primary-container);text-decoration:none;font-weight:700}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{body{background:#FFF}.doc{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:22px}.themebtn,.printbtn{display:none}.f100-ticker .tape{animation:none}.keyrow,.card,.f100{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <div class="masthead">
+    <div class="l">
+      <div class="kicker">F-100 · Institutional Ledger · Specification &amp; Visual Reference</div>
+      <h1>The dividend dashboard is a <span class="gild">ledger, not a report.</span></h1>
+    </div>
+    <div class="r">TENURED AI<br>SURFACE F-100<br>REV 2.0 · 2026<br>CONFIDENTIAL</div>
+  </div>
+
+  <p class="lede">F-100 is the financial command surface issued to a Genesis Institution's designated settlement office at first settlement. It is the instrument through which a Provost, CFO, or Foundation treasurer sees exactly what the partnership pays, which departments generate it, and how to verify every dollar independently. This document specifies the surface and renders it.</p>
+
+  <!-- ─────────── §1 ─────────── -->
+  <div class="sect">
+    <div class="n">§1</div>
+    <h2>What it is, and who holds it</h2>
+    <div class="meta">Provisioned at first settlement · one credential per institution</div>
+  </div>
+  <div class="grid g32">
+    <div>
+      <p class="body-copy">Most institutional dashboards are reporting surfaces: a vendor computes a number, formats it, and asks you to believe it. F-100 inverts that posture. Every figure it displays is <b>reconstructible from the public chain without the platform's cooperation</b> — the dashboard is a convenient view onto a ledger your auditor could rebuild from scratch if they chose to.</p>
+      <p class="body-copy">That distinction is the whole design brief. It is why the interface is built around forensic traceability rather than executive summary, why every settlement row carries a transaction identifier and its originating Hard-Gate, and why the archival audit control is a first-class element rather than a buried export.</p>
+      <p class="body-copy">The surface serves three jobs simultaneously, and the layout is organized around them: <b>confirm what has settled</b> (the cumulative ledger and inflow stream), <b>attribute it to a source</b> (departmental yield), and <b>act on what it implies</b> (corridor demand intelligence).</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">Credential holders</div>
+      <ul class="dotlist">
+        <li><b>Settlement office of record</b> — Treasurer, Foundation, or Provost discretionary fund. Full surface.</li>
+        <li><b>Institutional auditor</b> — read plus archival audit initiation. No settlement reassignment.</li>
+        <li><b>Deans, by college</b> — departmental yield scoped to their own unit only.</li>
+        <li><b>Faculty steering chair</b> — corridor demand intelligence. No financial figures.</li>
+      </ul>
+      <div class="tile" style="margin-top:16px">
+        <div class="microlabel">Never a holder</div>
+        <p style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.65">No credential at any tier resolves an individual student. The dashboard has no per-student view to permission — that surface does not exist in the data model.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────── §2 · THE MOCKUP ─────────── -->
+  <div class="sect">
+    <div class="n">§2</div>
+    <h2>The surface</h2>
+    <div class="meta">Reference tenant · University of Houston · seeded figures</div>
+  </div>
+  <p class="body-copy" style="margin-bottom:20px">Rendered at reference-tenant scale. Figures are seeded illustration, not live data. Annotation keys follow at §3.</p>
+
+  <div class="f100">
+    <div class="f100-nav">
+      <div class="f100-brand">
+        <div class="f100-mark">T</div>
+        <div class="t">Institutional Ledger / F-100
+          <b>University of Houston · Administration</b>
+        </div>
+      </div>
+      <div class="f100-navr">
+        <div>Ledger Integrity<b>98.0%</b></div>
+        <div>Settlement Wallet<b class="mono" style="font-size:11.5px">0xUH…F2E</b></div>
+        <div class="f100-pill">◈ Settlement Wallet</div>
+      </div>
+    </div>
+
+    <div class="f100-body">
+      <div class="f100-hero">
+        <div class="f100-total">
+          <div class="hd">
+            <div class="microlabel" style="margin:0">Total cumulative settlement · all instruments</div>
+            <div class="f100-yoy">+12.4% YoY</div>
+          </div>
+          <div class="amt">$4,586,400.00</div>
+          <div class="f100-substats">
+            <div>
+              <div class="microlabel" style="margin:0">Dividend Split · cumulative</div>
+              <div class="v" style="color:var(--primary)">$4,250,000.00</div>
+            </div>
+            <div>
+              <div class="microlabel" style="margin:0">Access Split · YTD</div>
+              <div class="v" style="color:var(--tertiary)">$336,400.00</div>
+            </div>
+            <div>
+              <div class="microlabel" style="margin:0">Pending payout</div>
+              <div class="v">$124,500.50</div>
+            </div>
+            <div>
+              <div class="microlabel" style="margin:0">Active sovereigns</div>
+              <div class="v">4,205</div>
+            </div>
+          </div>
+        </div>
+        <div class="f100-block">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div class="lab">Next settlement block</div>
+            <div style="font-size:20px;opacity:.9">↗</div>
+          </div>
+          <div>
+            <div class="cd">04:12:55</div>
+            <div class="est">Estimated · $22,450.00</div>
+            <div class="est" style="opacity:.65">Dividend $18,210 · Access $4,240</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f100-cols">
+        <div>
+          <div class="f100-colhd">
+            <div class="ttl">Alumni Performance Ledger</div>
+            <div class="sub">Yield distribution by academic department</div>
+          </div>
+
+          <div class="dept">
+            <div class="top"><div class="nm">Cullen College of Engineering</div><div class="yl">$1,850,000</div></div>
+            <div class="track"><i style="width:100%;background:var(--sovereign)"></i></div>
+            <div class="foot"><div>Avg AICI <b>94</b> &nbsp;·&nbsp; Activations <b>755</b></div><div class="tier">Tier 1 Efficiency</div></div>
+          </div>
+          <div class="dept">
+            <div class="top"><div class="nm">Bauer College of Business</div><div class="yl">$1,200,000</div></div>
+            <div class="track"><i style="width:64.9%;background:var(--tertiary)"></i></div>
+            <div class="foot"><div>Avg AICI <b>89</b> &nbsp;·&nbsp; Activations <b>490</b></div><div class="tier">Tier 1 Efficiency</div></div>
+          </div>
+          <div class="dept">
+            <div class="top"><div class="nm">College of Natural Sciences</div><div class="yl">$950,000</div></div>
+            <div class="track"><i style="width:51.4%;background:var(--tertiary-soft)"></i></div>
+            <div class="foot"><div>Avg AICI <b>91</b> &nbsp;·&nbsp; Activations <b>388</b></div><div class="tier">Tier 2 Efficiency</div></div>
+          </div>
+          <div class="dept">
+            <div class="top"><div class="nm">Technology Division</div><div class="yl">$250,000</div></div>
+            <div class="track"><i style="width:13.5%;background:var(--outline-variant)"></i></div>
+            <div class="foot"><div>Avg AICI <b>82</b> &nbsp;·&nbsp; Activations <b>102</b></div><div class="tier" style="color:var(--on-surface-variant)">Tier 3 · Watch</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="f100-colhd">
+            <div class="ttl">◷ Inflow Stream</div>
+            <div class="sub">Forensic · live</div>
+          </div>
+          <div class="inflow">
+            <div class="row">
+              <div class="r1">
+                <div><div class="tx">TX-8821</div><div class="gate">SI-11 · SCADA Logic</div></div>
+                <div><div class="amt" style="color:var(--primary)">+$980.00</div><div class="of">40% of $2,450</div></div>
+              </div>
+              <div class="r2"><span>USER_D1D1…D1D1</span><span>2026-03-21 14:02</span></div>
+            </div>
+            <div class="row">
+              <div class="r1">
+                <div><div class="tx">TX-8822</div><div class="gate">SI-12 · Subsea Orchestration</div></div>
+                <div><div class="amt" style="color:var(--primary)">+$1,920.00</div><div class="of">40% of $4,800</div></div>
+              </div>
+              <div class="r2"><span>USER_A4F2…E921</span><span>2026-03-21 13:45</span></div>
+            </div>
+            <div class="row">
+              <div class="r1">
+                <div><div class="tx">TX-8823</div><div class="gate">IN-31 · Risk Synthesis</div></div>
+                <div><div class="amt" style="color:var(--primary)">+$600.00</div><div class="of">40% of $1,500</div></div>
+              </div>
+              <div class="r2"><span>USER_K912…L002</span><span>2026-03-21 12:12</span></div>
+            </div>
+            <div class="row">
+              <div class="r1">
+                <div><div class="tx">AC-2211</div><div class="gate">Access Fee · Spring term</div></div>
+                <div><div class="amt" style="color:var(--tertiary)">+$168,200.00</div><div class="of">40% of $420,500</div></div>
+              </div>
+              <div class="r2"><span>4,205 SOVEREIGNS × $40</span><span>2026-01-18 09:00</span></div>
+            </div>
+            <div class="more">Load forensic history →</div>
+          </div>
+
+          <div class="intel">
+            <div class="h">◆ Actionable Intelligence</div>
+            <p>Energy-sector demand at Node SI-11 is at the 94th percentile and rising. Recommend incentivizing SCADA Logic modules in Cullen and Technology Division to raise throughput and institutional yield.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="f100-ticker">
+      <div class="lead"><span class="dot"></span> Global Settlement Pulse</div>
+      <div class="tape">
+        <span>UNIVERSITY OF HOUSTON · TOTAL YIELD <em>$4.59M</em></span>
+        <span>TX CORRIDOR RESERVE · LIQUIDITY <em>NOMINAL</em></span>
+        <span>RECENT SETTLEMENT <em>$1,920.00</em> · SI-12 ORCHESTRATION</span>
+        <span>ACCESS SPLIT · SPRING TERM <em>SETTLED</em></span>
+        <span>DEAN ACCESS GRANTED · <em>0x88…F2E</em></span>
+        <span>UNIVERSITY OF HOUSTON · TOTAL YIELD <em>$4.59M</em></span>
+        <span>TX CORRIDOR RESERVE · LIQUIDITY <em>NOMINAL</em></span>
+        <span>RECENT SETTLEMENT <em>$1,920.00</em> · SI-12 ORCHESTRATION</span>
+        <span>ACCESS SPLIT · SPRING TERM <em>SETTLED</em></span>
+        <span>DEAN ACCESS GRANTED · <em>0x88…F2E</em></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────── §3 ─────────── -->
+  <div class="sect">
+    <div class="n">§3</div>
+    <h2>Anatomy · six modules, read left to right</h2>
+    <div class="meta">Each keyed to the surface above</div>
+  </div>
+
+  <div class="keyrow">
+    <div class="num">1</div>
+    <div>
+      <h4>Cumulative settlement · the editorial anchor</h4>
+      <p>The largest type on the page, and deliberately so. It states total settlement across <b>both instruments</b> — the Access Split and the Dividend Split — with each broken out beneath rather than blended into a single opaque figure. Year-over-year movement sits beside it in tertiary blue because it is a verified derived metric, not a projection.</p>
+      <div class="src">Source · on-chain settlement events, summed · reconcilable to Merkle root</div>
+    </div>
+  </div>
+  <div class="keyrow">
+    <div class="num">2</div>
+    <div>
+      <h4>Next settlement block · the sovereign gradient</h4>
+      <p>The only element on the surface carrying the full sovereign gradient, because it is the only forward-looking one. A live countdown to the next settlement with an estimate split by instrument. It answers the single question a treasurer opens the dashboard to ask: <b>when does the next money arrive, and roughly how much.</b></p>
+      <div class="src">Source · settlement scheduler + in-flight transaction pool</div>
+    </div>
+  </div>
+  <div class="keyrow">
+    <div class="num">3</div>
+    <div>
+      <h4>Alumni Performance Ledger · departmental attribution</h4>
+      <p>Yield attributed to the academic unit that produced the graduate, with average AICI and activation count. Bars are proportional to the leading department rather than to an arbitrary ceiling, so relative standing is legible at a glance. Efficiency tier is a composite of yield-per-activation and AICI band — <b>it is not a ranking of teaching quality, and the surface says so on hover.</b></p>
+      <div class="src">Source · ontology node → department mapping, set by your steering committee at Stage 04</div>
+    </div>
+  </div>
+  <div class="keyrow">
+    <div class="num">4</div>
+    <div>
+      <h4>Inflow Stream · the forensic register</h4>
+      <p>Every settlement event, newest first, carrying its transaction ID, originating Hard-Gate or fee cycle, gross transaction value, and your share. Dividend rows resolve to a single anonymized sovereign; Access rows resolve to a term-level cohort count. <b>Row colour encodes instrument</b> — gold for Dividend, blue for Access — so the two are never read as one series.</p>
+      <div class="src">Source · settlement log · exportable · independently verifiable against chain</div>
+    </div>
+  </div>
+  <div class="keyrow">
+    <div class="num">5</div>
+    <div>
+      <h4>Actionable Intelligence · corridor demand</h4>
+      <p>The only advisory element on the surface, and the only one held in tertiary blue rather than gold, because it is <b>intelligence rather than settlement</b>. It surfaces which ontology nodes are clearing at premium in your corridor — typically two to four quarters before placement data would show the same signal. Deans use it to direct curricular investment; it never carries a financial commitment.</p>
+      <div class="src">Source · corridor-wide demand telemetry, aggregated across all institutions, k-anonymous</div>
+    </div>
+  </div>
+  <div class="keyrow">
+    <div class="num">6</div>
+    <div>
+      <h4>Global Settlement Pulse · the corridor tape</h4>
+      <p>A persistent tape carrying your institution's position alongside corridor liquidity status and recent settlement events. It exists to situate the institution inside a market rather than inside its own account — the same reason a trading floor keeps a tape running when nobody is watching it directly. Honours <span class="mono" style="font-size:11px">prefers-reduced-motion</span>.</p>
+      <div class="src">Source · corridor event bus · institution-scoped and public-corridor rows only</div>
+    </div>
+  </div>
+
+  <!-- ─────────── §4 ─────────── -->
+  <div class="sect">
+    <div class="n">§4</div>
+    <h2>The dual-ledger requirement</h2>
+    <div class="meta">Two instruments · same ratio · never merged in the interface</div>
+  </div>
+  <p class="body-copy" style="margin-bottom:20px">The original F-100 concept surfaced only the hire-side 40%. That is no longer sufficient: an institution receives settlement from <b>two structurally different instruments that happen to divide on the same ratio</b>, and a dashboard that blends them into one figure actively creates the confusion the partnership documents work to prevent. The surface therefore separates them at every level — headline, inflow row colour, settlement estimate, and export schema.</p>
+  <div class="grid g2">
+    <div class="splitcard primary">
+      <div class="splittag">LEDGER A · THE ACCESS SPLIT</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Per enrolled student, per semester</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">The $100 Sovereign Access Fee, assessed per enrolled student per term. Settles <b style="color:var(--on-surface)">twice a year in two large events</b> rather than continuously — which is why it appears in the inflow stream as a single term-level row against a cohort count, not as thousands of individual rows.</p>
+      <div class="share-stack">
+        <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>$40.00<br>UNIVERSITY</i>
+        <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>$40.00<br>PLATFORM</i>
+        <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>$20.00<br>STATE</i>
+      </div>
+      <p class="note">Reference tenant · 4,205 sovereigns × $40 × 2 terms = $336,400 annually. Private institutions settle 50 / 50 and the state column is absent from their surface entirely.</p>
+    </div>
+    <div class="splitcard secondary">
+      <div class="splittag" style="color:var(--tertiary)">LEDGER B · THE DIVIDEND SPLIT</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:8px">Per alumna transaction, in perpetuity</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Recruiter reveals and Performance Bond premiums. Settles <b style="color:var(--on-surface)">continuously, in small events</b>, which is why it dominates the inflow stream by row count while the Access Split dominates by single-event size. It attaches to the alumna, so it keeps accruing decades after the enrollment that produced it.</p>
+      <div class="share-stack">
+        <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>UNIVERSITY</i>
+        <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>PLATFORM</i>
+        <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>STATE</i>
+      </div>
+      <p class="note">Reference tenant · $4.25M cumulative across the institution's active alumni base. Modeled at $11,250 average annual premium per bonded hire at Chubb Gold tier.</p>
+    </div>
+  </div>
+
+  <!-- ─────────── §5 ─────────── -->
+  <div class="sect">
+    <div class="n">§5</div>
+    <h2>Data model &amp; verification path</h2>
+    <div class="meta">What your auditor reconciles against</div>
+  </div>
+  <div class="grid g23">
+    <div class="term">
+      <div class="amber">F-100 · SETTLEMENT EVENT SCHEMA · REV 2.0</div>
+      <div class="dim">──────────────────────────────────────────</div>
+      <br>
+      <div class="gold">[ COMMON FIELDS · ALL EVENTS ]</div>
+      <div>  event_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">TX-nnnn | AC-nnnn</span></div>
+      <div>  instrument&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">DIVIDEND | ACCESS</span></div>
+      <div>  gross_value&nbsp;&nbsp;&nbsp;&nbsp;transaction total, USD</div>
+      <div>  institution_bp&nbsp;4000 | 5000 (private)</div>
+      <div>  institution_amt&nbsp;your settled share</div>
+      <div>  settled_at&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISO-8601 UTC</div>
+      <div>  merkle_leaf&nbsp;&nbsp;&nbsp;&nbsp;<span class="amber">proof of inclusion</span></div>
+      <div>  block_anchor&nbsp;&nbsp;&nbsp;<span class="amber">Polygon mainnet tx hash</span></div>
+      <br>
+      <div class="gold">[ DIVIDEND-ONLY FIELDS ]</div>
+      <div>  gate_node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI-11 | SI-12 | IN-31 …</div>
+      <div>  sovereign_ref&nbsp;&nbsp;<span class="blue">pseudonymous · non-resolving</span></div>
+      <div>  department&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;via ontology mapping</div>
+      <br>
+      <div class="gold">[ ACCESS-ONLY FIELDS ]</div>
+      <div>  term&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FALL | SPRING | SUMMER</div>
+      <div>  cohort_count&nbsp;&nbsp;&nbsp;enrolled sovereigns, integer</div>
+      <div>  waived_count&nbsp;&nbsp;&nbsp;<span class="blue">hardship waivers, aggregate</span></div>
+      <br>
+      <div class="gold">[ ABSENT FROM SCHEMA ENTIRELY ]</div>
+      <div>  <span class="red">✕</span> student identity · name · ID</div>
+      <div>  <span class="red">✕</span> individual scores or bands</div>
+      <div>  <span class="red">✕</span> grades · transcripts · GPA</div>
+      <div>  <span class="red">✕</span> employer identity on reveal events</div>
+      <div class="dim">──────────────────────────────────────────</div>
+      <div class="ok">EXPORT: signed CSV / JSON · GASB-aligned schedule</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="microlabel">The verification path</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">Four steps, no cooperation required</h3>
+        <ul class="dotlist">
+          <li><b>Export</b> the settlement schedule for any period from the dashboard.</li>
+          <li><b>Take</b> each event's Merkle leaf and its block anchor.</li>
+          <li><b>Verify</b> inclusion against the published root on Polygon mainnet.</li>
+          <li><b>Sum</b> the verified events and compare to the dashboard headline.</li>
+        </ul>
+        <p style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.65;margin-top:12px">If the two disagree, the chain is correct and we are wrong. That ordering is the point of the architecture — <b style="color:var(--on-surface)">your auditor audits the ledger, not our books.</b></p>
+      </div>
+      <div class="card">
+        <div class="microlabel">Archival audit</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:10px">One control, full reconstruction</h3>
+        <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">The Initiate Archival Audit control produces a complete forensic reconstruction of every settlement in a selected period, formatted for institutional audit and state reporting, cryptographically signed at generation. Your internal auditor never files a data request with Tenured AI.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────── §6 ─────────── -->
+  <div class="sect">
+    <div class="n">§6</div>
+    <h2>Permissions &amp; the privacy floor</h2>
+    <div class="meta">FERPA-aligned by data model, not by policy</div>
+  </div>
+  <table class="matrix">
+    <thead><tr><th>Surface element</th><th>Settlement office</th><th>Auditor</th><th>Dean · own college</th><th>Steering chair</th></tr></thead>
+    <tbody>
+      <tr><td>Cumulative settlement</td><td class="yes">FULL</td><td class="yes">FULL</td><td class="yes">SCOPED</td><td class="no">NONE</td></tr>
+      <tr><td>Next settlement block</td><td class="yes">FULL</td><td class="yes">READ</td><td class="no">NONE</td><td class="no">NONE</td></tr>
+      <tr><td>Departmental yield ledger</td><td class="yes">FULL</td><td class="yes">FULL</td><td class="yes">OWN UNIT</td><td class="no">NONE</td></tr>
+      <tr><td>Inflow stream · forensic</td><td class="yes">FULL</td><td class="yes">FULL</td><td class="yes">OWN UNIT</td><td class="no">NONE</td></tr>
+      <tr><td>Actionable intelligence</td><td class="yes">FULL</td><td class="no">NONE</td><td class="yes">FULL</td><td class="yes">FULL</td></tr>
+      <tr><td>Archival audit initiation</td><td class="yes">YES</td><td class="yes">YES</td><td class="no">NO</td><td class="no">NO</td></tr>
+      <tr><td>Settlement recipient reassignment</td><td class="yes">YES</td><td class="no">NO</td><td class="no">NO</td><td class="no">NO</td></tr>
+      <tr><td>Individual student resolution</td><td class="no">NOT IN MODEL</td><td class="no">NOT IN MODEL</td><td class="no">NOT IN MODEL</td><td class="no">NOT IN MODEL</td></tr>
+    </tbody>
+  </table>
+  <p class="body-copy" style="margin-top:18px">The final row is the load-bearing one. Per-student resolution is not a permission that has been withheld from these roles — <b>it is a view the data model cannot express</b>, because the settlement schema never receives a resolving identifier. A subpoena served on the dashboard returns pseudonymous references and nothing else. This is what "FERPA-compliant by design" means in practice, and it is the sentence to put in front of your General Counsel.</p>
+
+  <!-- ─────────── §7 ─────────── -->
+  <div class="sect">
+    <div class="n">§7</div>
+    <h2>Design rationale</h2>
+    <div class="meta">Why it looks like this and not like a SaaS dashboard</div>
+  </div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="microlabel">Tonal layering, no rules</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Every boundary on the surface is a background shift between the three surface tiers — never a hairline. Containment reads as paper stacked on paper rather than cells in a grid, which is the difference between a ledger you trust and a spreadsheet you tolerate.</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">Gold is scarce and load-bearing</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">The sovereign gradient appears exactly twice: the next-settlement block and the leading department bar. Both are the elements the treasurer scans for first. Everywhere gold could have been decorative it was replaced with tertiary blue, which carries verified-intelligence meaning instead.</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">Instrument colour is semantic</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Gold rows are Dividend, blue rows are Access. The colour is not styling — it is the only thing preventing a reader from summing two different instruments into a single misleading series, which is the specific failure this revision exists to close.</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">Mono for anything auditable</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Every figure a person might reconcile is set in JetBrains Mono: transaction IDs, timestamps, shares, wallet fragments, AICI values. Editorial Sora is reserved for totals and headings. The typeface tells you whether a number is a claim or a receipt.</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">Diffused ambient depth</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Elevation uses broad 24–40px shadows at 4–8% opacity tinted from the warm ink, never a hard drop shadow. Cards read as physical stock resting on stationery. The countdown block carries a warmer shadow derived from the gradient itself.</p>
+    </div>
+    <div class="card">
+      <div class="microlabel">The tape earns its motion</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">The corridor tape is the only animated element, and it carries information rather than atmosphere. It respects reduced-motion preferences and freezes for print. Nothing else on the surface moves, because a settlement ledger that fidgets reads as unserious.</p>
+    </div>
+  </div>
+
+  <!-- ─────────── §8 ─────────── -->
+  <div class="sect">
+    <div class="n">§8</div>
+    <h2>Provisioning</h2>
+    <div class="meta">When it appears and what triggers it</div>
+  </div>
+  <div class="grid g4">
+    <div class="tile">
+      <div class="microlabel">At MOU execution</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Settlement office of record is designated. No dashboard yet — there is nothing to display and a dashboard of zeroes teaches the wrong thing.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">At cohort activation</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Access Split ledger opens at the first term assessment. The surface goes live with Ledger A populated and Ledger B empty.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">At first Hard-Gate</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Dividend Split ledger opens. Departmental attribution becomes meaningful once activations exist to attribute. Dean credentials issue here.</p>
+    </div>
+    <div class="tile" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="microlabel" style="color:var(--amber)">At first settlement</div>
+      <p style="font-size:13px;line-height:1.65;opacity:.88">Full surface. Archival audit unlocks, corridor tape connects, auditor credential issues. This is the F-100 as specified above.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p>F-100 is provisioned to your designated settlement office at first settlement — no separate procurement, no seat licence, no additional agreement beyond the Genesis MOU.</p>
+    <div class="c">
+      Institutional Partnerships<br>
+      <a href="mailto:institutions@tenured.ai">institutions@tenured.ai</a><br>
+      TENURED AI · HOUSTON, TX
+    </div>
+  </div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

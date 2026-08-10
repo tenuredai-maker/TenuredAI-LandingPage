@@ -37,7 +37,7 @@ const TICKER_ITEMS = [
   { id: 'EWD-0023', ev: 'EWARD audit · Houston enterprise · OSD 0.71', v: 'Gold tier · 25% credit', ts: '6m ago' },
   { id: 'PSP-04405', ev: 'Hard-Gate cleared · NYC-Finance Compliance', v: '+$2,000 GDA → Columbia', ts: '9m ago' },
   { id: 'BND-00186', ev: 'Bond settled clean · Houston-Energy · 180d', v: 'Float released', ts: '11m ago' },
-  { id: 'L200-Q2', ev: 'L-200 League update · UH +2 positions', v: 'Rank #14', ts: '14m ago' },
+  { id: 'L200-Q2', ev: 'League League update · UH +2 positions', v: 'Rank #14', ts: '14m ago' },
 ];
 
 const THESIS_PILLARS = [
@@ -219,7 +219,7 @@ export default function About() {
       <section className="bg-surface-container-low py-20" id="fortress">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 items-center">
-            
+
             {/* Left Column: Fortress Brief */}
             <div>
               <p className="font-mono text-[10px] tracking-[.22em] uppercase text-primary font-bold mb-3">§ The Fortress</p>
@@ -278,8 +278,8 @@ export default function About() {
                           isGold
                             ? 'text-white border-transparent shadow-md'
                             : isBlue
-                            ? 'bg-[#2C4771] text-white border-transparent shadow-sm'
-                            : 'bg-surface-container text-on-surface-variant border-outline-variant/20 hover:border-primary/40',
+                              ? 'bg-[#2C4771] text-white border-transparent shadow-sm'
+                              : 'bg-surface-container text-on-surface-variant border-outline-variant/20 hover:border-primary/40',
                           isSelected ? 'ring-2 ring-primary ring-offset-2' : '',
                         ].join(' ')}
                         style={isGold ? { background: 'linear-gradient(135deg,#775A19,#C5A059)' } : undefined}

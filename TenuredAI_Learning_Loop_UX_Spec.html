@@ -1023,7 +1023,8 @@
                 style="background:var(--term);color:var(--inverse-on-surface);border-radius:10px;padding:18px;font-family:var(--font-mono);font-size:13px;line-height:1.9">
                 <span style="color:var(--amber)">St = S0 · e<sup>−λ·t</sup></span><br><span style="color:#C5A059">λ =
                   α·MV + β·IAR + γ·SD − G·σ</span><br><span style="color:#8FA5D6">σ = AIOI/100 (Efficiency
-                  Multiplier)</span></div>
+                  Multiplier)</span>
+              </div>
               <p style="font-size:13px;color:var(--on-surface-variant);margin-top:12px">Market Velocity (MV), Inference
                 Automation Rate (IAR), Skill Drift (SD), Grit Moat (G), Efficiency Multiplier (σ). λ recomputes nightly
                 per node.</p>
@@ -1201,7 +1202,8 @@
               <i>before</i> the answer, so the confidence reading is honest, not retroactive. The UX has to deliver this
               in a single fluid motion (swipe to declare, tap to answer) — otherwise the data is contaminated by the
               user adjusting confidence after seeing the question. This is one of those rare UX details where the
-              interaction physics is the IP.</p>
+              interaction physics is the IP.
+            </p>
           </div>
         </section>
 
@@ -1337,7 +1339,8 @@
                       style="flex:1.4"></span><span class="c5" style="flex:.8"></span></div>
                   <div
                     style="display:flex;justify-content:space-between;margin-top:4px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">
-                    <span>L1·8%</span><span>L2·16%</span><span>L3·32%</span><span>L4·28%</span><span>L5·16%</span></div>
+                    <span>L1·8%</span><span>L2·16%</span><span>L3·32%</span><span>L4·28%</span><span>L5·16%</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1404,7 +1407,8 @@
                       class="c3"></span><span class="c4"></span><span class="c5"></span></div>
                   <div
                     style="display:flex;justify-content:space-between;margin-top:6px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">
-                    <span>guessing</span><span>certain</span></div>
+                    <span>guessing</span><span>certain</span>
+                  </div>
                   <div style="margin-top:14px;font-family:var(--font-mono);font-size:10px;color:var(--c4)">↺ swipe right
                     · L4 declared</div>
                 </div>
@@ -1482,7 +1486,8 @@
                   <div style="font-family:var(--font-mono);font-size:10px;line-height:1.7;margin-top:4px">L5 accuracy:
                     <span style="color:var(--c4)">82% → 79%</span><br>Liability events: <span
                       style="color:var(--error)">1 → 2</span><br>Bond OSD impact: <span style="color:var(--mentor)">none
-                      yet</span> (threshold: 3+ events)</div>
+                      yet</span> (threshold: 3+ events)
+                  </div>
                 </div>
                 <div class="wf-row" style="margin-top:10px;gap:6px"><span class="wf-cta">Remediate now (Refresh Lab)
                     →</span><span class="wf-pill" style="font-size:10px">Pin annotation</span></div>
@@ -1637,13 +1642,15 @@
                   </div>
                   <div
                     style="display:flex;justify-content:space-between;margin-top:6px;font-family:var(--font-mono);font-size:9px;color:var(--on-surface-variant)">
-                    <span>1</span><span>14</span></div>
+                    <span>1</span><span>14</span>
+                  </div>
                 </div>
                 <div class="wf-box" style="margin-top:8px"><span class="wf-label">λ restored this session</span>
                   <div style="font-family:var(--font-mono);font-size:11px;line-height:1.7;margin-top:4px">▸ N-014 RAG
                     Foundations <span style="color:var(--mentor);float:right">+4%</span><br>▸ N-038 Vector DB Latency
                     <span style="color:var(--error);float:right">−2%</span> (HCF)<br>▸ N-052 Embedding Models <span
-                      style="color:var(--mentor);float:right">+6%</span></div>
+                      style="color:var(--mentor);float:right">+6%</span>
+                  </div>
                 </div>
                 <div style="margin-top:10px;display:flex;gap:6px"><span class="wf-cta">Next: Refresh N-038 →</span><span
                     class="wf-pill" style="font-size:10px">Continue drilling</span><span class="wf-pill"
@@ -1777,7 +1784,7 @@
             <h3>Targeted Lab Runtime</h3>
           </div>
           <p class="scr-sub">A scoped Hard-Gate — same Proving Ground engine, but bounded to a single node. The
-            Invigilator Agent runs ALTFL on all 6 channels; one or two chaos vectors fire; the user has to actually do
+            Proctor Agent runs ALTFL on all 6 channels; one or two chaos vectors fire; the user has to actually do
             the thing, not just answer about it.</p>
           <div class="grid g2">
             <div class="device">
@@ -1804,7 +1811,7 @@
                   style="margin-top:8px;background:linear-gradient(135deg,rgba(79,138,107,.1),rgba(143,165,214,.06))">
                   <div style="display:flex;align-items:center;gap:8px"><span class="dot-live"
                       style="background:var(--mentor)"></span><span
-                      style="font-family:var(--font-mono);font-size:10px;color:var(--mentor)">INVIGILATOR ·
+                      style="font-family:var(--font-mono);font-size:10px;color:var(--mentor)">Proctor ·
                       MONITORING</span><span style="margin-left:auto;font-family:var(--font-mono);font-size:10px">6/6
                       channels</span></div>
                 </div>
@@ -1814,7 +1821,7 @@
               <div class="specs" style="grid-template-columns:1fr">
                 <div class="s"><b>Components</b>
                   <p>Terminal (real, not mock — PAT-001 Adversary Logic Engine instance), countdown timer, 6-channel
-                    telemetry rail, chaos-vector indicator, Invigilator-active strip.</p>
+                    telemetry rail, chaos-vector indicator, Proctor-active strip.</p>
                 </div>
                 <div class="s"><b>Interactions</b>
                   <p>Same as Proving Ground: the user works against a real sandbox; chaos fires once or twice; Bully
@@ -1891,7 +1898,8 @@
                 <div class="wf-box"
                   style="margin-top:10px;background:var(--term);color:var(--inverse-on-surface);font-family:var(--font-mono);font-size:10px;line-height:1.7">
                   <span style="color:var(--amber)">SIGMA RECOMPUTE</span><br>Σ σ_successor: +14.2% effective decay
-                  relief<br>Cumulative bond stabilization: $4,200</div>
+                  relief<br>Cumulative bond stabilization: $4,200
+                </div>
               </div>
             </div>
             <div>
@@ -2368,7 +2376,8 @@
                     style="display:inline-flex;align-items:center;gap:4px"><span class="dot crit"
                       style="width:8px;height:8px;border-radius:50%;background:#BA1A1A"></span>re-verify</span><span
                     style="display:inline-flex;align-items:center;gap:4px"><span class="dot locked"
-                      style="width:8px;height:8px;border-radius:50%;background:#D1C5B4"></span>locked</span></div>
+                      style="width:8px;height:8px;border-radius:50%;background:#D1C5B4"></span>locked</span>
+                </div>
               </div>
             </div>
             <div>
@@ -2428,7 +2437,8 @@
                     style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;font-family:var(--font-mono);font-size:10px">
                     <span class="wf-pill" style="font-size:9px">← N-014 (active)</span><span class="wf-pill"
                       style="font-size:9px">→ N-064 (critical)</span><span class="wf-pill" style="font-size:9px">→ N-097
-                      (locked)</span></div>
+                      (locked)</span>
+                  </div>
                 </div>
                 <div class="wf-box" style="margin-top:8px;box-shadow:inset 3px 0 0 var(--c4)"><span
                     class="wf-label">Your annotation (PAT-020)</span>

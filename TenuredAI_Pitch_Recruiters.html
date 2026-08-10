@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Pitch to Recruiters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:96px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:700;max-width:24ch;margin-bottom:24px}
+.slide-lede{font-size:1.22rem;color:var(--on-surface-variant);max-width:66ch;margin-top:24px;line-height:1.55}
+
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:24px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+
+/* Phase flow */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:24px}
+@media(max-width:860px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial);position:relative}
+.phase .ph-num{position:absolute;top:18px;right:18px;font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.1em;font-weight:700}
+.phase h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;margin-top:8px}
+.phase-arrow{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);color:var(--primary);font-size:18px;font-weight:700}
+@media(max-width:860px){.phase-arrow{display:none}}
+
+/* Auction visual */
+.auction{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:32px;position:relative;overflow:hidden}
+.auction::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(186,26,26,.08),transparent 60%);pointer-events:none}
+.auction .live{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;color:var(--error);letter-spacing:.1em;font-weight:700}
+.auction .live i{width:7px;height:7px;border-radius:50%;background:var(--error);box-shadow:0 0 8px 2px rgba(186,26,26,.4);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.auction .clock{font-family:var(--font-mono);font-size:11px;color:var(--amber);letter-spacing:.05em}
+.auction .topbid{font-family:var(--font-headline);font-size:3.2rem;font-weight:800;line-height:1;color:var(--primary-container);margin-top:14px}
+
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:48px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<section class="slide" id="s1">
+  <div class="slide-num">DECK 04 / 12 · RECRUITERS</div>
+  <div class="slide-kicker">PITCH · TENURED AI · CONFIDENTIAL</div>
+  <h1>Find the engineer who can <span class="gild">actually do it.</span> Then bid for them.</h1>
+  <p class="slide-lede">A briefing for executive recruiters, search firm partners, and corporate Talent Acquisition leads on Tenured AI — the verification-first sourcing platform where every candidate's competency is forensically proven before you spend a credit, and the best ones go to live auction.</p>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · RECRUITING PROFESSIONAL BRIEFING · 2026</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="slide-num">02</div>
+  <div class="slide-kicker">The Reality You're Living</div>
+  <h2>Your search engine is feeding you fiction.</h2>
+  <p class="slide-lede">You already know this. Every senior AI placement you've made in the last 18 months had at least one moment where you wondered whether the candidate's portfolio was actually theirs. You closed the deal anyway because there was no better signal available. The signal is now available.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">PROBLEM 01</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">LinkedIn is a creative writing exercise</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">Self-reported skills. AI-generated endorsements. Portfolio links anyone could have built with Claude. The platform that defined sourcing for the last 15 years cannot survive the LLM era as a verification surface.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">PROBLEM 02</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Take-homes are dead</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">Your client's hiring manager assigned a 48-hour project. The candidate submitted in 3 hours, perfectly formatted. Everyone in the loop knows what happened. Nobody wants to say it.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-err" style="margin-bottom:14px">PROBLEM 03</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:10px">Blown placements cost you everything</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant)">A senior placement that fails within 180 days costs your firm the 25% fee, the relationship damage, and 6 months of reputation rebuild. You're carrying that risk against signals you don't trust.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="slide-num">03</div>
+  <div class="slide-kicker">The Platform · What It Actually Does</div>
+  <h2>Every candidate in our pool has cleared a Hard-Gate.</h2>
+  <p class="slide-lede">Tenured AI candidates have done something LinkedIn candidates have not: they have sat down in an air-gapped, adversarial Proving Ground environment, faced live chaos injections from a four-agent council, and produced a forensically verifiable record of how they actually think under pressure. The credential is anchored to a public blockchain. You can verify it without trusting us.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What every candidate carries</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">A Sovereign Passport</b> — Merkle-anchored record of every Hard-Gate they've cleared</li>
+        <li>· <b style="color:var(--on-surface)">A Command Authority score</b> — the composite metric the council issues, recomputed on every Gate</li>
+        <li>· <b style="color:var(--on-surface)">Six channels of behavioral telemetry</b> — keystroke velocity, inference latency, command precision, error trajectory, verification outcome, confidence-calibration</li>
+        <li>· <b style="color:var(--on-surface)">An Asymmetric Liability disclosure</b> — every overconfidence event flagged in their record (the platform is honest about what they got wrong)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What this means for your search</h3>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">When you source from Tenured AI, the candidate's claim "I can build production RAG systems" is backed by a Hard-Gate they actually cleared, with an adversarial Bully Logic loop that punishes pattern-matched memorized solutions, with a four-agent council that requires consensus to mint the credential. <b style="color:var(--on-surface)">You stop placing résumés. You start placing forensic records.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="slide-num">04</div>
+  <div class="slide-kicker">The Reveal Protocol · I-100</div>
+  <h2>Three phases. Privacy inverts the power dynamic.</h2>
+  <p class="slide-lede">The platform's sourcing protocol is the inverse of LinkedIn's. You don't browse names and resumes; you browse <i>verified competence</i>, and you spend reveal credits to unlock the candidate's identity only when you're serious. The candidate is in control until you have skin in the game.</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="ph-num">PHASE 1</div>
+      <div class="badge badge-soft" style="margin-top:8px">MATCH COUNT</div>
+      <h3>"There are 47 of them."</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">You query against the ontology and the score thresholds you actually need. The platform returns a count — no candidates yet. You see whether the talent exists at the level you're searching for.</p>
+    </div>
+    <div class="phase-arrow">→</div>
+    <div class="phase">
+      <div class="ph-num">PHASE 2</div>
+      <div class="badge badge-blue" style="margin-top:8px">DE-IDENTIFIED POOL</div>
+      <h3>"Here are their scores."</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">You see stable per-recruiter candidate IDs (cNNNN), full Command Authority, Triple-Threat scores, Triple-85 status, bond status. No names. You build your shortlist based on competence alone.</p>
+    </div>
+    <div class="phase-arrow">→</div>
+    <div class="phase" style="background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.03))">
+      <div class="ph-num">PHASE 3</div>
+      <div class="badge badge-gild" style="margin-top:8px">REVEAL · 1 CREDIT</div>
+      <h3>"Here is who they are."</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Identity revealed. Forensic PoF replay unlocked. OL flag disclosure surfaced. The candidate is notified you've revealed them — and your firm's accept rate is published to them.</p>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:24px;font-style:italic;max-width:64ch">The inversion is structural: you can't spam-message thousands of profiles. You can't fish for résumé matches. You commit credits to candidates you've already evaluated on competence. <b style="color:var(--on-surface)">The candidates this attracts are the ones who don't bother with LinkedIn anymore.</b></p>
+</section>
+
+<section class="slide" id="s5">
+  <div class="slide-num">05</div>
+  <div class="slide-kicker">The Differentiator · B-300 Recruiter Battle</div>
+  <h2>When two firms want the same Triple-85, you bid.</h2>
+  <p class="slide-lede">For Tier-5 candidates who have consented to auction, Tenured AI runs a live timed bidding market. Snipe protection extends the clock. Bids are escrowed in real time. The 40% institutional dividend recalculates with every increment. The auction concludes with atomic settlement to a Performance Bond. This is the platform's most consequential surface — and the recruiting industry has never had it.</p>
+  <div class="grid g2" style="margin-top:36px;align-items:center">
+    <div class="auction">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;position:relative;z-index:1">
+        <span class="live"><i></i>SNIPE WINDOW · BIDS EXTEND CLOCK</span>
+        <span class="clock" style="margin-left:auto">⏱ 00:42</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em;margin-top:14px;position:relative;z-index:1">TOP BID · LIVE</div>
+      <div class="topbid">$348,000</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--inverse-on-surface);opacity:.7;margin-top:6px;position:relative;z-index:1">Hodge Talent · 12s ago</div>
+      <div style="margin-top:24px;padding-top:18px;border-top:1px solid rgba(197,160,89,.18);font-family:var(--font-mono);font-size:11px;line-height:1.9;position:relative;z-index:1">
+        <div>Hodge Talent · <span style="color:var(--primary-container);font-weight:700">$348K</span> · 12s</div>
+        <div>Korn Ferry · $342K · 41s</div>
+        <div>Hodge Talent · $338K · 1m 04s</div>
+        <div>Spencer Stuart · $325K · 1m 38s</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">Why your firm wants the auction surface</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Price discovery on senior talent.</b> The auction reveals what the market will actually pay for a Triple-85 candidate in your corridor. You stop guessing on offer letters.</li>
+        <li>· <b style="color:var(--on-surface)">Escrowed bids.</b> Every bid is held against your firm's account before submission. No phantom offers, no retractions in the snipe window without penalty. The market is real.</li>
+        <li>· <b style="color:var(--on-surface)">Snipe protection.</b> Bids in the final 30 seconds add 30 seconds to the clock. The auction concludes when the market is settled, not when a stopwatch runs out.</li>
+        <li>· <b style="color:var(--on-surface)">Atomic settlement.</b> Winner pays placement fee at auction close. Bond issues automatically. No closing risk, no candidate flake.</li>
+        <li>· <b style="color:var(--on-surface)">The 90-second platform demo.</b> Anyone who watches your firm win a B-300 auction understands the platform's value in real time.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="slide-num">06</div>
+  <div class="slide-kicker">The Math · Recruiter ROI</div>
+  <h2>One avoided blown placement covers a year of platform access.</h2>
+  <p class="slide-lede">The economics are simpler than LinkedIn Recruiter Lite. Reveal credits are usage-based. The platform pays for itself the first time you avoid a placement failure on signal you couldn't have gotten anywhere else.</p>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Cost line</th><th>Amount</th><th>How it works</th></tr></thead>
+      <tbody>
+        <tr><td><b>Platform access · annual</b></td><td>$18,000 / seat</td><td>Includes 200 reveal credits / year. Unused credits roll over for 12 months.</td></tr>
+        <tr><td><b>Additional reveal credits</b></td><td>$120 / credit</td><td>One credit reveals one candidate's identity, unlocks PoF replay, surfaces OL flags. Below the cost of a single InMail batch.</td></tr>
+        <tr><td><b>B-300 auction entry</b></td><td>2 credits / auction</td><td>Bid in any active B-300 auction. Winner's placement fee is the platform's primary settlement vehicle.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(186,26,26,.04),transparent)"><b>One blown placement avoided</b></td><td style="background:linear-gradient(135deg,rgba(186,26,26,.04),transparent);color:var(--error);font-weight:700">$50K–$200K saved</td><td style="background:linear-gradient(135deg,rgba(186,26,26,.04),transparent)">25% placement fee refund, plus relationship damage, plus 6 months of reputation rebuild. Avoiding one covers years of platform access.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="slide-num">07</div>
+  <div class="slide-kicker">The Filter · Cross-Surface Attribution</div>
+  <h2>The flashcard engineer is filtered out before you see them.</h2>
+  <p class="slide-lede">The platform's search has one filter that no other sourcing tool has: cross-surface attribution. A candidate who got their AICI score by grinding Forge flashcards but has never cleared a real adversarial Hard-Gate has the platform's "drill-only" signature on their profile. You can exclude them with one toggle. The candidates who reach your shortlist are the ones who proved themselves under pressure, not at a study desk.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WITHOUT FILTER</div>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">Your pool includes the engineer who scored 89 AICI by repeating Forge drills 1,400 times over six months. Their score is real, but it doesn't survive contact with a real production Hard-Gate. Place them and the first hallucination incident reveals what they cannot do.</p>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.03))">
+      <div class="badge badge-gild" style="margin-bottom:14px">WITH ATTRIBUTION FILTER</div>
+      <p style="font-size:14.5px;color:var(--on-surface-variant);line-height:1.7">Your pool is the engineers whose AICI came from clearing actual Hard-Gates — adversarial Bully Logic loops, four-agent council consensus, sealed PoF records. <b style="color:var(--on-surface)">The signal is "they did the thing under live conditions," not "they studied for the test."</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="slide-num">08</div>
+  <div class="slide-kicker">The Comparative · Three Tools You Already Use</div>
+  <h2>Tenured AI doesn't replace them. It precedes them.</h2>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Tool</th><th>What it's good for</th><th>Where it stops</th></tr></thead>
+      <tbody>
+        <tr><td><b>LinkedIn Recruiter</b></td><td>Broad sourcing, passive-candidate outreach, large pool top-of-funnel</td><td>No verification of competence. Self-reported skills, AI-generated endorsements. The top of your funnel is now fiction.</td></tr>
+        <tr><td><b>HackerRank / Codility</b></td><td>Coding assessment during interview loop</td><td>Tests are LLM-defeated. You verify what your client's hiring manager already needs to verify; you don't pre-filter the pool with it.</td></tr>
+        <tr><td><b>Greenhouse / Workday</b></td><td>ATS, pipeline tracking, hiring workflow</td><td>The ATS doesn't tell you whether the candidate's claims are true. It manages the workflow around an unverified pool.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">Tenured AI</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))">Pre-verified pool · I-100 reveal protocol · B-300 auction · forensic PoF · attached bond</td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><span style="color:var(--primary)">Sits before everything else. Hands LinkedIn-/HackerRank-/Greenhouse-class verified candidates to your existing workflow.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="slide-num">09</div>
+  <div class="slide-kicker">The Workflow · What a Day Looks Like</div>
+  <h2>You spend less time. You place better candidates. The client renews.</h2>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">10:00 AM</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Query</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Client wants senior RAG engineer, Houston-Energy corridor, Triple-85, bondable. You query. Phase 1 returns: 47 candidates exist.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">10:15 AM</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Shortlist</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Phase 2 returns de-identified pool. You filter to attribution-verified, 92+ AICI, 0 active Tier-3 OL flags. 12 candidates remain. You shortlist 4.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">10:30 AM</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Reveal</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Spend 4 reveal credits ($480). Identities surface. You watch PoF replays for two of them. One is a 99th percentile performer your client's last shortlist missed.</p>
+    </div>
+    <div class="tile" style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))">
+      <div class="badge badge-gild" style="margin-bottom:12px">11:00 AM</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Connect</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Send structured Hire Brief through the platform. Candidate sees your firm's verified track record and accept rate. <b style="color:var(--on-surface)">They reply. Your client is closing within the week.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="slide-num">10</div>
+  <div class="slide-kicker">The Path · 30 Days to First Reveal</div>
+  <h2>Sign up. Get verified. Start sourcing.</h2>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">DAYS 1–3</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Firm verification</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your firm submits to recruiter onboarding. Background check, AP&amp;C accreditation review, prior placement-track-record disclosure (we publish your firm's accept rate to candidates).</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">DAYS 4–14</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Seat assigned</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your seat goes live. 200 starter reveal credits issued. Training session on I-100 protocol, B-300 auction etiquette, attribution filtering.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">DAYS 15–25</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">First searches</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your first active mandates run on the platform. Initial reveals build your firm's accept-rate signal. Candidate response rates measured against your LinkedIn baseline.</p>
+    </div>
+    <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="badge" style="background:var(--primary-container);color:#3D2914;margin-bottom:14px">DAYS 25–30</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary-container)">First placement</h3>
+      <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85">First Tenured AI–sourced placement closes. Bond auto-issues to the client. Your firm's first B-300 auction eligibility unlocks.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <div class="slide-num">11</div>
+  <div class="slide-kicker">Anticipated Questions</div>
+  <h2>Three things you're already thinking.</h2>
+  <table class="matrix" style="margin-top:36px">
+    <thead><tr><th>Question</th><th>Our answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>"What if the candidate pool is too small?"</b></td><td>It is, today, in some corridors. We launched in Houston-Energy and NYC-Finance because that's where density exists first. The pool is growing 22% quarter-over-quarter from university Genesis partnerships. Joining now means you have first access — and shaping rights — when density reaches your corridor in 6–18 months.</td></tr>
+      <tr><td><b>"Why would a top candidate use this instead of LinkedIn?"</b></td><td>Because the candidates we attract are the ones who don't bother with LinkedIn anymore. Their Sovereign Passport is portable, verifiable, owned by them. Recruiters who reach them through Tenured AI have already committed reveal credits, so the outreach is real, not noise. Privacy inversion: <i>they're</i> in control.</td></tr>
+      <tr><td><b>"Will my candidate's data be safe?"</b></td><td>FERPA / GDPR–compliant by design. The platform is k-anonymity-by-default. Candidates opt into reveals individually. The recruiter never sees the candidate's raw telemetry — only the council's signed evaluation. We will provide full compliance documentation on request.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="s12">
+  <div class="slide-num">12</div>
+  <div class="slide-kicker">The Ask</div>
+  <h1>One seat. <span class="gild">200 starter credits.</span> 30 days.</h1>
+  <p class="slide-lede">We are asking you to sign up for one verified recruiter seat at your firm and run one active mandate through the platform over 30 days. Starter pack: 200 reveal credits ($24K equivalent), full B-300 access, attribution filtering enabled, training session, candidate response-rate benchmarking against your LinkedIn baseline. After Day 30, you have data your principals can act on. <b>The decision is whether your firm is among the first 100 verified seats or part of the wave that follows.</b></p>
+  <div style="margin-top:48px">
+    <a href="#contact" class="cta">Begin recruiter onboarding →</a>
+    <a href="#s6" class="cta-pill">Review the ROI math</a>
+    <a href="#s5" class="cta-pill">See the auction live</a>
+  </div>
+  <div id="contact" style="margin-top:80px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · Recruiter Onboarding<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">recruiters@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · PITCH TO RECRUITERS · 12 SLIDES · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

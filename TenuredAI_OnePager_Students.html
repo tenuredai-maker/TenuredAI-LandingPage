@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Students · Onboarding One-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-container:#DBE2F9;
+  --amber:#FFBF00;--mentor:#4F8A6B;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;--tertiary-container:#233A65;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sc-low);color:var(--on-surface);font-family:var(--font-body);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+.mono{font-family:var(--font-mono)}
+.page{max-width:1180px;margin:24px auto;background:var(--surface);padding:48px;border-radius:24px;box-shadow:var(--ambient);position:relative}
+
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:30px;margin-bottom:34px;flex-wrap:wrap}
+.head .left{flex:1;min-width:280px}
+.head .right{flex:0 0 auto;text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--on-surface-variant);text-transform:uppercase;line-height:1.9}
+.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;color:var(--primary);text-transform:uppercase;margin-bottom:10px}
+.head h1{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:20ch}
+.head h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+
+.hero{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;margin-bottom:8px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:240px;height:240px;background:radial-gradient(circle,rgba(197,160,89,.15),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:10px}
+.vault .big{font-family:var(--font-headline);font-size:4.2rem;font-weight:800;line-height:1;color:var(--primary-container);letter-spacing:-.04em}
+.vault .small{font-family:var(--font-mono);font-size:11px;color:var(--inverse-on-surface);opacity:.75;margin-top:12px;line-height:1.7}
+.chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px}
+.chip{background:rgba(197,160,89,.12);border-radius:10px;padding:11px 12px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--inverse-on-surface);opacity:.9;line-height:1.5}
+.chip b{display:block;font-family:var(--font-headline);font-size:1.15rem;color:var(--primary-container);letter-spacing:-.02em;margin-top:4px;opacity:1}
+
+.sect{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin:34px 0 14px;flex-wrap:wrap}
+.sect b{font-family:var(--font-headline);font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+.sect span{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant)}
+
+.rail{display:flex;flex-direction:column;gap:8px}
+.rail-row{display:grid;grid-template-columns:82px 1fr 186px;gap:20px;background:var(--sc-lowest);border-radius:var(--r-lg);padding:15px 20px;box-shadow:var(--editorial);align-items:start;page-break-inside:avoid}
+@media(max-width:760px){.rail-row{grid-template-columns:1fr;gap:8px}}
+.rail-row .st{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:700;line-height:1.5}
+.rail-row .st b{display:block;font-family:var(--font-headline);font-size:1.5rem;color:var(--on-surface);letter-spacing:-.05em;font-weight:800;margin-bottom:2px}
+.rail-row h4{font-size:.98rem;font-weight:700;margin-bottom:4px}
+.rail-row p{font-size:12.5px;color:var(--on-surface-variant);line-height:1.55}
+.rail-row .art{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tertiary);line-height:1.95;font-weight:700}
+.rail-row.end{background:var(--inverse-surface);color:var(--inverse-on-surface)}
+.rail-row.end .st,.rail-row.end .st b{color:var(--primary-container)}
+.rail-row.end h4{color:var(--primary-container)}
+.rail-row.end p{color:var(--inverse-on-surface);opacity:.82}
+.rail-row.end .art{color:var(--amber)}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+.panel{background:var(--sc-lowest);border-radius:var(--r-xl);padding:22px;box-shadow:var(--editorial)}
+.panel .lbl{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:12px}
+.panel ul{list-style:none;font-size:12.8px;color:var(--on-surface-variant);line-height:1.75}
+.panel ul li{padding:5px 0}
+.panel ul li b{color:var(--on-surface)}
+.panel ul li::before{content:"· ";color:var(--primary-container);font-weight:700}
+
+.strip{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-xl);padding:20px 24px;font-family:var(--font-mono);font-size:10.5px;line-height:2.05;display:grid;grid-template-columns:1fr 1fr;gap:0 36px;position:relative;overflow:hidden;page-break-inside:avoid}
+.strip::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:repeating-linear-gradient(0deg,#FFF 0 1px,transparent 1px 3px)}
+@media(max-width:760px){.strip{grid-template-columns:1fr}}
+.strip .hd{color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-size:9px;text-shadow:var(--crt-glow)}
+.strip .ok{color:#7FBF9B}.strip .no{color:#ff8a8a}.strip .bl{color:#8FA5D6}
+
+.effort{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+@media(max-width:900px){.effort{grid-template-columns:1fr 1fr}}
+.effort div{background:var(--sc-low);border-radius:10px;padding:13px 14px}
+.effort .who{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant)}
+.effort .hrs{font-family:var(--font-headline);font-size:1.4rem;font-weight:800;letter-spacing:-.03em;margin-top:4px}
+.effort .task{font-size:11px;color:var(--on-surface-variant);margin-top:3px;line-height:1.4}
+
+/* SUBORDINATE BOTTOM BAND */
+.band{background:var(--sc-low);border-radius:var(--r-2xl);padding:28px;margin-top:36px;page-break-inside:avoid}
+.band .bandhead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.band .bandhead b{font-family:var(--font-headline);font-size:1.15rem;font-weight:700;letter-spacing:-.02em}
+.band .bandhead span{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-variant)}
+.bandgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:24px}
+@media(max-width:900px){.bandgrid{grid-template-columns:1fr}}
+.share-stack{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.share-stack i{height:38px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8.5px;font-weight:700;font-style:normal;text-align:center;line-height:1.3}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:12.5px}
+.tbl td{padding:9px 12px;background:var(--sc-lowest)}
+.tbl td:first-child{border-radius:8px 0 0 8px}
+.tbl td:last-child{text-align:right;font-family:var(--font-mono);color:var(--primary);font-weight:700;border-radius:0 8px 8px 0}
+.tbl td:nth-child(2){font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);text-align:right}
+.note{font-size:10.5px;font-family:var(--font-mono);color:var(--on-surface-variant);margin-top:10px;letter-spacing:.03em;line-height:1.7}
+
+.footer{display:flex;justify-content:space-between;align-items:center;margin-top:30px;padding-top:24px;gap:20px;flex-wrap:wrap;background:var(--sc-lowest);border-radius:var(--r-xl);padding:22px 24px;box-shadow:var(--editorial)}
+.footer .left p{font-size:13.5px;font-family:var(--font-headline);font-weight:600;max-width:52ch;line-height:1.4}
+.footer .right{text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.04em;line-height:1.9}
+.footer .right a{color:var(--primary);text-decoration:none;font-weight:700}
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:9999px;padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+@media print{body{background:#FFF}.page{box-shadow:none;margin:0;max-width:none;border-radius:0;padding:22px}.themebtn,.printbtn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <div class="left">
+      <div class="kicker">One-Pager · Student Onboarding Brief</div>
+      <h1>Five minutes to sign up. <span class="gild">One semester to proof.</span></h1>
+    </div>
+    <div class="right">TENURED AI<br>SOVEREIGN PASSPORT<br>2026 · CONFIDENTIAL</div>
+  </div>
+
+  <div class="hero">
+    <div class="vault">
+      <span class="seal">WHAT IT COSTS YOU</span>
+      <div class="big">$0</div>
+      <div class="small">At a Genesis Institution. Your school's dividend stream covers your access for as long as you're enrolled. Forge unlimited, Hard-Gates included, Passport perpetual and <b style="color:var(--primary-container)">anchored under your own DID</b> — it survives the platform, your school, and your first three jobs.</div>
+      <div class="chips">
+        <div class="chip">Non-partner school<b>$19/mo</b></div>
+        <div class="chip">Pell · first-gen<b>$0</b></div>
+        <div class="chip">Signup time<b>~5 min</b></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:14px">
+      <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">You don't enroll in Tenured AI the way you enroll in a course. <b style="color:var(--on-surface)">Nobody signs you up — you sign yourself up</b>, through your own school login, against a consent screen that itemizes exactly what gets shared and with whom. Every optional field starts off.</p>
+      <p style="font-size:15px;line-height:1.65;color:var(--on-surface-variant)">If you decline, nothing happens. You stay enrolled in your degree, your grades are untouched, and no faculty member is told. There is no academic consequence to saying no — that's structural, not a policy we could change later.</p>
+    </div>
+  </div>
+
+  <div class="sect"><b>Signing up · the five steps</b><span>Roughly five minutes · then fifteen a day</span></div>
+  <div class="rail">
+    <div class="rail-row">
+      <div class="st"><b>01</b>~1 min</div>
+      <div><h4>Log in with your school account</h4><p>You click the invite and land on your own university's login page — the same one you use for everything else. Tenured AI never sees a password, never issues you one, and never becomes a second account you have to remember.</p></div>
+      <div class="art">→ You need<br>→ Your school SSO<br>→ Nothing else</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>02</b>~3 min</div>
+      <div><h4>Read the consent screen. Actually read it.</h4><p>One itemized page: what gets verified, what's published, what stays private, what your school can see, what a recruiter can see, and what happens if you leave. Granular toggles, not a blanket accept. <b style="color:var(--on-surface)">Every optional field defaults to off.</b></p></div>
+      <div class="art">→ Your school sees<br>→ Aggregate cohort math<br>→ Never your score</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>03</b>~1 min</div>
+      <div><h4>Your Passport mints</h4><p>Issued to you — not to your school, not to us. The public side shows verified competency bands with zero personal identifiers until you personally authorize a reveal. Anchored to your DID on Polygon mainnet from the first minute.</p></div>
+      <div class="art">→ You own<br>→ The keys<br>→ The redactions</div>
+    </div>
+    <div class="rail-row">
+      <div class="st"><b>04</b>Daily</div>
+      <div><h4>Forge drills, about fifteen minutes</h4><p>They look like flashcards. They aren't — each one is a scored adversarial exchange, and the telemetry accrues to your Passport across the term. Scoped to your actual coursework. You watch your own AICI, AIOI and AIBS lines move in the Proving Ground console.</p></div>
+      <div class="art">→ Mon–Fri<br>→ ~15 min<br>→ Refresh Labs 1–2/mo</div>
+    </div>
+    <div class="rail-row end">
+      <div class="st"><b>05</b>End of term</div>
+      <div><h4>Your first Hard-Gate</h4><p>About ninety minutes. Clear it and a Consensus Certificate mints against the Merkle root — permanent, portable, independently verifiable without our servers. <b style="color:var(--primary-container)">Failed attempts never appear on your Passport.</b> Only cleared Gates mint. You can retake.</p></div>
+      <div class="art">→ ~90 min<br>→ Retakeable<br>→ Walks with you forever</div>
+    </div>
+  </div>
+
+  <div class="sect"><b>What you control · and what nobody else gets</b><span>Non-negotiable · built into the architecture</span></div>
+  <div class="strip">
+    <div>
+      <div class="hd">You own</div>
+      <div>passport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">outright · under your DID</span></div>
+      <div>reveals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">opt-in per recruiter</span></div>
+      <div>redaction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">field-level · anytime</span></div>
+      <div>export&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signed JSON / PDF · anytime</div>
+      <div>exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;credentials intact via Merkle proof</div>
+      <br>
+      <div class="hd">Your school sees</div>
+      <div>aggregate cohort trajectory only</div>
+      <div><span class="bl">k-anonymity preserved · never your score</span></div>
+    </div>
+    <div>
+      <div class="hd">Nobody sees without your consent</div>
+      <div><span class="no">\u2715</span> your name, before you reveal it</div>
+      <div><span class="no">\u2715</span> failed Hard-Gate attempts, ever</div>
+      <div><span class="no">\u2715</span> your drills, by any faculty member</div>
+      <div><span class="no">\u2715</span> your grades \u2014 we never receive them</div>
+      <br>
+      <div class="hd">If you decline</div>
+      <div><span class="ok">nothing happens.</span> No academic consequence.</div>
+      <div>No faculty notification. No record kept.</div>
+      <br>
+      <div class="hd">If we shut down</div>
+      <div><span class="ok">your certificates still verify.</span> On-chain,</div>
+      <div>independent of anything we run.</div>
+    </div>
+  </div>
+
+  <div class="duo" style="margin-top:24px">
+    <div class="panel">
+      <div class="lbl">Why bother · the short version</div>
+      <ul>
+        <li><b>Your degree certifies access to AI, not skill with it.</b> Employers have noticed. 75% of HR leaders now weight demonstrated skills over the credential.</li>
+        <li><b>A Passport is the thing you can hand them instead.</b> Sealed artifacts, adversarially scored, with the work attached — not a line on a resume.</li>
+        <li><b>It compounds.</b> Four years of telemetry is a Career Memory, not a certificate. It's the part of your record that keeps working after graduation.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="lbl">Fair questions</div>
+      <ul>
+        <li><b>"Is this more work?"</b> Fifteen minutes a day, scoped to coursework you're already doing. One 90-minute gate a term.</li>
+        <li><b>"Can I fail publicly?"</b> No. Failed attempts are invisible to everyone including your school. Only cleared Gates mint.</li>
+        <li><b>"What if I transfer or drop?"</b> The Passport is yours. It moves with you and stays verifiable regardless of enrollment status.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SUBORDINATE BAND · UNDERWRITING / TALENT ECONOMICS -->
+  <div class="band">
+    <div class="bandhead">
+      <b>The economics behind your free access \u2014 and who actually pays</b>
+      <span>40 / 40 / 20 · reference only · you are never the payer</span>
+    </div>
+    <div class="bandgrid">
+      <div>
+        <div class="share-stack">
+          <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>UNIVERSITY</i>
+          <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>PLATFORM</i>
+          <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>STATE</i>
+        </div>
+        <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:14px;line-height:1.65">When a recruiter reveals your identity, or an employer issues a Performance Bond on hiring you, that transaction splits three ways at the contract layer. <b style="color:var(--on-surface)">Your school's 40% is what funds your free access</b> — it is the platform's payment for verification infrastructure, not a charge routed back to you.</p>
+        <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:10px;line-height:1.65">You are not the product being sold. You are the party whose consent gates the whole transaction — nothing settles until you authorize the reveal.</p>
+      </div>
+      <div>
+        <table class="tbl">
+          <tr><td>What you pay at a Genesis Institution</td><td>always</td><td>$0</td></tr>
+          <tr><td>What you pay on Pell / first-gen hardship</td><td>auto-applied</td><td>$0</td></tr>
+          <tr><td>What a recruiter spends to reach you</td><td>per reveal</td><td>$120 credit</td></tr>
+          <tr><td>What an employer bonds on hiring you</td><td>annual premium</td><td>$11,250 avg</td></tr>
+          <tr><td>What you receive when two firms bid</td><td>B-300 auction</td><td>the leverage</td></tr>
+        </table>
+        <p class="note">The hiring inversion is the point: recruiters spend credits to talk to you rather than the reverse, and when two firms want the same cleared Passport, the B-300 protocol makes them bid. Figures are modeled against platform underwriting economics \u2014 not a guarantee of any individual outcome, offer, or salary.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <p>Sign up free. Fifteen minutes a day. One Hard-Gate by the end of the semester. The next interview you walk into has proof on your side \u2014 or it doesn't.</p>
+    </div>
+    <div class="right">
+      Begin your Passport<br>
+      <a href="mailto:students@tenured.ai">students@tenured.ai</a><br>
+      <span style="font-size:10px;letter-spacing:.1em">TENURED AI · HOUSTON, TX</span>
+    </div>
+  </div>
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

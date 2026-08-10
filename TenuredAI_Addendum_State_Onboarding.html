@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Addendum 01-A · State Onboarding &amp; Treasury Integration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:84px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;max-width:22ch;margin-bottom:24px}
+.slide-lede{font-size:1.2rem;color:var(--on-surface-variant);max-width:64ch;margin-top:24px;line-height:1.5}
+
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.g23{grid-template-columns:2fr 3fr}.g32{grid-template-columns:3fr 2fr}
+@media(max-width:860px){.g2,.g3,.g4,.g23,.g32{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:28px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:22px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:28px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+.term{background:var(--term);color:var(--inverse-on-surface);border-radius:14px;padding:22px;font-family:var(--font-mono);font-size:12.5px;line-height:1.85;position:relative;overflow:hidden}
+.term::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:repeating-linear-gradient(0deg,#FFF 0 1px,transparent 1px 3px)}
+.term .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.term .gold{color:#C5A059}.term .ok{color:#7FBF9B}.term .blue{color:#8FA5D6}.term .dim{opacity:.45}
+
+.seq{display:flex;flex-direction:column;gap:10px;margin-top:32px}
+.seq-row{display:grid;grid-template-columns:120px 1fr 200px;gap:24px;background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px 28px;box-shadow:var(--editorial);align-items:start}
+@media(max-width:860px){.seq-row{grid-template-columns:1fr;gap:12px}}
+.seq-row .stage{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:700;line-height:1.6}
+.seq-row .stage b{display:block;font-family:var(--font-headline);font-size:2rem;color:var(--on-surface);letter-spacing:-.04em;font-weight:800;margin-top:2px}
+.seq-row h4{font-size:1.15rem;font-weight:700;margin-bottom:8px}
+.seq-row p{font-size:13.5px;color:var(--on-surface-variant);line-height:1.65}
+.seq-row .artifact{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-variant);line-height:2}
+.seq-row .artifact span{color:var(--tertiary);font-weight:700}
+.seq-row.terminal{background:var(--inverse-surface);color:var(--inverse-on-surface)}
+.seq-row.terminal .stage{color:var(--primary-container)}
+.seq-row.terminal .stage b{color:var(--primary-container)}
+.seq-row.terminal p{color:var(--inverse-on-surface);opacity:.82}
+.seq-row.terminal .artifact{color:var(--inverse-on-surface);opacity:.7}
+.seq-row.terminal .artifact span{color:var(--amber)}
+
+.sharebar{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.sharebar i{height:58px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:.06em;font-style:normal;text-align:center;padding:0 4px}
+
+.figure{font-family:var(--font-mono);font-weight:700;color:var(--primary)}
+.big{font-family:var(--font-headline);font-size:clamp(2.4rem,5vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.microlabel{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:8px}
+.checklist{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:2.1}
+.checklist li b{color:var(--on-surface)}
+.checklist li::before{content:"▢ ";font-family:var(--font-mono);color:var(--primary-container);font-size:13px}
+.dotlist{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9}
+.dotlist li b{color:var(--on-surface)}
+
+/* HEATMAP */
+.heat{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:18px}
+.heat i{aspect-ratio:1;border-radius:4px;font-style:normal}
+.h5{background:#2C4771}.h4{background:#4A6796}.h3{background:#8FA5D6}.h2{background:#E3C88A}.h1{background:#C5A059}.h0{background:var(--sc-high)}
+.heatkey{display:flex;gap:18px;margin-top:16px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);flex-wrap:wrap}
+.heatkey span{display:inline-flex;align-items:center;gap:7px}
+.heatkey em{width:12px;height:12px;border-radius:3px;display:inline-block;font-style:normal}
+
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:40px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<!-- B1 · COVER -->
+<section class="slide" id="b1">
+  <div class="slide-num">ADDENDUM 01-A / STATE LEADERSHIP · FRONT MATTER</div>
+  <div class="slide-kicker">ONBOARDING &amp; TREASURY INTEGRATION PROTOCOL · TENURED AI · CONFIDENTIAL</div>
+  <h1>No appropriation. No procurement. <span class="gild">One instrument.</span></h1>
+  <p class="slide-lede">This addendum precedes the State Leadership pitch and answers the question your Chief of Staff will ask before any number is discussed: <b>what does the state actually have to do, and what does it have to spend?</b> The answer is one MOU, one Treasury settlement designation, one pilot corridor, and zero dollars of general revenue. The 40/40/20 dividend architecture follows onboarding — it is documented in full at §B5.</p>
+  <div class="grid g4" style="margin-top:56px">
+    <div class="tile">
+      <div class="microlabel">General Revenue Required</div>
+      <div class="big" style="color:var(--primary)">$0</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">The state receives. It does not disburse.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">MOU to Live</div>
+      <div class="big">60–90<span style="font-size:1rem;font-family:var(--font-mono);font-weight:400"> days</span></div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Executive briefing to corridor activation.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Legislation Required</div>
+      <div class="big">None</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">For the pilot. Three statutory paths at §B8.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">First Treasury Settlement</div>
+      <div class="big">Mo. 12<span style="font-size:1rem;font-family:var(--font-mono);font-weight:400">–18</span></div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Quarterly thereafter, in perpetuity.</p>
+    </div>
+  </div>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · GOVERNOR'S OFFICE · TREASURY · WORKFORCE COMMISSION · ATTORNEY GENERAL · 2026</div>
+</section>
+
+<!-- B2 · THE INSTRUMENT -->
+<section class="slide" id="b2">
+  <div class="slide-num">B2</div>
+  <div class="slide-kicker">The Instrument · The Legal Posture Your AG Will Test First</div>
+  <h2>The state is a revenue counterparty, not a purchaser.</h2>
+  <p class="slide-lede">This is the load-bearing structural fact of the entire engagement, and it is what removes the three obstacles that normally kill a technology partnership at the state level: competitive bid, appropriation, and vendor-risk exposure. <b>No state funds change hands in either direction except inbound.</b></p>
+  <div class="grid g2" style="margin-top:40px">
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:16px">THE STATE COMMITS TO FOUR THINGS</div>
+      <ul class="dotlist">
+        <li>· <b>Name one pilot corridor.</b> One industry vertical and three flagship public institutions. Houston Energy and NYC Finance are the modeled reference corridors.</li>
+        <li>· <b>Designate a settlement recipient.</b> One Treasury account or dedicated workforce fund of record to receive the 20% dividend.</li>
+        <li>· <b>Appoint a governance liaison.</b> One named officer — typically from the Workforce Commission or the Governor's policy office — to hold the Kill-Switch Dashboard credential.</li>
+        <li>· <b>Permit institutional participation.</b> A board-level acknowledgment that the named public institutions may execute their own Genesis MOUs. Not a mandate.</li>
+      </ul>
+    </div>
+    <div class="vault">
+      <span class="seal">TENURED AI COMMITS TO FOUR THINGS</span>
+      <ul class="dotlist" style="color:var(--inverse-on-surface);opacity:.9">
+        <li>· <b style="color:var(--primary-container)">Both settlements.</b> 20% of the per-semester Access Fee at public institutions, and 20% of every in-state transaction in perpetuity — two separate instruments, both routed atomically at the smart-contract layer, both unrestricted as to use. Detailed at §B5.</li>
+        <li>· <b style="color:var(--primary-container)">Zero cost to the state</b> — no license, no implementation fee, no consulting engagement, no matching requirement, no in-kind commitment.</li>
+        <li>· <b style="color:var(--primary-container)">Kill-Switch Dashboard and AICI Heatmap</b> provisioned to the designated office at go-live, covering every participating institution.</li>
+        <li>· <b style="color:var(--primary-container)">Full audit access</b> — Merkle-proof verification of every routed dollar, independently confirmable without trusting the platform.</li>
+      </ul>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.12em;margin-top:22px;text-transform:uppercase">Term · perpetual · Termination · 180-day notice · Routed funds are not clawable</div>
+    </div>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="tile">
+      <div class="microlabel">Not a procurement</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">No state funds are obligated, so no competitive-bid statute attaches. The MOU is a revenue-participation instrument of the kind states already execute for royalty, settlement, and licensing income.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Not a mandate</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">The pilot does not compel any institution to participate or any student to enroll. Adoption is institution-by-institution and student-by-student. Statewide mandate is a Phase 2 legislative option, not a Phase 1 requirement.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Not a vendor dependency</div>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Credentials anchor on public chain via Merkle root. If the platform ceased operating tomorrow, every credential issued to a citizen of your state remains independently verifiable, and every routed dollar remains in your Treasury.</p>
+    </div>
+  </div>
+</section>
+
+<!-- B3 · SEQUENCE -->
+<section class="slide" id="b3">
+  <div class="slide-num">B3</div>
+  <div class="slide-kicker">The Sequence · Executive Briefing to First Treasury Settlement</div>
+  <h2>Five stages. Ninety days to live corridor. Eighteen months to first check.</h2>
+  <p class="slide-lede">Each stage terminates in a named artifact your General Counsel can file. Nothing advances until the prior artifact is countersigned by the state.</p>
+
+  <div class="seq">
+    <div class="seq-row">
+      <div class="stage">Stage<b>01</b>Days 0–30</div>
+      <div>
+        <h4>Executive briefing &amp; corridor selection</h4>
+        <p>A session with the Governor's policy office, the Workforce Commission, and Treasury. We present the settlement architecture, the Kill-Switch governance tool, and the revenue model run against your state's actual enrollment and placement data. Candidate corridors and flagship institutions are shortlisted in the room.</p>
+      </div>
+      <div class="artifact"><span>ARTIFACT →</span><br>Corridor shortlist<br>State revenue model<br>Institution candidate list</div>
+    </div>
+
+    <div class="seq-row">
+      <div class="stage">Stage<b>02</b>Days 20–60</div>
+      <div>
+        <h4>Attorney General &amp; Treasury review</h4>
+        <p>The AG's office receives the procurement-posture memorandum, the FERPA and privacy dossier, the smart-contract settlement terms, and the termination and wind-down provisions. Treasury receives the settlement-integration specification and the GASB revenue-recognition note. This is the longest stage and the one worth not rushing.</p>
+      </div>
+      <div class="artifact"><span>ARTIFACT →</span><br>AG posture opinion<br>Executed State MOU<br>Treasury integration approval</div>
+    </div>
+
+    <div class="seq-row">
+      <div class="stage">Stage<b>03</b>Days 45–90</div>
+      <div>
+        <h4>Treasury settlement integration</h4>
+        <p>The designated Treasury account or workforce fund is registered as settlement recipient. Reconciliation cadence, reporting format, and audit-access credentials are configured to your Comptroller's specification. Full technical detail at §B4.</p>
+      </div>
+      <div class="artifact"><span>ARTIFACT →</span><br>Settlement designation<br>Comptroller audit credential<br>Reconciliation schedule</div>
+    </div>
+
+    <div class="seq-row">
+      <div class="stage">Stage<b>04</b>Months 4–12</div>
+      <div>
+        <h4>Institutional activation</h4>
+        <p>The three flagship institutions execute their own Genesis MOUs and run the university onboarding sequence independently — the state is not a party to the institutional technical intake and carries none of its burden. Corridor recruiters activate. First 40/40/20 transactions route.</p>
+      </div>
+      <div class="artifact"><span>ARTIFACT →</span><br>3 Genesis MOUs executed<br>Recruiter corridor live<br>First routed transactions</div>
+    </div>
+
+    <div class="seq-row terminal">
+      <div class="stage">Stage<b>05</b>Month 12–18</div>
+      <div>
+        <h4 style="color:var(--primary-container)">First Treasury settlement &amp; Heatmap go-live</h4>
+        <p>Quarterly settlement begins to the designated account. <b>The Kill-Switch Dashboard and the statewide AICI Heatmap go live in the Governor's office.</b> The Comptroller receives the first Merkle-verified settlement reconciliation. Statewide expansion becomes a legislative option supported by twelve months of live data rather than a projection.</p>
+      </div>
+      <div class="artifact"><span>ARTIFACT →</span><br>First settlement receipt<br>Kill-Switch credential<br>AICI Heatmap live<br><span>Expansion authorization brief</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- B4 · TREASURY INTEGRATION -->
+<section class="slide" id="b4">
+  <div class="slide-num">B4</div>
+  <div class="slide-kicker">Treasury Integration · The Specification Your Comptroller Will Ask For</div>
+  <h2>Atomic settlement. Merkle-proof reconciliation. No escrow risk.</h2>
+  <div class="grid g32" style="margin-top:36px">
+    <div>
+      <div class="term">
+        <div class="amber">TENURED AI · STATE TREASURY SETTLEMENT SPEC · REV 1.8</div>
+        <div class="dim">─────────────────────────────────────────────</div>
+        <br>
+        <div class="gold">[ SETTLEMENT MECHANICS ]</div>
+        <div>  split_enforcement   <span class="ok">smart contract · immutable</span></div>
+        <div>  state_share         <span class="ok">20.00% · both splits · public</span></div>
+        <div>  routing             per-transaction · atomic</div>
+        <div>  accrual             <span class="blue">none · no escrow held</span></div>
+        <div>  clawback            <span class="blue">not permissible by contract</span></div>
+        <br>
+        <div class="gold">[ RECIPIENT CONFIGURATION ]</div>
+        <div>  recipient           state-designated account</div>
+        <div>  designation         Treasury | dedicated fund</div>
+        <div>  reassignment        state-initiated, 30-day</div>
+        <div>  restriction         <span class="ok">none · unrestricted revenue</span></div>
+        <br>
+        <div class="gold">[ RECONCILIATION &amp; AUDIT ]</div>
+        <div>  cadence             quarterly settlement</div>
+        <div>  reporting           monthly detail statement</div>
+        <div>  proof               <span class="amber">Merkle root · public chain</span></div>
+        <div>  verification        <span class="amber">independent of platform</span></div>
+        <div>  audit_access        Comptroller · unrestricted</div>
+        <div>  format              GASB-aligned revenue schedule</div>
+        <br>
+        <div class="gold">[ WIND-DOWN PROVISION ]</div>
+        <div>  notice              180 days, either party</div>
+        <div>  routed_funds        <span class="ok">retained by state · final</span></div>
+        <div>  credentials         <span class="ok">survive · on-chain anchored</span></div>
+        <div>  in_flight           settle to completion</div>
+        <div class="dim">─────────────────────────────────────────────</div>
+        <div class="ok">STATUS: reference implementation available at AG review</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="card">
+        <div class="microlabel">Why atomic settlement matters to Treasury</div>
+        <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:10px">There is no counterparty holding your money</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">Conventional revenue-share arrangements accrue at a vendor and reconcile quarterly — which means the state is an unsecured creditor for ninety days at a time. Here the split executes at the contract layer at the instant of transaction. <b style="color:var(--on-surface)">The platform never holds the state's share, so it cannot fail to remit it.</b></p>
+      </div>
+      <div class="card">
+        <div class="microlabel">Why the audit posture matters to the AG</div>
+        <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:10px">Verification does not require trust</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">Every routed dollar carries a Merkle proof anchored to public chain. Your Comptroller reconciles against the chain, not against a statement we produce. This is the difference between an audit of our books and an audit of the ledger — and it is the answer to the "what if they under-report" question before it is asked.</p>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Revenue characteristics</div>
+        <ul class="dotlist" style="font-size:13px">
+          <li>· <b>Unrestricted.</b> Not federal pass-through, not matched, not earmarked by us</li>
+          <li>· <b>Non-tax.</b> Transaction-derived, not levied on residents</li>
+          <li>· <b>Counter-cyclical.</b> Tied to enrollment, which rises in downturns</li>
+          <li>· <b>Earmarkable by statute.</b> Your legislature may direct it — workforce, K-12 STEM, community college</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B5 · THE ECONOMICS -->
+<section class="slide" id="b5">
+  <div class="slide-num">B5</div>
+  <div class="slide-kicker">The Economics · Two Different 40/40/20s</div>
+  <h2>Same ratio. Different instruments. Do not conflate them.</h2>
+  <p class="slide-lede">Onboarding is the decision; the splits are the arithmetic that follows. There are <b>two</b>, and because both divide 40/40/20 they are routinely treated as one thing in briefing — including by people who have read the deck. They are not the same money. <b>The Access Split divides a per-student enrollment fee. The Dividend Split divides a per-hire transaction.</b> Treasury receives 20% of each.</p>
+
+  <div class="tile" style="margin-top:32px;background:var(--sc-high)">
+    <div class="microlabel">The distinction in one line</div>
+    <div class="grid g2" style="gap:24px;margin-top:6px">
+      <p style="font-size:14px;line-height:1.7"><b>The Access Split</b> divides the <b>$100 Sovereign Access Fee charged per enrolled student, per semester</b> at participating public institutions. Termly. Scales with public headcount. Settles whether or not a single graduate has yet been hired.</p>
+      <p style="font-size:14px;line-height:1.7;color:var(--on-surface-variant)"><b style="color:var(--on-surface)">The Dividend Split</b> divides the <b style="color:var(--on-surface)">transaction value a graduate generates in the labor market.</b> Perpetual. Scales with corridor employment. Begins once cleared graduates enter the recruiter pipeline.</p>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:28px">
+    <div class="card" style="box-shadow:var(--ambient);position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:5px;background:var(--sovereign)"></div>
+      <div class="badge badge-gild" style="margin-bottom:18px">SETTLEMENT ONE · THE ACCESS SPLIT</div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:6px">$100 per student · per semester</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);margin-bottom:22px">The Sovereign Access Fee, charged <b style="color:var(--on-surface)">per enrolled student, per semester</b> at public institutions and divided at the contract layer on settlement. This is the larger near-term Treasury line and the split most people mean when they say "the 40/40/20."</p>
+      <div class="sharebar">
+        <i style="grid-column:span 4;background:var(--primary-container);color:#3D2914">40%<br>UNIVERSITY<br>$40.00</i>
+        <i style="grid-column:span 4;background:#B8862E;color:#FFF">40%<br>PLATFORM<br>$40.00</i>
+        <i style="grid-column:span 2;background:var(--tertiary);color:#FFF">20%<br>STATE<br>$20.00</i>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-variant);margin-top:16px;line-height:1.9">
+        University · direct innovation fund, unrestricted<br>
+        Platform · operates and secures the ledger<br>
+        <b style="color:var(--tertiary)">State Treasury · the Workforce Dividend</b>
+      </div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:16px;font-style:italic">Private institutions settle 50/50 with no state share, because no public workforce levy attaches.</p>
+
+      <div class="tile" style="margin-top:24px">
+        <div class="microlabel">Access Split · annual Treasury line by public enrollment</div>
+        <table class="matrix" style="border-spacing:0 6px;font-size:13px">
+          <tbody>
+            <tr><td style="width:52%">Public enrollment 400,000</td><td style="text-align:right"><span class="figure">$16M / yr</span></td></tr>
+            <tr><td>Public enrollment 800,000</td><td style="text-align:right"><span class="figure">$32M / yr</span></td></tr>
+            <tr><td>Texas reference · ~1.6M</td><td style="text-align:right"><span class="figure">$64M / yr</span></td></tr>
+            <tr><td>California reference · ~2.6M</td><td style="text-align:right"><span class="figure">$104M / yr</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:10px;font-style:italic">Two semesters per academic year at full statewide public adoption. Pilot-stage figures scale from the participating cohort only.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:18px">SETTLEMENT TWO · THE DIVIDEND SPLIT</div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:6px">20% of every in-state transaction</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);margin-bottom:22px">A separate instrument on a separate base — <b style="color:var(--on-surface)">no student fee is involved.</b> Every recruiter reveal and every Performance Bond issued against a hire in your corridor routes to Treasury per transaction.</p>
+
+      <table class="matrix" style="font-size:13px">
+        <thead><tr><th>Stage</th><th style="text-align:right">Bonded hires / yr</th><th style="text-align:right">Treasury 20%</th></tr></thead>
+        <tbody>
+          <tr><td style="width:36%"><b>Pilot</b> · single corridor</td><td style="text-align:right;font-family:var(--font-mono)">3,500</td><td style="text-align:right"><span class="figure">$7.9M</span></td></tr>
+          <tr><td><b>Statewide rollout</b></td><td style="text-align:right;font-family:var(--font-mono)">15,000</td><td style="text-align:right"><span class="figure">$33.8M</span></td></tr>
+          <tr><td><b>Mature integration</b></td><td style="text-align:right;font-family:var(--font-mono)">40,000</td><td style="text-align:right"><span class="figure">$90M</span></td></tr>
+          <tr><td><b>National anchor</b></td><td style="text-align:right;font-family:var(--font-mono)">67,800</td><td style="text-align:right"><span class="figure">$152.5M</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11.5px;color:var(--on-surface-variant);margin-top:10px;font-style:italic">Modeled at $11,250 average annual premium per bonded hire at Chubb Gold tier. Excludes reveal-credit volume, historically an additional 22–34%.</p>
+
+      <div class="vault" style="margin-top:22px">
+        <span class="seal">THE DOUBLE-DIP</span>
+        <p style="font-size:13.5px;line-height:1.75;opacity:.9">The Treasury receives the settlement <i>and</i> the widened tax base. Verified graduates in the modeled corridors clear <b style="color:var(--primary-container)">$15K–$20K above national median</b> in first-role compensation. The income-tax and sales-tax effect of that delta, compounded across a graduating cohort, is a second-order return the settlement figures above do not include.</p>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:24px;font-style:italic;max-width:96ch">All figures are modeled projections against platform underwriting economics and stated enrollment inputs. They are not booked revenue, not a guarantee, and not a forecast of your state's specific outcome. Full model available under specific-purpose NDA.</p>
+</section>
+
+<!-- B6 · HEATMAP -->
+<section class="slide" id="b6">
+  <div class="slide-num">B6</div>
+  <div class="slide-kicker">The Governance Instrument · The Statewide AICI Heatmap</div>
+  <h2>A live map of where competence actually is.</h2>
+  <p class="slide-lede">Provisioned at go-live to your designated office. Deep intellectual blue denotes verified density; ochre denotes decay and underemployment risk. This is the instrument the 20% dividend funds, and it is the reason the Governor's office cares about this partnership independent of the money.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="vault">
+      <span class="seal">STATE TALENT HEATMAP · CORRIDOR VIEW · LIVE</span>
+      <div class="heat">
+        <i class="h1"></i><i class="h2"></i><i class="h2"></i><i class="h3"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h5"></i><i class="h4"></i><i class="h3"></i><i class="h2"></i><i class="h1"></i>
+        <i class="h2"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h5"></i><i class="h5"></i><i class="h5"></i><i class="h4"></i><i class="h3"></i><i class="h2"></i><i class="h1"></i>
+        <i class="h1"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h5"></i><i class="h4"></i><i class="h4"></i><i class="h5"></i><i class="h5"></i><i class="h4"></i><i class="h3"></i><i class="h2"></i>
+        <i class="h0"></i><i class="h1"></i><i class="h3"></i><i class="h4"></i><i class="h4"></i><i class="h3"></i><i class="h3"></i><i class="h4"></i><i class="h5"></i><i class="h5"></i><i class="h4"></i><i class="h2"></i>
+        <i class="h0"></i><i class="h1"></i><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h2"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i><i class="h4"></i><i class="h3"></i><i class="h1"></i>
+        <i class="h0"></i><i class="h0"></i><i class="h1"></i><i class="h1"></i><i class="h2"></i><i class="h1"></i><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h3"></i><i class="h2"></i><i class="h1"></i>
+      </div>
+      <div class="heatkey">
+        <span><em class="h5"></em> Verified Architect density · top 5%</span>
+        <span><em class="h3"></em> Practitioner band</span>
+        <span><em class="h1"></em> Skill decay / underemployment risk</span>
+        <span><em class="h0"></em> No coverage</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.1em;margin-top:20px;text-transform:uppercase">Filterable by ontology cluster · energy · finance · clinical · logistics · public sector</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="card">
+        <div class="microlabel">Instrument 01</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Live talent pipe for site selection</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">Your economic development office can show a prospective employer the exact count of verified graduates in a named competency cluster within a fifty-mile radius — not a projection from degree conferrals, a live count of cleared Hard-Gates. This changes what an incentive negotiation can be built on.</p>
+      </div>
+      <div class="card">
+        <div class="microlabel">Instrument 02</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Brain-drain early warning</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">The Alumni Continuity Protocol tracks the share of certified graduates remaining in-state, by corridor and by institution. When a corridor's retention rate breaks trend, the office sees it in the quarter it happens — early enough to deploy a targeted credit or housing incentive rather than commissioning a study after the fact.</p>
+      </div>
+      <div class="card">
+        <div class="microlabel">Instrument 03</div>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Institutional ROI leaderboard</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">Institutions ranked by skill velocity — movement from Apprentice to Practitioner — and by verified artifact output, not by enrollment or by spend. This gives the state a defensible basis for allocating scaling grants to institutions that are actually producing, and a defensible basis for declining to.</p>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Privacy floor</div>
+        <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.7">Every view in the Heatmap is aggregate and k-anonymity preserving. The state never sees an individual student, an individual score, or an individual employment record — at any zoom level, under any filter, for any office.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B7 · THE PRESTIGE LOCK -->
+<section class="slide" id="b7">
+  <div class="slide-num">B7</div>
+  <div class="slide-kicker">The Second-Order Return · The State Talent Credit</div>
+  <h2>A ranking mechanism that pressures your non-participating institutions for you.</h2>
+  <p class="slide-lede">The state does not have to mandate adoption. The proposed <b>State Innovation Ecosystem</b> ranking category does the work — because a state-verified competency ledger is a data source the ranking bodies do not currently have from anyone.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:14px">THE MECHANISM</div>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">A credit that lifts every school in the state</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">A state operating a verified AICI ledger across its public system earns a State Talent Credit — a multi-factor input that raises the ranking position of <i>every</i> participating institution in that state, because their outcome data is state-audited rather than self-reported.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:14px">THE PRESSURE</div>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Non-participation becomes visible</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">When the flagship in your corridor is running verified Hard-Gates and the peer institution across the state is not, the ranking differential appears without the state issuing a single directive. Adoption spreads through competitive pressure rather than through mandate — which is a materially easier political object.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-blue" style="margin-bottom:14px">THE PROTECTION</div>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px">A shield for your public system</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">Public institutions are structurally disadvantaged in rankings that weight selectivity and per-student spend. A competency-verified input is the first ranking factor in a generation that rewards what a public system is actually good at — moving students from Apprentice to Practitioner at scale.</p>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--on-surface-variant);margin-top:26px;font-style:italic;max-width:92ch">The State Talent Credit is a proposal under discussion with ranking bodies, not a committed methodology change. It is presented here as a modeled second-order return, and the pilot economics at §B5 do not depend on it.</p>
+</section>
+
+<!-- B8 · STATUTORY PATHS -->
+<section class="slide" id="b8">
+  <div class="slide-num">B8</div>
+  <div class="slide-kicker">Statutory Pathways · Pilot, Then Scale</div>
+  <h2>Three routes to statewide. The pilot needs none of them.</h2>
+  <p class="slide-lede">Phase 1 requires only an executive MOU. Phase 2 — moving from a three-institution corridor to a system-wide standard — has three viable paths, and the right one depends on your legislative calendar and your system governance structure, not on us.</p>
+  <table class="matrix" style="margin-top:36px">
+    <thead><tr><th>Path</th><th>Instrument</th><th>Timeline</th><th>Trade-off</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Path A</b><br>System board resolution</td>
+        <td>A resolution of the university system's governing board adopting the AICI standard across constituent institutions. No legislature involved.</td>
+        <td><span class="figure">One board cycle</span><br><span style="font-size:12px;color:var(--on-surface-variant)">60–120 days</span></td>
+        <td>Fastest and lowest-friction. Binds only that system — a state with multiple independent systems needs multiple resolutions.</td>
+      </tr>
+      <tr>
+        <td><b>Path B</b><br>Appropriations rider</td>
+        <td>A rider directing the Workforce Dividend into a named fund and conditioning a portion of institutional formula funding on participation.</td>
+        <td><span class="figure">One session</span><br><span style="font-size:12px;color:var(--on-surface-variant)">6–14 months</span></td>
+        <td>Most durable and hardest to reverse. Requires floor time and exposes the program to the appropriations negotiation.</td>
+      </tr>
+      <tr>
+        <td><b>Path C</b><br>Executive workforce order</td>
+        <td>An executive order under existing workforce-development authority directing participating agencies and public institutions to adopt verified competency standards.</td>
+        <td><span class="figure">30–60 days</span><br><span style="font-size:12px;color:var(--on-surface-variant)">immediate effect</span></td>
+        <td>Fast and unilateral. Reversible by a successor administration, so best paired with Path A or B in the following cycle.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tile" style="margin-top:24px">
+    <div class="microlabel">Sequencing recommendation</div>
+    <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.75;max-width:96ch">Run the ninety-day pilot under executive MOU with no statutory instrument at all. At Month 12, the first settlement and twelve months of Heatmap data exist. <b style="color:var(--on-surface)">Take Path A or B into the following session with a live revenue line and a live governance dashboard rather than a projection.</b> The pilot is not a step toward the legislation — it is the evidence that makes the legislation trivial.</p>
+  </div>
+</section>
+
+<!-- B9 · READINESS -->
+<section class="slide" id="b9">
+  <div class="slide-num">B9</div>
+  <div class="slide-kicker">Readiness · Before the Executive Briefing</div>
+  <h2>Six things to have in the room. Nothing else.</h2>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card">
+      <div class="microlabel">State readiness checklist</div>
+      <ul class="checklist">
+        <li><b>Candidate corridor</b> — one industry vertical with real employer demand in-state</li>
+        <li><b>Three flagship institutions</b> — public, with the standing to move first</li>
+        <li><b>Named settlement account</b> — Treasury general or a dedicated workforce fund</li>
+        <li><b>Governance liaison</b> — the officer who will hold the Kill-Switch credential</li>
+        <li><b>Public enrollment figures</b> — so we model the Workforce Dividend against real numbers</li>
+        <li><b>AG office availability</b> — for the Stage 02 posture review, which is the critical path</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="microlabel">What we bring to the same meeting</div>
+      <ul class="dotlist">
+        <li>· <b>State revenue model</b> run against your enrollment and corridor employment data</li>
+        <li>· <b>Procurement-posture memorandum</b> for the AG, addressing competitive bid and appropriation directly</li>
+        <li>· <b>Treasury settlement specification</b> and GASB revenue-recognition note for the Comptroller</li>
+        <li>· <b>Draft State MOU</b> with perpetual 20% terms and the wind-down provisions, ready for redline</li>
+        <li>· <b>Kill-Switch and Heatmap demonstration</b> against synthetic statewide data</li>
+        <li>· <b>Reference corridor analysis</b> — Houston Energy and NYC Finance, modeled in full</li>
+      </ul>
+      <div class="tile" style="margin-top:22px">
+        <div class="microlabel">The only irreversible decision</div>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7"><b style="color:var(--on-surface)">Sequence.</b> Phase 1 seats one state. First-mover terms, corridor origination status, and the founding seat on the multi-state governance council attach to the first signature and to no one after. The second state pays the integration tax of adopting a standard someone else set.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- B10 · THE ASK -->
+<section class="slide" id="b10">
+  <div class="slide-num">B10</div>
+  <div class="slide-kicker">The Ask · Front Matter Close</div>
+  <h1>One briefing. One MOU. <span class="gild">One pilot corridor.</span></h1>
+  <p class="slide-lede">We are not asking for an appropriation, a procurement, a mandate, or a bill. We are asking for a ninety-minute executive briefing and an MOU that names one corridor and three institutions. Everything in the State Leadership deck that follows — the Treasury dividend, the Kill-Switch Dashboard, the regulatory position — is downstream of that single meeting.</p>
+  <div style="margin-top:48px">
+    <a href="#b3" class="cta">Review the onboarding sequence →</a>
+    <a href="#b5" class="cta-pill">Access Split vs Dividend Split</a>
+    <a href="#b4" class="cta-pill">Treasury settlement spec</a>
+  </div>
+  <div id="contact" style="margin-top:72px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT · STATE PARTNERSHIP ONBOARDING</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · State Partnership Office<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">state-partners@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · ADDENDUM 01-A · STATE ONBOARDING &amp; TREASURY INTEGRATION · PRECEDES DECK 01 · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

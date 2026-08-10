@@ -44,6 +44,7 @@ export default function Footer() {
               <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>
               <li><Link to="/recruiters" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Recruiters</Link></li>
               <li><Link to="/universities" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Universities</Link></li>
+              <li><Link to="/state-regents" className="text-sm text-on-surface-variant hover:text-primary transition-colors">State Regents</Link></li>
               <li><Link to="/enterprise" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Enterprise (EWARD)</Link></li>
               <li><Link to="/events" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Events &amp; Briefings</Link></li>
               <li><Link to="/tenured-agent" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Tenured Agent</Link></li>

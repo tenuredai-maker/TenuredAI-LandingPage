@@ -1500,12 +1500,14 @@
             point-in-time test. The coding screen, the certification exam, the structured interview answered through an
             earpiece — each one now measures a candidate's ability to <em>operate a tool</em>, not their ability to
             <em>think</em>. The signal and the noise became indistinguishable, and the entire apparatus kept printing
-            certificates as if nothing had changed.</p>
+            certificates as if nothing had changed.
+          </p>
 
           <h4>The gap nobody can close from the inside</h4>
           <p>We call the distance between what a credential claims and what a person can actually do under pressure
             <strong>the Verification Gap</strong>. It is widening every quarter, and the incumbents best positioned to
-            notice are structurally forbidden from fixing it.</p>
+            notice are structurally forbidden from fixing it.
+          </p>
 
           <ol class="cinematic">
             <li><strong>The professional network sells the profile.</strong> Its entire value is the self-reported
@@ -1524,7 +1526,8 @@
             depends on the very signal that collapsed. Closing the Verification Gap would require them to declare their
             own flagship product obsolete — and no public company narrates its own cannibalization on purpose. That is
             the opening. It does not belong to whoever has the most data. It belongs to whoever is willing to
-            <strong>build a new primitive from scratch.</strong></p>
+            <strong>build a new primitive from scratch.</strong>
+          </p>
 
           <p class="footnote"><span class="fn-num">¶</span> Throughout this manifesto, "the incumbents" refers to the
             structural categories above — professional networks, HR systems, course marketplaces, and degree-granting
@@ -1711,7 +1714,8 @@
               deeper scrutiny before a verdict is rendered.</li>
             <li><strong>Council.</strong> Instead of one algorithm passing judgment, four independent agents each
               evaluate the session against a different question. They are designed to disagree — and only their
-              <em>agreement</em> means anything.</li>
+              <em>agreement</em> means anything.
+            </li>
             <li><strong>Anchor.</strong> The verdict is cryptographically sealed to a public ledger — tamper-proof,
               permanent, and portable. The candidate receives a credential they own outright.</li>
           </ol>
@@ -1765,7 +1769,7 @@
                 <rect x="850" y="296" width="280" height="74" rx="14" fill="#FFFFFF" />
               </g>
               <g class="d4" font-size="17" font-weight="700" fill="#1C1C1A">
-                <text x="92" y="150">AUDITOR</text><text x="872" y="150">INVIGILATOR</text>
+                <text x="92" y="150">AUDITOR</text><text x="872" y="150">Proctor</text>
                 <text x="92" y="330">MENTOR</text><text x="872" y="330">CHAOS</text>
               </g>
               <g class="b4" font-size="12.5" fill="#4E4639">
@@ -1851,7 +1855,8 @@
           <h4>The Triple-85: who earns the bond</h4>
           <p>Not every candidate is bondable, and that is the point. The guarantee is reserved for those who clear the
             <strong>Triple-85</strong> — a candidate whose three core indices each clear a score of 85. It is the line
-            between "verified" and "verified <em>and insured</em>," and it is deliberately hard to reach.</p>
+            between "verified" and "verified <em>and insured</em>," and it is deliberately hard to reach.
+          </p>
 
           <figure class="plate" aria-label="The Triple-85 bondable threshold">
             <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" role="img">
@@ -1939,7 +1944,8 @@
             consensus, the cryptographic anchoring, and the actuarial bridge that makes the bond underwritable are each
             protected, and each assumes the others hold. You cannot copy one floor without rebuilding the whole
             building. That is the point of a fortress — not that it has a tall wall, but that there is no way in that
-            doesn't require building the thing yourself.</p>
+            doesn't require building the thing yourself.
+          </p>
 
           <div class="lead-quote">A test you can fake. A grade you can dispute. <span class="gild">A bond pays
               out</span> — or it doesn't. There is no arguing with a cheque.</div>
@@ -2063,7 +2069,8 @@
             schools competed for tuition, platforms hoarded data, states funded training and saw none of the upside.
             <strong>The 40-40-20 makes them allies.</strong> When a graduate earns a bonded credential, the school that
             trained them earns, the state that supported them earns, and the worker owns a portable asset that no one
-            can take away. Align the incentives and the ecosystem stops fighting the future and starts building it.</p>
+            can take away. Align the incentives and the ecosystem stops fighting the future and starts building it.
+          </p>
 
           <div class="lead-quote">We did not build a better résumé. We built an <span class="gild">economy of
               proof</span> — and handed the deed to the people in it.</div>
@@ -2101,7 +2108,8 @@
         <h2 class="t2">Two equations carry the entire system. We publish both.</h2>
         <p class="lede2">A verdict you cannot reproduce is a brand, not an instrument. The platform rests on two formal
           mechanics — how a verified skill <em>decays</em> over time, and how four adversarial agents are
-          <em>mechanically authorized</em> to issue a pass. Neither is a black box.</p>
+          <em>mechanically authorized</em> to issue a pass. Neither is a black box.
+        </p>
 
         <h3 class="t3">§4.1 · The λ-Decay Architecture</h3>
         <p>A credential that cannot expire is a vanity metric with a date stamp. Every one of the 4,000+ competency
@@ -2196,7 +2204,7 @@
               <td class="mono">0.40 × 0.88 = 0.352</td>
             </tr>
             <tr>
-              <td><strong>Invigilator</strong></td>
+              <td><strong>Proctor</strong></td>
               <td>Is the behavioral data authentic, or gamed?</td>
               <td class="mono">0.30</td>
               <td class="mono">0.30 × 0.92 = 0.276</td>
@@ -2221,7 +2229,7 @@
         </table>
 
         <p class="muted">The weighting encodes a doctrine: <strong>integrity is lexically prior to excellence.</strong>
-          The Invigilator carries the second-highest weight because a gamed session is disqualifying regardless of how
+          The Proctor carries the second-highest weight because a gamed session is disqualifying regardless of how
           brilliant the artifact looks. Each agent signs its evaluation independently; the four signatures are bundled
           and anchored as Merkle leaves under a single root, so any party can later verify that the verdict was reached
           by four separated minds — not one model wearing four hats (PAT-004 · Multi-Agent Learning Orchestration,
@@ -2230,7 +2238,8 @@
         <div class="callout"><span class="tag">Why this defeats "it's just an LLM grading"</span>
           <p>The Chaos agent cannot see the Auditor's criteria; the Mentor cannot see the Chaos agent's injection plan.
             This enforced epistemic separation is a structural feature, not a prompt instruction. Their
-            <em>agreement</em> across opposed incentives is the signal a single grader can never produce.</p>
+            <em>agreement</em> across opposed incentives is the signal a single grader can never produce.
+          </p>
         </div>
       </div>
     </section>
@@ -2317,7 +2326,8 @@
           measure of institutional capability. Critically, OSD is <strong>not an arithmetic average</strong> — averages
           are trivially gamed by stacking a few elite hires against a hollow middle. OSD is modeled on the
           <strong>median of node-centrality-weighted competency</strong>, so the metric reflects the true depth of a
-          team rather than its headline talent:</p>
+          team rather than its headline talent:
+        </p>
 
         <div class="eq" aria-label="Organizational Sovereign Density">
           <div class="eq-main">OSD <span class="op">=</span> <span class="v">median</span><sub>u∈U</sub> ( <span
@@ -2478,7 +2488,7 @@
           model over per-keystroke timing. Human typing — even fast, even expert — carries irreducible variance:
           micro-pauses at decision points, bursts and hesitations, correction loops. Machine-generated code injected via
           clipboard arrives in a <strong>rigid, near-perfect rhythmic cadence</strong> with none of that texture. That
-          flat cadence is a statistical signature with nowhere to hide, and it is precisely what the Invigilator agent
+          flat cadence is a statistical signature with nowhere to hide, and it is precisely what the Proctor agent
           (§4.2) flags before it ever weighs into the consensus score.</p>
 
         <h3 class="t3">§6.3 · Multi-Chain Anchoring</h3>
@@ -2566,7 +2576,8 @@
 
         <div class="eq" aria-label="Grit-factored premium equation">
           <div class="eq-main">π <span class="op">=</span> <span class="v">$5,000</span> <span class="op">×</span> ( λ
-            <span class="op">/</span> CLI ) <span class="op">×</span> volatility<sub class="blue">corridor</sub></div>
+            <span class="op">/</span> CLI ) <span class="op">×</span> volatility<sub class="blue">corridor</sub>
+          </div>
           <div class="eq-where">
             <b>$5,000</b> — actuarial base rate (the floor before risk adjustment)<br>
             <b>λ</b> &nbsp;&nbsp;— the candidate's live skill-decay coefficient at placement (§4.1)<br>
@@ -2616,7 +2627,8 @@
           automatically: if a bonded candidate's <span class="mono" style="color:var(--primary)">AICI</span> is verified
           dropping <strong>below 80</strong> during the 180-day bond window, a smart contract executes payment of the
           bond face value directly to the enterprise's wallet — no claim form, no adjuster, no friction cycle.
-          <strong>Tier-2</strong> human adjudication exists only for genuinely contested or anomalous events.</p>
+          <strong>Tier-2</strong> human adjudication exists only for genuinely contested or anomalous events.
+        </p>
 
         <figure class="plate" aria-label="Gavel two-tier claims flow">
           <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg" role="img">
