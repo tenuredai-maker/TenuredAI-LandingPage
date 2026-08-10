@@ -148,12 +148,12 @@ export default function Learners() {
             >
               Launch Passport Simulator
             </a>
-            <a
+            {/* <a
               href="#foundations"
               className="text-on-surface font-headline font-bold flex items-center gap-2 group"
             >
               <span className="border-b-2 border-primary/30 group-hover:border-primary transition-colors py-1">View Patent Foundations</span>
-            </a>
+            </a> */}
           </motion.div>
         </div>
 

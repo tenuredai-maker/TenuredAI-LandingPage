@@ -7,6 +7,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import TopNavBar from './components/TopNavBar';
 import Footer from './components/Footer';
 import Ticker from './components/Ticker';
+import PasswordGate from './components/PasswordGate';
 import Home from './pages/Home';
 import Features from './pages/Features';
 import Manifesto from './pages/Manifesto';
@@ -59,9 +60,9 @@ function AppRoutes() {
           <Route path="/rules" element={<PageTransition><Rules /></PageTransition>} />
           <Route path="/docs" element={<PageTransition><Methodology /></PageTransition>} />
           <Route path="/method" element={<PageTransition><MethodPage /></PageTransition>} />
-          <Route path="/recruiters" element={<PageTransition><Recruiters /></PageTransition>} />
-          <Route path="/universities" element={<PageTransition><Universities /></PageTransition>} />
-          <Route path="/state-regents" element={<PageTransition><StateRegents /></PageTransition>} />
+          <Route path="/recruiters" element={<PageTransition><PasswordGate><Recruiters /></PasswordGate></PageTransition>} />
+          <Route path="/universities" element={<PageTransition><PasswordGate><Universities /></PasswordGate></PageTransition>} />
+          <Route path="/state-regents" element={<PageTransition><PasswordGate><StateRegents /></PasswordGate></PageTransition>} />
           <Route path="/enterprise" element={<PageTransition><Enterprise /></PageTransition>} />
           <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
           <Route path="/tenured-agent" element={<PageTransition><TenuredAgent /></PageTransition>} />
