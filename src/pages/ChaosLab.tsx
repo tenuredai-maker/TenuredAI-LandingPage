@@ -320,7 +320,7 @@ export default function ChaosLab() {
   const scoreColor = (v: number) => v >= 85 ? '#C5A059' : v >= 60 ? '#FFBF00' : '#FF8B7A';
 
   return (
-    <div className="pt-0 min-h-screen bg-background text-on-surface">
+    <div className="pt-10 min-h-screen bg-background text-on-surface">
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-10">

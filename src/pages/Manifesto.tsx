@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Manifesto() {
   return (
-    <div className="pt-32 pb-24 px-8 md:px-12 max-w-7xl mx-auto">
+    <div className="pt-20 pb-24 px-8 md:px-12 max-w-7xl mx-auto">
       <header className="mb-16 text-center">
         <span className="font-label text-xs tracking-[0.3em] text-primary uppercase mb-4 block">Institutional Document 001</span>
         <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-8">This Sovereign Manifesto</h1>

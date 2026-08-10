@@ -487,7 +487,7 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-24 pb-20 overflow-x-hidden">
+    <div className="pt-0 pb-20 overflow-x-hidden">
       {/* Hero Section */}
       <section className="px-6 md:px-8 py-16 md:py-40 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-16">
         <motion.div
@@ -2936,7 +2936,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 bg-surface-container-lowest">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Pricing For Individual</span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Pricing For Individuals</span>
             <h2 className="text-4xl md:text-6xl font-headline font-bold tracking-tight">
               Pay for <span className="italic text-primary">Proven Capability.</span>
             </h2>
@@ -3016,7 +3016,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 bg-surface-container-low">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Clarification Protocols</span>
+            <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Simple Clarification</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tight">Frequently Asked <span className="italic text-primary">Inquiries.</span></h2>
           </div>
 
@@ -3073,9 +3073,9 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center space-y-12 relative z-10">
           <div className="space-y-4">
             <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Get in Touch</span>
-            <h2 className="text-4xl md:text-7xl font-headline font-bold tracking-tighter">Get<span className="italic text-primary">Started.</span></h2>
+            <h2 className="text-4xl md:text-7xl font-headline font-bold tracking-tighter">Get <span className="italic text-primary">Started.</span></h2>
             <p className="text-on-surface-variant max-w-2xl mx-auto text-lg md:text-xl font-light">
-Whether you're looking to validate your organization's capabilities or take control of your own career trajectory, our team is ready to help.
+              Whether you're looking to validate your organization's capabilities or take control of your own career trajectory, our team is ready to help.
             </p>
           </div>
 

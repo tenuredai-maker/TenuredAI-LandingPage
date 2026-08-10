@@ -10,7 +10,7 @@ const Breadcrumbs: React.FC = () => {
   if (pathnames.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-26">
+    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-26">
       <ol className="flex items-center space-x-2 text-[10px] font-bold tracking-widest uppercase">
         <li>
           <Link

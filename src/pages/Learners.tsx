@@ -90,7 +90,7 @@ export default function Learners() {
   });
 
   return (
-    <div className="pt-10 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-32">
+    <div className="pt-20 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-32">
       {/* Hero Section */}
       <header className="grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-8 space-y-8">
