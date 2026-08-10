@@ -1947,6 +1947,14 @@ export default function Home() {
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
               Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
             </p>
+             <div className="pt-4">
+              <Link
+                to="/tenured-agent"
+                className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+              >
+                More on Tenured Agent <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-stretch">
@@ -2677,6 +2685,17 @@ export default function Home() {
           <div className="text-center mb-16">
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Personal Agency</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold">The Sovereign <span className="italic text-primary">Identity</span></h2>
+             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
+              Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
+            </p>
+             <div className="pt-4">
+              <Link
+                to="/learners"
+                className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+              >
+                More on Sovereign Passport <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
