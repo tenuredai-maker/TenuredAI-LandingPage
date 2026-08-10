@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
-import { 
-  MapPin, Calendar, ChevronRight, ChevronDown, Check, 
-  ExternalLink, Lock, Shield, Award, Terminal, ArrowRight, 
+import {
+  MapPin, Calendar, ChevronRight, ChevronDown, Check,
+  ExternalLink, Lock, Shield, Award, Terminal, ArrowRight,
   Clock, Coins, Users, Cpu, BookOpen, UserCheck, Compass,
   Activity, RefreshCw
 } from 'lucide-react';
@@ -77,7 +77,7 @@ export default function Events() {
 
   return (
     <div className="pt-20 min-h-screen bg-background text-on-surface">
-      
+
       {/* HEADER BANNER */}
       <div className="bg-inverse-surface text-inverse-on-surface sticky top-16 z-30 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-2.5 flex items-center justify-between overflow-x-auto font-mono text-[10px] md:text-xs whitespace-nowrap">
@@ -143,7 +143,7 @@ export default function Events() {
           ══════════════════════════════════════════════════════════════════ */}
           {activeTab === 'overview' && (
             <div className="space-y-16 pb-24">
-              
+
               {/* HERO SECTION */}
               <section className="max-w-7xl mx-auto px-4 md:px-8 py-10 relative overflow-hidden">
                 <div className="absolute top-[-10%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.12),transparent_70%)] pointer-events-none" />
@@ -417,7 +417,7 @@ export default function Events() {
                   <span className="font-mono text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Operational Parameters</span>
                 </div>
                 <h3 className="font-display text-2xl md:text-3xl font-normal text-center mb-8">Questions, answered in system terms.</h3>
-                
+
                 <div className="space-y-4">
                   {FAQ_ITEMS.map((faq, i) => (
                     <div key={i} className="bg-surface-container-low border border-outline-variant/15 rounded-xl overflow-hidden shadow-sm">
@@ -431,7 +431,7 @@ export default function Events() {
                         </div>
                         <ChevronDown className={cn("w-4 h-4 transition-transform", openFaq === i ? "rotate-180" : "")} />
                       </button>
-                      
+
                       {openFaq === i && (
                         <div className="p-5 border-t border-outline-variant/10 bg-surface text-xs leading-relaxed text-on-surface-variant space-y-3">
                           <p>{faq.ans}</p>
@@ -449,7 +449,7 @@ export default function Events() {
           ══════════════════════════════════════════════════════════════════ */}
           {activeTab === 'sovereign' && (
             <div className="space-y-16 pb-24 max-w-7xl mx-auto px-4 md:px-8">
-              
+
               {/* HERO */}
               <section className="py-10 relative overflow-hidden">
                 <div className="absolute top-[-10%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.12),transparent_70%)] pointer-events-none" />
@@ -482,7 +482,7 @@ export default function Events() {
                     Every operator in the market says they can orchestrate agentic workflows. Almost none can prove it under live friction. Get Tenured is not a meetup, a hackathon, or a conference. It is a calibration event — a physical arena where your capability is measured, hashed, and written to the Sovereign Ledger.
                   </p>
                 </div>
-                
+
                 <div className="bg-[#16140F] rounded-2xl p-1 overflow-hidden shadow-2xl font-mono text-xs text-[#D8D2C4]">
                   <div className="bg-surface-container-low/10 px-4 py-2 flex items-center gap-2 border-b border-white/5">
                     <span className="w-2.5 h-2.5 rounded-full bg-error/40" />
@@ -658,7 +658,7 @@ export default function Events() {
                   The ledger doesn't record intentions. It records performance.
                 </h3>
                 <div className="flex flex-wrap gap-4 relative z-10">
-                  <a href="mailto:hello@tenured.ai?subject=Individual%20Operator%20Node%20Seat" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
+                  <a href="mailto:info@tenuredai.com?subject=Individual%20Operator%20Node%20Seat" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
                     Enter the Proving Ground // Secure Seat →
                   </a>
                 </div>
@@ -671,7 +671,7 @@ export default function Events() {
           ══════════════════════════════════════════════════════════════════ */}
           {activeTab === 'enterprise' && (
             <div className="space-y-16 pb-24 max-w-7xl mx-auto px-4 md:px-8">
-              
+
               {/* HERO */}
               <section className="py-10 relative overflow-hidden">
                 <div className="absolute top-[-10%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.12),transparent_70%)] pointer-events-none" />
@@ -704,7 +704,7 @@ export default function Events() {
                     Underwrite their actual competency. Mitigate model liabilities. Scale organizational capacity through rigorous telemetry. Instead of theoretical lectures, your leadership and management teams will see exactly how Tenured AI maps a workforce against a 4,000-node competency ontology — live, in the room, on their own work.
                   </p>
                 </div>
-                
+
                 <div className="bg-[#16140F] rounded-2xl p-1 overflow-hidden shadow-2xl font-mono text-xs text-[#D8D2C4]">
                   <div className="bg-surface-container-low/10 px-4 py-2 flex items-center gap-2 border-b border-white/5">
                     <span className="w-2.5 h-2.5 rounded-full bg-error/40" />
@@ -872,7 +872,7 @@ export default function Events() {
                   Underwrite the workforce you actually have.
                 </h3>
                 <div className="flex flex-wrap gap-4 relative z-10">
-                  <a href="mailto:hello@tenured.ai?subject=Enterprise%20Deployment%20Cohort" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
+                  <a href="mailto:info@tenuredai.com?subject=Enterprise%20Deployment%20Cohort" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
                     Initialize Enterprise Node // Deploy Cohort →
                   </a>
                 </div>
@@ -885,7 +885,7 @@ export default function Events() {
           ══════════════════════════════════════════════════════════════════ */}
           {activeTab === 'institutional' && (
             <div className="space-y-16 pb-24 max-w-7xl mx-auto px-4 md:px-8">
-              
+
               {/* HERO */}
               <section className="py-10 relative overflow-hidden">
                 <div className="absolute top-[-10%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.12),transparent_70%)] pointer-events-none" />
@@ -918,7 +918,7 @@ export default function Events() {
                     Institutions are not driven by margin — they are driven by academic integrity, student outcome metrics, systemic workforce alignment, governance, and accreditation. The Institutional Track speaks that language exclusively. No sales floor. No mixed corporate audience. A peer-level forum for the people who steward public education.
                   </p>
                 </div>
-                
+
                 <div className="bg-[#16140F] rounded-2xl p-1 overflow-hidden shadow-2xl font-mono text-xs text-[#D8D2C4]">
                   <div className="bg-surface-container-low/10 px-4 py-2 flex items-center gap-2 border-b border-white/5">
                     <span className="w-2.5 h-2.5 rounded-full bg-error/40" />
@@ -1090,7 +1090,7 @@ export default function Events() {
                   An elite appointment — not a free webinar.
                 </h3>
                 <div className="flex flex-wrap gap-4 relative z-10">
-                  <a href="mailto:hello@tenured.ai?subject=Institutional%20Nomination%20Protocol" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
+                  <a href="mailto:info@tenuredai.com?subject=Institutional%20Nomination%20Protocol" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
                     Submit Nomination Protocol →
                   </a>
                 </div>
@@ -1103,7 +1103,7 @@ export default function Events() {
           ══════════════════════════════════════════════════════════════════ */}
           {activeTab === 'recruiters' && (
             <div className="space-y-16 pb-24 max-w-7xl mx-auto px-4 md:px-8">
-              
+
               {/* HERO */}
               <section className="py-10 relative overflow-hidden">
                 <div className="absolute top-[-10%] right-[-10%] w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(197,160,89,.12),transparent_70%)] pointer-events-none" />
@@ -1136,7 +1136,7 @@ export default function Events() {
                     Recruiters spend days filter-searching keyword profiles. On the Tenured AI ledger, candidates are pre-audited. Recruiters place secure bids on candidates based on high-integrity telemetry: AICI, AIOI, and AIBS build scores. Anti-snipe protection ensures fair value capture, and candidate reveals are fully opt-in.
                   </p>
                 </div>
-                
+
                 <div className="bg-[#16140F] rounded-2xl p-1 overflow-hidden shadow-2xl font-mono text-xs text-[#D8D2C4]">
                   <div className="bg-surface-container-low/10 px-4 py-2 flex items-center gap-2 border-b border-white/5">
                     <span className="w-2.5 h-2.5 rounded-full bg-error/40" />
@@ -1245,7 +1245,7 @@ export default function Events() {
                   First 100 verified recruiters receive a $24K-equivalent credit pack.
                 </h3>
                 <div className="flex flex-wrap gap-4 relative z-10">
-                  <a href="mailto:hello@tenured.ai?subject=I-100%20Recruiter%20Seat" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
+                  <a href="mailto:info@tenuredai.com?subject=I-100%20Recruiter%20Seat" className="px-6 py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-mono text-xs font-bold tracking-widest uppercase shadow-xl hover:opacity-95 transition-all">
                     Claim Verified Recruiter Seat →
                   </a>
                   <Link to="/recruiters" className="px-6 py-3.5 rounded-full border border-white/20 text-inverse-on-surface hover:bg-white/5 font-mono text-xs font-bold tracking-widest uppercase transition-all">
@@ -1268,7 +1268,7 @@ export default function Events() {
             Register for a regional node calibration or submit an institutional application to deploy verified competency telemetry in your ecosystem.
           </p>
           <div className="flex justify-center gap-4 flex-wrap pt-4">
-            <a href="mailto:hello@tenured.ai?subject=Events%20and%20Briefings" className="px-6 py-3 rounded-full bg-primary text-on-primary font-mono text-[10px] tracking-widest uppercase font-bold shadow-md hover:opacity-90 transition-all">
+            <a href="mailto:info@tenuredai.com?subject=Events%20and%20Briefings" className="px-6 py-3 rounded-full bg-primary text-on-primary font-mono text-[10px] tracking-widest uppercase font-bold shadow-md hover:opacity-90 transition-all">
               Initiate Registration
             </a>
           </div>

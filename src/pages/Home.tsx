@@ -1947,7 +1947,7 @@ export default function Home() {
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
               Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
             </p>
-             <div className="pt-4">
+            <div className="pt-4">
               <Link
                 to="/tenured-agent"
                 className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
@@ -2682,13 +2682,13 @@ export default function Home() {
       {/* Grit Heatmap & Sovereign Passport from /learners */}
       <section className="py-24 md:py-32 px-6 md:px-8 bg-background">
         <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 space-y-4">
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Personal Agency</span>
             <h2 className="text-4xl md:text-5xl font-headline font-bold">The Sovereign <span className="italic text-primary">Identity</span></h2>
-             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
-              Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
+            <p className="text-on-surface-variant font-light text-base max-w-3xl mx-auto font-body">
+              Observe your live skill acquisition and cryptographic credentials. The Sovereign Passport tracks verified capabilities, decay telemetry, and regional corridor standing in real time.
             </p>
-             <div className="pt-4">
+            <div className="pt-4">
               <Link
                 to="/learners"
                 className="gold-gradient text-on-primary px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
@@ -2936,7 +2936,7 @@ export default function Home() {
       <section className="py-24 md:py-32 px-6 md:px-8 bg-surface-container-lowest">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
-            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Sovereign Pricing</span>
+            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] mb-4 block">Pricing For Individual</span>
             <h2 className="text-4xl md:text-6xl font-headline font-bold tracking-tight">
               Pay for <span className="italic text-primary">Proven Capability.</span>
             </h2>
@@ -3073,16 +3073,16 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center space-y-12 relative z-10">
           <div className="space-y-4">
             <span className="font-label text-xs tracking-[0.3em] text-primary uppercase font-bold block">Get in Touch</span>
-            <h2 className="text-4xl md:text-7xl font-headline font-bold tracking-tighter">Initialize a <span className="italic text-primary">Connection.</span></h2>
+            <h2 className="text-4xl md:text-7xl font-headline font-bold tracking-tighter">Get<span className="italic text-primary">Started.</span></h2>
             <p className="text-on-surface-variant max-w-2xl mx-auto text-lg md:text-xl font-light">
-              Ready to underwrite your institutional competence or secure your personal agency? Our tactical team is standing by.
+Whether you're looking to validate your organization's capabilities or take control of your own career trajectory, our team is ready to help.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 text-left">
             {[
-              { icon: Mail, label: "Direct Intelligence", value: "hello@tenured.ai", sub: "Operational support" },
-              { icon: MessageSquare, label: "Strategic Inquiry", value: "Request Access", sub: "Priority onboarding", link: "/request-access" },
+              { icon: Mail, label: "Direct Contact", value: "info@tenuredai.com", sub: "Operational support" },
+              { icon: MessageSquare, label: "Institutional/Partner Inquiry", value: "Request Access", sub: "Priority onboarding", link: "/request-access" },
               { icon: Globe, label: "Global Presence", value: "Houston, TX", sub: "Protocol headquarters" }
             ].map((contact, i) => (
               <div key={i} className="p-8 bg-surface-container-low rounded-2xl border border-outline-variant/10 hover:border-primary/30 transition-all group">
@@ -3107,7 +3107,7 @@ export default function Home() {
               to="/request-access"
               className="inline-flex items-center gap-3 px-12 py-5 bg-inverse-surface text-inverse-on-surface rounded-2xl font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-2xl"
             >
-              Start Onboarding Protocol <ArrowUpRight className="w-5 h-5" />
+              Start Onboarding<ArrowUpRight className="w-5 h-5" />
             </Link>
           </div>
         </div>

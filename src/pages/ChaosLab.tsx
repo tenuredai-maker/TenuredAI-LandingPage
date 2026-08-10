@@ -816,7 +816,7 @@ export default function ChaosLab() {
           </p>
           <div className="flex flex-wrap gap-4">
             <a
-              href="mailto:hello@tenured.ai?subject=Proving%20Ground%20Genesis%20Cohort"
+              href="mailto:info@tenuredai.com?subject=Proving%20Ground%20Genesis%20Cohort"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-headline font-semibold shadow-xl hover:opacity-95 transition-all text-sm text-white"
               style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}
             >
