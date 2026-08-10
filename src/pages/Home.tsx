@@ -1530,7 +1530,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Proving Ground Section (PAT-001, PAT-002, PAT-004) */}
+      {/* Interactive Proving Ground Section  */}
       <section className="py-24 md:py-32 px-6 md:px-8 border-t border-outline-variant/10 bg-surface-container-high/20 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-4">
@@ -1623,7 +1623,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-on-surface-variant font-mono">
-                  <span className="patent-tag">PAT-001 §A</span>
+                  {/* <span className="patent-tag">PAT-001 §A</span> */}
                   <span>Composite score of active resilience.</span>
                 </div>
               </div>
@@ -1635,7 +1635,7 @@ export default function Home() {
                     <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">ALTFL Live Feed</span>
                     <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">6-Channel Forensic Telemetry</h4>
                   </div>
-                  <span className="patent-tag">PAT-002</span>
+                  <span className="patent-tag"></span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -1665,7 +1665,7 @@ export default function Home() {
                     <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">Agent Dispatch Queue</span>
                     <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">The Council inside the Gate</h4>
                   </div>
-                  <span className="patent-tag">PAT-004</span>
+                  <span className="patent-tag"></span>
                 </div>
 
                 <div className="space-y-3">
@@ -1945,7 +1945,7 @@ export default function Home() {
               The dual-nature <span className="italic text-primary">Tenured Agent</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
-              Observe the user-facing intelligence pivot between Mentor and Proctor modes (PAT-005), governed by a four-agent council (PAT-004) and a dynamic Growth Loop (PAT-005).
+              Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
             </p>
           </div>
 
@@ -1955,7 +1955,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-outline-variant/10 pb-6">
                   <div>
-                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-005 State Machine</span>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">State Machine</span>
                     <h3 className="text-base font-bold text-on-surface">Dual-Nature Agent Simulator</h3>
                   </div>
 
@@ -2044,7 +2044,7 @@ export default function Home() {
                             <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#775a19_1px,transparent_1px)] [background-size:20px_20px]"></div>
                             <span className="text-[10px] font-bold block text-primary uppercase tracking-widest mb-1 font-mono flex items-center gap-1.5">
                               <Brain className="w-3 h-3" />
-                              Career Memory Recall (PAT-005)
+                              Career Memory Recall
                             </span>
                             "Recall: 14 days ago in node_alpha_5, you resolved a similar thread starvation issue by implementing a semaphore-based pool. Can we draw a parallel here?"
                           </div>
@@ -2080,10 +2080,10 @@ export default function Home() {
               <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
                 <div className="flex justify-between items-center border-b border-outline-variant/10 pb-3">
                   <div>
-                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-005 Loop</span>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">The Loop</span>
                     <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">Growth Coefficient (γ)</h4>
                   </div>
-                  <span className="patent-tag">PAT-005</span>
+                  <span className="patent-tag"></span>
                 </div>
 
                 <div className="space-y-4">
@@ -2152,10 +2152,10 @@ export default function Home() {
               <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 shadow-lg space-y-4">
                 <div className="flex justify-between items-center border-b border-outline-variant/10 pb-3">
                   <div>
-                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">PAT-004 Conflict-of-Interest</span>
+                    <span className="text-[9px] font-bold text-outline uppercase tracking-wider block">Conflict-of-Interest</span>
                     <h4 className="text-sm font-bold text-on-surface uppercase tracking-wide">Multi-Agent Blackboard Map</h4>
                   </div>
-                  <span className="patent-tag">PAT-004</span>
+                  <span className="patent-tag"></span>
                 </div>
 
                 {/* Grid of the 4 Agents and Blackboard */}
@@ -2205,7 +2205,7 @@ export default function Home() {
                       </p>
                     ) : (
                       <p className="text-[9px] text-[#8a8270] italic leading-relaxed text-center font-mono py-2">
-                        Hover/Tap an agent to reveal Conflict-of-Interest insulation rules (PAT-004 §3.3)
+                        Hover/Tap an agent to reveal Conflict-of-Interest insulation rules
                       </p>
                     )}
                   </div>
@@ -2571,7 +2571,7 @@ export default function Home() {
 
                 {/* Simulated Focus Telemetry Toggles */}
                 <div className="space-y-2">
-                  <span className="text-[9px] font-mono text-outline block uppercase tracking-wider">Simulate Presence State (PAT-002)</span>
+                  <span className="text-[9px] font-mono text-outline block uppercase tracking-wider">Simulate Presence State</span>
                   <div className="grid grid-cols-3 gap-2">
                     <button
                       onClick={() => setPresenceState('active')}

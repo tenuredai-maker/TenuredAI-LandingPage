@@ -35,7 +35,7 @@ export default function RequestAccess() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim() || !email.trim() || !reason.trim()) {
       setError("Please fill in all required fields (Identity, Email, and Reason).");
       return;
@@ -76,7 +76,7 @@ export default function RequestAccess() {
       <div className="max-w-5xl mx-auto">
         {/* Header Section: Editorial Hero */}
         <header className="mb-16 text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full mb-6"
@@ -84,7 +84,7 @@ export default function RequestAccess() {
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             <span className="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase">Secure Comms Portal v.4.0</span>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -92,7 +92,7 @@ export default function RequestAccess() {
           >
             Establish Connection
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -104,7 +104,7 @@ export default function RequestAccess() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Context & Status */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
@@ -149,22 +149,22 @@ export default function RequestAccess() {
 
             {/* Visual Anchor */}
             <div className="relative group aspect-square rounded-xl overflow-hidden shadow-2xl">
-              <img 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                alt="Monolithic brutalist architecture" 
+              <img
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                alt="Monolithic brutalist architecture"
                 src="https://picsum.photos/seed/monolith/800/800"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6">
                 <p className="text-xs font-bold text-primary-fixed tracking-widest uppercase mb-1">Location Authority</p>
-                <p className="text-on-primary font-headline text-lg">The Gilded Slate Annex</p>
+                <p className="text-on-primary font-headline text-lg">Get Tenured For the A.I, Era</p>
               </div>
             </div>
           </motion.div>
 
           {/* Right Column: The Form Shell */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
@@ -183,10 +183,10 @@ export default function RequestAccess() {
                       { id: 'sovereign', icon: User, title: 'Sovereign', desc: 'Individual Identity Recovery & Private Inquiry' },
                     ].map((tier) => (
                       <label key={tier.id} className="relative cursor-pointer group">
-                        <input 
+                        <input
                           checked={selectedTier === tier.id}
-                          className="peer sr-only" 
-                          name="tier" 
+                          className="peer sr-only"
+                          name="tier"
                           type="radio"
                           onChange={() => setSelectedTier(tier.id)}
                         />
@@ -204,11 +204,11 @@ export default function RequestAccess() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
                     <label className="text-xs font-bold tracking-widest text-on-surface-variant uppercase" htmlFor="name">Full Identity</label>
-                    <input 
-                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none" 
-                      id="name" 
-                      placeholder="Director John Doe" 
-                      type="text" 
+                    <input
+                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none"
+                      id="name"
+                      placeholder="Director John Doe"
+                      type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
@@ -216,11 +216,11 @@ export default function RequestAccess() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold tracking-widest text-on-surface-variant uppercase" htmlFor="email">Secure Protocol Email</label>
-                    <input 
-                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none" 
-                      id="email" 
-                      placeholder="j.doe@institution.edu" 
-                      type="email" 
+                    <input
+                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none"
+                      id="email"
+                      placeholder="j.doe@institution.edu"
+                      type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -228,11 +228,11 @@ export default function RequestAccess() {
                   </div>
                   <div className="md:col-span-2 space-y-2">
                     <label className="text-xs font-bold tracking-widest text-on-surface-variant uppercase" htmlFor="org">Affiliated Organization</label>
-                    <input 
-                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none" 
-                      id="org" 
-                      placeholder="Department of Digital Humanities, Ivy League" 
-                      type="text" 
+                    <input
+                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all outline-none"
+                      id="org"
+                      placeholder="Department of Digital Humanities, Ivy League"
+                      type="text"
                       value={organization}
                       onChange={(e) => setOrganization(e.target.value)}
                     />
@@ -248,30 +248,29 @@ export default function RequestAccess() {
                     </span>
                   </div>
                   <div className="relative">
-                    <textarea 
-                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all resize-none outline-none" 
-                      id="reason" 
-                      placeholder="Describe the intended use case for the Tenured Grid..." 
+                    <textarea
+                      className="w-full bg-surface-container-high border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-all resize-none outline-none"
+                      id="reason"
+                      placeholder="Describe the intended use case for the Tenured Grid..."
                       rows={4}
                       value={reason}
                       onChange={(e) => setReason(e.target.value.slice(0, MAX_CHARS))}
                       required
                     ></textarea>
                     <div className="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest rounded-b-lg overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
-                          animate={{ width: `${Math.min((reason.length / MAX_CHARS) * 100, 100)}%` }}
-                          className={`h-full transition-colors duration-300 ${
-                            reason.length >= MAX_CHARS ? 'bg-error' : 
+                        animate={{ width: `${Math.min((reason.length / MAX_CHARS) * 100, 100)}%` }}
+                        className={`h-full transition-colors duration-300 ${reason.length >= MAX_CHARS ? 'bg-error' :
                             reason.length >= MAX_CHARS * 0.8 ? 'bg-primary-container' : 'bg-primary'
                           }`}
-                        />
-                      </div>
+                      />
                     </div>
                   </div>
+                </div>
 
                 {error && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="p-4 bg-error/10 border border-error/20 rounded-lg flex items-center gap-3 text-error text-xs font-bold"
@@ -289,9 +288,9 @@ export default function RequestAccess() {
                       {isSubmitting ? 'Encrypting Request Packet...' : 'Pending Decryption of Request Packet'}
                     </span>
                   </div>
-                  
-                  <button 
-                    className={`w-full md:w-auto px-10 py-4 gold-gradient text-on-primary font-headline font-bold text-lg rounded-lg shadow-xl shadow-primary/10 hover:shadow-primary/20 active:scale-95 transition-all ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`} 
+
+                  <button
+                    className={`w-full md:w-auto px-10 py-4 gold-gradient text-on-primary font-headline font-bold text-lg rounded-lg shadow-xl shadow-primary/10 hover:shadow-primary/20 active:scale-95 transition-all ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     type="submit"
                     disabled={isSubmitting}
                   >
@@ -312,24 +311,24 @@ export default function RequestAccess() {
           <div className="text-center mb-8 md:mb-12">
             <h3 className="text-[10px] md:text-xs font-bold tracking-widest text-on-surface-variant uppercase">Integrated With Architect Nodes At</h3>
           </div>
-          
+
           {/* Logo Ticker */}
-          <div 
+          <div
             className="flex overflow-hidden relative w-full mb-16 md:mb-24 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500"
             style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
           >
-             <div className="flex w-max animate-[scroll_40s_linear_infinite] items-center">
-               {[...Array(2)].map((_, i) => (
-                 <div key={i} className="flex gap-12 md:gap-24 px-6 md:px-12 items-center">
-                   <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Palantir</span>
-                   <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Stripe</span>
-                   <span className="font-headline font-bold text-xl md:text-2xl italic text-on-surface">DeepMind</span>
-                   <span className="font-headline font-black text-xl md:text-2xl tracking-tighter text-on-surface">SpaceX</span>
-                   <span className="font-headline font-bold text-xl md:text-2xl uppercase text-on-surface">Anthropic</span>
-                   <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Vercel</span>
-                 </div>
-               ))}
-             </div>
+            <div className="flex w-max animate-[scroll_40s_linear_infinite] items-center">
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="flex gap-12 md:gap-24 px-6 md:px-12 items-center">
+                  <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Palantir</span>
+                  <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Stripe</span>
+                  <span className="font-headline font-bold text-xl md:text-2xl italic text-on-surface">DeepMind</span>
+                  <span className="font-headline font-black text-xl md:text-2xl tracking-tighter text-on-surface">SpaceX</span>
+                  <span className="font-headline font-bold text-xl md:text-2xl uppercase text-on-surface">Anthropic</span>
+                  <span className="font-headline font-bold text-xl md:text-2xl text-on-surface">Vercel</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Testimonials */}
@@ -342,19 +341,19 @@ export default function RequestAccess() {
                 logo: "ST"
               },
               {
-                 quote: "A cryptographic ledger of technical competence. Finally, a system that values forensic reality over keyword-stuffed resumes. It's the future of talent.",
-                 author: "Dr. Marcus Vance",
-                 role: "Lead Systems Architect, Global Neural",
-                 logo: "GN"
+                quote: "A cryptographic ledger of technical competence. Finally, a system that values forensic reality over keyword-stuffed resumes. It's the future of talent.",
+                author: "Dr. Marcus Vance",
+                role: "Lead Systems Architect, Global Neural",
+                logo: "GN"
               },
-               {
-                 quote: "Integrating Tenured AI's node allowed us to verify candidate grit in real-time. We've eliminated the technical screen entirely.",
-                 author: "Elena R.",
-                 role: "Director of Talent, Apex Systems",
-                 logo: "AS"
+              {
+                quote: "Integrating Tenured AI's node allowed us to verify candidate grit in real-time. We've eliminated the technical screen entirely.",
+                author: "Elena R.",
+                role: "Director of Talent, Apex Systems",
+                logo: "AS"
               }
             ].map((t, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -382,13 +381,13 @@ export default function RequestAccess() {
       </div>
       {showConfirmation && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="absolute inset-0 bg-inverse-surface/40 backdrop-blur-sm"
             onClick={() => setShowConfirmation(false)}
           />
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="bg-surface-container-lowest max-w-md w-full p-10 rounded-3xl shadow-2xl border border-outline-variant/20 relative z-10 text-center"
@@ -405,9 +404,9 @@ export default function RequestAccess() {
                 <Circle className="w-2 h-2 fill-primary animate-pulse" />
                 Verification in Progress
               </div>
-              
+
               <div className="pt-4 space-y-3">
-                <button 
+                <button
                   onClick={copyInviteLink}
                   className="w-full py-4 bg-surface-container-high text-on-surface rounded-xl font-bold hover:bg-surface-container-highest transition-all border border-outline-variant/10 flex items-center justify-center gap-2 group"
                 >
@@ -423,8 +422,8 @@ export default function RequestAccess() {
                     </>
                   )}
                 </button>
-                
-                <button 
+
+                <button
                   onClick={() => setShowConfirmation(false)}
                   className="w-full py-4 bg-primary text-on-primary rounded-xl font-bold hover:bg-surface-tint transition-colors shadow-lg shadow-primary/10"
                 >

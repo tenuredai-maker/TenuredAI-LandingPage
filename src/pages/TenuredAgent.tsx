@@ -81,7 +81,7 @@ export default function TenuredAgent() {
     { cmd: '/status', desc: 'Live AICI · AIOI · AIBS standings' },
     { cmd: '/challenge', desc: 'Spin up a Chaos Scenario now' },
     { cmd: '/refresh', desc: 'Stabilize a decaying node' },
-    { cmd: '/recall', desc: 'Search career memory (PAT-005)' },
+    { cmd: '/recall', desc: 'Search career memory' },
     { cmd: '/passport', desc: 'Open Sovereign Passport' },
     { cmd: '/ledger', desc: 'Jump to your Sovereign Ledger' },
     { cmd: '/share', desc: 'Generate a verified badge' },
@@ -99,7 +99,7 @@ export default function TenuredAgent() {
       icon: <CheckCircle className="w-5 h-5" />,
       label: 'NEVER FABRICATES',
       color: 'text-blue-400',
-      description: "Scores come from the Auditor's signed evaluations via Weighted Consensus. The Mentor reports; it never invents. PAT-002's PoF record makes fabrication structurally impossible.",
+      description: "Scores come from the Auditor's signed evaluations via Weighted Consensus. The Mentor reports; it never invents. The PoF record makes fabrication structurally impossible.",
     },
     {
       icon: <Lock className="w-5 h-5" />,

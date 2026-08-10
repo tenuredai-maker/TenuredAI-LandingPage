@@ -305,12 +305,12 @@ export default function Enterprise() {
                   <div
                     key={i}
                     className={`p-3 rounded-xl border text-center transition-all ${node.level === 'sovereign'
-                        ? 'bg-primary/15 border-primary/30 text-primary font-bold'
-                        : node.level === 'high'
-                          ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold'
-                          : node.level === 'mid'
-                            ? 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400'
-                            : 'bg-rose-500/15 border-rose-500/30 text-rose-500 font-bold'
+                      ? 'bg-primary/15 border-primary/30 text-primary font-bold'
+                      : node.level === 'high'
+                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold'
+                        : node.level === 'mid'
+                          ? 'bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400'
+                          : 'bg-rose-500/15 border-rose-500/30 text-rose-500 font-bold'
                       }`}
                   >
                     <p className="font-mono text-xs mb-0.5">{node.code}</p>
@@ -328,7 +328,7 @@ export default function Enterprise() {
 
             {/* Heatmap Insights */}
             <div className="space-y-6">
-              <h3 className="font-headline font-bold text-2xl">What EWARD forces for your executive team:</h3>
+              <h3 className="font-headline font-bold text-2xl">What EWARD offers your executive team:</h3>
               <ul className="space-y-4">
                 {[
                   { title: 'Visible Bus-Factor Risk', desc: 'Red cells expose exact single points of failure ("we have one engineer who knows Vector DB Latency and they are on vacation").' },

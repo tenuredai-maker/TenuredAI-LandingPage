@@ -11,6 +11,7 @@ import PasswordGate from './components/PasswordGate';
 import Home from './pages/Home';
 import Features from './pages/Features';
 import Manifesto from './pages/Manifesto';
+import FullManifesto from './pages/FullManifesto';
 import Learners from './pages/Learners';
 import Rules from './pages/Rules';
 import Methodology from './pages/Methodology';
@@ -56,6 +57,7 @@ function AppRoutes() {
           <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
           <Route path="/features" element={<PageTransition><Features /></PageTransition>} />
           <Route path="/manifesto" element={<PageTransition><Manifesto /></PageTransition>} />
+          <Route path="/full-manifesto" element={<PageTransition><FullManifesto /></PageTransition>} />
           <Route path="/learners" element={<PageTransition><Learners /></PageTransition>} />
           <Route path="/rules" element={<PageTransition><Rules /></PageTransition>} />
           <Route path="/docs" element={<PageTransition><Methodology /></PageTransition>} />

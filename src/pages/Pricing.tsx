@@ -419,7 +419,7 @@ export default function Pricing() {
               to="/request-access"
               className="inline-block bg-white text-tertiary px-10 py-4 rounded-lg font-bold uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-transform"
             >
-              Initialize Sovereign Seed
+              Get Tenured
             </Link>
           </div>
         </div>

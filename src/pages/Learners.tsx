@@ -497,7 +497,7 @@ export default function Learners() {
                       {/* Career Memory — Vector-Graph (PAT-005 O5) */}
                       <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline-variant/20 shadow-md space-y-4">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-headline font-bold text-sm">Career Memory · PAT-005</h4>
+                          <h4 className="font-headline font-bold text-sm">Career Memory</h4>
                           <span className="ml-auto text-[9px] font-mono text-tertiary">24 artifacts sealed</span>
                         </div>
                         <div className="bg-surface-container-low rounded-xl px-3 py-2 font-mono text-[10px] text-on-surface-variant border border-outline-variant/20">
@@ -731,7 +731,7 @@ export default function Learners() {
                       {/* PoF Replay Section */}
                       <div className="bg-surface-container-lowest p-6 rounded-3xl border border-outline-variant/20 shadow-md space-y-4">
                         <div className="flex justify-between items-center">
-                          <h4 className="font-headline font-bold">PoF Replay (PAT-002)</h4>
+                          <h4 className="font-headline font-bold">PoF Replay</h4>
                           <span className="font-mono text-[9px] bg-neutral-100 border px-2 py-0.5 rounded text-on-surface-variant">
                             Session G-014
                           </span>
@@ -740,7 +740,7 @@ export default function Learners() {
                         {/* 6-Channel Telemetry Bars */}
                         <div className="bg-neutral-950 p-4 rounded-xl border border-white/5 space-y-3 font-mono text-[10px]">
                           <div className="flex justify-between">
-                            <span className="text-white/40 text-[9px] uppercase tracking-widest">6-Channel ALTFL Telemetry · PAT-002</span>
+                            <span className="text-white/40 text-[9px] uppercase tracking-widest">6-Channel ALTFL Telemetry</span>
                             <span className="text-[#FFBF00] text-[9px]">G-014 · WCS 0.818 ✓</span>
                           </div>
                           <div className="space-y-2">

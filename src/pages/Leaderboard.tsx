@@ -5,7 +5,7 @@ import { Shield, Info } from 'lucide-react';
 
 export default function LeaderboardPage() {
   return (
-    <div className="pt-20 pb-20 px-6 md:px-8 max-w-7xl mx-auto">
+    <div className="pt-0 pb-20 px-6 md:px-8 max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-12 gap-12">
         {/* Left Column: Context & Stats */}
         <div className="lg:col-span-4 space-y-8">
