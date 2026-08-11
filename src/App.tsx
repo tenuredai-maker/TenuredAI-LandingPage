@@ -15,6 +15,7 @@ import FullManifesto from './pages/FullManifesto';
 import Learners from './pages/Learners';
 import SelfLearners from './pages/SelfLearners';
 import CommercialUse from './pages/CommercialUse';
+import DividendDashboard from './pages/DividendDashboard';
 import Rules from './pages/Rules';
 import Methodology from './pages/Methodology';
 import MethodPage from './pages/MethodPage';
@@ -68,6 +69,7 @@ function AppRoutes() {
           <Route path="/method" element={<PageTransition><MethodPage /></PageTransition>} />
           <Route path="/recruiters" element={<PageTransition><PasswordGate><Recruiters /></PasswordGate></PageTransition>} />
           <Route path="/universities" element={<PageTransition><PasswordGate><Universities /></PasswordGate></PageTransition>} />
+          <Route path="/dividend-dashboard" element={<PageTransition><PasswordGate><DividendDashboard /></PasswordGate></PageTransition>} />
           <Route path="/state-regents" element={<PageTransition><PasswordGate><StateRegents /></PasswordGate></PageTransition>} />
           <Route path="/enterprise" element={<PageTransition><Enterprise /></PageTransition>} />
           <Route path="/events" element={<PageTransition><Events /></PageTransition>} />

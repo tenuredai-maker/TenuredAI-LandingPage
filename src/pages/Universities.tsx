@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { CheckSquare, Shield, DollarSign, Users, BookOpen, Lock, TrendingUp, BarChart3, GraduationCap } from 'lucide-react';
+import { CheckSquare, Shield, DollarSign, Users, BookOpen, Lock, TrendingUp, BarChart3, GraduationCap, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 type CorridorKey = 'all' | 'houston-energy' | 'nyc-finance' | 'boston-healthcare' | 'dc-defense' | 'genesis';
@@ -630,6 +631,16 @@ export default function Universities() {
               <p className="text-[10px] text-on-surface-variant mt-2 italic">Modeled at $11,250 average annual premium per bonded hire. Excludes reveal credits (+22-34%).</p>
             </div>
           </div>
+        </div>
+
+        {/* Button to Dividend Dashboard */}
+        <div className="mt-12 text-center">
+          <Link
+            to="/dividend-dashboard"
+            className="gold-gradient text-on-primary px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-widest inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+          >
+            See Dividend Dashboard <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
