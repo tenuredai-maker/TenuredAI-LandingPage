@@ -13,6 +13,8 @@ import Features from './pages/Features';
 import Manifesto from './pages/Manifesto';
 import FullManifesto from './pages/FullManifesto';
 import Learners from './pages/Learners';
+import SelfLearners from './pages/SelfLearners';
+import CommercialUse from './pages/CommercialUse';
 import Rules from './pages/Rules';
 import Methodology from './pages/Methodology';
 import MethodPage from './pages/MethodPage';
@@ -59,6 +61,8 @@ function AppRoutes() {
           <Route path="/manifesto" element={<PageTransition><Manifesto /></PageTransition>} />
           <Route path="/full-manifesto" element={<PageTransition><FullManifesto /></PageTransition>} />
           <Route path="/learners" element={<PageTransition><Learners /></PageTransition>} />
+          <Route path="/self-learners" element={<PageTransition><SelfLearners /></PageTransition>} />
+          <Route path="/commercial" element={<PageTransition><CommercialUse /></PageTransition>} />
           <Route path="/rules" element={<PageTransition><Rules /></PageTransition>} />
           <Route path="/docs" element={<PageTransition><Methodology /></PageTransition>} />
           <Route path="/method" element={<PageTransition><MethodPage /></PageTransition>} />

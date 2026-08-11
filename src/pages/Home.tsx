@@ -688,6 +688,16 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     The League Table quarterly publication ranks institutions by GDA dollars and corridor dominance. Zero upfront procurement cost.
                   </p>
+                  <div className="flex flex-wrap justify-left gap-4 pt-4 pb-2">
+
+                    <a
+                      href="/universities"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                      style={{ background: 'linear-gradient(135deg,#2C4771,#5A7FB5)', color: '#fff' }}
+                    >
+                      Learn More
+                    </a>
+                  </div>
                   <div className="flex gap-4 pt-4">
                     <Link to="/universities" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Become a Genesis Institution →
@@ -696,6 +706,7 @@ export default function Home() {
                       See The League Table →
                     </Link>
                   </div>
+
                 </div>
                 <div className="space-y-3 font-mono">
                   {[
@@ -729,6 +740,16 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     Every Triple-85 candidate placed comes with an optional Performance Bond — $11,250 annual premium, $150,000 face value, 180-day term.
                   </p>
+                  <div className="flex flex-wrap justify-left gap-4 pt-4 pb-2">
+
+                    <a
+                      href="/enterprise"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                      style={{ background: 'linear-gradient(135deg,#2C4771,#5A7FB5)', color: '#fff' }}
+                    >
+                      Learn More
+                    </a>
+                  </div>
                   <div className="flex gap-4 pt-4">
                     <Link to="/request-access" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Request Enterprise Pilot →
@@ -770,6 +791,16 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     The Tenured Candidate Auction is the snipe-protected escrowed talent auction for senior-tier engagements with public livestream broadcasting.
                   </p>
+                  <div className="flex flex-wrap justify-left gap-4 pt-4 pb-2">
+
+                    <a
+                      href="/recruiters"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                      style={{ background: 'linear-gradient(135deg,#2C4771,#5A7FB5)', color: '#fff' }}
+                    >
+                      Learn More
+                    </a>
+                  </div>
                   <div className="flex gap-4 pt-4">
                     <Link to="/recruiters" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Claim a Seat →
@@ -811,6 +842,16 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     Kill-Switch Dashboard provides state workforce commissions with real-time CA drift monitoring across partner institutions and corridor enterprises. State of Texas anchor live.
                   </p>
+                  <div className="flex flex-wrap justify-left gap-4 pt-4 pb-2">
+
+                    <a
+                      href="/state-regents"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                      style={{ background: 'linear-gradient(135deg,#2C4771,#5A7FB5)', color: '#fff' }}
+                    >
+                      Learn More
+                    </a>
+                  </div>
                   <div className="flex gap-4 pt-4">
                     <Link to="/request-access" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Brief Your Workforce Commission →
@@ -849,6 +890,16 @@ export default function Home() {
                   <p className="text-on-surface-variant text-sm leading-relaxed">
                     Triple-85 status unlocks $150K Performance Bond eligibility at placement. Career Memory carries your annotations across every ontology node for life.
                   </p>
+                  <div className="flex flex-wrap justify-left gap-4 pt-4 pb-2">
+
+                    <a
+                      href="/self-learners"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+                      style={{ background: 'linear-gradient(135deg,#2C4771,#5A7FB5)', color: '#fff' }}
+                    >
+                      Learn More
+                    </a>
+                  </div>
                   <div className="flex gap-4 pt-4">
                     <Link to="/learners" className="px-6 py-3 rounded-full font-headline font-bold text-xs text-white shadow-md hover:opacity-95" style={{ background: 'linear-gradient(135deg,#775A19,#C5A059)' }}>
                       Enter the Forge →
@@ -1945,8 +1996,7 @@ export default function Home() {
               The dual-nature <span className="italic text-primary">Tenured Agent</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-2xl mx-auto font-body">
-              Observe the user-facing intelligence pivot between Mentor and Proctor modes, governed by a four-agent counci and a dynamic Growth Loop.
-            </p>
+              Watch the AI switch between being your coach and your examiner. Your coach helps you grow every day, your examiner tests you fairly — both guided by four independent AI judges.            </p>
             <div className="pt-4">
               <Link
                 to="/tenured-agent"
@@ -2236,8 +2286,7 @@ export default function Home() {
               Static credentials decay. <span className="italic text-primary">So we built a loop.</span>
             </h2>
             <p className="text-on-surface-variant font-light text-base max-w-3xl mx-auto font-body">
-              Every one of the 4,000 ontology nodes carries its own decay coefficient λ, computed from real-time market signals. The Learning Loop's entire job is to keep your verified standing above the Sovereign Threshold.
-            </p>
+              Every one of our 4,000+ skills has its own expiration rate based on how fast that skill changes in the real job market. Your daily practice loop is designed to keep your skills fresh and your verified status active.            </p>
             <div className="pt-4">
               <Link
                 to="/learning-loop"
@@ -2771,7 +2820,9 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="font-headline text-3xl font-bold text-on-surface mb-2 tracking-tight">Cognitive Consistency</h3>
-                      <p className="text-on-surface-variant font-light text-base">Mathematical mapping of performance resilience over 72-hour adversarial cycles.</p>
+                      <p className="text-on-surface-variant font-light text-base">A 72-hour stress test that tracks how well performance holds up under repeated pressure.
+
+                      </p>
                     </div>
 
                     <div className="grid grid-cols-12 gap-2 pt-6">

@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Pitch to Self-Learners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.08}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:96px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:22ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:700;max-width:24ch;margin-bottom:24px}
+.slide-lede{font-size:1.22rem;color:var(--on-surface-variant);max-width:66ch;margin-top:24px;line-height:1.55}
+
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:30px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:24px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+
+/* Cert-stack visual (a pile of useless cert logos) */
+.cert-stack{display:flex;flex-direction:column;gap:6px;position:relative;padding:14px}
+.cert-line{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--sc-low);border-radius:8px;font-family:var(--font-mono);font-size:11.5px;color:var(--on-surface-variant);opacity:.78}
+.cert-line .dot{width:8px;height:8px;border-radius:50%;background:var(--on-surface-variant);opacity:.4}
+.cert-line.dim{opacity:.5}.cert-line.dimmer{opacity:.35}.cert-line.dimmest{opacity:.22}
+.cert-total{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-align:center;margin-top:10px;letter-spacing:.08em}
+
+/* career outcomes */
+.outcome{background:var(--sc-lowest);border-radius:var(--r-xl);padding:24px;box-shadow:var(--editorial);position:relative}
+.outcome .ribbon{position:absolute;top:18px;right:18px;font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.1em;font-weight:700}
+.outcome h3{font-size:1.15rem;font-weight:700;margin-bottom:8px;margin-top:6px;max-width:18ch}
+
+/* Inverse stack passport */
+.passport-mock{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:30px;position:relative;overflow:hidden}
+.passport-mock::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.pmrow{display:flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:11px;line-height:1.9;position:relative;z-index:1}
+.pmrow .ind{width:8px;height:8px;border-radius:50%;background:var(--mentor)}
+
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:48px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<section class="slide" id="s1">
+  <div class="slide-num">DECK 06 / 12 · SELF-LEARNERS</div>
+  <div class="slide-kicker">PITCH · TENURED AI · CONFIDENTIAL</div>
+  <h1>Stop collecting certificates. <span class="gild">Earn a Passport.</span></h1>
+  <p class="slide-lede">A briefing for self-taught engineers, career-changers, and the perpetually-upskilling on Tenured AI — the verification platform that ends the certificate-collection cycle, gives you one portable credential employers actually trust, and unlocks the senior-role hiring market that LinkedIn and bootcamps cannot reach.</p>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · INDEPENDENT LEARNERS &amp; CAREER-CHANGERS · 2026</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="slide-num">02</div>
+  <div class="slide-kicker">The Pattern You're Living</div>
+  <h2>Look at the receipts. The certificates aren't working.</h2>
+  <p class="slide-lede">Be honest with yourself for thirty seconds. Count what you've spent — in dollars, in nights, in weekends — on Coursera, Udemy, the bootcamp, the AWS certs, the various "Generative AI" courses your LinkedIn feed pushed at you. Now count what it bought you in terms of senior interviews this year. The pattern is real. So is the way out.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card" style="padding:14px">
+      <div style="padding:16px 16px 6px"><div class="badge badge-err">YOUR CERT INVENTORY · COMMON PATTERN</div></div>
+      <div class="cert-stack">
+        <div class="cert-line"><span class="dot"></span>Coursera · Generative AI Fundamentals · 2024 · $49</div>
+        <div class="cert-line"><span class="dot"></span>Udemy · Build Your Own LLM · 2024 · $94</div>
+        <div class="cert-line"><span class="dot"></span>DeepLearning.AI · LangChain Apps · 2024 · $39</div>
+        <div class="cert-line dim"><span class="dot"></span>AWS · ML Specialty · 2023 · $300</div>
+        <div class="cert-line dim"><span class="dot"></span>Bootcamp · 14 weeks · 2023 · $14,000</div>
+        <div class="cert-line dim"><span class="dot"></span>Pluralsight · annual · 2023 · $299</div>
+        <div class="cert-line dimmer"><span class="dot"></span>Google Cloud · Professional ML · 2022 · $200</div>
+        <div class="cert-line dimmer"><span class="dot"></span>fast.ai · Practical Deep Learning · 2022</div>
+        <div class="cert-line dimmest"><span class="dot"></span>Udacity Nanodegree · Data Engineering · 2021 · $1,196</div>
+        <div class="cert-line dimmest"><span class="dot"></span>Codecademy Pro · annual · 2021 · $239</div>
+        <div class="cert-total">~$16,000+ over four years · LinkedIn says nice job · the interview loop says nothing</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">The receipts don't lie</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Completion is not competency.</b> Most employers learned this in 2022. The "course completion" line on your résumé reads as effort, not skill.</li>
+        <li>· <b style="color:var(--on-surface)">The certifications stack but don't compound.</b> Each one is independent. None of them references the others. Your skill graph is invisible to recruiters.</li>
+        <li>· <b style="color:var(--on-surface)">The bootcamps over-promised.</b> The 2020-2023 bootcamp cohort is currently the most underemployed credential class in tech. Employers have noticed.</li>
+        <li>· <b style="color:var(--on-surface)">Your GitHub portfolio is suspect.</b> You know you wrote the code. The recruiter doesn't, and after LLMs they can't tell.</li>
+        <li>· <b style="color:var(--on-surface)">LinkedIn became a noise channel.</b> You added every cert. You optimized your headline. The senior interviews still don't come.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="slide-num">03</div>
+  <div class="slide-kicker">The Idea · One Credential, Owned, Verified</div>
+  <h2>A Sovereign Passport is what the certificates were supposed to be.</h2>
+  <p class="slide-lede">Stop accumulating. Start proving. Tenured AI is a verification platform — not a content library. There are no lectures to sit through. There is one thing to do: clear an adversarial Hard-Gate run by a four-agent council, and earn a Consensus Certificate that lives on a public blockchain under your name. One credential. Portable. Owned. Verifiable by any employer, anywhere, forever.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="passport-mock">
+      <span class="seal">SOVEREIGN PASSPORT · WHAT YOU CARRY</span>
+      <div style="font-family:var(--font-mono);font-size:9px;color:var(--amber);letter-spacing:.15em">COMMAND AUTHORITY</div>
+      <div style="font-family:var(--font-headline);font-size:3.6rem;font-weight:800;line-height:1;color:var(--primary-container);margin-top:4px">87</div>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--inverse-on-surface);opacity:.7;margin-top:6px">Tier 2 Orchestrator · 18 Consensus Certificates · ⚜ bondable</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(197,160,89,.18)">
+        <div class="pmrow"><span class="ind"></span> G-014 · Adversarial RAG · cleared</div>
+        <div class="pmrow"><span class="ind"></span> G-022 · Multi-Agent Consensus · cleared</div>
+        <div class="pmrow"><span class="ind"></span> G-008 · Prompt Injection · cleared</div>
+        <div class="pmrow" style="opacity:.6"><span class="ind" style="background:#D88828"></span> N-052 Embedding Models · refresh due</div>
+      </div>
+      <div style="margin-top:16px;font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.05em">✓ ANCHORED · Polygon mainnet · your DID</div>
+    </div>
+    <div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:14px">What the Passport gives you that the cert-stack never could</h3>
+      <ul style="list-style:none;font-size:14.5px;color:var(--on-surface-variant);line-height:1.9">
+        <li>· <b style="color:var(--on-surface)">Forensic provenance.</b> Recruiters see how you actually worked under pressure — keystroke timing, inference latency, error correction patterns. Not "I took the course."</li>
+        <li>· <b style="color:var(--on-surface)">Composite scoring.</b> One Command Authority number, supported by three sub-scores. Comparable across candidates. Bloomberg-readable, not LinkedIn-readable.</li>
+        <li>· <b style="color:var(--on-surface)">Bond eligibility.</b> Cross the Triple-85 threshold and you become Performance Bond–eligible. Employers stop wondering whether you can do it; they buy a $150K guarantee.</li>
+        <li>· <b style="color:var(--on-surface)">Career Memory.</b> Every artifact from every cleared Gate stays with you. Three years in, your Passport is a queryable archive of your actual work.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="slide-num">04</div>
+  <div class="slide-kicker">The Math · Why It Pays For Itself</div>
+  <h2>$19 a month. The senior salary jump pays for a decade.</h2>
+  <p class="slide-lede">Self-learners typically pay $2,000–$8,000 per year on stacked credentials with diminishing returns. Tenured AI is $19/month. The real ROI isn't the certificate savings — it's the senior-role hiring market the Passport unlocks. A Triple-85 candidate sits in a different interview tier than an unverified one.</p>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Investment</th><th>Annual cost</th><th>What it buys</th></tr></thead>
+      <tbody>
+        <tr><td><b>Typical cert-stack</b></td><td>$2,000–$8,000 / yr</td><td>Course completions. LinkedIn badges. No verification of skill. No bond eligibility. No portable credential.</td></tr>
+        <tr><td><b>Bootcamp (one-time)</b></td><td>$12,000–$20,000</td><td>A new résumé bullet. Most graduates struggle to convert it into the role they expected. Employer skepticism compounds.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">Tenured AI</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">$228 / yr · $19/mo</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><span style="color:var(--primary)">Unlimited Forge drills. Unlimited Hard-Gates. Sovereign Passport with bond eligibility. I-100 sourcing visibility. B-300 auction eligibility at Tier 5. Owned forever.</span></td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(79,138,107,.06),transparent)"><b>One senior-role placement</b></td><td style="background:linear-gradient(135deg,rgba(79,138,107,.06),transparent);color:var(--mentor);font-weight:700">+$40K–$120K base lift</td><td style="background:linear-gradient(135deg,rgba(79,138,107,.06),transparent)">The Triple-85 hire tier vs the unverified tier. One placement covers the platform for decades. The compounding effect over a 30-year career is hard to overstate.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="slide-num">05</div>
+  <div class="slide-kicker">The Daily · What Practice Looks Like</div>
+  <h2>15 minutes of Forge. One Hard-Gate when you're ready.</h2>
+  <p class="slide-lede">The platform's daily rhythm fits in your existing life. Forge drills are short, well-designed, and adaptive — they target the nodes in your ontology where your decay rate is highest. You decide when you're ready for a scoped Refresh Lab. You decide when you're ready for a full Hard-Gate. The platform never forces you onto a schedule.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">DAILY · 15 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Forge drills</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Two-Phase Flashcard practice on your decaying nodes. Recall in your own words; compress to a 12-word re-statement; the Mentor verifies your reasoning. Subway-friendly.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">WEEKLY · 60 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Refresh Labs</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Scoped, multi-node Hard-Gate practice. Earn scoped Consensus Certificates that demonstrate competency at the unit level. Your Passport starts taking shape.</p>
+    </div>
+    <div class="tile">
+      <div class="badge badge-mentor" style="margin-bottom:12px">QUARTERLY · 90 MIN</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Hard-Gates</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Full adversarial sessions with the four-agent council. Real chaos injections, real Bully Logic loops. The Triple-Threat scores stabilize over 3–4 cleared Hard-Gates.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="slide-num">06</div>
+  <div class="slide-kicker">The Hiring Market You Unlock</div>
+  <h2>Recruiters reach you. Auctions bid for you. Bonds attach to your hires.</h2>
+  <p class="slide-lede">The cert-stack model assumes you're applying. The Sovereign Passport model assumes you're being sourced. As your Passport matures, you unlock three hiring surfaces that the certificate path cannot reach.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="outcome">
+      <div class="ribbon">UNLOCK · TIER 3</div>
+      <div class="badge badge-blue" style="margin-bottom:12px">I-100 SOURCING</div>
+      <h3>Recruiters spend credits to talk to you</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.6">Recruiter firms pay reveal credits to surface your identity. By the time outreach reaches you, it's already filtered for seriousness. You set the floor; the recruiter brings the offer.</p>
+    </div>
+    <div class="outcome">
+      <div class="ribbon">UNLOCK · TIER 4</div>
+      <div class="badge badge-blue" style="margin-bottom:12px">PERFORMANCE BONDS</div>
+      <h3>Your hires come with $150K guarantees</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.6">Triple-85 status unlocks Performance Bond eligibility. A $150K V_u guarantee attaches to your hire — employers stop wondering, they buy insurance.</p>
+    </div>
+    <div class="outcome" style="background:linear-gradient(135deg,rgba(197,160,89,.06),rgba(44,71,113,.03))">
+      <div class="ribbon">UNLOCK · TIER 5</div>
+      <div class="badge badge-gild" style="margin-bottom:12px">B-300 AUCTION</div>
+      <h3>Multiple firms bid live for you</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.6">When multiple firms want the same Triple-85 candidate, the platform runs a live timed auction with snipe protection. Price discovery on senior talent — and you set the floor.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="slide-num">07</div>
+  <div class="slide-kicker">The Career-Changer Story</div>
+  <h2>Six months from "I'm transitioning" to a verified senior offer.</h2>
+  <p class="slide-lede">Here's the path you can actually walk — not the bootcamp brochure version, the real one. Most career-changers we see come from analytics, scientific computing, or operations into AI-deploying engineering roles. The pattern is consistent.</p>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">MONTH 1</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Baseline</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Onboarding. The Tenured Agent maps your existing experience to the ontology. Initial AICI baseline computed. Your private Decay Atlas reveals where you actually stand — usually not where you thought.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">MONTHS 2–3</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Build</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Forge drills on the gap nodes. First Refresh Labs cleared. Your Triple-Threat scores rise above the recruiter visibility threshold. First recruiter reveals reach you.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">MONTHS 4–5</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Prove</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">First full adversarial Hard-Gate cleared. Triple-85 threshold approached. Recruiter outreach intensifies — bond-eligible candidates are scarce, and you're now one of them.</p>
+    </div>
+    <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="badge" style="background:var(--primary-container);color:#3D2914;margin-bottom:14px">MONTH 6</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary-container)">Offer</h3>
+      <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85">First senior offer with attached Performance Bond. The hiring manager has seen your Hard-Gate replay before the interview. The conversation is about fit, not capability.</p>
+    </div>
+  </div>
+  <p style="font-size:13.5px;color:var(--on-surface-variant);margin-top:24px;font-style:italic;max-width:64ch">No bootcamp tuition. No career-counselor industry. No five-year retraining loop. Six months of disciplined practice and one cleared Gate — and you're in a hiring tier the certificate-stack path could not reach in a decade.</p>
+</section>
+
+<section class="slide" id="s8">
+  <div class="slide-num">08</div>
+  <div class="slide-kicker">The Privacy Architecture</div>
+  <h2>You own it. Always. Even if we disappear.</h2>
+  <p class="slide-lede">The Passport's portability is not a marketing promise — it's structural. Your credential is anchored to Polygon mainnet under your own Decentralized Identifier. Tenured AI's servers are not in the verification path. If the platform fails tomorrow, every Consensus Certificate you've earned remains cryptographically verifiable by any employer, forever, via open-source tools we publish.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Your DID, your keys.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your Decentralized Identifier is yours. Tenured AI cannot revoke, modify, or condition access to it. Standard W3C DID specification.</p>
+    </div>
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Public-chain anchored.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Every Consensus Certificate's Merkle root sits on Polygon mainnet. Independently verifiable. Independently auditable. No central authority required.</p>
+    </div>
+    <div class="tile">
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Exportable always.</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Vault exports as signed JSON or PDF on demand. Career Memory is portable. Your work follows you to whatever platform comes next.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="slide-num">09</div>
+  <div class="slide-kicker">The Comparative · Everything You've Tried</div>
+  <h2>None of them produces a portable, verified credential.</h2>
+  <div style="margin-top:36px">
+    <table class="matrix">
+      <thead><tr><th>Path</th><th>Annual / total cost</th><th>What you actually end up with</th></tr></thead>
+      <tbody>
+        <tr><td><b>Coursera / Udemy stack</b></td><td>$200–$1,500 / yr</td><td>Course completion certificates. Employers learned to discount these in 2022. No verification of skill, no portability of credential.</td></tr>
+        <tr><td><b>Bootcamp</b></td><td>$12K–$20K one-time</td><td>A résumé bullet that employers in 2026 have learned to be skeptical of. Cohort outcomes have softened sharply since 2023.</td></tr>
+        <tr><td><b>Cloud certifications</b> (AWS / GCP / Azure)</td><td>$200–$400 / cert</td><td>Useful in specific procurement contexts. Doesn't verify how you actually think with AI. Renews on the vendor's schedule, not yours.</td></tr>
+        <tr><td><b>GitHub portfolio</b></td><td>Time only</td><td>You know you wrote the code. The recruiter doesn't. After LLMs they can't tell. Portfolio-based interviewing is in decline.</td></tr>
+        <tr><td><b>LinkedIn Learning</b></td><td>$240 / yr</td><td>Badges on your profile. Self-reported skills. Employers do not weight this above zero.</td></tr>
+        <tr><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">Tenured AI</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><b style="color:var(--primary)">$228 / yr · $19/mo</b></td><td style="background:linear-gradient(135deg,rgba(197,160,89,.08),rgba(44,71,113,.04))"><span style="color:var(--primary)">Sovereign Passport. Verified Consensus Certificates. I-100 sourcing visibility. B-300 auction eligibility. Performance Bond eligibility. Owned for life.</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="slide-num">10</div>
+  <div class="slide-kicker">The Onboarding · 30 Days to First Refresh Lab</div>
+  <h2>Sign up. Start. Get visible.</h2>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEK 1</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Sign up + map</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Sign up. The Tenured Agent does a 20-minute experience-mapping conversation. Your existing skills are mapped to the ontology. Initial scores baseline.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEK 2</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Daily Forge</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Daily Forge habit established. Average user does 12–18 minutes a day. The Decay Atlas starts to populate; you see where your gaps actually live.</p>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">WEEK 3</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">First Refresh Lab</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant)">Your first scoped Refresh Lab attempt. If cleared, your first scoped Consensus Certificate mints to your Passport. Tier 1 status active.</p>
+    </div>
+    <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="badge" style="background:var(--primary-container);color:#3D2914;margin-bottom:14px">WEEK 4</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary-container)">Visible to recruiters</h3>
+      <p style="font-size:13.5px;color:var(--inverse-on-surface);opacity:.85">Your Passport reaches the recruiter Phase-2 pool. De-identified, but discoverable. First reveal credits may start arriving from corridor recruiters within the next 30 days.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <div class="slide-num">11</div>
+  <div class="slide-kicker">The Questions You're Asking</div>
+  <h2>Five things any honest skeptic wants to know.</h2>
+  <table class="matrix" style="margin-top:36px">
+    <thead><tr><th>Question</th><th>The answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>"How is this not just another certification?"</b></td><td>Because the credential's value comes from the verification, not the content. Hard-Gates are adversarial, four-agent-council verified, and produce sealed forensic records. Recruiters can verify the credential on-chain without trusting Tenured AI. No certificate program on the market produces this output.</td></tr>
+      <tr><td><b>"What if I can't clear a Hard-Gate?"</b></td><td>You'll know months before you try. The Decay Atlas and the Tenured Agent surface your gaps in real time. The platform schedules Refresh Labs as preparation for full Gates. By the time you attempt a Gate, you and the agent have agreed you're ready. If you still don't clear, you retake. Failed attempts never appear on your Passport.</td></tr>
+      <tr><td><b>"What if Tenured AI fails as a company?"</b></td><td>Your Passport is anchored to your DID on Polygon mainnet. We will publish open-source verification tools. If we shut down tomorrow, every Consensus Certificate you've earned remains independently verifiable forever. The platform's value is the verification protocol, not the SaaS.</td></tr>
+      <tr><td><b>"Is the platform's pool deep enough to be worth joining?"</b></td><td>Today, in specific corridors — yes (Houston-Energy, NYC-Finance). In your corridor — depends. The pool grows 22%+ quarter-over-quarter from university Genesis partnerships. Joining early means you have first-mover positioning when density reaches your market. Late joiners face a more saturated pool.</td></tr>
+      <tr><td><b>"What about my LinkedIn? Do I have to leave it?"</b></td><td>Keep it. The Passport is additive, not replacement. Your résumé stays where it is. The Passport's value is the new hiring surface it opens — the I-100 reveal pool, the B-300 auctions, the bond-eligible tier. The recruiters using these surfaces are the ones you actually want to reach.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="s12">
+  <div class="slide-num">12</div>
+  <div class="slide-kicker">The Ask</div>
+  <h1>One subscription. <span class="gild">One Hard-Gate.</span> Six months.</h1>
+  <p class="slide-lede">We are asking you to sign up at $19/month, do 15 minutes of Forge a day for six months, and clear one full adversarial Hard-Gate. By the end, you have either a Sovereign Passport that opens a hiring surface you currently can't reach — or you have data telling you exactly where your real gaps are. Six months. $114 total. The math against your current certificate spend, your bootcamp regret, or your stalled LinkedIn search is straightforward. <b>The decision is whether the next senior interview you do has a Passport on the table, or another résumé.</b></p>
+  <div style="margin-top:48px">
+    <a href="#contact" class="cta">Sign up · $19/mo →</a>
+    <a href="#s4" class="cta-pill">Review the math</a>
+    <a href="#s7" class="cta-pill">See the career-changer path</a>
+  </div>
+  <div id="contact" style="margin-top:80px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · Self-Learner Onboarding<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">learners@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · PITCH TO SELF-LEARNERS · 12 SLIDES · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>

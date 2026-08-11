@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="w-full py-20 px-8 bg-surface-container-low border-t border-outline-variant/10">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-6">
             <Link to="/" className="shrink-0 flex items-center pr-[60px]">
               <img src="/tenured-1024.png" alt="Tenured AI" className="h-16" />
@@ -38,7 +38,7 @@ export default function Footer() {
 
           <div>
             <h4 className="font-label text-xs font-bold tracking-[0.2em] uppercase text-primary mb-6">Protocol</h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               <li><Link to="/learners" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Passport</Link></li>
               <li><Link to="/chaos-lab" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Proving Ground</Link></li>
               <li><Link to="/pricing" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Pricing</Link></li>
@@ -56,6 +56,8 @@ export default function Footer() {
             <ul className="space-y-4">
               <li><Link to="/manifesto" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Manifesto</Link></li>
               <li><Link to="/learning-loop" className="text-sm text-on-surface-variant hover:text-primary transition-colors">The Learning Loop</Link></li>
+              <li><Link to="/self-learners" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Self-Learners</Link></li>
+              <li><Link to="/commercial" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Commercial Use</Link></li>
               <li><Link to="/method" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Method &amp; Codex</Link></li>
               <li><Link to="/responsible-ai" className="text-sm text-on-surface-variant hover:text-primary transition-colors">Responsible AI</Link></li>
               <li><Link to="/about" className="text-sm text-on-surface-variant hover:text-primary transition-colors">About</Link></li>

@@ -9,14 +9,14 @@ export default function UseCases() {
       {/* Hero Section: High-Scarcity Invitation */}
       <section className="px-8 max-w-7xl mx-auto mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-7 space-y-8"
           >
             <span className="font-label text-xs tracking-[0.3em] uppercase text-primary font-bold block">Private Beta Invitation</span>
             <h1 className="text-5xl md:text-7xl lg:text-8xl leading-tight font-headline font-bold tracking-tighter text-on-surface">
-              Architectural <br/><span className="italic text-primary">Exclusivity.</span>
+              Architectural <br /><span className="italic text-primary">Exclusivity.</span>
             </h1>
             <p className="text-xl text-on-surface-variant max-w-xl leading-relaxed font-light">
               Tenured AI is not a public utility. It is an institutional partner. We are currently accepting applications for the Q4 Cohort of our Sovereign Intelligence Pilots.
@@ -31,17 +31,17 @@ export default function UseCases() {
               </button>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
             className="lg:col-span-5 relative"
           >
             <div className="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl relative z-10 editorial-shadow">
-              <img 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" 
-                alt="monochromatic architectural photography" 
+              <img
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                alt="monochromatic architectural photography"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkU953Exa6zC9bn-gP6V_NJ3BlJNpoAh2t-FwmeS0vxiYLfqvOwVR7ifm3eepLQnWg0-U1BCCxESV0t8zytyD9s6E6zcIbVPMrFLMKlvfM8qPqTF35uZkpQNQcD7offGb7YwQ5yC30GQWbmGsJWCMbHUlRUTMdrL1vJ7uvQHYYWRhlwlw_667gJ0RA4_kvhXXo_i5-nUZ-W91ejlUA3KosjPmMyu6_qBDHmSIrowUnv7qLUWoiqK9dJRmr9FBg3_Hb7-x8ytI"
                 referrerPolicy="no-referrer"
               />
@@ -71,7 +71,7 @@ export default function UseCases() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Houston Node */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-lowest p-10 rounded-xl border border-outline-variant/15 shadow-sm hover:shadow-xl transition-all group"
             >
@@ -96,7 +96,7 @@ export default function UseCases() {
             </motion.div>
 
             {/* NYC Node */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -5 }}
               className="bg-surface-container-lowest p-10 rounded-xl border border-outline-variant/15 shadow-sm hover:shadow-xl transition-all group"
             >
@@ -150,9 +150,9 @@ export default function UseCases() {
             </ul>
           </div>
           <div className="relative min-h-[400px]">
-            <img 
-              className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale" 
-              alt="classic library interior" 
+            <img
+              className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale"
+              alt="classic library interior"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH99GFAjPl3PzuWs3fOleiLB8fXHPQlVXWmiv021LNpLwrnQW4wVuE6NBkiQk2iioWCl4G15wdOQaAxs6GEncylKhQtafKuwMV3a_2Qwr1HWLQI8NeXU_ANHcG6f2V6RZe1VTvZfztQ1GYw58FPfOAHCDmCDJnegAumPZH0rKVJLOYl-bcezcsSETjfBvTWvox0-ZJ10VqJbuOt_VCHJg7LUXgcfZsxqJ0ec90PqP20LOQ4nBXhz-PtZEAa-0SnnXaNCE9ZBY"
               referrerPolicy="no-referrer"
             />
@@ -165,7 +165,7 @@ export default function UseCases() {
       <section className="px-8 max-w-7xl mx-auto mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Enterprise AIOI Trial */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -193,7 +193,7 @@ export default function UseCases() {
           </motion.div>
 
           {/* Independent Sovereigns */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -201,7 +201,7 @@ export default function UseCases() {
             className="lg:col-span-4 bg-primary text-on-primary rounded-xl p-12 flex flex-col justify-between shadow-xl"
           >
             <div>
-              <h3 className="text-3xl font-headline font-bold mb-6">Independent Sovereigns</h3>
+              <h3 className="text-3xl font-headline font-bold mb-6">Independent Self-Learners</h3>
               <p className="opacity-90 leading-relaxed mb-12">
                 The Career Pivot pathway for high-impact individuals transitioning into the AI economy.
               </p>

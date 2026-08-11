@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenured AI · Deck 05 · Commercial Verticals &amp; Revenue Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#FCF9F5;--sc-low:#F6F3EF;--sc-lowest:#FFFFFF;--sc-high:#EAE8E4;
+  --on-surface:#1C1C1A;--on-surface-variant:#4E4639;
+  --primary:#775A19;--primary-container:#C5A059;--on-primary:#FFFFFF;
+  --sovereign:linear-gradient(135deg,#775A19 0%,#C5A059 100%);
+  --tertiary:#2C4771;--tertiary-soft:#8FA5D6;--tertiary-container:#DBE2F9;--on-tertiary-container:#001A41;
+  --outline:#7F7667;--outline-variant:#D1C5B4;
+  --amber:#FFBF00;--mentor:#4F8A6B;--error:#BA1A1A;
+  --inverse-surface:#31302E;--inverse-on-surface:#F3F0EC;
+  --font-headline:'Sora',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --editorial:0 24px 40px -12px rgba(28,28,26,.06);--ambient:0 32px 64px -16px rgba(28,28,26,.08);
+  --crt-glow:0 0 8px 2px rgba(255,191,0,.2);
+  --r-lg:1rem;--r-xl:1.25rem;--r-2xl:1.5rem;--r-pill:9999px;--term:#16140F;
+}
+[data-theme="dark"]{
+  --surface:#121211;--sc-low:#1E1E1D;--sc-lowest:#1C1C1A;--sc-high:#2A2A28;
+  --on-surface:#F3F0EC;--on-surface-variant:#D1C5B4;
+  --primary:#E8C37E;--primary-container:#775A19;
+  --tertiary:#8FA5D6;--tertiary-container:#233A65;--on-tertiary-container:#DBE2F9;
+  --editorial:0 24px 40px -12px rgba(0,0,0,.4);--ambient:0 32px 64px -16px rgba(0,0,0,.5);
+  --inverse-surface:#F3F0EC;--inverse-on-surface:#1C1C1A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+h1,h2,h3,h4{font-family:var(--font-headline);letter-spacing:-.02em;line-height:1.06}
+code,.mono{font-family:var(--font-mono)}
+
+.deck{max-width:1280px;margin:0 auto;padding:0 40px}
+.slide{min-height:96vh;padding:84px 0;display:flex;flex-direction:column;justify-content:center;scroll-margin-top:24px}
+.slide:nth-child(even){background:var(--sc-low);margin:0 -100vw;padding-left:calc(100vw + 40px);padding-right:calc(100vw + 40px)}
+.slide-num{font-family:var(--font-mono);font-size:11px;color:var(--primary);letter-spacing:.18em;margin-bottom:14px}
+.slide-kicker{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
+.slide h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:20ch}
+.slide h1 .gild{background:var(--sovereign);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.slide h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;max-width:24ch;margin-bottom:24px}
+.slide-lede{font-size:1.2rem;color:var(--on-surface-variant);max-width:64ch;margin-top:24px;line-height:1.5}
+
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.g23{grid-template-columns:2fr 3fr}.g32{grid-template-columns:3fr 2fr}
+@media(max-width:860px){.g2,.g3,.g4,.g23,.g32{grid-template-columns:1fr}}
+.card{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:28px;box-shadow:var(--editorial)}
+.tile{background:var(--sc-low);border-radius:var(--r-xl);padding:22px}
+.vault{background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:var(--r-2xl);padding:28px;position:relative;overflow:hidden}
+.vault::before{content:"";position:absolute;top:-30%;right:-15%;width:280px;height:280px;background:radial-gradient(circle,rgba(197,160,89,.12),transparent 70%);pointer-events:none}
+.vault .seal{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;display:block;margin-bottom:12px}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:var(--r-pill);font-size:12px;font-weight:600}
+.badge-soft{background:var(--sc-high);color:var(--on-surface-variant)}
+.badge-blue{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.badge-gild{background:var(--sovereign);color:#FFF}
+.badge-mentor{background:rgba(79,138,107,.16);color:var(--mentor)}
+.badge-err{background:rgba(186,26,26,.12);color:var(--error);font-weight:700}
+.badge-mono{background:var(--sc-high);color:var(--on-surface-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+
+.matrix{width:100%;border-collapse:separate;border-spacing:0 10px;font-size:14px}
+.matrix th{text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);padding:0 16px 6px;font-weight:400}
+.matrix td{background:var(--sc-lowest);padding:16px;vertical-align:top;box-shadow:var(--editorial)}
+.matrix td:first-child{border-radius:var(--r-lg) 0 0 var(--r-lg);font-weight:600;width:22%}
+.matrix td:last-child{border-radius:0 var(--r-lg) var(--r-lg) 0}
+.matrix.tight{border-spacing:0 6px;font-size:13px}
+.matrix.tight td{padding:12px 16px;box-shadow:none;background:var(--sc-low)}
+
+.cta{display:inline-block;background:var(--sovereign);color:#FFF;border-radius:var(--r-pill);padding:14px 28px;font-size:14px;font-weight:700;font-family:var(--font-body);text-decoration:none;margin-top:24px}
+.cta-pill{display:inline-block;background:var(--sc-high);border-radius:var(--r-pill);padding:10px 20px;font-size:12px;font-weight:600;color:var(--on-surface);font-family:var(--font-body);text-decoration:none;margin-left:10px}
+
+.themebtn{position:fixed;bottom:24px;right:24px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+.printbtn{position:fixed;bottom:24px;right:160px;z-index:50;background:var(--sc-lowest);box-shadow:var(--ambient);border:none;cursor:pointer;border-radius:var(--r-pill);padding:12px 20px;font-family:var(--font-mono);font-size:12px;color:var(--on-surface);font-weight:700}
+
+.deckmeta{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.06em;padding:32px 0;text-align:center}
+.term{background:var(--term);color:var(--inverse-on-surface);border-radius:14px;padding:22px;font-family:var(--font-mono);font-size:12.5px;line-height:1.85;position:relative;overflow:hidden}
+.term::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:repeating-linear-gradient(0deg,#FFF 0 1px,transparent 1px 3px)}
+.term .amber{color:var(--amber);text-shadow:var(--crt-glow)}
+.term .gold{color:#C5A059}.term .ok{color:#7FBF9B}.term .blue{color:#8FA5D6}.term .dim{opacity:.45}.term .red{color:#ff8a8a}
+
+.figure{font-family:var(--font-mono);font-weight:700;color:var(--primary)}
+.big{font-family:var(--font-headline);font-size:clamp(2.4rem,5vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.huge{font-family:var(--font-headline);font-size:clamp(3rem,8vw,6rem);font-weight:800;letter-spacing:-.05em;line-height:.95}
+.microlabel{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:8px}
+.dotlist{list-style:none;font-size:14px;color:var(--on-surface-variant);line-height:1.9}
+.dotlist li b{color:var(--on-surface)}
+
+/* VERTICAL HEADER SLAB */
+.slab{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:end;margin-bottom:36px}
+@media(max-width:860px){.slab{grid-template-columns:1fr}}
+.slab .ip{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--tertiary);text-transform:uppercase;line-height:2.1}
+.slab .ip b{color:var(--on-surface)}
+
+/* REVENUE STACK BARS */
+.stack{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.stack-row{display:grid;grid-template-columns:190px 1fr 96px;gap:18px;align-items:center}
+@media(max-width:860px){.stack-row{grid-template-columns:1fr;gap:6px}}
+.stack-row .lbl{font-size:13px;font-weight:600}
+.stack-row .lbl em{display:block;font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-surface-variant);font-style:normal;margin-top:3px}
+.stack-track{height:34px;background:var(--sc-high);border-radius:8px;overflow:hidden;display:flex}
+.stack-track b{display:block;height:100%;font-weight:400}
+.stack-row .val{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--primary);text-align:right}
+.fill-a{background:var(--sovereign)}
+.fill-b{background:var(--tertiary)}
+.fill-c{background:var(--tertiary-soft)}
+.fill-d{background:var(--primary-container)}
+
+/* UNIT ECONOMICS PANEL */
+.unit{background:var(--sc-lowest);border-radius:var(--r-2xl);padding:26px;box-shadow:var(--editorial)}
+.unit-line{display:grid;grid-template-columns:1fr auto;gap:16px;padding:9px 0;font-size:13.5px;color:var(--on-surface-variant)}
+.unit-line span:last-child{font-family:var(--font-mono);font-weight:700;color:var(--on-surface);white-space:nowrap}
+.unit-line.sum{background:var(--sc-low);margin:10px -14px 0;padding:14px;border-radius:var(--r-lg)}
+.unit-line.sum span:last-child{color:var(--primary);font-size:15px}
+
+@media print{.themebtn,.printbtn{display:none !important}.slide{min-height:auto;page-break-after:always;padding:40px 0}}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+<!-- C1 · COVER -->
+<section class="slide" id="c1">
+  <div class="slide-num">DECK 05 / 10 · COMMERCIAL VERTICALS</div>
+  <div class="slide-kicker">PITCH · TENURED AI · REVENUE ARCHITECTURE · CONFIDENTIAL</div>
+  <h1>One verification kernel. <span class="gild">Four regulated markets.</span></h1>
+  <p class="slide-lede">The academic and state channels prove the ledger. This deck documents what the same kernel is worth when it is pointed at industries where an unverified AI decision is not an embarrassment but a liability event — healthcare diagnostics, grid operations, financial execution, and regulatory audit. In each, the buyer is not a technology budget. <b>The buyer is a risk budget.</b></p>
+  <div class="grid g4" style="margin-top:56px">
+    <div class="tile">
+      <div class="microlabel">Healthcare Integrity</div>
+      <div class="big" style="color:var(--primary)">$72M</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Modeled Year 5 ARR · Safety Dividend</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Energy Resilience</div>
+      <div class="big" style="color:var(--primary)">$95M</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Modeled Year 5 ARR · Capacity Fee</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Financial Integrity</div>
+      <div class="big" style="color:var(--primary)">$44M</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Modeled Year 5 ARR · Protected Value</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Regulatory Automation</div>
+      <div class="big" style="color:var(--primary)">$95M</div>
+      <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:8px">Modeled Year 5 ARR · Integrity Fee</p>
+    </div>
+  </div>
+  <div style="margin-top:48px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);letter-spacing:.08em">PREPARED FOR · ENTERPRISE RISK · CHIEF MEDICAL OFFICER · GRID OPERATIONS · CHIEF COMPLIANCE OFFICER · 2026</div>
+</section>
+
+<!-- C2 · THE THESIS -->
+<section class="slide" id="c2">
+  <div class="slide-num">02</div>
+  <div class="slide-kicker">The Thesis · Why One Kernel Serves Four Industries</div>
+  <h2>We do not sell AI. We sell the proof that the AI was not guessing.</h2>
+  <p class="slide-lede">Every one of these markets has already bought AI. None of them can defend it. The gap between deployment and defensibility is where the revenue is — and it is the same gap in all four, because the underlying question is identical: <b>can you demonstrate, after the fact, that the system was operating within nominal parameters at the moment of the decision?</b></p>
+  <div class="grid g2" style="margin-top:36px">
+    <div>
+      <table class="matrix">
+        <thead><tr><th>Kernel component</th><th>What it produces</th></tr></thead>
+        <tbody>
+          <tr><td><b>PAT-002</b><br>Telemetry &amp; CA Monitoring</td><td>Four-channel Telemetry Signal Suite and a real-time Coherence Anomaly score — the flight-data recorder for any inference. The core artifact in every one of the four verticals.</td></tr>
+          <tr><td><b>PAT-017</b><br>Modal Logic Reasoning</td><td>Formal verification via the Necessity operator. The system proves a proposed action <i>cannot</i> enter an unsafe logical state, rather than observing afterward that it did.</td></tr>
+          <tr><td><b>PAT-004</b><br>Four-Agent Council</td><td>Expander, Critic, Auditor, Synthesizer. Removes single-agent failure and produces the human-oversight artifact that regulators are beginning to require by name.</td></tr>
+          <tr><td><b>PAT-003</b><br>Decay Graph &amp; Cascades</td><td>Cascade-failure modeling with proprietary threshold calibration. Predicts propagation before it crosses the critical decay boundary.</td></tr>
+          <tr><td><b>PAT-001 / PAT-005</b><br>Termination Gates &amp; Credentials</td><td>Triple-condition halt and non-repudiable credential binding. Every decision is cryptographically tied to a qualified supervising human.</td></tr>
+          <tr><td><b>PAT-008</b><br>Container Orchestration</td><td>Zero-Knowledge Session Isolation. Adversarial interference with a model cannot propagate to institutional systems.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="vault">
+        <span class="seal">THE STRUCTURAL INSIGHT</span>
+        <p style="font-size:15px;line-height:1.75;opacity:.92">A hospital, a grid operator, a trading desk and a compliance office are four different businesses. But each of them is, at the moment of an AI-mediated decision, <b style="color:var(--primary-container)">an entity that will be asked to prove what it knew and when.</b></p>
+        <p style="font-size:15px;line-height:1.75;opacity:.92;margin-top:14px">That proof is a single product. The domain adapters differ. The kernel does not. This is why four verticals do not cost four times the engineering — and why the margin structure holds as we add markets.</p>
+      </div>
+      <div class="card">
+        <div class="microlabel">The commercial consequence</div>
+        <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:10px">Risk budgets are larger and less contested than technology budgets</h3>
+        <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">A hospital CIO negotiates a software line item. A hospital's captive insurer negotiates a premium. The second conversation is an order of magnitude larger, has a shorter approval path, and is measured against a loss ratio rather than a feature comparison. Every pricing instrument in this deck is designed to be paid from the second budget, not the first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C3 · HEALTHCARE -->
+<section class="slide" id="c3">
+  <div class="slide-num">03</div>
+  <div class="slide-kicker">Vertical I · The Healthcare Diagnostic Integrity Layer</div>
+  <div class="slab">
+    <div>
+      <h2 style="margin-bottom:14px">The malpractice shield, sold to the insurer rather than the doctor.</h2>
+      <p style="font-size:1.05rem;color:var(--on-surface-variant);max-width:62ch;line-height:1.6">Standard medical AI returns a result and no account of how it got there. When a physician follows that result and the outcome is bad, the hospital is defending a black box. The Diagnostic Integrity Layer converts every AI-assisted decision into a <b style="color:var(--on-surface)">recorded, coherence-scored, credential-bound clinical event</b> — and shifts the burden of proof.</p>
+    </div>
+    <div class="ip">
+      PRIMARY IP<br>
+      <b>PAT-002</b> · Telemetry &amp; CA Monitoring<br>
+      <b>PAT-017</b> · Modal Logic Reasoning<br>
+      <b>PAT-004</b> · Four-Agent Council<br>
+      <b>PAT-005</b> · Credential Framework<br>
+      <b>TS-005</b> · CA formula · <b>TS-009</b> · thresholds
+    </div>
+  </div>
+
+  <div class="grid g32">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="grid g3" style="gap:18px">
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 01</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">The Diagnostic Flight Recorder</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Every diagnostic session captures a four-channel TSS and a live Coherence Anomaly score. When the model's internal logic vectors drift — when it shifts from reasoning to guessing — the system triggers Autopilot Disengage before the recommendation reaches the clinician.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 02</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Clinical Necessity Gates</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Modal logic enforces □(recommendation → evidence in labs). The model cannot surface a treatment it cannot ground in the patient's own markers. Hallucinated therapy is blocked at the logic layer, not caught at review.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 03</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">The Medical Council</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Expander proposes. Critic hunts differentials. Auditor checks FDA guidance and hospital protocol. Synthesizer returns one confidence-weighted recommendation. Real-time M&amp;M review, on every case rather than the ones that went wrong.</p>
+        </div>
+      </div>
+      <div class="term">
+        <div class="amber">CLINICAL EVENT RECORD · CASE 8821-A · POST-HOC RECONSTRUCTION</div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div>  inference_ts        2026-03-21T14:02:11.442Z</div>
+        <div>  supervising_cred    <span class="blue">PAT-005 bound · MD-4471 · active</span></div>
+        <div>  CA_score            <span class="ok">0.91 · nominal · above 0.65 floor</span></div>
+        <div>  KVC / IL / RS / DS  <span class="ok">0.93 / 0.89 / 0.94 / 0.90</span></div>
+        <div>  necessity_check     <span class="ok">□ PASS · 4 lab markers matched</span></div>
+        <div>  council_dissent     <span class="gold">Critic raised 2 differentials · logged</span></div>
+        <div>  contraindication    <span class="ok">allergy profile cleared</span></div>
+        <div>  disengage_events    <span class="ok">none</span></div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div class="amber">DEFENSIBLE POSTURE: system nominal · human in loop · evidence-grounded</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="unit">
+        <div class="microlabel">Revenue instrument · The Safety Dividend</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">25% of verified premium reduction</h3>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-bottom:16px">We are not paid for software. We are paid a share of the malpractice premium the hospital no longer pays, verified by the carrier.</p>
+        <div class="unit-line"><span>Reference system · beds</span><span>1,400</span></div>
+        <div class="unit-line"><span>Annual MPL premium</span><span>$28.0M</span></div>
+        <div class="unit-line"><span>Verified premium reduction</span><span>17.5%</span></div>
+        <div class="unit-line"><span>Annual saving to hospital</span><span>$4.90M</span></div>
+        <div class="unit-line sum"><span>Tenured AI share · 25%</span><span>$1.225M / yr</span></div>
+      </div>
+      <div class="unit">
+        <div class="microlabel">Secondary instrument</div>
+        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:6px">Practitioner Integrity Fee</h3>
+        <div class="unit-line"><span>Per credentialed clinician / yr</span><span>$180</span></div>
+        <div class="unit-line"><span>Reference system clinicians</span><span>~5,000</span></div>
+        <div class="unit-line sum"><span>Per system</span><span>$0.90M / yr</span></div>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Modeled ARR build</div>
+        <table class="matrix tight">
+          <tbody>
+            <tr><td style="width:56%">Year 1 · 2 systems</td><td style="text-align:right"><span class="figure">$3.7M</span></td></tr>
+            <tr><td>Year 3 · 12 systems</td><td style="text-align:right"><span class="figure">$26.4M</span></td></tr>
+            <tr><td>Year 5 · 34 systems</td><td style="text-align:right"><span class="figure">$72.4M</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C4 · ENERGY -->
+<section class="slide" id="c4">
+  <div class="slide-num">04</div>
+  <div class="slide-kicker">Vertical II · The Energy Sector Resilience Layer</div>
+  <div class="slab">
+    <div>
+      <h2 style="margin-bottom:14px">Double the grid through code, and take a share of the capacity you unlock.</h2>
+      <p style="font-size:1.05rem;color:var(--on-surface-variant);max-width:62ch;line-height:1.6">The grid runs near 30% utilization because operators hold enormous safety margin against a failure mode they cannot predict — the cascade. Prove the cascade boundary mathematically and the margin can be narrowed safely. <b style="color:var(--on-surface)">The unlocked capacity is the product. We are paid a fraction of it.</b></p>
+    </div>
+    <div class="ip">
+      PRIMARY IP<br>
+      <b>PAT-003</b> · Decay Graph &amp; Cascades<br>
+      <b>PAT-002</b> · Telemetry &amp; CA Monitoring<br>
+      <b>PAT-017</b> · Modal Logic Reasoning<br>
+      <b>PAT-004</b> · Four-Agent Council<br>
+      <b>TS-009</b> · 0.65 / 0.35 / 0.05 thresholds
+    </div>
+  </div>
+
+  <div class="grid g32">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="grid g3" style="gap:18px">
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 01</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Cascade prevention</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">The grid is modeled as a dynamic decay graph. Proprietary threshold calibration identifies the exact point at which a localized failure crosses into propagation, and triggers isolation or load-shed before it does — rather than after the second substation drops.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 02</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Predictive telemetry</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Substation sensors and smart meters feed coherence monitoring on the grid's digital twin. A drop in the Inference Logic channel signals physical component failure four to six hours ahead. Maintenance moves from reactive to scheduled.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 03</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Verified reconfiguration</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Every proposed reconfiguration — bringing a data center online, rerouting around maintenance — passes a necessity check proving it cannot violate thermal or phase-balance limits. The Critic agent simulates extreme weather and cyber-attack against the plan; the Auditor confirms FERC and NERC posture.</p>
+        </div>
+      </div>
+      <div class="term">
+        <div class="amber">GRID TELEMETRY · CORRIDOR NODE SI-11 · LIVE</div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div>  nameplate           12,400 MW</div>
+        <div>  utilization_prior   <span class="dim">29.8%</span></div>
+        <div>  utilization_verified <span class="ok">33.3% · +3.5 pts</span></div>
+        <div>  effective_unlocked  <span class="amber">420 MW</span></div>
+        <div>  decay_max_node      <span class="ok">0.41 · below 0.65 critical</span></div>
+        <div>  cascade_isolations  <span class="gold">2 events YTD · contained at n+1</span></div>
+        <div>  necessity_checks    <span class="ok">1,104 PASS · 3 BLOCKED</span></div>
+        <div>  blocked_reason      <span class="red">thermal limit violation · phase imbalance</span></div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div class="amber">VERIFIED ANNUAL VALUE: $59.1M · avoided capital + avoided outage</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="unit">
+        <div class="microlabel">Revenue instrument · The Capacity Fee</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">6% of verified unlocked value</h3>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-bottom:16px">Not a licence. A share of capacity the utility can now dispatch and outages it no longer absorbs — both verified against the operator's own settlement data.</p>
+        <div class="unit-line"><span>Reference IOU · nameplate</span><span>12 GW</span></div>
+        <div class="unit-line"><span>Verified utilization gain</span><span>+3.5 pts</span></div>
+        <div class="unit-line"><span>Effective capacity unlocked</span><span>420 MW</span></div>
+        <div class="unit-line"><span>Avoided peaker capital · annualized</span><span>$23.1M</span></div>
+        <div class="unit-line"><span>Avoided outage cost · 2 events</span><span>$36.0M</span></div>
+        <div class="unit-line"><span>Verified annual value</span><span>$59.1M</span></div>
+        <div class="unit-line sum"><span>Tenured AI share · 6%</span><span>$3.55M / yr</span></div>
+      </div>
+      <div class="unit">
+        <div class="microlabel">Secondary instrument</div>
+        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:6px">ISO / RTO governance licence</h3>
+        <div class="unit-line"><span>Per market operator / yr</span><span>$6.2M</span></div>
+        <div class="unit-line sum"><span>Year 5 · 5 operators</span><span>$31.0M / yr</span></div>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Modeled ARR build</div>
+        <table class="matrix tight">
+          <tbody>
+            <tr><td style="width:56%">Year 1 · 2 utilities</td><td style="text-align:right"><span class="figure">$7.0M</span></td></tr>
+            <tr><td>Year 3 · 8 utilities + 2 ISO</td><td style="text-align:right"><span class="figure">$38.0M</span></td></tr>
+            <tr><td>Year 5 · 18 utilities + 5 ISO</td><td style="text-align:right"><span class="figure">$95.0M</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C5 · FINANCIAL -->
+<section class="slide" id="c5">
+  <div class="slide-num">05</div>
+  <div class="slide-kicker">Vertical III · The Financial Integrity Layer · Liability Reduction</div>
+  <div class="slab">
+    <div>
+      <h2 style="margin-bottom:14px">Priced against value at risk, not against seats.</h2>
+      <p style="font-size:1.05rem;color:var(--on-surface-variant);max-width:62ch;line-height:1.6">The failure mode in financial AI is algorithmic drift — a system executing against a hallucination or a manipulated price feed. The Integrity Layer runs formal pre-flight verification on every proposed action, before capital moves. <b style="color:var(--on-surface)">One prevented eight-figure event pays the annual fee many times over, which is the entire commercial argument.</b></p>
+    </div>
+    <div class="ip">
+      PRIMARY IP<br>
+      <b>PAT-017</b> · Modal Logic Reasoning<br>
+      <b>PAT-016</b> · Dual-Token Economics<br>
+      <b>PAT-002</b> · Telemetry &amp; CA Monitoring<br>
+      <b>PAT-004</b> · Four-Agent Council<br>
+      <b>TS-009 – TS-012</b> · modal implementation
+    </div>
+  </div>
+
+  <div class="grid g32">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="grid g3" style="gap:18px">
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 01</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Pre-flight verification</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Before execution, the proposed action is formally verified against the desk's own constraint set — slippage ceilings, liquidity confirmation across independent sources, exposure limits. The trade does not clear the gate unless the constraints are provably satisfied.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 02</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Drift detection</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Coherence monitoring on the execution model surfaces the transition from reasoning to pattern-matching — the state in which manipulated inputs get acted on. Below the coherence floor, the desk halts automatically under triple-condition termination.</p>
+        </div>
+        <div class="card">
+          <div class="badge badge-mono" style="margin-bottom:12px">MECHANIC 03</div>
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:8px">Adversarial council review</h3>
+          <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">On strategy changes and parameter updates, the Critic agent runs flash-loan, oracle-manipulation and liquidity-drain scenarios against the proposal. The Auditor holds the change against the firm's own risk mandate before it reaches production.</p>
+        </div>
+      </div>
+      <div class="term">
+        <div class="amber">PRE-FLIGHT VERIFICATION GATE · DESK ALPHA-3 · 24H</div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div>  actions_proposed    <span class="ok">184,220</span></div>
+        <div>  necessity_PASS      <span class="ok">184,109</span></div>
+        <div>  <span class="red">necessity_BLOCK     111</span></div>
+        <div class="dim">    ├ slippage ceiling exceeded            64</div>
+        <div class="dim">    ├ liquidity unconfirmed · &lt;3 sources   31</div>
+        <div class="dim">    ├ exposure limit breach                12</div>
+        <div class="dim">    └ oracle divergence &gt; tolerance          4</div>
+        <div>  coherence_halts     <span class="gold">2 · auto-resumed on recovery</span></div>
+        <div>  notional_blocked    <span class="amber">$412.7M</span></div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div class="amber">VALUE-AT-RISK PREVENTED: reported to risk committee weekly</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="unit">
+        <div class="microlabel">Revenue instrument · Protected Value Fee</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">Basis points on assets under verification</h3>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-bottom:16px">Charged on the notional the layer is verifying, not on users or API calls. The fee scales with the exposure it protects, which is how the risk committee already thinks.</p>
+        <div class="unit-line"><span>Institutional / TradFi</span><span>1.5 bps / yr</span></div>
+        <div class="unit-line"><span>Protocol / DeFi TVL</span><span>5.0 bps / yr</span></div>
+        <div class="unit-line"><span>Year 5 · assets under verification</span><span>$220B</span></div>
+        <div class="unit-line"><span>Year 5 · protocol TVL</span><span>$22B</span></div>
+        <div class="unit-line sum"><span>Blended Year 5</span><span>$44.0M / yr</span></div>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Modeled ARR build</div>
+        <table class="matrix tight">
+          <tbody>
+            <tr><td style="width:56%">Year 1 · $22B + $2.4B</td><td style="text-align:right"><span class="figure">$4.5M</span></td></tr>
+            <tr><td>Year 3 · $95B + $9.5B</td><td style="text-align:right"><span class="figure">$19.0M</span></td></tr>
+            <tr><td>Year 5 · $220B + $22B</td><td style="text-align:right"><span class="figure">$44.0M</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="vault">
+        <span class="seal">WHY THIS VERTICAL IS SMALLEST — AND KEPT</span>
+        <p style="font-size:13px;line-height:1.7;opacity:.9">Financial Integrity carries the lowest modeled ARR of the four and the longest sales cycle. It is retained because it produces the highest-quality adversarial telemetry in the portfolio — the hardest inputs available for calibrating the coherence thresholds that every other vertical depends on. <b style="color:var(--primary-container)">It is a data position that happens to be revenue-positive.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C6 · REGULATORY -->
+<section class="slide" id="c6">
+  <div class="slide-num">06</div>
+  <div class="slide-kicker">Vertical IV · The Regulatory Compliance Automation Framework</div>
+  <div class="slab">
+    <div>
+      <h2 style="margin-bottom:14px">The audit is the cost. We make the audit a build artifact.</h2>
+      <p style="font-size:1.05rem;color:var(--on-surface-variant);max-width:62ch;line-height:1.6">Manual compliance documentation for a single high-risk model runs $250K–$500K per year. A multinational running two hundred models is spending nine figures assembling evidence by hand — against exposure of up to <b style="color:var(--on-surface)">7% of global annual turnover</b> under the EU AI Act. The framework generates the evidence continuously, as a by-product of operation.</p>
+    </div>
+    <div class="ip">
+      PRIMARY IP<br>
+      <b>PAT-004</b> · Four-Agent Council · Art. 14<br>
+      <b>PAT-017</b> · Modal Logic · Art. 15<br>
+      <b>PAT-008</b> · ZK Session Isolation<br>
+      <b>PAT-005</b> · Credential Framework<br>
+      <b>PAT-001</b> · Triple-Condition Gates
+    </div>
+  </div>
+
+  <div class="grid g32">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <table class="matrix">
+        <thead><tr><th>Mandate</th><th>Automated by</th><th>Artifact produced</th></tr></thead>
+        <tbody>
+          <tr><td><b>EU AI Act Art. 14</b><br>Human oversight</td><td>Four-Agent Council as the pre-human filter; Critic and Auditor prepare the CA report for the named supervisor. Triple-condition gates halt the system in a safe state if the supervisor is absent or coherence falls below threshold.</td><td>Oversight event log · supervisor attestation · halt record</td></tr>
+          <tr><td><b>EU AI Act Art. 15</b><br>Accuracy, robustness, cybersecurity</td><td>Modal logic provides mathematical proof of robustness by verifying the system cannot enter unsafe logical states. ZK Session Isolation contains adversarial interference at the container boundary.</td><td>Formal verification record · isolation attestation</td></tr>
+          <tr><td><b>NIST AI RMF · GOVERN</b></td><td>Automated institutional ontology and policy generation under PAT-001 and PAT-006.</td><td>Governance policy register</td></tr>
+          <tr><td><b>NIST AI RMF · MAP / MEASURE</b></td><td>Decay-graph identification of cascade exposure across AI-dependent business processes.</td><td>Risk-surface map · dependency graph</td></tr>
+          <tr><td><b>NIST AI RMF · MANAGE</b></td><td>Sovereign Talent Ledger credentials issued to AI service accounts, scoping and controlling access by role.</td><td>Access credential ledger</td></tr>
+        </tbody>
+      </table>
+      <div class="term">
+        <div class="amber">ONE-CLICK AUDIT · COMPLIANCE PACKET GENERATION</div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div>  scope               MODEL-0442 · high-risk · EU + US</div>
+        <div>  period              Q1 2026</div>
+        <div>  oversight_events    <span class="ok">14,882 logged · 14,882 attested</span></div>
+        <div>  halt_events         <span class="gold">7 · all safe-state · all documented</span></div>
+        <div>  formal_verification <span class="ok">continuous · 0 unsafe-state entries</span></div>
+        <div>  signature           <span class="blue">non-repudiable · TS-003 mechanism</span></div>
+        <div>  generation_time     <span class="amber">4.2 seconds</span></div>
+        <div>  manual_equivalent   <span class="red">~340 analyst-hours · $312K</span></div>
+        <div class="dim">─────────────────────────────────────────────────────────────</div>
+        <div class="amber">PACKET STATUS: signed · regulator-ready · immutably anchored</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="unit">
+        <div class="microlabel">Revenue instrument · Regulatory Integrity Fee</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">Per model, per year</h3>
+        <p style="font-size:13px;color:var(--on-surface-variant);margin-bottom:16px">List price against a documented $250K–$500K manual alternative. Volume-tiered, so the blended rate falls as an enterprise brings its full model estate onto the framework.</p>
+        <div class="unit-line"><span>List · 1–25 models</span><span>$50,000</span></div>
+        <div class="unit-line"><span>Tier 2 · 26–100 models</span><span>$38,000</span></div>
+        <div class="unit-line"><span>Tier 3 · 100+ models</span><span>$32,000</span></div>
+        <div class="unit-line"><span>Reference multinational · 200 models</span><span>$6.4M</span></div>
+        <div class="unit-line sum"><span>Buyer's manual alternative</span><span>$50M–$100M</span></div>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Modeled ARR build</div>
+        <table class="matrix tight">
+          <tbody>
+            <tr><td style="width:56%">Year 1 · 6 enterprises · 132 models</td><td style="text-align:right"><span class="figure">$6.6M</span></td></tr>
+            <tr><td>Year 3 · 28 enterprises · 1,176 models</td><td style="text-align:right"><span class="figure">$44.8M</span></td></tr>
+            <tr><td>Year 5 · 74 enterprises · 2,957 models</td><td style="text-align:right"><span class="figure">$94.6M</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="vault">
+        <span class="seal">WHY THIS VERTICAL COMPOUNDS FASTEST</span>
+        <p style="font-size:13px;line-height:1.7;opacity:.9">It is the only one of the four with a <b style="color:var(--primary-container)">statutory forcing function and a hard date.</b> The other three are sold against a probability of loss. This one is sold against a compliance deadline that arrives whether or not the buyer has decided.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- C7 · CONSOLIDATED STACK -->
+<section class="slide" id="c7">
+  <div class="slide-num">07</div>
+  <div class="slide-kicker">Consolidated · The Commercial Revenue Stack</div>
+  <h2>$306M modeled ARR by Year 5, on infrastructure the academic channel already pays for.</h2>
+  <p class="slide-lede">These four verticals share one kernel, one telemetry pipeline, one credential framework, and one settlement rail with the academic and state channels. The incremental cost of each vertical is a domain adapter and a sales motion — not a second platform.</p>
+
+  <div style="margin-top:40px">
+    <div class="microlabel" style="margin-bottom:18px">Year 5 · modeled ARR by vertical</div>
+    <div class="stack">
+      <div class="stack-row">
+        <div class="lbl">Energy Resilience<em>Capacity Fee · ISO licence</em></div>
+        <div class="stack-track"><b class="fill-a" style="width:100%"></b></div>
+        <div class="val">$95.0M</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Regulatory Automation<em>Integrity Fee · per model</em></div>
+        <div class="stack-track"><b class="fill-d" style="width:99.6%"></b></div>
+        <div class="val">$94.6M</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Healthcare Integrity<em>Safety Dividend · practitioner fee</em></div>
+        <div class="stack-track"><b class="fill-b" style="width:76.2%"></b></div>
+        <div class="val">$72.4M</div>
+      </div>
+      <div class="stack-row">
+        <div class="lbl">Financial Integrity<em>Protected Value · basis points</em></div>
+        <div class="stack-track"><b class="fill-c" style="width:46.3%"></b></div>
+        <div class="val">$44.0M</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g23" style="margin-top:40px">
+    <div>
+      <table class="matrix">
+        <thead><tr><th>Vertical</th><th style="text-align:right">Yr 1</th><th style="text-align:right">Yr 3</th><th style="text-align:right">Yr 5</th></tr></thead>
+        <tbody>
+          <tr><td style="width:38%">Healthcare Diagnostic Integrity</td><td style="text-align:right;font-family:var(--font-mono)">$3.7M</td><td style="text-align:right;font-family:var(--font-mono)">$26.4M</td><td style="text-align:right"><span class="figure">$72.4M</span></td></tr>
+          <tr><td>Energy Sector Resilience</td><td style="text-align:right;font-family:var(--font-mono)">$7.0M</td><td style="text-align:right;font-family:var(--font-mono)">$38.0M</td><td style="text-align:right"><span class="figure">$95.0M</span></td></tr>
+          <tr><td>Financial Integrity</td><td style="text-align:right;font-family:var(--font-mono)">$4.5M</td><td style="text-align:right;font-family:var(--font-mono)">$19.0M</td><td style="text-align:right"><span class="figure">$44.0M</span></td></tr>
+          <tr><td>Regulatory Compliance Automation</td><td style="text-align:right;font-family:var(--font-mono)">$6.6M</td><td style="text-align:right;font-family:var(--font-mono)">$44.8M</td><td style="text-align:right"><span class="figure">$94.6M</span></td></tr>
+          <tr><td><b>Total commercial ARR</b></td><td style="text-align:right"><span class="figure">$21.8M</span></td><td style="text-align:right"><span class="figure">$128.2M</span></td><td style="text-align:right"><span class="figure">$306.0M</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="vault">
+        <span class="seal">IMPLIED VALUE · COMMERCIAL LAYER ALONE</span>
+        <div class="huge" style="color:var(--primary-container)">$3.7B<span style="font-size:1.6rem;font-family:var(--font-mono);font-weight:400;letter-spacing:0"> – </span>$4.9B</div>
+        <p style="font-size:13px;line-height:1.7;opacity:.85;margin-top:16px">At 12–16× forward ARR — the standing band for regulated-infrastructure software with contractual revenue and a defended IP position. This figure excludes the academic channel, the state channel, the recruiter network, and the insurance partnership entirely.</p>
+      </div>
+      <div class="tile">
+        <div class="microlabel">Margin structure</div>
+        <ul class="dotlist" style="font-size:13px">
+          <li>· <b>Shared kernel.</b> Four verticals, one telemetry and verification core</li>
+          <li>· <b>Contractual revenue.</b> Annual instruments, not usage-metered</li>
+          <li>· <b>Risk-budget funded.</b> Sold against loss ratios, not IT line items</li>
+          <li>· <b>Compounding data position.</b> Each vertical calibrates the thresholds the others depend on</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:var(--on-surface-variant);margin-top:26px;font-style:italic;max-width:100ch">All figures on this slide are modeled projections built from the stated unit economics and adoption assumptions. They are not booked revenue, not committed pipeline, and not a forecast. Unit-economic inputs, adoption curves, and sensitivity ranges are available in the data room under specific-purpose NDA.</p>
+</section>
+
+<!-- C8 · PRICING ARCHITECTURE -->
+<section class="slide" id="c8">
+  <div class="slide-num">08</div>
+  <div class="slide-kicker">Pricing Architecture · Three Instruments, One Principle</div>
+  <h2>We never price the software. We price a share of the loss that does not occur.</h2>
+  <p class="slide-lede">Every instrument in the portfolio is denominated in the buyer's own risk currency — premium, capacity, notional, or audit cost. This is deliberate: it removes the feature comparison, moves the approval to a different committee, and makes the renewal conversation an actuarial one rather than a procurement one.</p>
+  <div class="grid g3" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-gild" style="margin-bottom:16px">INSTRUMENT I</div>
+      <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:10px">Risk-share</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7;margin-bottom:16px">A percentage of verified, carrier-confirmed savings. Used where an insurer will underwrite the reduction — Healthcare's Safety Dividend is the reference implementation.</p>
+      <div class="tile">
+        <div class="microlabel">Properties</div>
+        <ul class="dotlist" style="font-size:12.5px">
+          <li>· Highest alignment · zero buyer downside</li>
+          <li>· Requires carrier validation to price</li>
+          <li>· Longest to first revenue · deepest moat once set</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="badge badge-gild" style="margin-bottom:16px">INSTRUMENT II</div>
+      <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:10px">Value-share</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7;margin-bottom:16px">A percentage of an asset the buyer can now use that they previously could not. Energy's Capacity Fee and Financial Integrity's Protected Value Fee both sit here.</p>
+      <div class="tile">
+        <div class="microlabel">Properties</div>
+        <ul class="dotlist" style="font-size:12.5px">
+          <li>· Scales with the buyer's own balance sheet</li>
+          <li>· Requires an agreed measurement protocol up front</li>
+          <li>· Expands without a renegotiation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="badge badge-gild" style="margin-bottom:16px">INSTRUMENT III</div>
+      <h3 style="font-size:1.25rem;font-weight:700;margin-bottom:10px">Displacement fee</h3>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7;margin-bottom:16px">A fixed annual charge priced beneath a documented manual cost the buyer is already paying. The Regulatory Integrity Fee is the reference: $32K–$50K per model against a $250K–$500K manual alternative.</p>
+      <div class="tile">
+        <div class="microlabel">Properties</div>
+        <ul class="dotlist" style="font-size:12.5px">
+          <li>· Fastest to close · simplest to model</li>
+          <li>· Predictable ARR · clean renewal</li>
+          <li>· Most exposed to price competition long-term</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tile" style="margin-top:26px">
+    <div class="microlabel">What we do not sell, under any framing</div>
+    <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.75;max-width:100ch">Per-seat licences. Per-API-call metering. Perpetual source licences. Unbundled access to the coherence thresholds, the cascade calibration, or the modal constraint library. <b style="color:var(--on-surface)">The trade-secret layer is never a deliverable</b> — it is the reason the instruments above can be priced the way they are, and it does not leave the platform in any commercial structure.</p>
+  </div>
+</section>
+
+<!-- C9 · SEQUENCE -->
+<section class="slide" id="c9">
+  <div class="slide-num">09</div>
+  <div class="slide-kicker">Market Entry Sequence · 2026 → 2030</div>
+  <h2>Regulatory first. It has the deadline, and it opens the other three.</h2>
+  <p class="slide-lede">The sequence is not by market size. It is by forcing function and by which vertical produces the reference customer that makes the next one credible.</p>
+  <div class="grid g4" style="margin-top:36px">
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">2026 · WAVE 1</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Regulatory Compliance</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">EU AI Act high-risk obligations bite. Six enterprise design partners, priced on displacement. Fastest path to a named reference logo and to the compliance artifact every other vertical will cite.</p>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.1em;margin-top:14px">TARGET · $6.6M ARR</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">2026–27 · WAVE 2</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Energy Resilience</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Two utility pilots in the Houston corridor, adjacent to the academic channel already operating there. Capacity Fee requires a measurement protocol agreed with the operator before revenue — start early.</p>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.1em;margin-top:14px">TARGET · $7.0M ARR</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-soft" style="margin-bottom:14px">2027–28 · WAVE 3</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px">Healthcare Integrity</h3>
+      <p style="font-size:13px;color:var(--on-surface-variant);line-height:1.65">Enters after the insurance partnership matures, because the Safety Dividend cannot be priced until a carrier will underwrite the reduction. Two IDN systems, carrier-validated, then scale.</p>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--primary);letter-spacing:.1em;margin-top:14px">TARGET · $3.7M → $26.4M</div>
+    </div>
+    <div class="card" style="background:var(--inverse-surface);color:var(--inverse-on-surface)">
+      <div class="badge" style="background:var(--primary-container);color:#3D2914;margin-bottom:14px">2028–30 · WAVE 4</div>
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:8px;color:var(--primary-container)">Financial Integrity &amp; scale</h3>
+      <p style="font-size:13px;color:var(--inverse-on-surface);opacity:.85;line-height:1.65">Longest cycle, highest-value telemetry. Entered once the coherence thresholds are calibrated by three other production verticals. All four compound into the $306M consolidated position.</p>
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);letter-spacing:.1em;margin-top:14px">TARGET · $306M CONSOLIDATED</div>
+    </div>
+  </div>
+  <div class="tile" style="margin-top:26px">
+    <div class="microlabel">The sequencing principle</div>
+    <p style="font-size:14px;color:var(--on-surface-variant);line-height:1.75;max-width:100ch">Each wave produces the artifact the next wave needs. Regulatory produces the compliance packet that a hospital's general counsel will accept. Energy produces the cascade calibration a grid operator will not sell to their peer. Healthcare produces the carrier relationship that prices every subsequent risk-share instrument. <b style="color:var(--on-surface)">Run them out of order and each one is a cold start.</b></p>
+  </div>
+</section>
+
+<!-- C10 · THE ASK -->
+<section class="slide" id="c10">
+  <div class="slide-num">10</div>
+  <div class="slide-kicker">The Ask · Design Partner Structure</div>
+  <h1>One model. One quarter. <span class="gild">One measurement protocol.</span></h1>
+  <p class="slide-lede">Every vertical enters through the same door: a single high-risk model, system, or desk, instrumented for one quarter, against a measurement protocol we agree before we start. No enterprise rollout, no platform migration, no committed spend. At the end of the quarter, the buyer has a signed evidence packet and a verified number — and the pricing conversation is arithmetic rather than argument.</p>
+  <div class="grid g4" style="margin-top:44px">
+    <div class="tile">
+      <div class="microlabel">Healthcare · entry</div>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">One service line. One quarter of instrumented diagnostic sessions. Carrier invited to the measurement protocol from day one.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Energy · entry</div>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">One corridor node on the digital twin. Shadow-mode cascade prediction against live telemetry, scored against actual events.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Financial · entry</div>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">One desk, pre-flight gate in advisory mode. Blocked-notional reported to the risk committee weekly, no execution authority.</p>
+    </div>
+    <div class="tile">
+      <div class="microlabel">Regulatory · entry</div>
+      <p style="font-size:13.5px;color:var(--on-surface-variant);line-height:1.7">One high-risk model. One quarter. One generated compliance packet, benchmarked against the manual cost of the same packet.</p>
+    </div>
+  </div>
+  <div style="margin-top:44px">
+    <a href="#c7" class="cta">Review the consolidated stack →</a>
+    <a href="#c8" class="cta-pill">Pricing architecture</a>
+    <a href="#c9" class="cta-pill">Entry sequence</a>
+  </div>
+  <div id="contact" style="margin-top:64px;padding:32px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:24px">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:14px">CONTACT · COMMERCIAL VERTICALS</div>
+    <p style="font-size:1.1rem;font-family:var(--font-headline);font-weight:600;max-width:48ch">Tenured AI · Enterprise Risk Partnerships<br><span style="font-family:var(--font-mono);font-size:12px;opacity:.75;font-weight:400">enterprise@tenured.ai · Houston, TX</span></p>
+  </div>
+</section>
+
+<div class="deckmeta">TENURED AI · DECK 05 · COMMERCIAL VERTICALS &amp; REVENUE ARCHITECTURE · 10 SLIDES · DIGITAL CURATOR · CONFIDENTIAL</div>
+
+</div>
+
+<button class="printbtn" onclick="window.print()">⎙ PRINT / PDF</button>
+<button class="themebtn" onclick="(function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';})()">◐ TOGGLE THEME</button>
+
+</body>
+</html>
